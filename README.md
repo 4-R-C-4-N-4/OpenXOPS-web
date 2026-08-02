@@ -1,4 +1,7 @@
+<img width="800" height="320" alt="Image" src="https://github.com/user-attachments/assets/a076a462-b7c9-4da3-8900-70d5d4a86b6a" />
+
 # OpenXOPS
+
 OpenXOPS is free, open-source, offline FPS(First-person shooter) game. 
 It is based on [X operations](https://rucsgames.net/se/xops/), a Japanese freeware FPS released by Team MITEI in 2003.
 
