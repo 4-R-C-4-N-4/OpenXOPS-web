@@ -165,3 +165,17 @@ not human-audible mix quality. Main still has no real game renderer.
 Completed native platform components: SDL window/input, layered VFS with game
 integration, OpenAL audio. Remaining core port: D3DGraphics rendering,
 Japanese font text, browser mainloop/persistence shell and deployment.
+
+### Boot instructions and browser readiness
+
+README now states plainly that the browser game is not yet playable and links
+to docs/RUNNING.md. Parent rebuilt browser toolchain smoke with emsdk6.0.12,
+served it locally, verified Chromium summary120frames/gl=yes/failures0 and
+IDBFS run counter1->2 across reload. Local preview server serves only
+`tools/toolchain-smoke/build-web` at127.0.0.1:8765.
+
+First playable browser preview is explicitly BYO-original-data, independent of
+free-pack completeness. Remaining: full game renderer, Japanese font path,
+Emscripten game build/mainloop and native VFS portability, browser archive
+onboarding/save/audio/pointer-lock. Native-only POSIX library passing is not
+proof of web compatibility. No public playable deployment exists.

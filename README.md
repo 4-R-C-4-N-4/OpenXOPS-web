@@ -1,20 +1,37 @@
 # OpenXOPS-web (unofficial fork)
 
-A port of OpenXOPS 1.080 to the browser (WebAssembly) and Linux. The game logic
-is upstream's; the Win32/DirectX layer is replaced with SDL2, OpenAL and
-OpenGL ES 3 / WebGL 2.
+A work-in-progress port of OpenXOPS 1.080 to the browser (WebAssembly) and Linux.
+**The browser game is not playable yet.** Native window/input, ZIP data loading
+and audio are implemented; game rendering and browser integration remain.
 
+## Boot something now
+
+See **[Running and browser quickstart](docs/RUNNING.md)** for verified commands.
+The browser target currently shows a toolchain-test triangle, not the game.
+
+```sh
+cd ~/Work/OpenXOPS-web
+source ~/programs/emsdk/emsdk_env.sh
+bash tools/toolchain-smoke/build.sh web
+python3 -m http.server 8765 --bind 127.0.0.1 \
+  --directory tools/toolchain-smoke/build-web
+```
+
+Open http://127.0.0.1:8765/smoke.html. Expect a triangle and
+`SMOKE SUMMARY: frames=120 gl=yes failures=0`. No original assets needed.
+SDK installation, native developer builds and remaining browser-game milestones
+are documented in [docs/RUNNING.md](docs/RUNNING.md).
+
+- Goals: [docs/GOALS.md](docs/GOALS.md)
 - Scope and plan: [docs/SCOPE-OF-WORK.md](docs/SCOPE-OF-WORK.md)
 - Status: [PROGRESS.md](PROGRESS.md)
-- Licensing and data: [NOTICE.md](NOTICE.md). **No X operations data is included.**
-  You need your own `xops096.zip`.
+- Licensing and data: [NOTICE.md](NOTICE.md). No original X operations data is
+  included. The intended default CC0 free pack is still incomplete; development
+  testing uses the player's own `xops096.zip`.
 
-Layout: `src/` holds the upstream source (tag `upstream-1.080` is the pristine
-import). Upstream's original README follows.
-
-Tip: the upstream source is CP932 until Phase 0 converts it. For readable diffs:
-
-    git config diff.cp932.textconv "iconv -f CP932 -t UTF-8"
+`src/` holds UTF-8 source. Tag `upstream-1.080` preserves the original CP932
+import. The historical upstream README follows; its Windows-only instructions
+and statement that source is not on GitHub describe upstream, not this fork.
 
 ---
 
