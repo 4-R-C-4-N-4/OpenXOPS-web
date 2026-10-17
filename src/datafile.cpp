@@ -30,6 +30,7 @@
 //--------------------------------------------------------------------------------
 
 #include "datafile.h"
+#include "platform/vfs.h"
 
 #ifndef _WIN32
  #include <dirent.h>	//[OpenXOPS-web] opendir()/readdir() for AddonList::GetMIFlist()
@@ -119,13 +120,8 @@ int BlockDataInterface::LoadFiledata(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "BD1", fname);
 #endif
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
-
 	//ファイルを読み込む
-	fp = fopen(fname, "rb");
+	fp = vfs_fopen(fname, "rb");
 	if( fp == NULL ){ return 1; }
 
 	//テクスチャを取得
@@ -432,13 +428,8 @@ int PointDataInterface::LoadFiledata(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "PD1", fname);
 #endif
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
-
 	//ファイルを読み込む
-	fp = fopen( fname, "rb" );
+	fp = vfs_fopen( fname, "rb" );
 	if( fp == NULL ){ return 1; }
 
 	//データ数を取得
@@ -504,10 +495,6 @@ int PointDataInterface::LoadMSGFiledata(char *fname)
 
 	FILE *fp;
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
 #ifdef ENABLE_DEBUGLOG
 	//ログに出力
@@ -515,7 +502,7 @@ int PointDataInterface::LoadMSGFiledata(char *fname)
 #endif
 
 	//ファイルを読み込み
-	fp = fopen( fname, "r" );
+	fp = vfs_fopen( fname, "r" );
 	if( fp != NULL ){
 		//メッセージデータを取得
 		for(int i=0; i<MAX_POINTMESSAGES; i++){
@@ -720,10 +707,6 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 		mif = false;
 	}
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
 	if( mif == false ){
 		if( LoadDefaultTextFiledata(fname) != 0 ){
@@ -759,7 +742,6 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 	//ログに出力
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
-
 
 	//追加小物情報を初期値へ
 	for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
@@ -813,7 +795,7 @@ int MIFInterface::LoadDefaultTextFiledata(const char *fname)
 	char str[64];
 
 	//ファイルを開く
-	fp = fopen( fname, "r" );
+	fp = vfs_fopen( fname, "r" );
 	if( fp != NULL ){
 		//画像Aを取得
 		fgets(str, 64, fp);
@@ -883,7 +865,7 @@ int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 	char str[64];
 
 	//ファイルを開く
-	fp = fopen( fname, "r" );
+	fp = vfs_fopen( fname, "r" );
 	if( fp != NULL ){
 		//ミッション識別名
 		fgets(mission_name, 24, fp);
@@ -972,10 +954,6 @@ int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 
 	char str[64];
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
 #ifdef ENABLE_DEBUGLOG
 	//ログに出力
@@ -983,7 +961,7 @@ int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 #endif
 
 	//ファイルを開く
-	fp = fopen( fname, "r" );
+	fp = vfs_fopen( fname, "r" );
 	if( fp != NULL ){
 		for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 			//6行取得
@@ -1258,54 +1236,7 @@ AddonList::~AddonList()
 void AddonList::GetMIFlist(const char *dir)
 {
 	if( dir == NULL ){ return; }
-
-#ifdef _WIN32
-	char SearchDIR[_MAX_PATH];
-	HANDLE hFind;
-	WIN32_FIND_DATA FindFileData;
-
-	//.mifの検索条件を生成
-	strcpy(SearchDIR, dir);
-	strcat(SearchDIR, "\\*.mif");
-
-	//検索
-	hFind = FindFirstFile(SearchDIR, &FindFileData);
-	if( hFind != INVALID_HANDLE_VALUE ){
-		strcpy(filename[0], FindFileData.cFileName);
-		datas += 1;
-
-		while( FindNextFile(hFind, &FindFileData) == TRUE ){
-			strcpy(filename[datas], FindFileData.cFileName);
-			datas += 1;
-		}
-	}
-	FindClose(hFind);
-#else
-	//[OpenXOPS-web] POSIX version of the FindFirstFile("dir\\*.mif") scan above.
-	//  - extension match is case-insensitive, like FindFirstFile on Windows;
-	//  - names are sorted case-insensitively (readdir() order is arbitrary,
-	//    NTFS returns this order), so the addon list is deterministic;
-	//  - stops at MAX_ADDONLIST and skips names that do not fit filename[]
-	//    (the Win32 path above has no bound and overflows past 128 files).
-	DIR *pDir = opendir(dir);
-	if( pDir == NULL ){ return; }
-
-	struct dirent *entry;
-	while( (entry = readdir(pDir)) != NULL ){
-		if( datas >= MAX_ADDONLIST ){ break; }
-
-		size_t len = strlen(entry->d_name);
-		if( len < 4 ){ continue; }
-		if( len >= sizeof(filename[0]) ){ continue; }
-		if( strcasecmp(&(entry->d_name[len-4]), ".mif") != 0 ){ continue; }
-
-		strcpy(filename[datas], entry->d_name);
-		datas += 1;
-	}
-	closedir(pDir);
-
-	qsort(filename, datas, sizeof(filename[0]), [](const void *a, const void *b){ return strcasecmp((const char*)a, (const char*)b); });
-#endif
+	datas = vfs_list(dir, ".mif", filename, MAX_ADDONLIST);
 }
 
 //! @brief ミッション名を取得
@@ -1437,12 +1368,8 @@ bool INIFileInterface::LoadINIFile(const char *fname)
 	if( fname == NULL ){ return true; }
 	if( inifp != NULL ){ return true; }
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
-	inifp = fopen(fname, "rb");
+	inifp = vfs_fopen(fname, "rb");
 	if( inifp == NULL ){ return true; }
 
 	return false;
@@ -1767,7 +1694,5 @@ bool CheckFileExtension(const char *filepath, const char *checkstr)
 //! @return 存在する：true　存在しない：false
 bool CheckDirectory(const char *dir)
 {
-	struct stat statBuf;
-	if( stat(dir, &statBuf) == 0 ){ return true; } 
-	return false;
+	return vfs_dir_exists(dir);
 }

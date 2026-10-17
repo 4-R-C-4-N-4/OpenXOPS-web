@@ -1,4 +1,4 @@
-# Standalone component; game call sites are deliberately not redirected yet.
+# VFS backs game-data reads and save writes.
 find_package(ZLIB REQUIRED)
 find_package(Iconv REQUIRED)
 add_library(openxops_vfs STATIC ${SRC}/platform/vfs.cpp)

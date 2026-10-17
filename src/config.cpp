@@ -30,6 +30,7 @@
 //--------------------------------------------------------------------------------
 
 #include "config.h"
+#include "platform/vfs.h"
 
 //! @brief コンストラクタ
 Config::Config()
@@ -75,13 +76,8 @@ int Config::LoadFile(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "Config File", fname);
 #endif
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
-
 	//ファイルを開く
-	fp = fopen(fname, "rb");
+	fp = vfs_fopen(fname, "rb");
 	if( fp == NULL ){ return 1; }
 
 	//キーコード
@@ -156,13 +152,8 @@ int Config::SaveFile(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "Config File (Save)", fname);
 #endif
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
-
 	//ファイルを開く
-	fp = fopen(fname, "wb");
+	fp = vfs_fopen(fname, "wb");
 	if( fp == NULL ){ return 1; }
 
 	//キーコード
@@ -518,15 +509,11 @@ bool Config::CreateExtConfig(const char *fname)
 #ifdef ENABLE_ADDCONFIG
 	if( fname == NULL ){ return false; }
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
 	FILE *fp;
 
 	//ファイルが存在するなら失敗（ファイル生成不要）
-	fp = fopen(fname, "r");
+	fp = vfs_fopen(fname, "r");
 	if( fp != NULL ){
 		fclose(fp);
 		return false;
@@ -537,7 +524,7 @@ bool Config::CreateExtConfig(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "Config File (Create .ini)", fname);
 #endif
 
-	fp = fopen(fname, "w");
+	fp = vfs_fopen(fname, "w");
 	if( fp == NULL ){ return false; }
 
 	fprintf(fp, "[Game]\n");
@@ -610,10 +597,6 @@ int Config::LoadExtFile(const char *fname)
 	OutputLog.WriteLog(LOG_LOAD, "Config File (.ini)", fname);
 #endif
 
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-	//パス区切り文字を変換
-	fname = ChangePathDelimiter(fname);
-#endif
 
 	INIConfig.LoadINIFile(fname);
 

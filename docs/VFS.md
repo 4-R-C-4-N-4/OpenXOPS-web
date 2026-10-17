@@ -1,8 +1,6 @@
-# VFS component and deferred integration
+# VFS integration
 
-`openxops_vfs` is a standalone C++17 static library, linked to `openxops`
-without redirecting any game I/O. Its module finds zlib and iconv and registers
-CTest tests. No game/main/backend call sites have changed in this component.
+`openxops_vfs` is a C++17 static library linked to `openxops`. Game data/config/log reads and writes now use its `FILE*` wrappers; ZIP mounts therefore require no extracted `data` tree. The module finds zlib and iconv and registers CTest tests.
 
 ## Contract and safety
 
@@ -33,39 +31,12 @@ CTest tests. No game/main/backend call sites have changed in this component.
   Mounts, save hook and index are single-threaded. Save hook fires on write-handle
   close, not every write; debounce and IDBFS initialization belong to the web shell.
 
-## Exact future call sites (baseline 0548668)
+## Integrated game call sites and remaining backend work
 
-1. `src/main.cpp`, immediately after argument parsing / `-Dir` chdir (line 162),
-   before `OutputLog.MakeLog` (166), `CheckDirectory` (205/213), and config load:
-   explicitly call `vfs_init_from_args(NULL)`. Loader-controlled web mounts should
-   happen before starting game execution; handle `VFS_ERR_CORRUPT` as fatal there.
-2. `src/config.cpp`: replace `fopen` at 84/165 (`Config::LoadFile`/`SaveFile`) and
-   529/540 (`CreateExtConfig`). Audit `LoadExtFile`'s stream-based reader as well;
-   adapting only fopen will not virtualize that reader.
-3. `src/datafile.cpp`: replace fopen at 128, 441, 518, 816, 886, 986, 1445
-   (`BlockDataInterface::LoadFiledata`, `PointDataInterface::LoadFiledata`,
-   `LoadMSGFiledata`, `MIFInterface::LoadDefaultTextFiledata`,
-   `LoadMissionInfoFiledata`, `LoadAddSmallObjectFiledata`,
-   `INIFileInterface::LoadINIFile`). Replace the entire platform scan in
-   `AddonList::GetMIFlist` (1258–1309) with bounded `vfs_list(dir,".mif",...)`;
-   preserve/reset `datas` intentionally. Replace `CheckDirectory` at 1768 with
-   `vfs_dir_exists`.
-4. `src/debug.cpp`: fopen at 55/100/217 (`DebugLog` constructor, `MakeLog`,
-   `WriteLog`). **Do not allow a static/global constructor to trigger lazy VFS
-   initialization before main parses `-Dir`**: defer constructor I/O until the
-   explicit initialization point.
-5. Native backend reads: `platform/stub/d3dgraphics-stub.cpp:21`,
-   `platform/stub/sound-stub.cpp:66`. Future GLES/OpenAL loaders must read through
-   `vfs_fopen` (including any library decoder that otherwise accepts host paths).
-   Retained legacy backends have reads in `d3dgraphics-opengl.cpp` at
-   502/888/1057/1238/1322/1413 and `sound-directsound.cpp:243`, and screenshot
-   writes at `d3dgraphics-opengl.cpp:3201` / `d3dgraphics-directx.cpp:898`.
-6. Disable `OPENXOPS_PATH_DELIMITER_SLASH` when integrating: its current default
-   remains ON, and existing `ChangePathDelimiter` calls corrupt CP932 trail 0x5c
-   **before** the VFS can see the original bytes. Remove/bypass those calls on VFS
-   paths; do not perform blanket byte replacement in the new backends.
-7. Web shell: mount/sync IDBFS `/save` before startup, set save hook to schedule
-   debounced `FS.syncfs(false)` (500 ms), then unmount only after all streams close.
+- `src/main.cpp` calls `vfs_init_from_args(NULL)` after parsing arguments and applying `-Dir`, before logging, data checks, or config reads. `OPENXOPS_DATA_ZIP` supplies colon-separated ZIP paths; the default mount is the post-`-Dir` working directory. ZIP mount failures are logged by the VFS; web-shell mounts must be ready before startup.
+- `src/config.cpp` uses `vfs_fopen` for config/INI reads and save writes. `src/datafile.cpp` uses it for block, point, message, mission, addon-info, and INI reads; addon enumeration uses bounded `vfs_list`, and `CheckDirectory` uses `vfs_dir_exists`. `src/debug.cpp` routes log files through `vfs_fopen`; its global constructor performs no I/O.
+- Do not enable `OPENXOPS_PATH_DELIMITER_SLASH` transformation: blanket conversion can corrupt CP932 trail byte 0x5c. The CMake option is retained for compatibility but no longer defines that transformation for the VFS-connected target.
+- Renderer/audio backend loaders still need to use `vfs_fopen` (including decoder libraries currently passed host paths). Legacy backend reads and screenshot writes are not integrated. The web shell owns `/save` IDBFS setup and the debounced save hook.
 
 ## Reproducible verification
 

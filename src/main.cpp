@@ -33,6 +33,7 @@
 #include "doxygen.h"
 
 #include "main.h"
+#include "platform/vfs.h"
 
 #if defined(_DEBUG) && defined(_WIN32)
  #include <shlwapi.h>
@@ -160,6 +161,9 @@ static int GameEntry(int argc, char **argv)
 		}
 #endif
 	}
+
+	// Mount game data only after -Dir has selected the working directory.
+	vfs_init_from_args(NULL);
 
 #ifdef ENABLE_DEBUGLOG
 	//ファイル作成
