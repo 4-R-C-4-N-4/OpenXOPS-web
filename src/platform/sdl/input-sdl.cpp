@@ -4,6 +4,7 @@
 #include <algorithm>
 static SDLInputSnapshot state;
 void Platform_SDLResetInput(){ state = SDLInputSnapshot{}; }
+void Platform_SDLBeginEventPump(){ state.dx = state.dy = 0; }
 int Platform_ScancodeToVK(SDL_Scancode s){
     if(s >= SDL_SCANCODE_A && s <= SDL_SCANCODE_Z) return 'A' + s - SDL_SCANCODE_A;
     if(s >= SDL_SCANCODE_1 && s <= SDL_SCANCODE_9) return '1' + s - SDL_SCANCODE_1;

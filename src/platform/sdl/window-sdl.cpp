@@ -52,6 +52,9 @@ bool WindowControl::ChangeWindowMode(bool fullscreen){
     return true;
 }
 int WindowControl::CheckMainLoop(){
+#ifdef OPENXOPS_INPUT_SDL
+    Platform_SDLBeginEventPump();
+#endif
     SDL_Event e;
     while(SDL_PollEvent(&e)){
 #ifdef OPENXOPS_INPUT_SDL

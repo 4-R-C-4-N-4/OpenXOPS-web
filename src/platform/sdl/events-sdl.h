@@ -10,4 +10,5 @@ struct SDLInputSnapshot {
 SDL_Window* Platform_SDLWindow();
 void Platform_SDLInputEvent(const SDL_Event& event);
 void Platform_SDLResetInput();
+void Platform_SDLBeginEventPump();
 int Platform_ScancodeToVK(SDL_Scancode scan);

@@ -67,6 +67,13 @@ int main(int argc, char** argv){
     input.GetInputState(true); input.GetMouseMovement(&x,&y); REQUIRE(x==10 && y==-5);
     input.GetInputState(true); input.GetMouseMovement(&x,&y); REQUIRE(x==0 && y==0);
     input.GetInputState(false); input.GetMouseMovement(&x,&y); REQUIRE(x==25 && y==44);
+    // A menu poll in a prior pump frame must not carry motion into gameplay.
+    e={}; e.type=SDL_MOUSEMOTION; e.motion.windowID=SDL_GetWindowID(Platform_SDLWindow());
+    e.motion.x=30; e.motion.y=50; e.motion.xrel=11; e.motion.yrel=-13; REQUIRE(SDL_PushEvent(&e)==1);
+    REQUIRE(w.CheckMainLoop()==1); input.GetInputState(false);
+    e={}; e.type=SDL_MOUSEMOTION; e.motion.windowID=SDL_GetWindowID(Platform_SDLWindow());
+    e.motion.x=31; e.motion.y=51; e.motion.xrel=2; e.motion.yrel=3; REQUIRE(SDL_PushEvent(&e)==1);
+    REQUIRE(w.CheckMainLoop()==1); input.GetInputState(true); input.GetMouseMovement(&x,&y); REQUIRE(x==2 && y==3);
     e={};e.type=SDL_WINDOWEVENT;e.window.windowID=SDL_GetWindowID(Platform_SDLWindow());e.window.event=SDL_WINDOWEVENT_FOCUS_LOST;REQUIRE(SDL_PushEvent(&e)==1);
     REQUIRE(w.CheckMainLoop()==0);input.GetInputState(true);REQUIRE(input.CheckKeyUp(VK_SHIFT) && input.CheckMouseButtonUpL());
     e.window.event=SDL_WINDOWEVENT_FOCUS_GAINED;REQUIRE(SDL_PushEvent(&e)==1);REQUIRE(w.CheckMainLoop()==1);
