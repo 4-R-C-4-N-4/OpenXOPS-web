@@ -49,7 +49,10 @@ def _n4(v):
 
 def encode(rgba_bytes, w, h, fmt):
     """rgba_bytes: top-down R,G,B,A (Pillow 'RGBA'.tobytes())."""
-    assert len(rgba_bytes) == w * h * 4
+    if w <= 0 or h <= 0:
+        raise ValueError("non-positive dimensions")
+    if len(rgba_bytes) != w * h * 4:
+        raise ValueError("pixel byte count does not match dimensions")
     if fmt == "dds_argb8":
         out = bytearray(len(rgba_bytes))
         out[0::4] = rgba_bytes[2::4]  # B

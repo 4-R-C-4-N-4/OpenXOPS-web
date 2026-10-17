@@ -475,9 +475,17 @@ def make_sheet(slot, thumb=256):
     sheet = Image.new("RGB", (len(idx) * (thumb + 8) + 8, thumb + 16), (40, 40, 40))
     d = ImageDraw.Draw(sheet)
     for k, i in enumerate(idx):
-        t = Image.open(os.path.join(wd, "%d_tiled.png" % i)).resize((thumb, thumb), Image.Resampling.LANCZOS)
+        with Image.open(os.path.join(wd, "%d_tiled.png" % i)) as candidate:
+            t = candidate.resize((thumb, thumb), Image.Resampling.LANCZOS)
         x = 8 + k * (thumb + 8)
-        sheet.paste(t, (x, 8))
+        # Preserve alpha in candidate previews by compositing over a checkerboard.
+        if "A" in t.getbands():
+            checker = Image.new("RGB", t.size)
+            checker.putdata([(190, 190, 190) if (px // 16 + py // 16) % 2 else (235, 235, 235)
+                             for py in range(t.height) for px in range(t.width)])
+            sheet.paste(Image.alpha_composite(checker.convert("RGBA"), t).convert("RGB"), (x, 8))
+        else:
+            sheet.paste(t, (x, 8))
         m = _read_meta(slot, i) or {}
         s = m.get("seam", {})
         _label(d, (x, 8), "#%d seam %+.1f%s" % (i, s.get("excess", 0), " H" if s.get("healed") else ""))

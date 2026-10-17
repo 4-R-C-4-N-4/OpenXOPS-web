@@ -30,6 +30,20 @@ class DDSTests(unittest.TestCase):
         self.assertTrue(any(0 < a < 255 for a in im.getchannel('A').get_flattened_data()))
         self.assertTrue(all(rgb == (0,0,0) for rgb in im.convert('RGB').get_flattened_data()))
 
+    def test_candidate_sheet_composites_rgba_over_checker(self):
+        from unittest.mock import patch
+        import json
+        with tempfile.TemporaryDirectory() as td:
+            slot = {'path': 'test.dds'}
+            tiled = Path(td) / '1_tiled.png'
+            Image.new('RGBA', (32, 32), (255, 0, 0, 128)).save(tiled)
+            with patch.object(artgen, 'work_dir', return_value=td), \
+                 patch.object(artgen, 'candidates', return_value=[1]), \
+                 patch.object(artgen, '_read_meta', return_value={}):
+                output = artgen.make_sheet(slot, thumb=32)
+            preview = Image.open(output).convert('RGB')
+            self.assertEqual(preview.getpixel((24, 24)), (245, 117, 117))
+
     def test_pipeline_and_pick(self):
         from unittest.mock import patch
         import json
@@ -74,6 +88,18 @@ class DDSTests(unittest.TestCase):
         im.putdata([(0,0,0), (64,32,0), (255,128,0)])
         result = artgen.extract_black_alpha(im)
         self.assertEqual(list(result.get_flattened_data()), [(0,0,0,0),(255,128,0,64),(255,128,0,255)])
+
+    def test_engine_decode_rejects_nonpositive_dimensions_and_truncated_pixels(self):
+        valid = dds.header(1, 1, 'dds_argb8') + bytes((1, 2, 3, 4))
+        for width, height in ((0, 1), (1, 0)):
+            with self.subTest(width=width, height=height):
+                malformed = bytearray(valid)
+                struct.pack_into('<i', malformed, 0x10, width)
+                struct.pack_into('<i', malformed, 0x0C, height)
+                with self.assertRaisesRegex(ValueError, 'non-positive dimensions'):
+                    dds.engine_decode(bytes(malformed))
+        with self.assertRaisesRegex(ValueError, 'truncated pixel data'):
+            dds.engine_decode(valid[:-1])
 
     def test_short_dds_rejected(self):
         with tempfile.TemporaryDirectory() as td:
