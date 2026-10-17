@@ -56,7 +56,17 @@ int main(int argc, char** argv){
     REQUIRE(w.CheckMainLoop()==1);input.GetInputState(true);
     int x,y;input.GetMouseMovement(&x,&y);REQUIRE(x==127 && y==-128);
     REQUIRE(input.CheckKeyUp('A') && input.CheckKeyNow(VK_SHIFT) && input.CheckMouseButtonDownL());
-    input.GetInputState(false); input.GetMouseMovement(&x,&y); REQUIRE(x==23 && y==42);
+    // Absolute-mode menu polling must not consume pending relative motion: a
+    // transition to gameplay in this same event batch still gets its delta.
+    e={}; e.type=SDL_MOUSEMOTION; e.motion.windowID=SDL_GetWindowID(Platform_SDLWindow());
+    e.motion.x=24; e.motion.y=43; e.motion.xrel=7; e.motion.yrel=-9; REQUIRE(SDL_PushEvent(&e)==1);
+    e.motion.x=25; e.motion.y=44; e.motion.xrel=3; e.motion.yrel=4; REQUIRE(SDL_PushEvent(&e)==1);
+    REQUIRE(w.CheckMainLoop()==1);
+    input.GetInputState(false); input.GetMouseMovement(&x,&y); REQUIRE(x==25 && y==44);
+    input.GetInputState(false); input.GetMouseMovement(&x,&y); REQUIRE(x==25 && y==44);
+    input.GetInputState(true); input.GetMouseMovement(&x,&y); REQUIRE(x==10 && y==-5);
+    input.GetInputState(true); input.GetMouseMovement(&x,&y); REQUIRE(x==0 && y==0);
+    input.GetInputState(false); input.GetMouseMovement(&x,&y); REQUIRE(x==25 && y==44);
     e={};e.type=SDL_WINDOWEVENT;e.window.windowID=SDL_GetWindowID(Platform_SDLWindow());e.window.event=SDL_WINDOWEVENT_FOCUS_LOST;REQUIRE(SDL_PushEvent(&e)==1);
     REQUIRE(w.CheckMainLoop()==0);input.GetInputState(true);REQUIRE(input.CheckKeyUp(VK_SHIFT) && input.CheckMouseButtonUpL());
     e.window.event=SDL_WINDOWEVENT_FOCUS_GAINED;REQUIRE(SDL_PushEvent(&e)==1);REQUIRE(w.CheckMainLoop()==1);

@@ -72,7 +72,9 @@ void InputControl::GetInputState(bool relative){
     mbl_lt = mbl; mbr_lt = mbr; mbl = state.left; mbr = state.right;
     keys[VK_LBUTTON] = mbl ? char(0x80) : 0; keys[VK_RBUTTON] = mbr ? char(0x80) : 0;
     mx = relative ? state.dx : state.x; my = relative ? state.dy : state.y;
-    state.dx = state.dy = 0;
+    // Absolute-mode menu polls must not discard deltas queued before a
+    // same-frame transition to gameplay. Relative polls consume them once.
+    if(relative) state.dx = state.dy = 0;
     if(relative && MouseLimitFlag){ mx = std::clamp(mx, -128, 127); my = std::clamp(my, -128, 127); }
     // Only change mode on transitions: setting it flushes pending motion in SDL.
     SDL_bool mode = relative && (SDL_GetWindowFlags(Platform_SDLWindow()) & SDL_WINDOW_INPUT_FOCUS) ? SDL_TRUE : SDL_FALSE;
