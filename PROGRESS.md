@@ -123,3 +123,19 @@ Audio left-channel selection is intentional original-compatibility behaviour,
 not a stereo-preservation bug; a sample-content regression is being added.
 GLES harness inspection found malformed9-float vertex records and wrong
 transformed sample coordinates; targeted correction task active.
+
+### Audio test correction and graphics status
+
+Parent found initial audio test never called SoundControl::InitSound, so the
+old playback assertions only exercised silent mode. Fixed before merge:
+backend initialized on null driver, exact synthetic stereo left-channel bytes
+asserted, decoder allocation bounded64MiB, helper extraction compiles.
+Committed audio branch d33c2d5. Sanitized4CTest +100ticks offscreen/dummy pass;
+final independent review pending. Intentional stereo-left compatibility kept.
+
+GLES harness now checks actual blue texture, alpha discard, white texel, half
+fog purple and yellow line successfully. Parent confirmed full leak-enabled
+CTest STILL fails112bytes in2driver allocations. It is not merged. A narrow
+Luna diagnostic is identifying the external stack; blanket leak disabling
+remains unacceptable. Harness currently uses triangles/line, not a cube, and
+clip-depth fog is not yet production camera-distance fog.
