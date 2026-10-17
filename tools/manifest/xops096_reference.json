@@ -1,0 +1,3990 @@
+{
+ "files": [
+  {
+   "format": null,
+   "height": null,
+   "md5": "3945c256f61530bdfa486a0d06ea8d7c",
+   "path": "config.dat",
+   "size": 47,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "e84e6950f96f055d7ccf0c41905448fb",
+   "path": "config4xops05.exe",
+   "size": 40960,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5bd4236eb9c2ebf17e69b0d8104bbb6d",
+   "path": "data/article/can.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "bd104f39db6c63eb627e0f3cdada6fa8",
+   "path": "data/article/can.x",
+   "size": 4793,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "d193f538557e61579c58c027f4523dc9",
+   "path": "data/article/cone.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "9d2defc035cfb11b21d5a0164ee3cc3c",
+   "path": "data/article/cone.x",
+   "size": 3049,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "961c760ed362f7bb71c62571f75a6908",
+   "path": "data/article/dan.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "765f65a3041a25cae534147f5ff7aa55",
+   "path": "data/article/dan.x",
+   "size": 4093,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "77c5d58589c831b8ea8c6677166306d2",
+   "path": "data/article/isu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "23d6d78b76a72d19050763c7def23328",
+   "path": "data/article/isu.x",
+   "size": 6915,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "688442eb16ec9a861c2efa3199c97797",
+   "path": "data/article/pc.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "79736c109cfbf10934d4c3bc7b749a58",
+   "path": "data/article/pc.x",
+   "size": 6502,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "4447b14469e72bdbe8013ff6921f367a",
+   "path": "data/article/pc2.x",
+   "size": 6493,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "233d901f6ee94180b7acac6897bd1d08",
+   "path": "data/article/pc2_w.x",
+   "size": 6500,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "591079f08a0862adcf8a85e3ef921844",
+   "path": "data/article/pc3.x",
+   "size": 6485,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "2ea4fc3ef81a58505ecde57ce6657bdd",
+   "path": "data/article/pc3_w.x",
+   "size": 6485,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "b9f395f1d6cae50a1f7bff4355bd0dd8",
+   "path": "data/article/pc_d.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "8a6a964442eae57da3c087474cf2a2bb",
+   "path": "data/article/pc_sw.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "534c03afc6761d76326346bdf3a68a70",
+   "path": "data/article/pc_w.x",
+   "size": 6502,
+   "width": null
+  },
+  {
+   "format": "dds_argb8",
+   "height": 128,
+   "md5": "a89a846c2ee4aef4b8f2ce2c47034177",
+   "path": "data/blood.dds",
+   "size": 65664,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "6bda1600f3e680ddd15fe4a1bf587043",
+   "path": "data/briefing/civ1g.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "de07830027fe2f4976f1c26c510fefdf",
+   "path": "data/briefing/civ2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "651dd90df3833f039ec90e95a31b60e0",
+   "path": "data/briefing/door.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2ce22a52276054575bfd08e89d4e6696",
+   "path": "data/briefing/gates.bmp",
+   "size": 17464,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "645a3febacda65dfa58633f70a64a039",
+   "path": "data/briefing/gates_g.bmp",
+   "size": 17464,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "604563183e4fa9a4791804e8acae0fa5",
+   "path": "data/briefing/hage.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "c81c51238201bda59e30077d8d3a9e48",
+   "path": "data/briefing/islam2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "58404bf8847af3e10688884ad2ba34e0",
+   "path": "data/briefing/map0.bmp",
+   "size": 17464,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3ed411db5f529998a99c27fc05fc5705",
+   "path": "data/briefing/map1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a31a127efbf8cf6ab3a00da1d173598a",
+   "path": "data/briefing/map10.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "802bb33a6563c0fe99c3f5e4b7c13619",
+   "path": "data/briefing/map11.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b7765dea259e879c46219bb54af1fdf4",
+   "path": "data/briefing/map12.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3bd140178fffbfaa96af8f6a5e18d4ee",
+   "path": "data/briefing/map13.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8848db88ba1df92073c5704bbaf433ee",
+   "path": "data/briefing/map14.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5868ee4884a48ce4636db54a0ec39bf1",
+   "path": "data/briefing/map15.bmp",
+   "size": 17464,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "25b4ddf8a0b4da9f8faff7d718fcc8d7",
+   "path": "data/briefing/map16.bmp",
+   "size": 17464,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "128623a7b13fa34ec88454fd906e2fb8",
+   "path": "data/briefing/map2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "068527920dc368b7ac0f424cf05f496e",
+   "path": "data/briefing/map3.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "9b25718ad9cebd936383cdae4ce8263c",
+   "path": "data/briefing/map4.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ed2d7f17aba9be5a774cca35d3459aec",
+   "path": "data/briefing/map5.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "23cb30ed04318becbdfa415749893902",
+   "path": "data/briefing/map6.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1028789323550ff45924d801bdfc9142",
+   "path": "data/briefing/map7.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "66ea5c34daa343a7118339c8b8b98d53",
+   "path": "data/briefing/map8.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f25cb05f79b1ab4f79777cd575e95539",
+   "path": "data/briefing/map9.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "f65c083585261e07f2c852841eed354a",
+   "path": "data/briefing/np.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e962098e463a45872e7a6f3a87e7e6ae",
+   "path": "data/briefing/riiman.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "70e0eb1d9fd5b90f124532cd28df59fd",
+   "path": "data/briefing/riiman_kg.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ca0c02551d86d2afe6d4f484b03aede7",
+   "path": "data/briefing/robo.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "9a3e6bc68b68feee0b3c087e18cc3aed",
+   "path": "data/briefing/syatu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5ef3145532a19f81634bc061342d2c12",
+   "path": "data/briefing/syatu2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "110170a78ef4f9bff3ed4cd3bd9a364c",
+   "path": "data/briefing/woman.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "dds_argb4",
+   "height": 512,
+   "md5": "4d910e5098fe0522a58650990aaf82a4",
+   "path": "data/char.dds",
+   "size": 524416,
+   "width": 512
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ba58149c60b993bf4ce4a41377df386a",
+   "path": "data/map0/hako.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f10080ba1574508aa806b912cba3caf8",
+   "path": "data/map0/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "607df8a144b71387244f48cecffce263",
+   "path": "data/map0/kanban.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "40f3f335b8b3ccc30d0cb1c03cf71821",
+   "path": "data/map0/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "184beaa540618de7a18c968c8e4ba43e",
+   "path": "data/map0/rkabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "7d547645096ad3960898e0fddf4b79b4",
+   "path": "data/map0/siba.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "70b11b80ab191a78585dda55514a1eed",
+   "path": "data/map0/temp.bd1",
+   "size": 30016,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "227d66bb1cce5ee96a0479976229b03e",
+   "path": "data/map0/tr.msg",
+   "size": 526,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "0489b7b1534fff61f7b124d1a460f77d",
+   "path": "data/map0/tr.pd1",
+   "size": 2042,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "98f7043e2bd6289ddbe68251a10f1610",
+   "path": "data/map0/tr.txt",
+   "size": 58,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "bdc85a38f08f8de1b39f3555b925d057",
+   "path": "data/map1/def.pd1",
+   "size": 2302,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "7107371fc380de9e6f4324eb0874d149",
+   "path": "data/map1/def.txt",
+   "size": 185,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "93c619187d43443ab04c86a89dbef9b2",
+   "path": "data/map1/ext.pd1",
+   "size": 1442,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "8607448936a8b963f0dd5f8c54cae73b",
+   "path": "data/map1/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "656e62222f9cc05071ea68e2c3a8ac22",
+   "path": "data/map1/garasu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1da1a62f74b5b80232b4eb0b86630530",
+   "path": "data/map1/kabegami.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0e6fcb3bc04a778bd772e5bee1e96cd1",
+   "path": "data/map1/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d4c005a609c832c6dddc50d4377ae963",
+   "path": "data/map1/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a092cbbcea7c1d0afa1aa9d9761b5ce5",
+   "path": "data/map1/kitairu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "f2a41462455f71caf53486d42c8de941",
+   "path": "data/map1/kt.pd1",
+   "size": 1902,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "271ea27ae392448e8a88962bc0480b07",
+   "path": "data/map1/kt.txt",
+   "size": 83,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "443247b932fb190444a380a846340db1",
+   "path": "data/map1/mikage.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "9538e4964ea81982bc9a2cfbec3d7e17",
+   "path": "data/map1/tairu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5c8cb84fa33900eea3f475e3500e1a15",
+   "path": "data/map1/tairu01.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "40c789dec83858c347a3735c267ce98f",
+   "path": "data/map1/temp.bd1",
+   "size": 32544,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f18ca29daae5b3335d34485549c733ac",
+   "path": "data/map10/doa.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "e59b28d513d19e180d002dd098fa977b",
+   "path": "data/map10/ext.pd1",
+   "size": 1522,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "ddec6cace2a20d739cebdb193d8edd71",
+   "path": "data/map10/ext.txt",
+   "size": 63,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "95f0dba883c1756112e389a79e21e703",
+   "path": "data/map10/ext2.pd1",
+   "size": 882,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "94d9501afbdba86b654f8ce3f642bd10",
+   "path": "data/map10/ext2.txt",
+   "size": 25,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "581efd676aea12cf02a67e815ab58117",
+   "path": "data/map10/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d22837779562272b8547684a628bbdaf",
+   "path": "data/map10/konkuri.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8f90a79ee82986dcd7801b689b1d4772",
+   "path": "data/map10/konkuri2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "2d6927a8f3e2f22f6d41646a7341702a",
+   "path": "data/map10/kt.pd1",
+   "size": 1202,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "88fc4bc3e04c90fbd5e58c3262526e2e",
+   "path": "data/map10/kt.txt",
+   "size": 174,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "71936fd0dc99d339834a999798d24027",
+   "path": "data/map10/mado.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "e65e955f3f2fd1d4c4ffd60251bcab1c",
+   "path": "data/map10/op.pd1",
+   "size": 602,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "c0517e0834f74620be1a4e60e8fa4b1d",
+   "path": "data/map10/renga.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3f66eaf46232db396f93b736fc433992",
+   "path": "data/map10/renga2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "4ac3010370a3c0d609c3b7b230e6bb3f",
+   "path": "data/map10/temp.bd1",
+   "size": 38232,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "133de2831fe8bcd34a6f50b9ccde68ca",
+   "path": "data/map10/test.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "a2727981b0c29dc74daaf999508b89ff",
+   "path": "data/map10/title.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ebec37ee82f9e57c26af231a85b95358",
+   "path": "data/map10/tobira.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "83a9f9c78faefcd8acab2d3ad2311d7c",
+   "path": "data/map11/bord.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "c52f1b1c7d939db24bd010cc20c62bbc",
+   "path": "data/map11/de.pd1",
+   "size": 1662,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "6e5f9d207cd99a073792ada5eec63428",
+   "path": "data/map11/de.txt",
+   "size": 35,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "805c5bc5973ae76a8fd7988c0a24ca29",
+   "path": "data/map11/ext.pd1",
+   "size": 1662,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "fa9ab8488cfe8ed855d92e4b9900fa00",
+   "path": "data/map11/ext.txt",
+   "size": 41,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "098f07bfbcf1536474d0fde1f6733ca7",
+   "path": "data/map11/ext2.pd1",
+   "size": 1482,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "22a4187336aca5ffa0e678bfb0615a16",
+   "path": "data/map11/ext2.txt",
+   "size": 39,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d20155b1791a890f733b1d3330d11a71",
+   "path": "data/map11/haiki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4a3f4dd5d54e3edab4137c811e62772a",
+   "path": "data/map11/kabe02.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "5bdeb967aae38aca7de576c9ab7d1c8f",
+   "path": "data/map11/kabe3.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "dac47b470f31cdb882233d8cc88baacb",
+   "path": "data/map11/kabenn.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e83d8cc479c26aacd299fdfcc43d63c0",
+   "path": "data/map11/sikii.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "73d9b47402379302a8deec7880c816de",
+   "path": "data/map11/table.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3ad613937ce0606af21016f86f57ae23",
+   "path": "data/map11/tana.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e330601b1a05da097a5b101a627df1bc",
+   "path": "data/map11/tem.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "2c34d116059099c2f70d71f3318ee9af",
+   "path": "data/map11/temp.bd1",
+   "size": 35704,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "90a44160c59929a9575d68010138528e",
+   "path": "data/map11/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "fbc16aa0a23791b3fa8087eaf21b538e",
+   "path": "data/map12/01.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ffc3a32d00116a203de646ab317918df",
+   "path": "data/map12/conkuri.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "effdb036cf58a2eb1b6ee8bc2407baab",
+   "path": "data/map12/dou.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "ddda6ab8305aba17d599988bb894a309",
+   "path": "data/map12/esc.pd1",
+   "size": 1382,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "a14dc15f766a1b77de0b490a1b8b4701",
+   "path": "data/map12/esc.txt",
+   "size": 95,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "0df36c02470dba96352724d7a15a8f29",
+   "path": "data/map12/ext.pd1",
+   "size": 1242,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "f6b49ccde0c60318383881701f27c3f1",
+   "path": "data/map12/ext.txt",
+   "size": 115,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "e83086580f66519f0dd17e9eea0a38d0",
+   "path": "data/map12/ext2.pd1",
+   "size": 1722,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "913588d3b1924021cbb659dd09bc35f0",
+   "path": "data/map12/ext2.txt",
+   "size": 149,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "029530e5a07d34d3087a48d6c1382045",
+   "path": "data/map12/kabe.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "c11bce1697630dad93629eb04e39f497",
+   "path": "data/map12/kon.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "955ffef6d9db77b80962a3cb7023e80a",
+   "path": "data/map12/kt.pd1",
+   "size": 1702,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "62f78db381e6d71a5c101745ffd3ffac",
+   "path": "data/map12/kt.txt",
+   "size": 110,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "9a87ad156e657374eef634234e6f096d",
+   "path": "data/map12/kuro.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b9657bb4ac7c17f56cf8b5cb6f75e6eb",
+   "path": "data/map12/rit.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "182b2a99718898bba379fba2edbcff99",
+   "path": "data/map12/tatemono.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "725ba8674fd25f60492349bad5162f2d",
+   "path": "data/map12/temp.bd1",
+   "size": 37600,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d6d329da3db0d603779d1530ef67db55",
+   "path": "data/map12/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "d99bbec19457af7a0e02b6964c85cd8d",
+   "path": "data/map13/cap.pd1",
+   "size": 1462,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "2b30a0c06f8f9c298306e7a1e5fdcffa",
+   "path": "data/map13/cap.txt",
+   "size": 95,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "ebca2a5af9dccb05fd3ff2b024217821",
+   "path": "data/map13/esc.pd1",
+   "size": 2622,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "c58e03eb83a431ad05a62b78844d76b1",
+   "path": "data/map13/esc.txt",
+   "size": 71,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "b32219cd556416c76333070e6dff2bba",
+   "path": "data/map13/ext.pd1",
+   "size": 1722,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "be5ba14d813b8ed4578badfe90ec3e7c",
+   "path": "data/map13/ext.txt",
+   "size": 25,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "28e7d7ec6e1a0bd021ba541a1752dc4e",
+   "path": "data/map13/gara.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "a40643c4c42f3c60b4ad58b6d2ee702a",
+   "path": "data/map13/heya.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2895b333c037340239224da68b594a22",
+   "path": "data/map13/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "6c9cf340eb8ecd1825f94edfdebdebe4",
+   "path": "data/map13/mado.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 32,
+   "md5": "5ea7419a50c46074d6d29a6fd95c39e3",
+   "path": "data/map13/rain.bmp",
+   "size": 2102,
+   "width": 32
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a868172fb96e28fb73b1a104cc144c99",
+   "path": "data/map13/siro.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "6bc9101784670ae18c1415f267a5e28a",
+   "path": "data/map13/temp.bd1",
+   "size": 36968,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cf0c3eb6f9b36cbed1c670f373265239",
+   "path": "data/map13/tenjyou.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "2af10eb2edf8560ad8a63b1ad8216b84",
+   "path": "data/map13/tizu.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "7ef9398232d0769fd8b404727fd5c754",
+   "path": "data/map13/ueki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "097c98971ba41c13648d86086502d66c",
+   "path": "data/map13/ueki2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "3ef8955d1f8ea7aa478f42f9e6d66f67",
+   "path": "data/map14/cap.pd1",
+   "size": 1982,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "e5253cf819da90943b6eb15b8259aa55",
+   "path": "data/map14/cap.txt",
+   "size": 137,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "2572c43104660b3c07b84b91896f5fe1",
+   "path": "data/map14/de.pd1",
+   "size": 1602,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "9487ce6c8cf668a6a42bf719c97446df",
+   "path": "data/map14/de.txt",
+   "size": 127,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4a31ead5ffd7ded260ddb3536647612a",
+   "path": "data/map14/doa.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "0aa330abf3698db6dc1c381ae552a3cd",
+   "path": "data/map14/ext.pd1",
+   "size": 1702,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "80efc2f1bc04f8943ff08606797abe28",
+   "path": "data/map14/ext.txt",
+   "size": 25,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "95607d03e9a0d88d15d4d828e01b4052",
+   "path": "data/map14/iwa.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1fd5d1ff6d55908dbadc1c3d474fae3e",
+   "path": "data/map14/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cb834db7596adab74f507a01a9b9f7d1",
+   "path": "data/map14/kabe2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b1b67339ad52307b97440e8b0ff40b8d",
+   "path": "data/map14/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3993a4799f00a6ba0e3e1f90b15b4b34",
+   "path": "data/map14/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2b255074b6650a061239a5ad6b917902",
+   "path": "data/map14/kibako.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "5799d494b70371016aafb548563381af",
+   "path": "data/map14/re.pd1",
+   "size": 1462,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "8ca95734a864dd23284833ff3e0c1ade",
+   "path": "data/map14/re.txt",
+   "size": 86,
+   "width": null
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "e5fbd6eefa9f9791d3edb7c690a74055",
+   "path": "data/map14/temp.bd1",
+   "size": 38232,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f1e9461830ed8cccd946a329b796edab",
+   "path": "data/map14/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "544e6a27f6da32e05c9b2084dd33f313",
+   "path": "data/map14/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "903cebb17c61afd3784c7cf9ee2319a6",
+   "path": "data/map15/def.pd1",
+   "size": 2962,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "b783c40814e597059b110ba6230dfee7",
+   "path": "data/map15/def.txt",
+   "size": 148,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a17ab32bc9797197ccef1a8b8e1460ba",
+   "path": "data/map15/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b71d0bc570e36569a9befbdecb77fc65",
+   "path": "data/map15/kabe2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2362e4b6811961a1096a128e864fa58b",
+   "path": "data/map15/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "935af6b217e42a48559d3e0ecb5b8786",
+   "path": "data/map15/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1aa71602bc45db75c78f404ca4fdeeca",
+   "path": "data/map15/kontena.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "4f6fbd50c73297a67453d58e922826a0",
+   "path": "data/map15/kt.pd1",
+   "size": 1762,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "69e99221ee6586cce61682ee40fd6b88",
+   "path": "data/map15/kt.txt",
+   "size": 106,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "3769fed077550b43abbcd046d8758e16",
+   "path": "data/map15/kt2.pd1",
+   "size": 3442,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "4414e19e18b8d717b03a78981d7f0e09",
+   "path": "data/map15/kt2.txt",
+   "size": 219,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "4c5cb40a38c8804f027782a8dafe945b",
+   "path": "data/map15/re.pd1",
+   "size": 2382,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "7a21daaf2ff92c1d3e49b61a54ec6839",
+   "path": "data/map15/re.txt",
+   "size": 233,
+   "width": null
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "a910bd2a9cb25547620ca6c0da69281f",
+   "path": "data/map15/temp.bd1",
+   "size": 35072,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0e8ecfa736790b93e2f0acd8b7c42782",
+   "path": "data/map15/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "73465a8a0fea80dc33a0ee43646c7aa8",
+   "path": "data/map15/teppan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ba9f3aeff43e561637ba53d564b11ca0",
+   "path": "data/map15/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ac247ec6629f9eacbc30c7bdaf7e4809",
+   "path": "data/map15/yuka2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ba8d0a146ab85bcd2e67e6d46e7f36da",
+   "path": "data/map16/001.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ba3b97ec7e80dfab3f0061e3c8a5f670",
+   "path": "data/map16/002.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f6ce49387c0454915d4757f4628141c5",
+   "path": "data/map16/004.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4afc7faeba55f0d74fe289cb9a2dada0",
+   "path": "data/map16/005.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "064fc8aad61eff5d9d28e654825be90d",
+   "path": "data/map16/006.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e3ddce5014a01a591e13f44c22d8f954",
+   "path": "data/map16/007.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "6cdb6658f2fd0c30a08b7f517df32106",
+   "path": "data/map16/010.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "b66b57fd8f4d22e51451c12bb6d3baa6",
+   "path": "data/map16/cap.pd1",
+   "size": 1782,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "962fb850503069e8c19267c0bac498e2",
+   "path": "data/map16/cap.txt",
+   "size": 195,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "b38d3d35306eb5478d2dfd182a815eab",
+   "path": "data/map16/def.pd1",
+   "size": 3082,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "fbbdf577fbc354cf9729b04fb087ef81",
+   "path": "data/map16/def.txt",
+   "size": 149,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "a6b72f84a45054e5b746b77cd6736ff7",
+   "path": "data/map16/demo.pd1",
+   "size": 902,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "cf9bb41104cea38f454858ad98bae542",
+   "path": "data/map16/ext.pd1",
+   "size": 2562,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "1c7c66b94ed074c46def5bfe8efc3977",
+   "path": "data/map16/ext.txt",
+   "size": 109,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "17b4ed864efc7a7ccd82246cb61fdbb0",
+   "path": "data/map16/hako.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "333efb1243e3b6159d8f6b3d0e766659",
+   "path": "data/map16/hako_d.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8146767458fbda5f91cc8eff2b4406d1",
+   "path": "data/map16/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "b2be2e32c13ebfec29d3a6689e48d878",
+   "path": "data/map16/temp.bd1",
+   "size": 38232,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "2110d5d35090c35b30d4a069fdf1aa73",
+   "path": "data/map2/def.pd1",
+   "size": 2442,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "f9b41f5bb55e2d628af66e2d7d4754da",
+   "path": "data/map2/def.txt",
+   "size": 105,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "581e361f7dd5064fa33547ce71a28717",
+   "path": "data/map2/demo.pd1",
+   "size": 1122,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "ec6ade3ac5a873b80e4fbe4b81da4b56",
+   "path": "data/map2/ext.pd1",
+   "size": 1122,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "ba11f514a4df39a47cdc83fd11999550",
+   "path": "data/map2/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b82037737e949374395304da2ad2e5ba",
+   "path": "data/map2/jimen.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3daf0f1eacb18241809e428109b8b0d8",
+   "path": "data/map2/jyouheki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "355d617db7241025589abe5186cff231",
+   "path": "data/map2/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e2b9f701fde912856fcd2b221bfb01de",
+   "path": "data/map2/kabegami.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0e6fcb3bc04a778bd772e5bee1e96cd1",
+   "path": "data/map2/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a7dafdb5a9750ea7bbfa6b58999d5f67",
+   "path": "data/map2/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8146767458fbda5f91cc8eff2b4406d1",
+   "path": "data/map2/ki2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d9c39256a8b7d4f8af32d93e0c8cf40b",
+   "path": "data/map2/mado03.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "f4178e475a4d99f99126a60b3953eb70",
+   "path": "data/map2/re.pd1",
+   "size": 2182,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "c8ba93e4977eaf987156cc8d800f0983",
+   "path": "data/map2/re.txt",
+   "size": 112,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4cd5a21f358773694ddbf31fab359684",
+   "path": "data/map2/renga.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "e5b61a4d3d19172dabfbb4ce0d116b70",
+   "path": "data/map2/temp.bd1",
+   "size": 31280,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cbe4cf984fe50b10c9bfbf654d19fcfe",
+   "path": "data/map2/yuki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "4d1fb689d2b197e4ee1fff58b232ad99",
+   "path": "data/map3/def.pd1",
+   "size": 1722,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "4f1248cb4c213a9bf3e9e1d450dfe9b1",
+   "path": "data/map3/def.txt",
+   "size": 95,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "f6d5bfa1aeee34dfd9a614d2e9f67795",
+   "path": "data/map3/ext.pd1",
+   "size": 1022,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "953be73c8a21e0fce1f78b1db97b2546",
+   "path": "data/map3/ext.txt",
+   "size": 88,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b6ce1783f91b65ee99600b0b672e281e",
+   "path": "data/map3/kabegami.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a755bf15ac0faf4a23a8d9ff65c9720c",
+   "path": "data/map3/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "68260dd95ccebc6cc87915b5cb2db22a",
+   "path": "data/map3/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "11fad3cff069493d8fab4be53bc66ee5",
+   "path": "data/map3/kt.pd1",
+   "size": 962,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "37274237f1b9446bbcd9fb92296e8bc3",
+   "path": "data/map3/kt.txt",
+   "size": 101,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1f610f57ab60013c604955293f499ec0",
+   "path": "data/map3/mado01.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "622a1a84c3ab6b8546033c7bb70c447a",
+   "path": "data/map3/mado02.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "bcf94df123d36bab0ab9dcc3a2969614",
+   "path": "data/map3/temp.bd1",
+   "size": 31912,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e2595ca20f5944e917601cd8f835b575",
+   "path": "data/map3/tuti.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "6fedb4165bb37b011fafacfa09042bfd",
+   "path": "data/map4/cap.pd1",
+   "size": 3282,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "73facb8a126a242d09d96dd55cd23fab",
+   "path": "data/map4/cap.txt",
+   "size": 186,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a8d14487d2c6ce43bca275d9be483283",
+   "path": "data/map4/danboll.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "06e9ac21c2fe4850e004e4c7aca2071e",
+   "path": "data/map4/de.pd1",
+   "size": 1862,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "66d5de1feb65630aabf84534748d59bd",
+   "path": "data/map4/de.txt",
+   "size": 88,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "ff3b55f5e3b56eef2a51a49d79d880fc",
+   "path": "data/map4/demo.pd1",
+   "size": 1462,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "460d70c194ff10fea781f43bbab563fa",
+   "path": "data/map4/doa.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "d13af44fb13826c1351093e98a3c5f39",
+   "path": "data/map4/esc.pd1",
+   "size": 1342,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "4c119c3c7ee0100115b9297d6722e1e2",
+   "path": "data/map4/esc.txt",
+   "size": 65,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "0ab44b9ba89a31e29a5b288645a9d3b1",
+   "path": "data/map4/ext.pd1",
+   "size": 1122,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "9e9175064da42c31cc166346e49828f8",
+   "path": "data/map4/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5fc1269e8bea129700c3ee9dfba52029",
+   "path": "data/map4/isu.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1914df37d73b999fd7f5746b39f63d41",
+   "path": "data/map4/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2362e4b6811961a1096a128e864fa58b",
+   "path": "data/map4/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d4c005a609c832c6dddc50d4377ae963",
+   "path": "data/map4/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "04f09de8e6ebaacff2ca937d664333e0",
+   "path": "data/map4/kibako.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0e7d441d0af05d9a0b622c394613929a",
+   "path": "data/map4/mono.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "492595f22e42ca8948da10f71ed83a70",
+   "path": "data/map4/temp.bd1",
+   "size": 31912,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e554fad88dcfe8ea8ff156ebc661a9d8",
+   "path": "data/map4/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "be69db9a55047db60234b6f727ac4421",
+   "path": "data/map4/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "7a3402d175d9ecc7ab03e09e49c07399",
+   "path": "data/map5/def.pd1",
+   "size": 1522,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "039dc4e312e37fc811df91cc70a10d62",
+   "path": "data/map5/def.txt",
+   "size": 82,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "a1fb21c14e5383089fbbdae84c911cd8",
+   "path": "data/map5/demo.pd1",
+   "size": 522,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "8f705ecedacf2ff8b83be5da48b1931d",
+   "path": "data/map5/ext.pd1",
+   "size": 782,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "50787bbcd6e7d7838ba82e7ec3c88407",
+   "path": "data/map5/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "f18411f0f7ad58bc3745fdf1ea71070e",
+   "path": "data/map5/ext2.pd1",
+   "size": 1642,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "00ac15e0f3ba2858181d77219799c813",
+   "path": "data/map5/ext2.txt",
+   "size": 96,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "0c275e3630a5a2522b31729e39d912ae",
+   "path": "data/map5/ext3.pd1",
+   "size": 3342,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "50787bbcd6e7d7838ba82e7ec3c88407",
+   "path": "data/map5/ext3.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a2604773ca40d0b97584053520a2c14a",
+   "path": "data/map5/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cab08bb5ff84b933d868b87f65b8fa47",
+   "path": "data/map5/kazari.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "bdd7d801f54c224f26b7f4d9bb4395ef",
+   "path": "data/map5/kibako.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "f7762c00daaa345118b5699d8a107c7f",
+   "path": "data/map5/temp.bd1",
+   "size": 31912,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "01d0ca5313dd72f860190e0dd39c73d8",
+   "path": "data/map5/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0bb07d81799116c78bd0a37e9c9f6ea8",
+   "path": "data/map5/teppan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "6c8afb8033d088fba829bf273e8aa651",
+   "path": "data/map5/teppan2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cdd6abceadb82e6461861de3d0fef720",
+   "path": "data/map5/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b304b082dfcd2666322d739beedcad1c",
+   "path": "data/map6/conk.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "9a87ad156e657374eef634234e6f096d",
+   "path": "data/map6/curo.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "04f51784be0d1d00d0075b9eaa388112",
+   "path": "data/map6/ext.pd1",
+   "size": 1182,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "0689223927d9359e99922b8ce783ee5d",
+   "path": "data/map6/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4326008814226f7f9a95d277c04c7ac2",
+   "path": "data/map6/hometire.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a373a7b3a761d91a8ca367e70bb6bce2",
+   "path": "data/map6/hometire02.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "ecfb347c53ada17239a682e2fb21cf20",
+   "path": "data/map6/jihan.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "76b790398b9435b7d00db23552994ebd",
+   "path": "data/map6/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "9eaffd5088fd8bbdfcd78b1f329ee85b",
+   "path": "data/map6/kaidan.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "437878580f651f8450f969b09a144d61",
+   "path": "data/map6/kt.pd1",
+   "size": 1882,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "1d3c87985b7e0877895b5ef1159d2efd",
+   "path": "data/map6/kt.txt",
+   "size": 250,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "460a6bc072e2036d28c14530f1760fb4",
+   "path": "data/map6/senkabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "ae72ce1217f1626490f58865e7bfc476",
+   "path": "data/map6/temp.bd1",
+   "size": 31280,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b2d22cd0550a41065b03b2e9286e7e1b",
+   "path": "data/map6/ten.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "473f0a7342c89824664190d8d1ba8b42",
+   "path": "data/map6/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "b23a97e58fda81761dd322c3a4bf1d80",
+   "path": "data/map7/def.pd1",
+   "size": 902,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "b01d7f48b3809caf1ee31fd64cba79e4",
+   "path": "data/map7/def.txt",
+   "size": 69,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "d6f9f44d2f6a5d638940e8ee77f5b4cb",
+   "path": "data/map7/def2.pd1",
+   "size": 1462,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "28548a70157400655ac5b691e96b4aa2",
+   "path": "data/map7/def2.txt",
+   "size": 110,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "c6a7c814461cda6cf2c7b15881832971",
+   "path": "data/map7/demo.pd1",
+   "size": 482,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "882e343356d35e575225e0ac3163f71e",
+   "path": "data/map7/ext.pd1",
+   "size": 1182,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "2c57ea27d83857a9be8893733b4d6a5b",
+   "path": "data/map7/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cdddeb274ba44c8c6bfca3990becde1c",
+   "path": "data/map7/iriguti.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "35b32f067548f29417222f4828fb1f7e",
+   "path": "data/map7/kabe.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "dfc7c58456b9729575e4535f6e8b4cdb",
+   "path": "data/map7/ki.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "c5e67ffabdbbba9db72ad5664c07505d",
+   "path": "data/map7/kontena.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "adf4ea6ebbdd742a183bcf8d2013e585",
+   "path": "data/map7/kontena2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "952fd19f0ccad9e23dfe96a0dfc64f23",
+   "path": "data/map7/kt.pd1",
+   "size": 1002,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "4bc346f3ddff0727b0d8106a3c311ee6",
+   "path": "data/map7/kt.txt",
+   "size": 142,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "552fcdb016adc2653b2f712c2aacb00e",
+   "path": "data/map7/renga1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4fc82baf660e2637d843daa155c97c26",
+   "path": "data/map7/renga2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f8c41afcea610bdf2b2db8b862454eb5",
+   "path": "data/map7/sou.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2de8f26751d1953b00e4afd0c8b26fd6",
+   "path": "data/map7/suna1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "fdac65fc58ec94979ad66952c2078fef",
+   "path": "data/map7/suna2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "03244e303b663d665b97b1fa54ae3f98",
+   "path": "data/map7/temp.bd1",
+   "size": 30648,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "7d821d6f0547c91e1b80c63dfdbcb249",
+   "path": "data/map8/bill1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "473c68e3e869e335937de18f7ef24f6d",
+   "path": "data/map8/bill2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "25f4229c91a841ff7d5dc547bf1d4730",
+   "path": "data/map8/bill3.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "4d62ffa9716a49bab0cd48bbb6d0dadb",
+   "path": "data/map8/cap.pd1",
+   "size": 1602,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "f21ac9f02ec37ee1232d618635bfadd4",
+   "path": "data/map8/cap.txt",
+   "size": 154,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "8274585c3a0367e150cb146be1289e2f",
+   "path": "data/map8/def.pd1",
+   "size": 2102,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "a04946653b3b5b54a5eb1d4597b2ec2b",
+   "path": "data/map8/def.txt",
+   "size": 83,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "9117c3982eed496185803547158c517b",
+   "path": "data/map8/def2.pd1",
+   "size": 882,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "005d1986849cbc6c26a1ff304e3a1c45",
+   "path": "data/map8/def2.txt",
+   "size": 90,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "00082bab0586dbef53a06f7566cd71e5",
+   "path": "data/map8/demo.pd1",
+   "size": 1182,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "fbce9432ace40c90a7c48f18257a12d6",
+   "path": "data/map8/ext.pd1",
+   "size": 1942,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "80806848ec1ef382dfa76c340b374f70",
+   "path": "data/map8/ext.txt",
+   "size": 80,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "87fba9a9e79b37e75b4d7bda531e4ddf",
+   "path": "data/map8/hibill.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "2ef1340557f7d823a0042ac7fbdc5c88",
+   "path": "data/map8/hodou.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "9638585448c08772a75670963319a196",
+   "path": "data/map8/kt.pd1",
+   "size": 1202,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "02b1b9037b058da3cc320084d519e917",
+   "path": "data/map8/kt.txt",
+   "size": 94,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "9f49bf635b2ebbfa3ffb9f66f900f77a",
+   "path": "data/map8/kt2.pd1",
+   "size": 1822,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "c6e7fc3050ac2c1c6c1d3f0584b74d47",
+   "path": "data/map8/kt2.txt",
+   "size": 218,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "65356165b997ee5bf1f65634250763a4",
+   "path": "data/map8/kt3.pd1",
+   "size": 2142,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "cffdb16e98bfffaed8223c9b354077f4",
+   "path": "data/map8/kt3.txt",
+   "size": 121,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "72adaf57e32c30bfac0c517c5b26de2a",
+   "path": "data/map8/kt4.msg",
+   "size": 38,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "e8f15c84849e7f66d74c296a91875ff2",
+   "path": "data/map8/kt4.pd1",
+   "size": 2402,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "155123360db30adb18eca7ecc09b83c0",
+   "path": "data/map8/kt4.txt",
+   "size": 404,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "394c64c9331890de5ad5b1a09e29d556",
+   "path": "data/map8/mado1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "3025ef95dec911528ae8e61b35941c06",
+   "path": "data/map8/mado2.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8d198143ca5626413ff0614e179171c0",
+   "path": "data/map8/mado3.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4d7c8d488b87f3f9c1fbd1d9c93b444f",
+   "path": "data/map8/siba.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "31df0a4c0a5a9ba086993dd8f094f470",
+   "path": "data/map8/temp.bd1",
+   "size": 34756,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "218327c88e6300cf7699d757de74d06e",
+   "path": "data/map8/yuka.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "053c89046f941402f8a92247c6236efc",
+   "path": "data/map9/01.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "fc745a70e3e12bf4617954f86b1af6e7",
+   "path": "data/map9/02.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "8459bb54dbc8a1ea9425e0a64b2186fc",
+   "path": "data/map9/03.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ba4e08c4d835afb1451a5c364fe246cc",
+   "path": "data/map9/04.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5056080834d288344fe13b8ea04929fc",
+   "path": "data/map9/05.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "59af422df92ddd8c3651ea4e1834353b",
+   "path": "data/map9/06.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "a7c7e4cd883c5136f9b37e6b3ce4dfbc",
+   "path": "data/map9/07.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "5f7b42a78b22efa3f2b26cc6dde7968d",
+   "path": "data/map9/ext.pd1",
+   "size": 1062,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "e307bb7e9ed782214e8b50efc3000777",
+   "path": "data/map9/ext.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "pd1",
+   "height": null,
+   "md5": "286a8b96c1b8a53295baab2ca020d602",
+   "path": "data/map9/ext2.pd1",
+   "size": 1702,
+   "width": null
+  },
+  {
+   "format": "text_cp932",
+   "height": null,
+   "md5": "e307bb7e9ed782214e8b50efc3000777",
+   "path": "data/map9/ext2.txt",
+   "size": 24,
+   "width": null
+  },
+  {
+   "format": "bd1",
+   "height": null,
+   "md5": "88642e5d6fa7608c7b59b6fdb5d27455",
+   "path": "data/map9/temp.bd1",
+   "size": 17376,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "a2727981b0c29dc74daaf999508b89ff",
+   "path": "data/map9/title.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "dds_argb8",
+   "height": 128,
+   "md5": "8572aa233b4e77ab0de84d41f083b948",
+   "path": "data/mflash.dds",
+   "size": 65664,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "c8d2463372c22c5e0557db67ad18daa2",
+   "path": "data/model/arm00.x",
+   "size": 5808,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "c9ef8696f3e25aac215dcb516ab25cbd",
+   "path": "data/model/arm01.x",
+   "size": 5812,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "8484992f422d5ea9317a06ca7894ea66",
+   "path": "data/model/arm02.x",
+   "size": 5804,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 64,
+   "md5": "fab61d1f00f8279361c64f4ec07a58fd",
+   "path": "data/model/bullet.bmp",
+   "size": 5174,
+   "width": 64
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "b3fa77c4f48036238a73637c38f922ec",
+   "path": "data/model/bullet.x",
+   "size": 3694,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "22034be1b67f3e9b438345288d1365a5",
+   "path": "data/model/civ1.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "a63adb64b16dc5598309b280f0353f7d",
+   "path": "data/model/civ2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "4cacf95328e2dcc6b6e5ca9cf91b9198",
+   "path": "data/model/civ3.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "7023457828e5de9936827519ffaf5f7e",
+   "path": "data/model/gates.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "5566bfe7305543b4fd913b138abfc10d",
+   "path": "data/model/gs.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "7aa35ead1ad132b67e40ed8bcbb84310",
+   "path": "data/model/hage.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "96928bcf196818dfdd39895d156c6fa2",
+   "path": "data/model/islam.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "17d336486690b0eac5349329298f38c0",
+   "path": "data/model/islam2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "b910f975162588a3ec8f0e373a9a703d",
+   "path": "data/model/leg.x",
+   "size": 7986,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "5e48d98f2b74ed28c3466d610b3286ab",
+   "path": "data/model/police.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "2bcbe192665a3c12d457ba2ff07767ca",
+   "path": "data/model/riiman.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "45dfaebbccc62c6faef5ac8b9cac5d9e",
+   "path": "data/model/riiman_b.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "58974b017115b09754476b5023aa3dd6",
+   "path": "data/model/riiman_g.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "68b0bdfac348f7cc7a72f906b6e2f414",
+   "path": "data/model/riiman_k.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "a522dfe47ed86f4f6649cf79167c46ac",
+   "path": "data/model/robot.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "78e82cd70068c15a7e7142bd1a634aef",
+   "path": "data/model/run01.x",
+   "size": 7994,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "11005f8431f36efdf88d4db37dc20b70",
+   "path": "data/model/run02.x",
+   "size": 7995,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "944575e97dd78125f954b24328d5f1b4",
+   "path": "data/model/run03.x",
+   "size": 8004,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "9fc7d62618144672c3e349dc793f974d",
+   "path": "data/model/run04.x",
+   "size": 7996,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "784d2f41db23f9ca1077997a6d840376",
+   "path": "data/model/run05.x",
+   "size": 7995,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "67beb16e384b9ab72e768917c6cc3f4d",
+   "path": "data/model/run06.x",
+   "size": 8002,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "371094c1b3eaaead4f55189534afb67c",
+   "path": "data/model/soldier0.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "c5c9d97babf9a8197968e90665a926f3",
+   "path": "data/model/soldier1.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "326ef3e6514a1b2302c63ab75c54c531",
+   "path": "data/model/soldier2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "85b1323bf7c12fc7d41f01ddf7b1339c",
+   "path": "data/model/soldier3.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "d846a550b47334d082dd8fd7b786a267",
+   "path": "data/model/soldier_black.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "c4d47fd444983598cb87dde74c903061",
+   "path": "data/model/soldier_blue.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "e4ed0e2fe863ac1bb91114f36382e100",
+   "path": "data/model/soldier_green.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "bd59fce00a57c0ee78a1350c051fecaa",
+   "path": "data/model/soldier_violet.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "0c3b6430a480e73b43b2747be024736a",
+   "path": "data/model/soldier_white.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "e7bf6ea5810d1f44f1cae150b26289c2",
+   "path": "data/model/syatu.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "fdea995a15d220c426177d0a0c2e2b98",
+   "path": "data/model/syatu2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "8d677a9973ebf4677e77afd227c7ef8c",
+   "path": "data/model/up0.x",
+   "size": 8458,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "1576b2c8cdf3f2627117c92aee385c2b",
+   "path": "data/model/up1.x",
+   "size": 9679,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "8b1b4c6689fbff33494604247b8b0d9d",
+   "path": "data/model/up2.x",
+   "size": 8857,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "46a8fc9e65ccfb77603c2b07d57a7111",
+   "path": "data/model/up3.x",
+   "size": 10176,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "0fc9713a666873d290008b13ff9e8590",
+   "path": "data/model/up4.x",
+   "size": 10774,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "60910943bbb305972ebac073d01f8754",
+   "path": "data/model/up5.x",
+   "size": 10097,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "1c1eb6d1083d5308a529ad92ad95867a",
+   "path": "data/model/walk01.x",
+   "size": 7998,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "803dadadd1f1df04e465d66f9278f44b",
+   "path": "data/model/walk02.x",
+   "size": 7994,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "1722c98c8bc4a137fe7b0c901b432caa",
+   "path": "data/model/walk03.x",
+   "size": 7996,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "d3c8e8d7a96531afd2658891d7002495",
+   "path": "data/model/walk04.x",
+   "size": 7994,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "5719ea2f492f21188b9205e31423dde2",
+   "path": "data/model/weapon/ak47.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "1c49d353319b38b3e5e8d93e9237b13b",
+   "path": "data/model/weapon/ak47.x",
+   "size": 7338,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "f679985745e24db4bb860705d26698e7",
+   "path": "data/model/weapon/aug.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "26735c9f56432ec13389f068b64d8cbf",
+   "path": "data/model/weapon/aug.x",
+   "size": 10651,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "ddcc73fbb9304f452d46b40ad88b3243",
+   "path": "data/model/weapon/case.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "369440456782fbe2d7b93734c49f1057",
+   "path": "data/model/weapon/case.x",
+   "size": 7566,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "639fcbe40208eb39b9b3b0ea098b94c5",
+   "path": "data/model/weapon/cg.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "2b95a89992e6e37c739448e183527e58",
+   "path": "data/model/weapon/cg.x",
+   "size": 5590,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b0f0716826565da775ec5df73798b131",
+   "path": "data/model/weapon/de.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "81ad82f4aacf26b1749034e82b4d5f59",
+   "path": "data/model/weapon/de.x",
+   "size": 6042,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "6f692f570b14ea23d243c18ce306d89e",
+   "path": "data/model/weapon/famas.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "202adb6889c43678ba3abb7e8275b28a",
+   "path": "data/model/weapon/famas.x",
+   "size": 6055,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1749e50f588c009d5f9f85de0f01163b",
+   "path": "data/model/weapon/glock17.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "4e26246f17be6f11e8fa655fe03ec9c8",
+   "path": "data/model/weapon/glock18.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "51609cbd7b8d97b02d8df58aaf9cd720",
+   "path": "data/model/weapon/glock18.x",
+   "size": 5159,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0fc912d8eb5a5f20526d5026a6e9908d",
+   "path": "data/model/weapon/grenade.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "2bef9c88dc6da37cf094fda974882721",
+   "path": "data/model/weapon/grenade.x",
+   "size": 7653,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "1e358ed8025862cdb6ef8deb3858e0b1",
+   "path": "data/model/weapon/m1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "940c031856a8469387e8ecce72f9c4d0",
+   "path": "data/model/weapon/m1.x",
+   "size": 7863,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "668dc2ce9ce70ca1ff798a1520d3e750",
+   "path": "data/model/weapon/m249.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "35df44b002ffb18147373cd263ae3e72",
+   "path": "data/model/weapon/m249.x",
+   "size": 9266,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "567a8a105997d0caa6086f9c31c060f3",
+   "path": "data/model/weapon/m4.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "ddb7d7485505767b8b9db37bc4660de5",
+   "path": "data/model/weapon/m4.x",
+   "size": 8354,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "0984e1793934e2493413087662311049",
+   "path": "data/model/weapon/m92f.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "4e89a2e4291ecb70a20bb32421edec4a",
+   "path": "data/model/weapon/m92f.x",
+   "size": 4822,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "b707e7b0ae5db384b91ff61ddad57150",
+   "path": "data/model/weapon/mac10.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "874b23ccc79941becab73826f0003d95",
+   "path": "data/model/weapon/mac10.x",
+   "size": 6180,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "e5cbe21ef06b43cc81840e32649f25f1",
+   "path": "data/model/weapon/mk23.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "0cb20935d7d5d06ad4bfab0504fd3932",
+   "path": "data/model/weapon/mk23.x",
+   "size": 5827,
+   "width": null
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "d26c4dc55b0aa24d2dee9d577f8cda03",
+   "path": "data/model/weapon/mk23sd.x",
+   "size": 6036,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "d19ff4cc152a874480fcd87fc175e761",
+   "path": "data/model/weapon/mp5.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "e598137458bced3bd1a27714274c5afc",
+   "path": "data/model/weapon/mp5.x",
+   "size": 6861,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "cb41eaa3e0e1d7e507fc6c8fb1c9fa3d",
+   "path": "data/model/weapon/mp5sd.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "ae6b07ae529fc544180a0d1b754d6dc6",
+   "path": "data/model/weapon/mp5sd.x",
+   "size": 7168,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "bd0d7fc5b499b28407444a24e7df1a30",
+   "path": "data/model/weapon/p90.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "761abf97853f11ccc99ef39b5dd181d7",
+   "path": "data/model/weapon/p90.x",
+   "size": 4614,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "c41127fdbc5776a14bef0346c3caa2a0",
+   "path": "data/model/weapon/psg1.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "3ae5c9bb716cfc1e64aceb2ab64aef81",
+   "path": "data/model/weapon/psg1.x",
+   "size": 6487,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 128,
+   "md5": "902bad26eef5a7f0eda70b49d910b89a",
+   "path": "data/model/weapon/ump.bmp",
+   "size": 17462,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "16accc70fcc0b12e00357695269d7da6",
+   "path": "data/model/weapon/ump.x",
+   "size": 10332,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "2778c406ac646111ce7b31c94ff51afb",
+   "path": "data/model/woman.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "8508dde93da72bf3773cd7880aa07969",
+   "path": "data/model/zombie1.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "04e12667536e1da03df61b3fcdd49d2a",
+   "path": "data/model/zombie2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "6f959615fa164feca1f0f51ba7898ad1",
+   "path": "data/model/zombie3.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "66a3a502dba2eccb0e7a01448cd83051",
+   "path": "data/model/zombie4.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp24",
+   "height": 64,
+   "md5": "fdba0feddcf7c72f83cc95569b820acf",
+   "path": "data/null.bmp",
+   "size": 12342,
+   "width": 64
+  },
+  {
+   "format": "dds_argb8",
+   "height": 128,
+   "md5": "2da677b6d724b53e63dd5b59ef68a91b",
+   "path": "data/scope.dds",
+   "size": 65664,
+   "width": 128
+  },
+  {
+   "format": "x_text",
+   "height": null,
+   "md5": "9b12237e94934b410297ef124fbd7f4a",
+   "path": "data/sky/sky.x",
+   "size": 4092,
+   "width": null
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "7094cb3b10ef405ac0db6774a59a3866",
+   "path": "data/sky/sky1.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "854871373d44ee5189a026598292e990",
+   "path": "data/sky/sky2.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "2d4b59d225d8db450fd664b14903379e",
+   "path": "data/sky/sky3.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "cd815b8eefbee510931d66d3ef294e80",
+   "path": "data/sky/sky4.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "bmp8",
+   "height": 256,
+   "md5": "84cfb390444403828408b2f286c9cf18",
+   "path": "data/sky/sky5.bmp",
+   "size": 66614,
+   "width": 256
+  },
+  {
+   "format": "dds_argb8",
+   "height": 128,
+   "md5": "04b223892415ea9c4b89d7cb31227316",
+   "path": "data/smoke.dds",
+   "size": 65664,
+   "width": 128
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "051e89373d7a81029369a933491aeab3",
+   "path": "data/sound/bang.wav",
+   "size": 11352,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "93513cab4dfc10afa538304c487b5cd1",
+   "path": "data/sound/bang1.wav",
+   "size": 17730,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "3a048e4b17ff560d17e6461a0d6fc0c5",
+   "path": "data/sound/bang2.wav",
+   "size": 19958,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "53a978f32ce13dc55dbec90b6b04b374",
+   "path": "data/sound/bang3.wav",
+   "size": 17976,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "dccae247180c0316b731a1f573580f0d",
+   "path": "data/sound/bang4.wav",
+   "size": 18060,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "eb29758880122efdc5236f3684da1234",
+   "path": "data/sound/bang5.wav",
+   "size": 17684,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "ae48ae2b42fbe18249d6a5f2adc51d4b",
+   "path": "data/sound/can.wav",
+   "size": 15724,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "6d9205e5319b0f8d57b2ad4d82e7b621",
+   "path": "data/sound/cco.wav",
+   "size": 4788,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "70f81d701220c288bb6d786dbe425011",
+   "path": "data/sound/dan.wav",
+   "size": 13586,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "e753975b182181f98ebef32e34cfd402",
+   "path": "data/sound/hit1.wav",
+   "size": 22106,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "bc630bdd0925833b3e737a64ff090128",
+   "path": "data/sound/hit2.wav",
+   "size": 10956,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "7c27ac9bd9a4c318e64fa23a070c2044",
+   "path": "data/sound/hit3.wav",
+   "size": 22094,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "a5446689df1c4d9d0697bd9030c96020",
+   "path": "data/sound/hyu.wav",
+   "size": 8082,
+   "width": null
+  },
+  {
+   "format": "wav_pcm16_mono_22k",
+   "height": null,
+   "md5": "d73006a8ee6e480b873959d29783e743",
+   "path": "data/sound/ka.wav",
+   "size": 4498,
+   "width": null
+  },
+  {
+   "format": "dds_argb8",
+   "height": 80,
+   "md5": "f7b0c925f8c901ba5993d5b76cbf24ec",
+   "path": "data/title.dds",
+   "size": 204892,
+   "width": 480
+  },
+  {
+   "format": "dds_argb8",
+   "height": 128,
+   "md5": "bd8b9535dc3094aeba08417aa20d1f70",
+   "path": "data/yakkyou.dds",
+   "size": 65664,
+   "width": 128
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "4936cd2c5779709504e7879644c9c770",
+   "path": "ezds.dll",
+   "size": 32768,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "6cf4e8fc002c2e9188507f8d6ab13b58",
+   "path": "index.html",
+   "size": 266,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "494dedd7937a3ce40afee6e71feb6af9",
+   "path": "manual/ak47.jpg",
+   "size": 2515,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "819d4e13b222020158897eb7a884b0f4",
+   "path": "manual/aug.jpg",
+   "size": 2191,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "1ab56982e259fde2af7997f7eb4f71bd",
+   "path": "manual/basis.html",
+   "size": 5620,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "cdfd971a62f0662d97b499ab519f57b6",
+   "path": "manual/config.html",
+   "size": 2271,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "fd303dead7a47626a9efaf065b256ba3",
+   "path": "manual/de.jpg",
+   "size": 1888,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "92130cfc5c3159d9513e943fd0566465",
+   "path": "manual/etc.html",
+   "size": 4255,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "d40911556cdec4ac967a7899a318c805",
+   "path": "manual/famas.jpg",
+   "size": 2435,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "f9e6ef2cf970e158ebc56a5e9df27ba6",
+   "path": "manual/faq.html",
+   "size": 3064,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "940d8f62a29a9ae63a57247a6d32d513",
+   "path": "manual/game.jpg",
+   "size": 21728,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "c78197b7d4db39c73f38729cfa98e7c0",
+   "path": "manual/glock17.jpg",
+   "size": 1603,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "3816018dfa9aff14656b7a93f40edbb0",
+   "path": "manual/glock18.jpg",
+   "size": 1632,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "b7ee07b6bfb417303382167c75ec6c40",
+   "path": "manual/grenade.jpg",
+   "size": 1520,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "d935e65eab730a54360ebd75eb88f2bb",
+   "path": "manual/m1.jpg",
+   "size": 1902,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "625291acb40e031dd87b334acb48cf15",
+   "path": "manual/m1911.jpg",
+   "size": 1757,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "98fead0a37b1c0887fbd80428028910d",
+   "path": "manual/m249.jpg",
+   "size": 2186,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "5b1489213509642e2681ecffb930c113",
+   "path": "manual/m4.jpg",
+   "size": 1992,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "6bda0c2f3a82707862f8baf89a73436d",
+   "path": "manual/m92f.jpg",
+   "size": 1719,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "5897fefe5d74f25df86ee6bf648d1a62",
+   "path": "manual/mac10.jpg",
+   "size": 1695,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "ceb5cf20b8f3dd9f8fd2393b40a5b880",
+   "path": "manual/menu.html",
+   "size": 561,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "13c79735f276e5ee77718b9776c182b7",
+   "path": "manual/mk23.jpg",
+   "size": 2010,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "3c85ee6eb30a207a3b9a47527eee63e3",
+   "path": "manual/mk23sd.jpg",
+   "size": 2047,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "da59a0a365b7c9a05ba620a7d2b141b3",
+   "path": "manual/mp5.jpg",
+   "size": 2298,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "9410814928b5187e2c46940ae3adfeaa",
+   "path": "manual/mp5sd.jpg",
+   "size": 2443,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "2e31634b54d0231ab146a65ffcd601d2",
+   "path": "manual/p90.jpg",
+   "size": 2152,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "b5602ea38ef9c92283d8a76414a0baba",
+   "path": "manual/psg1.jpg",
+   "size": 2127,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "806936d3fb457d130b5ef4e3644db83c",
+   "path": "manual/top.html",
+   "size": 624,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "fcde09dbc131656c2e39d735e3ebc198",
+   "path": "manual/top.jpg",
+   "size": 13706,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "548e23835531f17f052e384d19bb003c",
+   "path": "manual/ump.jpg",
+   "size": 2650,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "cc6d225f6a886b34c01fb988fdfb015b",
+   "path": "manual/urawaza.html",
+   "size": 802,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "327f007a283dcda8d9eff36c9bfd8056",
+   "path": "manual/weapon.html",
+   "size": 6380,
+   "width": null
+  },
+  {
+   "format": "jpeg",
+   "height": null,
+   "md5": "e0f8e94556ea9f548b0fd26c517fed96",
+   "path": "manual/xops.jpg",
+   "size": 19944,
+   "width": null
+  },
+  {
+   "format": null,
+   "height": null,
+   "md5": "bb9c33fbb669258257e40bfcc8a2c553",
+   "path": "xops096.exe",
+   "size": 458752,
+   "width": null
+  }
+ ],
+ "note": "Factual metadata only (path, size, md5, parsed width/height/format). Used for shape targets and the clean-room MD5 guard.",
+ "source": "https://openxops.net/filesystem-xops096filelist.php"
+}
