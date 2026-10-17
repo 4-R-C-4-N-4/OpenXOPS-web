@@ -53,6 +53,20 @@ ObjectManager::ObjectManager()
 	Player_HumanID = 0;
 	Human_FrameTextureRefresh = new bool[MAX_HUMAN];
 
+	//[OpenXOPS-web] Give the per-human arrays the values LoadPointData() and the
+	//statistics reset (around line 2714) would set. Upstream leaves them uninitialised;
+	//when a map fails to load, Process() still reads Human_ShotFlag[] (UBSan:
+	//"load of value 190, which is not a valid value for type 'bool'").
+	for(int i=0; i<MAX_HUMAN; i++){
+		Human_ontarget[i] = 0.0f;
+		Human_kill[i] = 0;
+		Human_headshot[i] = 0;
+		Human_ShotFlag[i] = false;
+		Human_YakkyouCnt[i] = -1;
+		FriendlyFire[i] = false;
+		Human_FrameTextureRefresh[i] = false;
+	}
+
 	GameParamInfo = NULL;
 	d3dg = NULL;
 	Resource = NULL;

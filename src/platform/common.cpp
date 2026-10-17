@@ -157,7 +157,13 @@ char* ChangePathDelimiter(const char *str)	//[OpenXOPS-web] const: callers pass 
 	if( str == NULL ){ return NULL; }
 
 	static char newstr[MAX_PATH];
-	strcpy(newstr, str);
+	//[OpenXOPS-web] Callers chain this (Config::LoadExtFile → INIFileInterface::LoadINIFile),
+	//so str may already be newstr: strcpy onto itself is UB (ASan strcpy-param-overlap).
+	//Also bound the copy to the buffer instead of overflowing on long paths.
+	if( str != newstr ){
+		strncpy(newstr, str, sizeof(newstr) - 1);
+		newstr[sizeof(newstr) - 1] = '\0';
+	}
 
 	for(int i=0; i<(int)strlen(newstr); i++){
 		if( newstr[i] == '\\' ){
