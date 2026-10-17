@@ -1,0 +1,18 @@
+if(OPENXOPS_SOUND_BACKEND STREQUAL "openal")
+  find_package(OpenAL REQUIRED)
+  target_sources(openxops PRIVATE ${SRC}/platform/openal/sound-openal.cpp)
+  target_compile_definitions(openxops PRIVATE OPENXOPS_SOUND_OPENAL)
+  target_link_libraries(openxops PRIVATE OpenAL::OpenAL)
+  add_executable(sound-openal-test
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/sound-openal-test.cpp
+    ${SRC}/platform/openal/sound-openal.cpp ${SRC}/platform/vfs.cpp)
+  target_include_directories(sound-openal-test PRIVATE ${SRC})
+  target_compile_definitions(sound-openal-test PRIVATE OPENXOPS_SOUND_OPENAL)
+  target_link_libraries(sound-openal-test PRIVATE OpenAL::OpenAL ZLIB::ZLIB Iconv::Iconv)
+  if(OPENXOPS_SANITIZE)
+    target_compile_options(sound-openal-test PRIVATE -fsanitize=address,undefined -fno-omit-frame-pointer -fno-sanitize-recover=undefined)
+    target_link_options(sound-openal-test PRIVATE -fsanitize=address,undefined)
+  endif()
+  add_test(NAME sound-openal-generated COMMAND sound-openal-test)
+  set_tests_properties(sound-openal-generated PROPERTIES ENVIRONMENT "ALSOFT_DRIVERS=null")
+endif()
