@@ -72,7 +72,7 @@
  #define INPUT_CORE "DirectInput"					//!< バージョン表示用情報
 #elif INPUT_INTERFACE == 3
  #include "platform/vkcodes.h"	//[OpenXOPS-web] key ids stay Windows VK codes
- #ifdef OPENXOPS_PLATFORM_STUB
+ #if defined(OPENXOPS_PLATFORM_STUB) && !defined(OPENXOPS_INPUT_SDL)
   #define INPUT_CORE "none (stub)"					//!< バージョン表示用情報
  #else
   #define INPUT_CORE "SDL"							//!< バージョン表示用情報
