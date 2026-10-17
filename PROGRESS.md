@@ -179,3 +179,20 @@ free-pack completeness. Remaining: full game renderer, Japanese font path,
 Emscripten game build/mainloop and native VFS portability, browser archive
 onboarding/save/audio/pointer-lock. Native-only POSIX library passing is not
 proof of web compatibility. No public playable deployment exists.
+
+## Critical-path reset: actual playable browser mission
+
+User explicitly rejected triangle/demo progress as the deliverable. Supporting
+art production, speculative parity work and isolated native driver-leak
+investigation are deferred. Success means: upload original local archive,
+reach title/menu, launch a mission, visibly render map/actors/HUD, respond to
+movement/fire, with a real browser screenshot and console verification.
+
+Active three Luna/low workers:
+- playable-render: adapt COMPLETE upstream OpenGL renderer rather than another draw-device foundation; fixed-function Emscripten emulation is acceptable for first preview. Temporary ASCII font fallback allowed.
+- playable-web: compile actual game WASM, browser mainloop, VFS portability, local ZIP upload and pointer/audio gestures. Original assets never served or committed.
+- playable-text: minimal CPU bitmap Japanese/ASCII path for integration; must not block first mission if ASCII fallback works.
+
+Parent will merge components and test the actual game in browser. Existing
+triangle smoke is not acceptance evidence for this milestone. No promise of
+playability until mission rendering and controls have been exercised.
