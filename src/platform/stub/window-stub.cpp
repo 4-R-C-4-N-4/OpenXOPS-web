@@ -110,3 +110,9 @@ unsigned int GetTimeMS()
 	unsigned long long ms = (unsigned long long)ts.tv_sec * 1000ULL + (unsigned long long)(ts.tv_nsec / 1000000L);
 	return (unsigned int)ms;
 }
+
+//[OpenXOPS-web] gl_present.h contract: the stub window has no GL context.
+#include "platform/gl_present.h"
+bool Platform_GLAvailable(){ return false; }
+void Platform_GLSwap(){}
+void Platform_GLDrawableSize(int *w, int *h){ if( w ){ *w = 0; } if( h ){ *h = 0; } }

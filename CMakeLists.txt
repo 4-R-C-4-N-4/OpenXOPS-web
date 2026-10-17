@@ -16,8 +16,7 @@ endif()
 option(OPENXOPS_SANITIZE "Build with -fsanitize=address,undefined" OFF)
 option(OPENXOPS_AUTOCREATECONFIG "Define ENABLE_AUTOCREATECONFIG (write a default config.dat if missing)" OFF)
 option(OPENXOPS_PATH_DELIMITER_SLASH "Define ENABLE_PATH_DELIMITER_SLASH (convert '\\\\' to '/' in data paths)" ON)
-set(OPENXOPS_PLATFORM "stub" CACHE STRING "Platform backend set (Phase 0: stub only)")
-set_property(CACHE OPENXOPS_PLATFORM PROPERTY STRINGS stub)
+set(OPENXOPS_PLATFORM "" CACHE STRING "Shortcut: 'sdl' selects sdl/sdl/openal/gles for all components")
 
 if(WIN32)
   message(FATAL_ERROR "This CMake build targets non-Windows platforms. Build upstream Windows "
@@ -55,23 +54,51 @@ set(OPENXOPS_COMMON_SOURCES
   ${SRC}/platform/input-common.cpp
 )
 
-if(OPENXOPS_PLATFORM STREQUAL "stub")
-  set(OPENXOPS_PLATFORM_SOURCES
-    ${SRC}/platform/stub/window-stub.cpp
-    ${SRC}/platform/stub/input-stub.cpp
-    ${SRC}/platform/stub/sound-stub.cpp
-    ${SRC}/platform/stub/d3dgraphics-stub.cpp
-  )
-  set(OPENXOPS_PLATFORM_DEFS OPENXOPS_PLATFORM_STUB)
-else()
-  message(FATAL_ERROR "Unknown OPENXOPS_PLATFORM '${OPENXOPS_PLATFORM}'")
+# Platform backends are chosen per component. Each component's sources live in
+# src/platform/<backend>/ and are wired up by a module in cmake/modules/*.cmake
+# (one file per component or feature, so parallel work never edits the same CMake file).
+#   OPENXOPS_WINDOW_BACKEND  stub | sdl      (WindowControl + main loop + Platform_GL*)
+#   OPENXOPS_INPUT_BACKEND   stub | sdl      (InputControl)
+#   OPENXOPS_SOUND_BACKEND   stub | openal   (SoundControl)
+#   OPENXOPS_GFX_BACKEND     stub | gles     (D3DGraphics)
+set(OPENXOPS_WINDOW_BACKEND "stub" CACHE STRING "WindowControl backend")
+set(OPENXOPS_INPUT_BACKEND  "stub" CACHE STRING "InputControl backend")
+set(OPENXOPS_SOUND_BACKEND  "stub" CACHE STRING "SoundControl backend")
+set(OPENXOPS_GFX_BACKEND    "stub" CACHE STRING "D3DGraphics backend")
+# Back-compat with Phase 0: OPENXOPS_PLATFORM=stub|sdl sets all four.
+if(OPENXOPS_PLATFORM STREQUAL "sdl")
+  set(OPENXOPS_WINDOW_BACKEND sdl CACHE STRING "" FORCE)
+  set(OPENXOPS_INPUT_BACKEND sdl CACHE STRING "" FORCE)
+  set(OPENXOPS_SOUND_BACKEND openal CACHE STRING "" FORCE)
+  set(OPENXOPS_GFX_BACKEND gles CACHE STRING "" FORCE)
 endif()
 
 add_executable(openxops
   ${OPENXOPS_GAME_SOURCES}
   ${OPENXOPS_COMMON_SOURCES}
-  ${OPENXOPS_PLATFORM_SOURCES}
 )
+
+# Stub backends (built-in so a bare configure always links).
+if(OPENXOPS_WINDOW_BACKEND STREQUAL "stub")
+  target_sources(openxops PRIVATE ${SRC}/platform/stub/window-stub.cpp)
+endif()
+if(OPENXOPS_INPUT_BACKEND STREQUAL "stub")
+  target_sources(openxops PRIVATE ${SRC}/platform/stub/input-stub.cpp)
+endif()
+if(OPENXOPS_SOUND_BACKEND STREQUAL "stub")
+  target_sources(openxops PRIVATE ${SRC}/platform/stub/sound-stub.cpp)
+endif()
+if(OPENXOPS_GFX_BACKEND STREQUAL "stub")
+  target_sources(openxops PRIVATE ${SRC}/platform/stub/d3dgraphics-stub.cpp)
+endif()
+target_compile_definitions(openxops PRIVATE OPENXOPS_PLATFORM_STUB)
+
+enable_testing()
+file(GLOB OPENXOPS_CMAKE_MODULES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules/*.cmake)
+list(SORT OPENXOPS_CMAKE_MODULES)
+foreach(_m ${OPENXOPS_CMAKE_MODULES})
+  include(${_m})
+endforeach()
 
 target_include_directories(openxops PRIVATE ${SRC})
 target_compile_definitions(openxops PRIVATE ${OPENXOPS_PLATFORM_DEFS})
