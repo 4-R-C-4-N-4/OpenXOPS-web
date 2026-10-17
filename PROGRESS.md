@@ -139,3 +139,17 @@ CTest STILL fails112bytes in2driver allocations. It is not merged. A narrow
 Luna diagnostic is identifying the external stack; blanket leak disabling
 remains unacceptable. Harness currently uses triangles/line, not a cube, and
 clip-depth fog is not yet production camera-distance fog.
+
+### Upstream-grounded audio resolution
+
+The latest review requested spatial pan, but upstream sound-ezds.cpp explicitly
+comments out pan calculation and uses0; volume0 is midrange, not silence
+(valid range -100..100). Parent kept these intentional semantics and corrected
+a real attenuation mismatch to upstream CalculationVolume, including335unit
+boundary. Branch42820b2 tests exact positive/negative attenuation values and
+stereo left samples with initialized real OpenAL-null playback. Sanitized4CTest
+passes; final narrow review compares upstream formulas, not redesign requests.
+
+GLES five pixel checks pass but112byte driver leak remains unresolved after
+symbolization attempts; foundation remains unmerged and no further Luna retry
+on that leak is active. Do not claim graphics sanitizer gate passed.
