@@ -96,3 +96,17 @@ of playable graphics or browser deployment yet.
 - OpenAL implementation remains uncommitted: parent caught allocation of 100 voices per sound (up to 2400), contrary to shared 100-voice design. Correction task active, requiring all 14 generated sounds loaded concurrently and full-game smoke with the known absolute local data path.
 - GLES foundation remains uncommitted: initial synthetic harness is incomplete and full CTest has a 112-byte driver-side leak report. Completion task requires textured cube/lines, texture/alpha/fog/MVP pixel assertions and clean sanitizer gate (not blanket leak disabling).
 - These partial implementations are not merged or described as complete. All active agents use Luna/low reasoning, cap 3.
+
+### Direct verification after completion gaps
+
+Parent directly rebuilt OpenAL configuration: CTest 4/4 and real-data100tick
+offscreen/dummy smoke both pass with null audio driver and sanitizers. Final
+shared-pool review active. Backend still uncommitted pending review.
+
+VFS integration reviewer raised a Windows-forward-slash objection; that is
+not an established blocker (Windows CRT supports forward slashes and CMake
+is explicitly non-Windows). A second factual integration review is active.
+
+Parent reproduced GLES failure: every sampled pixel stays background, so
+rendering is not yet verified. A narrow Luna task is debugging that actual
+failure instead of papering over pixel assertions or sanitizer settings.
