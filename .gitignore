@@ -6,3 +6,8 @@ xopsdata/
 build*/
 *.wasm
 assets/work/
+
+# toolchain smoke test outputs (tools/toolchain-smoke/build.sh)
+tools/toolchain-smoke/build-web/
+tools/toolchain-smoke/build-native/
+*.html.mem
