@@ -13,7 +13,7 @@ Goals: docs/GOALS.md · Engine plan: docs/SCOPE-OF-WORK.md (v0.2) · Data pack: 
 | 5 QA & polish | not started | |
 | FDP asset contract | done | docs/ASSET-CONTRACT.md (239 citations against `upstream-1.080` line numbers), tools/contract/ (char layout JSON, template renderer, .x checker). |
 | FDP manifest + validator | done | 353 slots (P0 81 / P1 81 / P2 191). Validator has a clean-room MD5 guard; 21 tests. |
-| FDP art pipeline (Codex) | Wave 1a done; W1b (effects+skies, DDS/alpha) and SFX (procedural, branch fdp-sfx) in progress | tools/artgen; 12 seamless CC0 map tiles in assets/pack/data/tiles_w1/ (preview: docs/img/w1a_tiles_preview.png). DDS + alpha output not built yet (needed for effects/HUD). |
+| FDP art pipeline (Codex) | Wave 1a done; W1b paused (Anthropic limit); SFX complete and reviewed (14 procedural WAVs, 3 tests; listening/mix approval pending) | tools/artgen; 12 seamless CC0 map tiles in assets/pack/data/tiles_w1/ (preview: docs/img/w1a_tiles_preview.png). DDS + alpha output not built yet (needed for effects/HUD). |
 | FDP-UI (edit/overlay UI) | not started | part of SOW Phase 3 |
 
 ## Decisions log
@@ -29,3 +29,7 @@ Goals: docs/GOALS.md · Engine plan: docs/SCOPE-OF-WORK.md (v0.2) · Data pack: 
 - 2026-10-17: OQ-1 resolved → Shinonome bitmap fonts (public domain). FDP-3 resolved → SFX are procedurally synthesised (CC0, reproducible).
 - 2026-10-17: Build is split per component (`OPENXOPS_{WINDOW,INPUT,SOUND,GFX}_BACKEND`, `cmake/modules/*.cmake`). Window↔renderer contract is `src/platform/gl_present.h`.
 - 2026-10-17: Original xops096.zip (MD5 verified) is kept at `xopsdata/` (gitignored) for local engine testing only. Art/SFX agents are forbidden from opening it (clean room).
+
+## Recovery status
+
+Anthropic wave 2 stopped after HTTP 429. Partial files remain in the component worktrees; none of the incomplete engine backends are merged. The sound branch was recovered on openai-codex/gpt-6.1-sol with low reasoning, independently reviewed, merged, and all 24 Python tests pass. Delegation is configured for that provider/model with low reasoning; Luna model ID is not yet identified.
