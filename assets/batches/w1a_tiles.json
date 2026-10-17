@@ -1,0 +1,26 @@
+{
+  "batch": "w1a_tiles",
+  "description": "Wave 1a: 12 generic seamless map tiles (neutral dir; real map paths come with our own maps).",
+  "defaults": {
+    "kind": "texture",
+    "class": "map_tile",
+    "ref_size": [256, 256],
+    "ref_format": "bmp8",
+    "alpha": "none",
+    "tileable": true
+  },
+  "slots": [
+    {"path": "data/tiles_w1/concrete_wall.bmp", "summary": "a weathered grey cast-concrete wall with faint formwork lines, small air pockets and light water staining spread evenly"},
+    {"path": "data/tiles_w1/red_brick.bmp", "summary": "an old dull-red brick wall in running bond, slightly irregular bricks with grey mortar joints, about 8 brick courses high across the image"},
+    {"path": "data/tiles_w1/white_plaster.bmp", "summary": "an off-white painted interior plaster wall with subtle trowel texture, faint scuffs and slight greyish grime, very even"},
+    {"path": "data/tiles_w1/wood_floor.bmp", "summary": "a worn medium-brown wooden plank floor, horizontal boards of equal width running straight across, staggered butt joints, soft grain"},
+    {"path": "data/tiles_w1/ceramic_floor_tile.bmp", "summary": "a floor of square beige-grey ceramic tiles in a regular 4 by 4 grid with thin dark grout lines, slightly worn and dirty"},
+    {"path": "data/tiles_w1/steel_plate.bmp", "summary": "a dull grey painted steel wall plate panel with a raised border seam and small rivets near the panel edges, light scratches and faint rust spots"},
+    {"path": "data/tiles_w1/metal_grate.bmp", "summary": "an industrial steel bar-grating floor: a regular grid of dark grey flat steel bars with square openings, dark shadowed void showing through, worn edges"},
+    {"path": "data/tiles_w1/grass.bmp", "summary": "short natural lawn grass seen from directly above, dense green-olive blades with a few dry yellowish patches spread evenly"},
+    {"path": "data/tiles_w1/dirt.bmp", "summary": "packed brown earth ground seen from directly above, with small pebbles, fine soil grain and faint dry cracks spread evenly"},
+    {"path": "data/tiles_w1/asphalt.bmp", "summary": "a dark grey weathered asphalt road surface seen from directly above, fine aggregate grain with small light stones, no road markings"},
+    {"path": "data/tiles_w1/wooden_crate.bmp", "summary": "the face of a wooden shipping crate: horizontal pine planks framed by a plank border around the whole square, with nail heads, no stencils or markings"},
+    {"path": "data/tiles_w1/office_carpet.bmp", "summary": "a commercial office floor carpet in dull blue-grey with a fine woven loop-pile texture and subtle flecks, seen from directly above"}
+  ]
+}
