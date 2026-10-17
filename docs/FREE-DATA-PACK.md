@@ -42,7 +42,7 @@ PROGRESS.md.
 - F-2: A failed `LoadModel` returns -1, and `RenderModel` returns early on -1
   (opengl.cpp:2225). Missing models don't crash.
 - F-3: 152 distinct `"data\\…"` literals in upstream source: model 92,
-  article 17, sound 14, map dirs 18 entries (map0–16, map10 ×3), sky 2,
+  article 17, sound 14, map 19 (17 dirs map0–16 + `map10/temp.bd1` + `map10/op.pd1`), sky 2,
   root textures 7 (`char.dds`, `title.dds`, `blood.dds`, `smoke.dds`,
   `mflash.dds`, `scope.dds`, `yakkyou.dds`), briefing 1 (a dir prefix).
 - F-4: XOPS 0.96 reference shapes (from openxops.net's file list):
