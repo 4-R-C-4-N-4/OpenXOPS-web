@@ -19,7 +19,10 @@ import glob
 import json
 import os
 import re
+import subprocess
 import sys
+
+UPSTREAM_REF = "upstream-1.080"
 from collections import Counter, OrderedDict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -41,12 +44,31 @@ class Source:
     """All upstream source lines (decoded CP932), with comment-aware literal scan."""
 
     def __init__(self, src_dir):
+        # The manifest describes the data contract of pristine upstream, so read the
+        # pinned tag (CP932 + CRLF) rather than the working tree, which the port edits
+        # and which is UTF-8 after Phase 0. Citations then refer to upstream-1.080
+        # line numbers. Fall back to the working tree only when the tag is absent.
         self.files = OrderedDict()
-        names = sorted(os.path.basename(p) for p in glob.glob(os.path.join(src_dir, "*.cpp"))
-                       + glob.glob(os.path.join(src_dir, "*.h")))
-        for n in names:
-            with open(os.path.join(src_dir, n), encoding="cp932") as f:
-                self.files[n] = f.read().splitlines()
+        repo = os.path.dirname(os.path.abspath(src_dir))
+        try:
+            ls = subprocess.run(["git", "-C", repo, "ls-tree", "--name-only", UPSTREAM_REF + ":src"],
+                                check=True, capture_output=True).stdout.decode().split()
+            names = sorted(n for n in ls if n.endswith((".cpp", ".h")))
+            for n in names:
+                raw = subprocess.run(["git", "-C", repo, "show", "%s:src/%s" % (UPSTREAM_REF, n)],
+                                     check=True, capture_output=True).stdout
+                self.files[n] = raw.decode("cp932").splitlines()
+        except (OSError, subprocess.CalledProcessError):
+            names = sorted(os.path.basename(p) for p in glob.glob(os.path.join(src_dir, "*.cpp"))
+                           + glob.glob(os.path.join(src_dir, "*.h")))
+            for n in names:
+                with open(os.path.join(src_dir, n), "rb") as f:
+                    raw = f.read()
+                try:
+                    txt = raw.decode("utf-8")
+                except UnicodeDecodeError:
+                    txt = raw.decode("cp932")
+                self.files[n] = txt.splitlines()
         self.literals = []   # (file, lineno, value, code_text)
         for n, lines in self.files.items():
             self._scan(n, lines)
