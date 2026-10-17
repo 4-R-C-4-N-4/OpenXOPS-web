@@ -75,3 +75,17 @@ These are findings under verification, not claims that every reported issue is c
 - DDS/alpha fixes merged; parent ran all 32 Python tests (21 manifest/validator + 8 artgen + 3 sound), all passing. Follow-up read-only check pending. Scope remains generated, not human approved.
 - SDL remains on branch pending final re-review. Parent resolved the alleged missing-data blocker: local original data IS present at main checkout's `xopsdata/extracted`. Fresh full-game SDL build succeeded with explicit stub graphics/sound; 100 ticks each offscreen/dummy exited cleanly under sanitizers. Both SDL CTests passed. No stale-menu-delta accumulation: pump-boundary reset now implemented/tested.
 - Browser renderer and VFS game-call integration remain next; current main still uses stub rendering.
+
+### Next implementation batch
+
+SDL input and DDS follow-up Luna reviews both APPROVED. SDL merged; parent
+rebuilt the integrated sanitized SDL+VFS configuration: CTest 4/4 and full
+game 100 ticks each under offscreen/dummy passed. Rendering/audio remain stubs.
+
+Three low-reasoning Luna tasks now active (cap 3):
+- `vfs-integrate`: route game reads/startup/addon listing through VFS; prove ZIP-only startup without extracted data.
+- `audio-openal`: real SoundControl backend, robust PCM WAV handling, VFS reads, null-driver tests using our generated sounds.
+- `gfx-core`: matrix math, GLES3/WebGL2 shader/VBO device, synthetic offscreen scene and pixel assertions. This is a tested foundation, not yet the full D3DGraphics replacement.
+
+Japanese text and the full D3DGraphics method port follow these gates. No claim
+of playable graphics or browser deployment yet.
