@@ -1,0 +1,7 @@
+if(OPENXOPS_WINDOW_BACKEND STREQUAL "sdl")
+  find_package(PkgConfig REQUIRED)
+  pkg_check_modules(SDL2 REQUIRED IMPORTED_TARGET sdl2)
+  target_sources(openxops PRIVATE ${SRC}/platform/sdl/window-sdl.cpp)
+  target_compile_definitions(openxops PRIVATE OPENXOPS_WINDOW_SDL)
+  target_link_libraries(openxops PRIVATE PkgConfig::SDL2)
+endif()
