@@ -6888,7 +6888,7 @@
    "uv_layout": null,
    "summary": "Sound: grenade explosion (grenade_bang).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6906,7 +6906,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, gunshot 1. Used by: CASE, GLOCK17, GLOCK18 FULL, GLOCK18 SEMI, GRENADE, MP5.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6924,7 +6924,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, gunshot 2. Used by: AK47, M92F, PSG1.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6942,7 +6942,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, gunshot 3. Used by: DESERT EAGLE, M1.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6960,7 +6960,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, gunshot 4. Used by: M1911, M249, M4, MAC10, P90.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6978,7 +6978,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, gunshot 5. Used by: AUG, FAMAS, MK23, UMP.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6996,7 +6996,7 @@
    "uv_layout": null,
    "summary": "Small object hit sound 0. Used by: desktop PC; desktop PC keyboard on top; desktop PC powered on; desktop PC powered on dark screen; desktop PC tower on the other side; desktop PC widescreen; desktop PC widescreen keyboard on top; desktop PC widescreen tower on the other side; drink can.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7014,7 +7014,7 @@
    "uv_layout": null,
    "summary": "Sound: grenade bouncing (grenade_cco).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7032,7 +7032,7 @@
    "uv_layout": null,
    "summary": "Small object hit sound 1. Used by: cardboard box; chair; traffic cone.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7050,7 +7050,7 @@
    "uv_layout": null,
    "summary": "Sound: bullet impact on walls and objects (A) (bullet_hitsoundA).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7068,7 +7068,7 @@
    "uv_layout": null,
    "summary": "Sound: bullet hitting a person (bullet_humanhitsound).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7086,7 +7086,7 @@
    "uv_layout": null,
    "summary": "Sound: bullet impact on walls and objects (B) (bullet_hitsoundB).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7104,7 +7104,7 @@
    "uv_layout": null,
    "summary": "Sound: bullet passing close by (bullet_passingsound).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7122,7 +7122,7 @@
    "uv_layout": null,
    "summary": "Weapon sound, suppressed shot. Used by: MK23 SD, MP5SD.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
