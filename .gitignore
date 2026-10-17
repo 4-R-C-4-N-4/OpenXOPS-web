@@ -5,3 +5,4 @@ xopsdata/
 # builds
 build*/
 *.wasm
+assets/work/

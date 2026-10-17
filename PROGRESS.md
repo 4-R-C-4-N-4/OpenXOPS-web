@@ -1,6 +1,6 @@
 # PROGRESS
 
-Plan: docs/SCOPE-OF-WORK.md (v0.1). Phases and gates (★) are defined there.
+Goals: docs/GOALS.md · Engine plan: docs/SCOPE-OF-WORK.md (v0.2) · Data pack: docs/FREE-DATA-PACK.md
 
 | Phase | Status | Notes |
 |---|---|---|
@@ -11,7 +11,11 @@ Plan: docs/SCOPE-OF-WORK.md (v0.1). Phases and gates (★) are defined there.
 | 3 Web shell & data onboarding | not started | |
 | 4 CI & GitHub Pages | not started | |
 | 5 QA & polish | not started | |
+| FDP manifest + validator | not started | |
+| FDP art pipeline (Codex) | not started | Codex image gen smoke-tested OK (1254² PNG, ~60 s, seamless tile). |
+| FDP-UI (edit/overlay UI) | not started | part of SOW Phase 3 |
 
 ## Decisions log
 - 2026-10-17: "Online player" = browser-playable single-player at a URL. Multiplayer deferred (SOW §11).
 - 2026-10-17: XOPS data is user-supplied (`xops096.zip`), stored in IndexedDB, and never hosted (SOW §3.1 C-2).
+- 2026-10-17: Free Data Pack (CC0) is the default content, so the site hosts free and boots with no upload. BYO xops096.zip becomes an optional overlay. Codex CLI image_generation is the art generator; humans curate.

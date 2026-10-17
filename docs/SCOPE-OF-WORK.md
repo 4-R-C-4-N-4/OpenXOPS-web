@@ -4,7 +4,7 @@
 **Project**: OpenXOPS-web (fork of OpenXOPS 1.080)
 **Document type**: Design / implementation scope
 **Status**: Draft
-**Version**: 0.1
+**Version**: 0.2
 **Date**: 2026-10-17
 **Depends on**: OpenXOPS 1.080 source (`src/`, tag `upstream-1.080`); openxops.net redistribution policy (`developer-original.php`); XOPS 0.96 file list (`filesystem-xops096filelist.php`)
 
@@ -15,7 +15,10 @@
 ### 1.1 Goal
 
 Ship a single-player OpenXOPS that runs in a desktop web browser from a URL
-(GitHub Pages), using the player's own copy of X operations 0.96 data. "Online
+(GitHub Pages). By default it boots from the CC0 Free Data Pack
+(docs/FREE-DATA-PACK.md). The player can optionally layer their own copy of
+X operations 0.96 data, addons and personal edits on top. (Revised in v0.2;
+v0.1 required bring-your-own data.) "Online
 player" in this document means **playable at a URL with no install**. It does
 not mean networked multiplayer (see §11, Future Work).
 
@@ -241,9 +244,11 @@ Effort is focused engineering days. ★ = acceptance gate for the phase.
 
 ### Phase 3 — Web shell and data onboarding (1–2 d)
 
-- P3.1 First-run screen: "OpenXOPS needs X operations 0.96 data", with a link
-  to the Vector download page and a drop zone / file picker for
-  `xops096.zip`.
+- P3.1 The Free Pack (`assets/pack/`, zipped at build time) is always
+  mounted first, so first run boots straight to the title screen. A "Use my
+  X operations data" option offers a drop zone / file picker for
+  `xops096.zip` and a link to the Vector download page. Mount order:
+  free-pack → xops096.zip → addons → my-edits (last wins).
 - P3.2 Validation: MD5 mismatch warns but does not block, because repacked
   archives exist. Required entries missing (`data/char.dds`,
   `data/map10/temp.bd1`) blocks with a list of what is missing.
