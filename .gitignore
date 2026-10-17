@@ -6,3 +6,6 @@ xopsdata/
 build*/
 *.wasm
 assets/work/
+
+# python
+__pycache__/
