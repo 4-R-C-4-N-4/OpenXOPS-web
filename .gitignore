@@ -11,3 +11,6 @@ assets/work/
 tools/toolchain-smoke/build-web/
 tools/toolchain-smoke/build-native/
 *.html.mem
+
+# python
+__pycache__/
