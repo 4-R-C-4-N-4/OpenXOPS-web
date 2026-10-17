@@ -26,6 +26,57 @@ import sys
 import time
 
 from PIL import Image, ImageChops, ImageDraw, ImageStat
+from dds import write_dds, verify_dds, engine_load
+
+
+def extract_black_alpha(im):
+    """Assume max(R,G,B) is coverage; unmatte black to straight RGBA.
+
+    This is ambiguous for dark subjects: black detail cannot be recovered.
+    Use authored RGBA for dark/black art (especially the scope surround).
+    """
+    out = Image.new("RGBA", im.size)
+    pixels = []
+    for r, g, b in im.convert("RGB").get_flattened_data():
+        a = max(r, g, b)
+        pixels.append(tuple((v * 255 + a // 2) // a for v in (r, g, b)) + (a,)
+                      if a else (0, 0, 0, 0))
+    out.putdata(pixels)
+    return out
+
+
+def verify_texture(path, slot):
+    fmt = slot.get("ref_format", "bmp8")
+    return (verify_dds(path, slot.get("ref_size"), fmt) if fmt.startswith("dds_")
+            else verify_bmp8(path, slot.get("ref_size")))
+
+
+def postprocess_dds(slot, i, raw, meta):
+    wd = work_dir(slot)
+    with Image.open(raw) as src:
+        meta["raw_size"] = list(src.size)
+        # Preserve real alpha; RGB effects explicitly opt into black extraction.
+        if slot.get("alpha_source", "channel") == "black":
+            im = extract_black_alpha(src)
+        elif "A" in src.getbands() or "transparency" in src.info:
+            im = src.convert("RGBA")
+        else:
+            raise ValueError("DDS needs RGBA or alpha_source=black")
+        im = im.resize(tuple(slot["ref_size"]), Image.Resampling.LANCZOS)
+    # Canonical transparent texels carry no hidden RGB.
+    im.putdata([(r,g,b,a) if a else (0,0,0,0) for r,g,b,a in im.get_flattened_data()])
+    path = os.path.join(wd, "%d.dds" % i)
+    write_dds(im, path, slot["ref_format"])
+    probs = verify_texture(path, slot)
+    if probs:
+        raise ValueError("DDS verification failed: %s" % probs)
+    w, h, rgba = engine_load(path)
+    final = Image.frombytes("RGBA", (w,h), rgba)
+    final.save(os.path.join(wd, "%d_256.png" % i))
+    tile2x2(final).save(os.path.join(wd, "%d_tiled.png" % i))
+    meta.update(dds=rel(path), dds_sha256=sha256(path), dds_bytes=os.path.getsize(path))
+    _write_meta(slot, i, meta)
+    return meta
 
 # --- configuration (FREE-DATA-PACK.md section 7) ---------------------------
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -369,6 +420,8 @@ def postprocess(slot, i):
     meta = _read_meta(slot, i) or {"slot": slot["path"], "i": i,
                                    "prompt": build_prompt(slot),
                                    "raw": rel(raw), "raw_sha256": sha256(raw)}
+    if slot.get("ref_format") in ("dds_argb8", "dds_argb4"):
+        return postprocess_dds(slot, i, raw, meta)
     if slot.get("ref_format", "bmp8") != "bmp8":
         sys.exit("artgen: ref_format %s not implemented yet" % slot.get("ref_format"))
     if slot.get("alpha", "none") != "none":
@@ -422,9 +475,17 @@ def make_sheet(slot, thumb=256):
     sheet = Image.new("RGB", (len(idx) * (thumb + 8) + 8, thumb + 16), (40, 40, 40))
     d = ImageDraw.Draw(sheet)
     for k, i in enumerate(idx):
-        t = Image.open(os.path.join(wd, "%d_tiled.png" % i)).resize((thumb, thumb), Image.Resampling.LANCZOS)
+        with Image.open(os.path.join(wd, "%d_tiled.png" % i)) as candidate:
+            t = candidate.resize((thumb, thumb), Image.Resampling.LANCZOS)
         x = 8 + k * (thumb + 8)
-        sheet.paste(t, (x, 8))
+        # Preserve alpha in candidate previews by compositing over a checkerboard.
+        if "A" in t.getbands():
+            checker = Image.new("RGB", t.size)
+            checker.putdata([(190, 190, 190) if (px // 16 + py // 16) % 2 else (235, 235, 235)
+                             for py in range(t.height) for px in range(t.width)])
+            sheet.paste(Image.alpha_composite(checker.convert("RGBA"), t).convert("RGB"), (x, 8))
+        else:
+            sheet.paste(t, (x, 8))
         m = _read_meta(slot, i) or {}
         s = m.get("seam", {})
         _label(d, (x, 8), "#%d seam %+.1f%s" % (i, s.get("excess", 0), " H" if s.get("healed") else ""))
@@ -443,10 +504,11 @@ def read_provenance():
 
 def pick(slot, i):
     m = _read_meta(slot, i)
-    bmp = os.path.join(work_dir(slot), "%d.bmp" % i)
+    ext = "dds" if slot.get("ref_format", "").startswith("dds_") else "bmp"
+    bmp = os.path.join(work_dir(slot), "%d.%s" % (i, ext))
     if not m or not os.path.exists(bmp):
         sys.exit("artgen: candidate %d of %s not post-processed" % (i, slot["path"]))
-    probs = verify_bmp8(bmp, slot.get("ref_size"))
+    probs = verify_texture(bmp, slot)
     if probs:
         sys.exit("artgen: refusing to pick %s: %s" % (bmp, probs))
     dst = os.path.join(PACK_ROOT, slot["path"])
@@ -502,7 +564,7 @@ def cmd_gen(a):
                 if not m:
                     continue
             m = _read_meta(slot, i)
-            if a.force_post or not m or "bmp_sha256" not in m:
+            if a.force_post or not m or not any(k in m for k in ("bmp_sha256", "dds_sha256")):
                 postprocess(slot, i)
         if not a.dry_run:
             make_sheet(slot)
@@ -533,7 +595,7 @@ def cmd_status(a):
         dst = os.path.join(PACK_ROOT, s["path"])
         r = prov.get(s["path"])
         if r and os.path.exists(dst):
-            ok = sha256(dst) == r["sha256"] and not verify_bmp8(dst, s.get("ref_size"))
+            ok = sha256(dst) == r["sha256"] and not verify_texture(dst, s)
             picked = "#%s %s" % (r.get("candidate"), "ok" if ok else "MISMATCH")
         else:
             picked = "-"
@@ -564,7 +626,7 @@ def cmd_preview(a):
 def cmd_verify(a):
     bad = 0
     for p in a.files:
-        probs = verify_bmp8(p)
+        probs = verify_dds(p) if p.lower().endswith(".dds") else verify_bmp8(p)
         print("%s %s (%d bytes)" % ("OK  " if not probs else "FAIL", p, os.path.getsize(p)),
               probs or "")
         bad += bool(probs)

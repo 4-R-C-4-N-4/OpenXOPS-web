@@ -6720,7 +6720,7 @@
    "uv_layout": null,
    "summary": "Scope overlay drawn full-screen when zoomed (scopetexture).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {

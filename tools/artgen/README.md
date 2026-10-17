@@ -89,5 +89,30 @@ slot, its status becomes `curated`. `curated_by` is set by a human later.
 Config via env: `ARTGEN_CANDIDATES SEAM_MAX QUANT_COLORS CODEX_TIMEOUT_S
 PACK_ROOT WORK_ROOT PROVENANCE`.
 
-Not yet implemented: `ref_format` other than `bmp8`, `alpha` other than
-`none` (DDS writer, black-key) — needed for Wave 1 effects/HUD.
+## DDS / alpha (effects-wave API)
+
+`ref_format: dds_argb8` or `dds_argb4` routes `postprocess(slot, i)` to
+uncompressed DDS, preserving authored RGBA by default (`alpha_source: channel`).
+For RGB effects on pure black, explicitly set `alpha_source: black`: coverage
+is `max(R,G,B)` and straight RGB is `RGB * 255 / coverage` (rounded). This
+reconstructs the black composite, not the unique original foreground. **Dark
+subjects and black detail cannot be recovered from black**; use authored RGBA
+or a separately authored mask for those. Never extract the black scope surround.
+Resize uses Pillow's alpha-aware RGBA Lanczos; zero-alpha texels are canonical
+transparent black. DDS bypasses palette quantization and seam healing.
+
+`dds.py`: `write_dds(image, path, fmt)`, `engine_load(path)` → `(w,h,RGBA_bytes)`,
+`verify_dds(path, size=None, fmt=None)` → problem list. 32-bit stores BGRA;
+16-bit stores A:R / G:B nibbles and the engine expands by `<<4` (max 240,
+not 255). Header masks are standard, no compression or mipmaps. `pick`, `status`
+and `verify` accept DDS too; metadata keys are `dds`, `dds_sha256`, `dds_bytes`.
+Existing BMP processing remains unchanged.
+
+`python3 tools/artgen/scope.py` generates only our original 128² scope overlay,
+checkerboard preview and appends CC0 provenance; manifest status is `generated`
+(not human-curated). It has opaque black outside, a clear circular aperture,
+supersampled antialiased edges and **no reticle** (ASSET-CONTRACT §3: engine
+supplies lines). Re-running appends a new provenance event; no image API needed.
+
+Tests: `python3 -m unittest discover -s tools/artgen -p 'test_*.py'`.
+Effects/skies generation is intentionally deferred; no Codex image calls here.
