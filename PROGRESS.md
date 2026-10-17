@@ -153,3 +153,15 @@ passes; final narrow review compares upstream formulas, not redesign requests.
 GLES five pixel checks pass but112byte driver leak remains unresolved after
 symbolization attempts; foundation remains unmerged and no further Luna retry
 on that leak is active. Do not claim graphics sanitizer gate passed.
+
+### Audio integrated
+
+Upstream-formula review APPROVED. OpenAL backend merged into main. Parent
+fresh sanitized SDL+VFS+OpenAL/stub-renderer build: CTest5/5 passes, 100ticks
+each offscreen/dummy passes, and ZIP-only empty-directory100tick run with
+OpenAL null driver passes. This verifies decoder/playback API and loading,
+not human-audible mix quality. Main still has no real game renderer.
+
+Completed native platform components: SDL window/input, layered VFS with game
+integration, OpenAL audio. Remaining core port: D3DGraphics rendering,
+Japanese font text, browser mainloop/persistence shell and deployment.
