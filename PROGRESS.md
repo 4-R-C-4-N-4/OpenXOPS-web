@@ -89,3 +89,10 @@ Three low-reasoning Luna tasks now active (cap 3):
 
 Japanese text and the full D3DGraphics method port follow these gates. No claim
 of playable graphics or browser deployment yet.
+
+### ZIP/audio/GLES batch review
+
+- ZIP-only VFS integration committed `18c663f`; worker reports clean 100-frame ZIP-only startup. Independent Luna review active before merge.
+- OpenAL implementation remains uncommitted: parent caught allocation of 100 voices per sound (up to 2400), contrary to shared 100-voice design. Correction task active, requiring all 14 generated sounds loaded concurrently and full-game smoke with the known absolute local data path.
+- GLES foundation remains uncommitted: initial synthetic harness is incomplete and full CTest has a 112-byte driver-side leak report. Completion task requires textured cube/lines, texture/alpha/fog/MVP pixel assertions and clean sanitizer gate (not blanket leak disabling).
+- These partial implementations are not merged or described as complete. All active agents use Luna/low reasoning, cap 3.
