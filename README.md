@@ -1,3 +1,23 @@
+# OpenXOPS-web (unofficial fork)
+
+A port of OpenXOPS 1.080 to the browser (WebAssembly) and Linux. The game logic
+is upstream's; the Win32/DirectX layer is replaced with SDL2, OpenAL and
+OpenGL ES 3 / WebGL 2.
+
+- Scope and plan: [docs/SCOPE-OF-WORK.md](docs/SCOPE-OF-WORK.md)
+- Status: [PROGRESS.md](PROGRESS.md)
+- Licensing and data: [NOTICE.md](NOTICE.md). **No X operations data is included.**
+  You need your own `xops096.zip`.
+
+Layout: `src/` holds the upstream source (tag `upstream-1.080` is the pristine
+import). Upstream's original README follows.
+
+Tip: the upstream source is CP932 until Phase 0 converts it. For readable diffs:
+
+    git config diff.cp932.textconv "iconv -f CP932 -t UTF-8"
+
+---
+
 <img width="800" height="320" alt="Image" src="https://github.com/user-attachments/assets/a076a462-b7c9-4da3-8900-70d5d4a86b6a" />
 
 # OpenXOPS

@@ -1,0 +1,7 @@
+# X operations data: never commit (NOTICE.md)
+xopsdata/
+*.zip
+
+# builds
+build*/
+*.wasm
