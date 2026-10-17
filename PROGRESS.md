@@ -33,3 +33,22 @@ Goals: docs/GOALS.md · Engine plan: docs/SCOPE-OF-WORK.md (v0.2) · Data pack: 
 ## Recovery status
 
 Anthropic wave 2 stopped after HTTP 429. Partial files remain in the component worktrees; none of the incomplete engine backends are merged. The sound branch was recovered on openai-codex/gpt-6.1-sol with low reasoning, independently reviewed, merged, and all 24 Python tests pass. Delegation is configured for that provider/model with low reasoning; Luna model ID is not yet identified.
+
+## Active recovery batch
+
+Implementation resumed with at most three concurrent workers on
+`openai-codex / gpt-6.1-sol`, reasoning effort `low`. This is a verified
+working provider/model, not a claim that it is the cheapest available model;
+no Luna alias has been identified. Tasks are deliberately smaller to reduce
+context and failed-work costs. No Anthropic requests.
+
+| Branch | Active scope | Gate |
+|---|---|---|
+| p1-vfs | Recover existing VFS library; layered dir/ZIP mounts, safe CP932 paths, save precedence, tests. Game-call-site integration follows review. | Sanitized build + unit tests + real ZIP CRC/decompression test |
+| p1-shell | SDL window and keyboard/mouse only; GLES context/presentation interface. OpenAL and main-loop restructuring are separate follow-ups. | Offscreen and dummy-driver bounded runs + input tests |
+| fdp-w1b | Recover DDS writer, add alpha processing, preserve BMP output, generate procedural scope without duplicate reticle. No image-generation calls in this task. | DDS known-pixel tests + existing Python tests + scope validator |
+
+Paused: GLES renderer and Japanese text branches. Next sequence: review and
+merge these bounded components, integrate VFS reads, then renderer and text.
+The browser game is not playable yet. Completed sound pack remains pending
+human listening/in-engine mix review.
