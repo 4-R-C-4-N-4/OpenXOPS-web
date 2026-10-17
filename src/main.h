@@ -1,5 +1,5 @@
 //! @file main.h
-//! @brief ÅãˆÊ‚Ìƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+//! @brief æœ€ä¸Šä½ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«
 
 //--------------------------------------------------------------------------------
 // 
@@ -43,23 +43,23 @@
  #define H_LAYERLEVEL 3		//!< Select include file.
 #endif
 
-#pragma warning(disable:4996)		//VC++Œx–h~
+#pragma warning(disable:4996)		//VC++è­¦å‘Šé˜²æ­¢
 //#pragma warning(disable:4244)
 
-//’è”
-#define GAMENAME "OpenXOPS"				//!< ƒQ[ƒ€–¼
-#define GAMEVERSION "1.080"			//!< ƒQ[ƒ€‚Ìƒo[ƒWƒ‡ƒ“
-#define GAMEFRAMEMS 30					//!< ƒtƒŒ[ƒ€‚ ‚½‚è‚Ìˆ—ŠÔimsj
-#define GAMEFPS (1000.0f/GAMEFRAMEMS)	//!< FPSiƒtƒŒ[ƒ€ƒŒ[ƒgj@1000 / 30 = 33.333[FPS]
-#define DEFAULT_SCREEN_WIDTH 640		//!< ƒXƒNƒŠ[ƒ“‚Ì•
-#define DEFAULT_SCREEN_HEIGHT 480		//!< ƒXƒNƒŠ[ƒ“‚Ì‚‚³
+//å®šæ•°
+#define GAMENAME "OpenXOPS"				//!< ã‚²ãƒ¼ãƒ å
+#define GAMEVERSION "1.080"			//!< ã‚²ãƒ¼ãƒ ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³
+#define GAMEFRAMEMS 30					//!< ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ãŸã‚Šã®å‡¦ç†æ™‚é–“ï¼ˆmsï¼‰
+#define GAMEFPS (1000.0f/GAMEFRAMEMS)	//!< FPSï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆï¼‰ã€€1000 / 30 = 33.333[FPS]
+#define DEFAULT_SCREEN_WIDTH 640		//!< ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®å¹…
+#define DEFAULT_SCREEN_HEIGHT 480		//!< ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®é«˜ã•
 
-#define ADDONDIR "addon"		//!< ADDON‚ğ“ü‚ê‚éƒfƒBƒŒƒNƒgƒŠ–¼
-#define MAX_ADDONLIST 128		//!< ADDON‚ğ“Ç‚İ‚ŞÅ‘å”
+#define ADDONDIR "addon"		//!< ADDONã‚’å…¥ã‚Œã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+#define MAX_ADDONLIST 128		//!< ADDONã‚’èª­ã¿è¾¼ã‚€æœ€å¤§æ•°
 
-#define TOTAL_HAVEWEAPON 2		//!< ‚Ä‚é•Ší‚Ì”
+#define TOTAL_HAVEWEAPON 2		//!< æŒã¦ã‚‹æ­¦å™¨ã®æ•°
 
-//ƒVƒXƒeƒ€‚ÌƒCƒ“ƒNƒ‹[ƒhƒtƒ@ƒCƒ‹
+//ã‚·ã‚¹ãƒ†ãƒ ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«
 #define _USE_MATH_DEFINES	 //!< math.h 'M_PI' enable
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,21 +67,21 @@
 #include <string.h>
 #include <direct.h>
 
-#define ENABLE_BUG_HUMANWEAPON			//!< ”ÍˆÍŠO‚ÌlE•Šíí—Ş”Ô†‚ğ—p‚¢‚½ƒoƒO‚ğÄŒ»‚·‚éiƒRƒƒ“ƒg‰»‚Å–³Œøj
-#define ENABLE_BUG_TEAMID				//!< ƒ`[ƒ€”Ô†‚ğ•‰”‚Éİ’è‚µ‚½Û‚ÌƒoƒO‚ğÄŒ»‚·‚éiƒRƒƒ“ƒg‰»‚Å–³Œøj
-#define ENABLE_WEAPONNAME_SCALING		//!< •Ší–¼‚ª’·‚¢ê‡‚É•\¦‚ğk¬‚·‚éiƒRƒƒ“ƒg‰»‚Å–³Œøj
-#define ENABLE_ADDOBJ_PARAM8BIT			//!< ’Ç‰Á¬•¨‚Ìİ’è’l‚ğcharŒ^ 8bit‚É‚·‚éiƒRƒƒ“ƒg‰»‚Å–³Œøj
-#define ENABLE_DEBUGCONSOLE				//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ì—LŒø‰»iƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-#define ENABLE_DEBUGLOG					//!< ƒfƒoƒbƒN—pƒƒOo—Í‚Ì—LŒø‰»iƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-#define ENABLE_CHECKOPENXOPSEVENT		//!< OpenXOPS“®ì”»’è—pƒCƒxƒ“ƒg‚Ì—LŒø‰»iƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-#define ENABLE_MENUOPTIONS				//!< ƒƒjƒ…[‚ÉƒIƒvƒVƒ‡ƒ“‰æ–Ê’Ç‰ÁiƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-//#define ENABLE_AUTOCREATECONFIG		//!< config.dat‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡A“¯ƒtƒ@ƒCƒ‹‚ğ©“®¶¬‚·‚éB
-//#define ENABLE_PATH_DELIMITER_SLASH	//!< ƒpƒX‹æØ‚è•¶š‚ğA'\'‚©‚çe/f‚Ö•ÏŠ·‚·‚éB
-#define ENABLE_AUTOLOADMIF				//!< .mif‚ªˆø”‚Éw’è‚³‚ê‚½ê‡A©“®“I‚Éƒ[ƒh‚·‚éiƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-#define ENABLE_ADDCONFIG				//!< iniƒtƒ@ƒCƒ‹‚É‚æ‚é’Ç‰Áİ’è‚ğæ“¾‚·‚éiƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
-#define ENABLE_CHECKDATADIR				//!< ‹N“®‚ÉdataƒtƒHƒ‹ƒ_[‚Ì—L–³‚ğƒ`ƒFƒbƒN‚·‚éiƒRƒƒ“ƒg‰»‚Å‹@”\–³Œøj
+#define ENABLE_BUG_HUMANWEAPON			//!< ç¯„å›²å¤–ã®äººãƒ»æ­¦å™¨ç¨®é¡ç•ªå·ã‚’ç”¨ã„ãŸãƒã‚°ã‚’å†ç¾ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§ç„¡åŠ¹ï¼‰
+#define ENABLE_BUG_TEAMID				//!< ãƒãƒ¼ãƒ ç•ªå·ã‚’è² æ•°ã«è¨­å®šã—ãŸéš›ã®ãƒã‚°ã‚’å†ç¾ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§ç„¡åŠ¹ï¼‰
+#define ENABLE_WEAPONNAME_SCALING		//!< æ­¦å™¨åãŒé•·ã„å ´åˆã«è¡¨ç¤ºã‚’ç¸®å°ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§ç„¡åŠ¹ï¼‰
+#define ENABLE_ADDOBJ_PARAM8BIT			//!< è¿½åŠ å°ç‰©ã®è¨­å®šå€¤ã‚’charå‹ 8bitã«ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§ç„¡åŠ¹ï¼‰
+#define ENABLE_DEBUGCONSOLE				//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®æœ‰åŠ¹åŒ–ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+#define ENABLE_DEBUGLOG					//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ãƒ­ã‚°å‡ºåŠ›ã®æœ‰åŠ¹åŒ–ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+#define ENABLE_CHECKOPENXOPSEVENT		//!< OpenXOPSå‹•ä½œåˆ¤å®šç”¨ã‚¤ãƒ™ãƒ³ãƒˆã®æœ‰åŠ¹åŒ–ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+#define ENABLE_MENUOPTIONS				//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢è¿½åŠ ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+//#define ENABLE_AUTOCREATECONFIG		//!< config.datãŒè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€åŒãƒ•ã‚¡ã‚¤ãƒ«ã‚’è‡ªå‹•ç”Ÿæˆã™ã‚‹ã€‚
+//#define ENABLE_PATH_DELIMITER_SLASH	//!< ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’ã€'\'ã‹ã‚‰â€˜/â€™ã¸å¤‰æ›ã™ã‚‹ã€‚
+#define ENABLE_AUTOLOADMIF				//!< .mifãŒå¼•æ•°ã«æŒ‡å®šã•ã‚ŒãŸå ´åˆã€è‡ªå‹•çš„ã«ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+#define ENABLE_ADDCONFIG				//!< iniãƒ•ã‚¡ã‚¤ãƒ«ã«ã‚ˆã‚‹è¿½åŠ è¨­å®šã‚’å–å¾—ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+#define ENABLE_CHECKDATADIR				//!< èµ·å‹•æ™‚ã«dataãƒ•ã‚©ãƒ«ãƒ€ãƒ¼ã®æœ‰ç„¡ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
 
-//windows.h‚ğg—p‚µ‚È‚¢‚È‚ç‚Î
+//windows.hã‚’ä½¿ç”¨ã—ãªã„ãªã‚‰ã°
 #ifndef _MAX_PATH
  #define _MAX_PATH 260		//!< _MAX_PATH is 260
 #endif
@@ -89,18 +89,18 @@
  #define MAX_PATH 260		//!< MAX_PATH is 260
 #endif
 
-//BorlandC++ Compiler—p‚Ìˆ—
+//BorlandC++ Compilerç”¨ã®å‡¦ç†
 #ifdef __BORLANDC__
  //#define sqrtf(df) sqrt(df)
  int _matherr(struct _exception  *__e) { return 1; }
 #endif
 
-//–¢g—pˆø”‚Ì‘Îô—pƒ}ƒNƒ
+//æœªä½¿ç”¨å¼•æ•°ã®å¯¾ç­–ç”¨ãƒã‚¯ãƒ­
 #ifndef MAIN_H
  #define UNREFERENCED_PARAMETER(P) ((P)=(P))
 #endif
 
-//floatŒ^‚ÌZpŠÖ”—pˆÓ
+//floatå‹ã®ç®—è¡“é–¢æ•°ç”¨æ„
 #ifndef _MSC_VER
  #define sinf(x) (float)sin(x)				//!< sinf(x)
  #define cosf(x) (float)cos(x)				//!< cosf(x)
@@ -113,13 +113,13 @@
  #define fabsf(x) (float)fabs(x)			//!< fabsf(x)
 #endif
 
-#define SetFlag(value, bit) value = value | bit		//!< ƒrƒbƒg‚É‚æ‚éƒtƒ‰ƒO İ’è
-#define DelFlag(value, bit) value = value & (~bit)	//!< ƒrƒbƒg‚É‚æ‚éƒtƒ‰ƒO ‰ğœ
-#define GetFlag(value, bit) (value & bit)			//!< ƒrƒbƒg‚É‚æ‚éƒtƒ‰ƒO æ“¾
+#define SetFlag(value, bit) value = value | bit		//!< ãƒ“ãƒƒãƒˆã«ã‚ˆã‚‹ãƒ•ãƒ©ã‚° è¨­å®š
+#define DelFlag(value, bit) value = value & (~bit)	//!< ãƒ“ãƒƒãƒˆã«ã‚ˆã‚‹ãƒ•ãƒ©ã‚° è§£é™¤
+#define GetFlag(value, bit) (value & bit)			//!< ãƒ“ãƒƒãƒˆã«ã‚ˆã‚‹ãƒ•ãƒ©ã‚° å–å¾—
 
-#define DegreeToRadian(value) ((float)M_PI/180*value)	//!< “x‚©‚çƒ‰ƒWƒAƒ“‚Ö‚Ì•ÏŠ·
+#define DegreeToRadian(value) ((float)M_PI/180*value)	//!< åº¦ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³ã¸ã®å¤‰æ›
 
-//’áƒŒƒCƒ„[
+//ä½ãƒ¬ã‚¤ãƒ¤ãƒ¼
 #if H_LAYERLEVEL >= 1
  #include "debug.h"
  #include "window.h"
@@ -131,7 +131,7 @@
  #include "parameter.h"
 #endif
 
-//’†ŠÔƒŒƒCƒ„[
+//ä¸­é–“ãƒ¬ã‚¤ãƒ¤ãƒ¼
 #if H_LAYERLEVEL >= 2
  #include "resource.h"
  #include "collision.h"
@@ -140,7 +140,7 @@
  #include "gui-object.h"
 #endif
 
-//‚ƒŒƒCƒ„[
+//é«˜ãƒ¬ã‚¤ãƒ¤ãƒ¼
 #if H_LAYERLEVEL >= 3
  #include "objectmanager.h"
  #include "scene.h"
@@ -150,7 +150,7 @@
  #include "event.h"
 #endif
 
-//’Ç‰Áƒ‰ƒCƒuƒ‰ƒŠ
+//è¿½åŠ ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
 // not .lib
 
 #ifdef ENABLE_DEBUGLOG

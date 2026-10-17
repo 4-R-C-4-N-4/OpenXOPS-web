@@ -1,5 +1,5 @@
 //! @file gui-object.cpp
-//! @brief gui-objectŠÖ˜AƒNƒ‰ƒX‚Ì’è‹`
+//! @brief gui-objecté–¢é€£ã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "gui-object.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ScrollbarObject::ScrollbarObject()
 {
 	pos_x = 0;
@@ -54,22 +54,22 @@ ScrollbarObject::ScrollbarObject()
 	color2_select = 0x00000000;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ScrollbarObject::~ScrollbarObject()
 {
 	//
 }
 
-//! @brief ƒXƒNƒ[ƒ‹ƒo[‰Šú‰»
-//! @param x xÀ•W
-//! @param y yÀ•W
-//! @param w •
-//! @param h ‚‚³
-//! @param in_totalitems ‘ƒAƒCƒeƒ€”
-//! @param in_showtems ‰æ–Ê‚É•\¦‚·‚éƒAƒCƒeƒ€”
-//! @param in_scrollitem ƒXƒNƒ[ƒ‹‚µ‚½ƒAƒCƒeƒ€”
-//! @warning ƒTƒCƒY‚Í•E‚‚³‚»‚ê‚¼‚ê 8ˆÈã ‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢B
-//! @attention SetColor()ŠÖ”‚ÅƒXƒNƒ[ƒ‹ƒo[‚ÌF‚ğİ’è‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼åˆæœŸåŒ–
+//! @param x xåº§æ¨™
+//! @param y yåº§æ¨™
+//! @param w å¹…
+//! @param h é«˜ã•
+//! @param in_totalitems ç·ã‚¢ã‚¤ãƒ†ãƒ æ•°
+//! @param in_showtems ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ æ•°
+//! @param in_scrollitem ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãŸã‚¢ã‚¤ãƒ†ãƒ æ•°
+//! @warning ã‚µã‚¤ã‚ºã¯å¹…ãƒ»é«˜ã•ãã‚Œãã‚Œ 8ä»¥ä¸Š ã«è¨­å®šã—ã¦ãã ã•ã„ã€‚
+//! @attention SetColor()é–¢æ•°ã§ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®è‰²ã‚’è¨­å®šã—ã¦ãã ã•ã„ã€‚
 void ScrollbarObject::Create(int x, int y, int w, int h, int in_totalitems, int in_showtems, int in_scrollitem)
 {
 	pos_x = x;
@@ -92,14 +92,14 @@ void ScrollbarObject::Create(int x, int y, int w, int h, int in_totalitems, int 
 	mouse_mode = 0;
 }
 
-//! @brief ƒXƒNƒ[ƒ‹ƒo[‚ÌF‚ğİ’è
-//! @param body –{‘ÌiŒã‚ë‘¤j‚ÌF
-//! @param default1 ’Êí‚Ì‚Â‚Ü‚İ‚ÌFiŠO‘¤j
-//! @param default2 ’Êí‚Ì‚Â‚Ü‚İ‚ÌFi“à‘¤j
-//! @param cursor1 ƒJ[ƒ\ƒ‹‘I‘ğ‚Ì‚Â‚Ü‚İ‚ÌFiŠO‘¤j
-//! @param cursor2 ƒJ[ƒ\ƒ‹‘I‘ğ‚Ì‚Â‚Ü‚İ‚ÌFi“à‘¤j
-//! @param select1 ƒNƒŠƒbƒN‚Ì‚Â‚Ü‚İ‚ÌFiŠO‘¤j
-//! @param select2 ƒNƒŠƒbƒN‚Ì‚Â‚Ü‚İ‚ÌFi“à‘¤j
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®è‰²ã‚’è¨­å®š
+//! @param body æœ¬ä½“ï¼ˆå¾Œã‚å´ï¼‰ã®è‰²
+//! @param default1 é€šå¸¸æ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå¤–å´ï¼‰
+//! @param default2 é€šå¸¸æ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå†…å´ï¼‰
+//! @param cursor1 ã‚«ãƒ¼ã‚½ãƒ«é¸æŠæ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå¤–å´ï¼‰
+//! @param cursor2 ã‚«ãƒ¼ã‚½ãƒ«é¸æŠæ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå†…å´ï¼‰
+//! @param select1 ã‚¯ãƒªãƒƒã‚¯æ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå¤–å´ï¼‰
+//! @param select2 ã‚¯ãƒªãƒƒã‚¯æ™‚ã®ã¤ã¾ã¿ã®è‰²ï¼ˆå†…å´ï¼‰
 void ScrollbarObject::SetColor(int body, int default1, int default2, int cursor1, int cursor2, int select1, int select2)
 {
 	color_body = body;
@@ -111,8 +111,8 @@ void ScrollbarObject::SetColor(int body, int default1, int default2, int cursor1
 	color2_select = select2;
 }
 
-//! @brief ƒXƒNƒ[ƒ‹‚µ‚½ƒAƒCƒeƒ€”İ’è
-//! @param id ƒAƒCƒeƒ€”
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãŸã‚¢ã‚¤ãƒ†ãƒ æ•°è¨­å®š
+//! @param id ã‚¢ã‚¤ãƒ†ãƒ æ•°
 void ScrollbarObject::SetScrollItem(int id)
 {
 	if( (id < 0)||(totalitems <= id) ){ return; }
@@ -120,14 +120,14 @@ void ScrollbarObject::SetScrollItem(int id)
 	scrollitem = id;
 }
 
-//! @brief ƒXƒNƒ[ƒ‹‚µ‚½ƒAƒCƒeƒ€”æ“¾
-//! @return ƒAƒCƒeƒ€”
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãŸã‚¢ã‚¤ãƒ†ãƒ æ•°å–å¾—
+//! @return ã‚¢ã‚¤ãƒ†ãƒ æ•°
 int ScrollbarObject::GetScrollItem()
 {
 	return scrollitem;
 }
 
-//! @brief ã•ûŒü‚ÖƒXƒNƒ[ƒ‹
+//! @brief ä¸Šæ–¹å‘ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 void ScrollbarObject::ScrollUP()
 {
 	if( scrollitem > 0 ){
@@ -135,7 +135,7 @@ void ScrollbarObject::ScrollUP()
 	}
 }
 
-//! @brief ‰º•ûŒü‚ÖƒXƒNƒ[ƒ‹
+//! @brief ä¸‹æ–¹å‘ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 void ScrollbarObject::ScrollDOWN()
 {
 	if( scrollitem < (totalitems - showtems) ){
@@ -143,26 +143,26 @@ void ScrollbarObject::ScrollDOWN()
 	}
 }
 
-//! @brief ƒXƒNƒ[ƒ‹’†‚©”»’è
-//! @return ƒXƒNƒ[ƒ‹’†‚Å‚ ‚éFtrue@ƒXƒNƒ[ƒ‹’†‚Å‚È‚¢Ffalse
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä¸­ã‹åˆ¤å®š
+//! @return ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä¸­ã§ã‚ã‚‹ï¼štrueã€€ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ä¸­ã§ãªã„ï¼šfalse
 bool ScrollbarObject::CheckScrolling()
 {
 	if( mouse_mode == 2 ){ return true; }
 	return false;
 }
 
-//! @brief ƒXƒNƒ[ƒ‹ƒo[“ü—Íˆ—
-//! @param mouse_x ƒ}ƒEƒXxÀ•W
-//! @param mouse_y ƒ}ƒEƒXyÀ•W
-//! @param mouse_click ƒ}ƒEƒXƒNƒŠƒbƒNƒtƒ‰ƒO
-//! @param scroll_y y•ûŒü‚ÌƒXƒNƒ[ƒ‹—Ê
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼å…¥åŠ›å‡¦ç†
+//! @param mouse_x ãƒã‚¦ã‚¹xåº§æ¨™
+//! @param mouse_y ãƒã‚¦ã‚¹yåº§æ¨™
+//! @param mouse_click ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ãƒ•ãƒ©ã‚°
+//! @param scroll_y yæ–¹å‘ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«é‡
 void ScrollbarObject::Input(int mouse_x, int mouse_y, bool mouse_click, int scroll_y)
 {
-	//mouse_mode = 0 : ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ªƒXƒNƒ[ƒ‹ƒo[‚ÌƒGƒŠƒAŠO
-	//mouse_mode = 1 : ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ªƒXƒNƒ[ƒ‹ƒo[‚Éæ‚Á‚Ä‚¢‚é
-	//mouse_mode = 2 : ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ªƒXƒNƒ[ƒ‹ƒo[‚ğƒNƒŠƒbƒN‚µ‚Ä‚¢‚é
+	//mouse_mode = 0 : ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®ã‚¨ãƒªã‚¢å¤–
+	//mouse_mode = 1 : ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã«ä¹—ã£ã¦ã„ã‚‹
+	//mouse_mode = 2 : ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ãŒã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ã„ã‚‹
 
-	//ƒXƒNƒ[ƒ‹ƒo[‚Ì‘€ì”»’è
+	//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®æ“ä½œåˆ¤å®š
 	if( mouse_mode == 2 ){
 		if( mouse_click == false ){
 			mouse_mode = 0;	//or 1
@@ -184,7 +184,7 @@ void ScrollbarObject::Input(int mouse_x, int mouse_y, bool mouse_click, int scro
 		}
 	}
 
-	//ƒXƒNƒ[ƒ‹ƒo[‚ÌˆÚ“®
+	//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®ç§»å‹•
 	if( mouse_mode == 2 ){
 		knob_y += scroll_y;
 		if( knob_y < 0 ){ knob_y = 0; }
@@ -199,21 +199,21 @@ void ScrollbarObject::Input(int mouse_x, int mouse_y, bool mouse_click, int scro
 	}
 }
 
-//! @brief ƒXƒNƒ[ƒ‹ƒo[•`‰æˆ—
-//! @param d3dg D3DGraphics‚Ìƒ|ƒCƒ“ƒ^
-//! @attention u‡ŒvƒAƒCƒeƒ€”ƒ•\¦‚·‚éƒAƒCƒeƒ€”v‚Ìê‡Aƒmƒu‚Í•\¦‚³‚ê‚Ü‚¹‚ñB
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æç”»å‡¦ç†
+//! @param d3dg D3DGraphicsã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention ã€Œåˆè¨ˆã‚¢ã‚¤ãƒ†ãƒ æ•°ï¼œè¡¨ç¤ºã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ æ•°ã€ã®å ´åˆã€ãƒãƒ–ã¯è¡¨ç¤ºã•ã‚Œã¾ã›ã‚“ã€‚
 void ScrollbarObject::Draw(class D3DGraphics *d3dg)
 {
 	if( d3dg == NULL ){ return; }
 
 	int color, color2;
 
-	//ƒGƒŠƒA•`‰æ
+	//ã‚¨ãƒªã‚¢æç”»
 	d3dg->Draw2DBox(pos_x, pos_y, pos_x+width, pos_y+height, color_body);
 
-	//ƒmƒu•`‰æ
+	//ãƒãƒ–æç”»
 	if( totalitems > showtems ){
-		//F‚ğİ’è
+		//è‰²ã‚’è¨­å®š
 		if( mouse_mode == 2 ){
 			color = color1_select;
 			color2 = color2_select;
@@ -227,13 +227,13 @@ void ScrollbarObject::Draw(class D3DGraphics *d3dg)
 			color2 = color2_default;
 		}
 
-		//•`‰æ
+		//æç”»
 		d3dg->Draw2DBox(pos_x, pos_y+knob_y, pos_x+width, pos_y+knob_y + (int)knob_height, color);
 		d3dg->Draw2DBox(pos_x+3, pos_y+knob_y+3, pos_x+width-3, pos_y+knob_y + (int)knob_height -3, color2);
 	}
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 TextBoxObject::TextBoxObject()
 {
 	mode = 0;
@@ -241,16 +241,16 @@ TextBoxObject::TextBoxObject()
 	maxlen = MAX_INPUTBOXLEN;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 TextBoxObject::~TextBoxObject()
 {}
 
-//! @brief “ü—Íƒ{ƒbƒNƒX‰Šú‰»
-//! @param str ƒfƒtƒHƒ‹ƒg•¶š—ñ
-//! @param in_maxlen Å‘å•¶š”i1`127j
-//! @param in_mode “ü—Íƒ‚[ƒh
-//! @note “ü—Íƒ‚[ƒh‚ÍAˆÈ‰º‚Ì’l‚ğ‘g‚İ‡‚í‚¹‚Äw’è‚µ‚Ü‚·B
-//! @note 0x01F”šA0x02F”š/-/.A0x04FƒAƒ‹ƒtƒ@ƒxƒbƒg¬•¶šA0x08FƒAƒ‹ƒtƒ@ƒxƒbƒg‘å•¶šA0x20FƒXƒy[ƒX
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹åˆæœŸåŒ–
+//! @param str ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆæ–‡å­—åˆ—
+//! @param in_maxlen æœ€å¤§æ–‡å­—æ•°ï¼ˆ1ï½127ï¼‰
+//! @param in_mode å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰
+//! @note å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰ã¯ã€ä»¥ä¸‹ã®å€¤ã‚’çµ„ã¿åˆã‚ã›ã¦æŒ‡å®šã—ã¾ã™ã€‚
+//! @note 0x01ï¼šæ•°å­—ã€0x02ï¼šæ•°å­—/-/.ã€0x04ï¼šã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå°æ–‡å­—ã€0x08ï¼šã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå¤§æ–‡å­—ã€0x20ï¼šã‚¹ãƒšãƒ¼ã‚¹
 void TextBoxObject::InitTextBox(const char *str, int in_maxlen, int in_mode)
 {
 	if( in_maxlen < 1 ){ in_maxlen = 1; }
@@ -261,12 +261,12 @@ void TextBoxObject::InitTextBox(const char *str, int in_maxlen, int in_mode)
 	maxlen = in_maxlen;
 }
 
-//! @brief “ü—Íƒ{ƒbƒNƒX‰ğ•ú
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹è§£æ”¾
 void TextBoxObject::DestroyTextBox()
 {}
 
-//! @brief “ü—Íƒ{ƒbƒNƒX•¶š—ñ‚ğİ’è
-//! @param str •¶š—ñ
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹æ–‡å­—åˆ—ã‚’è¨­å®š
+//! @param str æ–‡å­—åˆ—
 void TextBoxObject::SetTextBoxStr(const char *str)
 {
 	if( str == NULL ){ str = ""; }
@@ -275,15 +275,15 @@ void TextBoxObject::SetTextBoxStr(const char *str)
 	strcpy(inputstr, (char*)str);
 }
 
-//! @brief “ü—Íƒ{ƒbƒNƒX•¶š—ñ‚ğæ“¾
-//! @return •¶š—ñ‚Ìƒ|ƒCƒ“ƒ^
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹æ–‡å­—åˆ—ã‚’å–å¾—
+//! @return æ–‡å­—åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
 const char* TextBoxObject::GetTextBoxStr()
 {
 	return inputstr;
 }
 
-//! @brief •¶š‚ğˆê•¶š’Ç‰Á
-//! @param inchar ’Ç‰Á‚·‚é•¶š
+//! @brief æ–‡å­—ã‚’ä¸€æ–‡å­—è¿½åŠ 
+//! @param inchar è¿½åŠ ã™ã‚‹æ–‡å­—
 void TextBoxObject::InputChar(char inchar)
 {
 	for(int i=0; i<maxlen; i++){
@@ -295,7 +295,7 @@ void TextBoxObject::InputChar(char inchar)
 	}
 }
 
-//! @brief •¶š‚ğˆê•¶šíœ
+//! @brief æ–‡å­—ã‚’ä¸€æ–‡å­—å‰Šé™¤
 void TextBoxObject::DeleteChar()
 {
 	int s = (int)strlen(inputstr);
@@ -303,28 +303,28 @@ void TextBoxObject::DeleteChar()
 	inputstr[ s-1 ] = '\0';
 }
 
-//! @brief “ü—Íƒ{ƒbƒNƒX•¶š—ñˆ—
-//! @param inputCtrl InputControlƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-//! @return “ü—ÍÏ‚İó‘Ô‚ÅENTERƒL[Ftrue@‚»‚êˆÈŠOiƒGƒ‰[ŠÜ‚ŞjFfalse
-//! @attention –‘O‚ÉInputControlƒNƒ‰ƒX‚ğ“KØ‚Éˆ—‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B@¦GetInputState()ŠÖ”‚È‚ÇB
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹æ–‡å­—åˆ—å‡¦ç†
+//! @param inputCtrl InputControlã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+//! @return å…¥åŠ›æ¸ˆã¿çŠ¶æ…‹ã§ENTERã‚­ãƒ¼ï¼štrueã€€ãã‚Œä»¥å¤–ï¼ˆã‚¨ãƒ©ãƒ¼å«ã‚€ï¼‰ï¼šfalse
+//! @attention äº‹å‰ã«InputControlã‚¯ãƒ©ã‚¹ã‚’é©åˆ‡ã«å‡¦ç†ã—ã¦ãŠãå¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ã€€â€»GetInputState()é–¢æ•°ãªã©ã€‚
 bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 {
 	if( inputCtrl == NULL ){ return false; }
 
 	if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x0F)) ){		// [ENTER]
-		//‰½‚©“ü—Í‚³‚ê‚Ä‚¢‚ê‚Î`
+		//ä½•ã‹å…¥åŠ›ã•ã‚Œã¦ã„ã‚Œã°ï½
 		if( inputstr[0] != '\0' ){
 			return true;
 		}
 	}
 	else{
-		//ˆê•¶šíœ
+		//ä¸€æ–‡å­—å‰Šé™¤
 		if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x0E)) ){		// [BACK]
 			DeleteChar();
 		}
 
 		if( (mode & 0x01)||(mode & 0x02) ){
-			//”š
+			//æ•°å­—
 			for(char key=0x16; key<=0x1F; key++){
 				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(key)) ){
 					InputChar(key + 0x1A);
@@ -347,7 +347,7 @@ bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 
 		if( (mode & 0x04)&&(mode & 0x08) ){
 			if( inputCtrl->CheckKeyNow(OriginalkeycodeToDinputdef(0x14)) ){	// [SHIFT]
-				//ƒAƒ‹ƒtƒ@ƒxƒbƒg‘å•¶š
+				//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå¤§æ–‡å­—
 				for(char key=0x20; key<=0x39; key++){
 					if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(key)) ){
 						InputChar(key + 0x21);
@@ -355,7 +355,7 @@ bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 				}
 			}
 			else{
-				//ƒAƒ‹ƒtƒ@ƒxƒbƒg¬•¶š
+				//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå°æ–‡å­—
 				for(char key=0x20; key<=0x39; key++){
 					if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(key)) ){
 						InputChar(key + 0x41);
@@ -364,7 +364,7 @@ bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 			}
 		}
 		else if( mode & 0x04 ){
-			//ƒAƒ‹ƒtƒ@ƒxƒbƒg¬•¶š
+			//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå°æ–‡å­—
 			for(char key=0x20; key<=0x39; key++){
 				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(key)) ){
 					InputChar(key + 0x41);
@@ -372,7 +372,7 @@ bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 			}
 		}
 		else if( mode & 0x08 ){
-			//ƒAƒ‹ƒtƒ@ƒxƒbƒg‘å•¶š
+			//ã‚¢ãƒ«ãƒ•ã‚¡ãƒ™ãƒƒãƒˆå¤§æ–‡å­—
 			for(char key=0x20; key<=0x39; key++){
 				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(key)) ){
 					InputChar(key + 0x21);
@@ -385,7 +385,7 @@ bool TextBoxObject::ProcessTextBox(InputControl *inputCtrl)
 		//}
 
 		if( mode & 0x20 ){
-			//ƒXƒy[ƒX
+			//ã‚¹ãƒšãƒ¼ã‚¹
 			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x11)) ){		// [SPACE]
 				InputChar(' ');
 			}

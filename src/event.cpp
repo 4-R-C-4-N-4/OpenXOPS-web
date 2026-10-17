@@ -1,5 +1,5 @@
 //! @file event.cpp
-//! @brief EventControlƒNƒ‰ƒX‚Ì’è‹`
+//! @brief EventControlã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "event.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 EventControl::EventControl(PointDataInterface *in_Point, ObjectManager *in_ObjMgr)
 {
 	Point = in_Point;
@@ -40,40 +40,40 @@ EventControl::EventControl(PointDataInterface *in_Point, ObjectManager *in_ObjMg
 	waitcnt = 0;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 EventControl::~EventControl()
 {}
 
-//! @brief ‘ÎÛƒNƒ‰ƒX‚ğİ’è
-//! @param in_Point ƒ|ƒCƒ“ƒgƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-//! @param in_ObjMgr ƒIƒuƒWƒFƒNƒgŠÇ—ƒNƒ‰ƒX
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å¯¾è±¡ã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param in_Point ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @param in_ObjMgr ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void EventControl::SetClass(PointDataInterface *in_Point, ObjectManager *in_ObjMgr)
 {
 	Point = in_Point;
 	ObjMgr = in_ObjMgr;
 }
 
-//! @brief ƒŠƒZƒbƒg
-//! @param EntryP4 ƒCƒxƒ“ƒgˆ—‚ğŠJn‚·‚é¯•Ê”Ô†@i-100A-110A-120@‚È‚Çj
+//! @brief ãƒªã‚»ãƒƒãƒˆ
+//! @param EntryP4 ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’é–‹å§‹ã™ã‚‹è­˜åˆ¥ç•ªå·ã€€ï¼ˆ-100ã€-110ã€-120ã€€ãªã©ï¼‰
 void EventControl::Reset(signed short int EntryP4)
 {
 	nextp4 = EntryP4;
 	waitcnt = 0;
 }
 
-//! @brief Ÿ‚Éˆ—‚·‚é¯•Ê”Ô†
-//! @return P4F¯•Ê”Ô†
+//! @brief æ¬¡ã«å‡¦ç†ã™ã‚‹è­˜åˆ¥ç•ªå·
+//! @return P4ï¼šè­˜åˆ¥ç•ªå·
 signed short int EventControl::GetNextP4()
 {
 	return nextp4;
 }
 
-//! @brief ‘ÎÛl•¨‚Ì€–S”»’è
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param reverse ğŒ”½“]i¶‘¶”»’è‰»j
-//! @return trueFŸ‚ÌƒCƒxƒ“ƒg‚Öi‚Ş@falseFŸ‚Öi‚Ü‚È‚¢
-//! @attention ‘ÎÛl•¨‚ª‘¶İ‚µ‚È‚¢ê‡Afalse‚É‚È‚è‚Ü‚·B
+//! @brief å¯¾è±¡äººç‰©ã®æ­»äº¡åˆ¤å®š
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param reverse æ¡ä»¶åè»¢ï¼ˆç”Ÿå­˜åˆ¤å®šåŒ–ï¼‰
+//! @return trueï¼šæ¬¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€€falseï¼šæ¬¡ã¸é€²ã¾ãªã„
+//! @attention å¯¾è±¡äººç‰©ãŒå­˜åœ¨ã—ãªã„å ´åˆã€falseã«ãªã‚Šã¾ã™ã€‚
 bool EventControl::CheckDead(signed short int targetP4, bool reverse)
 {
 	human* thuman;
@@ -90,15 +90,15 @@ bool EventControl::CheckDead(signed short int targetP4, bool reverse)
 	return true;
 }
 
-//! @brief ‘ÎÛl•¨‚Ì“’…”»’è
-//! @param pos_x ”»’è‚·‚éXÀ•W
-//! @param pos_y ”»’è‚·‚éYÀ•W
-//! @param pos_z ”»’è‚·‚éZÀ•W
-//! @param dist_r ”»’è‚·‚é‹——£i”¼Œaj
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param reverse ğŒ”½“]i–¢’…”»’è‰»j
-//! @return trueFŸ‚ÌƒCƒxƒ“ƒg‚Öi‚Ş@falseFŸ‚Öi‚Ü‚È‚¢
-//! @attention ‘ÎÛl•¨‚ª‘¶İ‚µ‚È‚¢ê‡Afalse‚É‚È‚è‚Ü‚·B
+//! @brief å¯¾è±¡äººç‰©ã®åˆ°ç€åˆ¤å®š
+//! @param pos_x åˆ¤å®šã™ã‚‹Xåº§æ¨™
+//! @param pos_y åˆ¤å®šã™ã‚‹Yåº§æ¨™
+//! @param pos_z åˆ¤å®šã™ã‚‹Zåº§æ¨™
+//! @param dist_r åˆ¤å®šã™ã‚‹è·é›¢ï¼ˆåŠå¾„ï¼‰
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param reverse æ¡ä»¶åè»¢ï¼ˆæœªç€åˆ¤å®šåŒ–ï¼‰
+//! @return trueï¼šæ¬¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€€falseï¼šæ¬¡ã¸é€²ã¾ãªã„
+//! @attention å¯¾è±¡äººç‰©ãŒå­˜åœ¨ã—ãªã„å ´åˆã€falseã«ãªã‚Šã¾ã™ã€‚
 bool EventControl::CheckArrival(float pos_x, float pos_y, float pos_z, float dist_r, signed short int targetP4, bool reverse)
 {
 	human* thuman;
@@ -121,31 +121,31 @@ bool EventControl::CheckArrival(float pos_x, float pos_y, float pos_z, float dis
 	return true;
 }
 
-//! @brief ‘ÎÛl•¨‚Ìw’è•ŠíŠ—L”»’è
-//! @param WeaponID •Ší‚Ìí—Ş”Ô†
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param reverse ğŒ”½“]i–¢Š—L”»’è‰»j
-//! @return trueFŸ‚ÌƒCƒxƒ“ƒg‚Öi‚Ş@falseFŸ‚Öi‚Ü‚È‚¢
-//! @attention ‘ÎÛl•¨‚ª‘¶İ‚µ‚È‚¢ê‡Afalse‚É‚È‚è‚Ü‚·B
+//! @brief å¯¾è±¡äººç‰©ã®æŒ‡å®šæ­¦å™¨æ‰€æœ‰åˆ¤å®š
+//! @param WeaponID æ­¦å™¨ã®ç¨®é¡ç•ªå·
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param reverse æ¡ä»¶åè»¢ï¼ˆæœªæ‰€æœ‰åˆ¤å®šåŒ–ï¼‰
+//! @return trueï¼šæ¬¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€€falseï¼šæ¬¡ã¸é€²ã¾ãªã„
+//! @attention å¯¾è±¡äººç‰©ãŒå­˜åœ¨ã—ãªã„å ´åˆã€falseã«ãªã‚Šã¾ã™ã€‚
 bool EventControl::CheckHaveWeapon(int WeaponID, signed short int targetP4, bool reverse)
 {
 	human* thuman;
 	int selectweapon;
 	weapon *out_weapon[TOTAL_HAVEWEAPON];
 	int now_weaponid;
-	bool flag = false;			//false:–¢Š—LAtrue:Š—L
+	bool flag = false;			//false:æœªæ‰€æœ‰ã€true:æ‰€æœ‰
 
 	thuman = ObjMgr->SearchHuman(targetP4);
 	if( thuman == NULL ){ return false; }
 
-	//Š—L‚·‚é•ŠíƒIƒuƒWƒFƒNƒg‚ğ‘S‚Äæ“¾
+	//æ‰€æœ‰ã™ã‚‹æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å…¨ã¦å–å¾—
 	thuman->GetWeapon(&selectweapon, out_weapon, NULL, NULL);
 
-	//‘S‚Ä’²‚×‚é
+	//å…¨ã¦èª¿ã¹ã‚‹
 	for(int i=0; i<TOTAL_HAVEWEAPON; i++){
 		if( out_weapon[i] != NULL ){
 
-			//•Ší‚Ìí—Ş”Ô†‚ğæ“¾‚µA‚»‚ê‚ª‘ÎÛ‚Ì•Ší‚©‚Ç‚¤‚©B
+			//æ­¦å™¨ã®ç¨®é¡ç•ªå·ã‚’å–å¾—ã—ã€ãã‚ŒãŒå¯¾è±¡ã®æ­¦å™¨ã‹ã©ã†ã‹ã€‚
 			out_weapon[i]->GetParamData(&now_weaponid, NULL, NULL);
 			if( now_weaponid == WeaponID ){
 				flag = true;
@@ -163,10 +163,10 @@ bool EventControl::CheckHaveWeapon(int WeaponID, signed short int targetP4, bool
 	return true;
 }
 
-//! @brief ‘ÎÛˆÚ“®ƒpƒX‚ÌˆÚ“®ƒ‚[ƒh‘‚«Š·‚¦
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param newmode ˆÚ“®ƒ‚[ƒh
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief å¯¾è±¡ç§»å‹•ãƒ‘ã‚¹ã®ç§»å‹•ãƒ¢ãƒ¼ãƒ‰æ›¸ãæ›ãˆ
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param newmode ç§»å‹•ãƒ¢ãƒ¼ãƒ‰
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool EventControl::SetMovePathMode(signed short int targetP4, int newmode)
 {
 	pointdata pathdata;
@@ -174,7 +174,7 @@ bool EventControl::SetMovePathMode(signed short int targetP4, int newmode)
 
 	if( Point->SearchPointdata(&pid, 0x08, 0, 0, 0, targetP4, 0) > 0 ){
 
-		//‘ÎÛ‚ªAIƒpƒX‚È‚ç‚ÎA‹­§“I‚Éƒpƒ‰ƒ[ƒ^‚ğ‘‚«Š·‚¦‚é
+		//å¯¾è±¡ãŒAIãƒ‘ã‚¹ãªã‚‰ã°ã€å¼·åˆ¶çš„ã«ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’æ›¸ãæ›ãˆã‚‹
 		Point->Getdata(&pathdata, pid);
 		if( (pathdata.p1 == POINT_P1TYPE_AIPATH)||(pathdata.p1 == POINT_P1TYPE_RAND_AIPATH) ){
 			pathdata.p2 = (signed short int)newmode;
@@ -186,10 +186,10 @@ bool EventControl::SetMovePathMode(signed short int targetP4, int newmode)
 	return false;
 }
 
-//! @brief ‘ÎÛl•¨‚Ìƒ`[ƒ€”Ô†•ÏX
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param TeamID ƒ`[ƒ€”Ô†
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief å¯¾è±¡äººç‰©ã®ãƒãƒ¼ãƒ ç•ªå·å¤‰æ›´
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param TeamID ãƒãƒ¼ãƒ ç•ªå·
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool EventControl::SetTeamID(signed short int targetP4, int TeamID)
 {
 	human* thuman;
@@ -201,15 +201,15 @@ bool EventControl::SetTeamID(signed short int targetP4, int TeamID)
 	return true;
 }
 
-//! @brief ‘ÎÛ¬•¨‚Ì”j‰ó”»’è
-//! @param targetP4 ƒ^[ƒQƒbƒg‚Ì¯•Ê”Ô†
-//! @param reverse ğŒ”½“]i–¢”j‰ó”»’è‰»j
-//! @return trueFŸ‚ÌƒCƒxƒ“ƒg‚Öi‚Ş@falseFŸ‚Öi‚Ü‚È‚¢
-//! @attention ‘ÎÛ¬•¨‚ª‘¶İ‚µ‚È‚¢ê‡A”j‰óÏ‚İ‚Æ‚µ‚Äˆ—‚³‚ê‚Ü‚·B
+//! @brief å¯¾è±¡å°ç‰©ã®ç ´å£Šåˆ¤å®š
+//! @param targetP4 ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®è­˜åˆ¥ç•ªå·
+//! @param reverse æ¡ä»¶åè»¢ï¼ˆæœªç ´å£Šåˆ¤å®šåŒ–ï¼‰
+//! @return trueï¼šæ¬¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€€falseï¼šæ¬¡ã¸é€²ã¾ãªã„
+//! @attention å¯¾è±¡å°ç‰©ãŒå­˜åœ¨ã—ãªã„å ´åˆã€ç ´å£Šæ¸ˆã¿ã¨ã—ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 bool EventControl::CheckBreakSmallObject(signed short int targetP4, bool reverse)
 {
 	smallobject* tsmallobject;
-	bool flag = true;			//false:–¢”j‰óAtrue:”j‰óÏ‚İor‘¶İ‚µ‚È‚¢
+	bool flag = true;			//false:æœªç ´å£Šã€true:ç ´å£Šæ¸ˆã¿orå­˜åœ¨ã—ãªã„
 
 	tsmallobject = ObjMgr->SearchSmallobject(targetP4);
 	if( tsmallobject != NULL ){
@@ -225,9 +225,9 @@ bool EventControl::CheckBreakSmallObject(signed short int targetP4, bool reverse
 	return true;
 }
 
-//! @brief ŠÔ‘Ò‚¿i•b’PˆÊj
-//! @param sec •b
-//! @return trueFŸ‚ÌƒCƒxƒ“ƒg‚Öi‚Ş@falseFŸ‚Öi‚Ü‚È‚¢
+//! @brief æ™‚é–“å¾…ã¡ï¼ˆç§’å˜ä½ï¼‰
+//! @param sec ç§’
+//! @return trueï¼šæ¬¡ã®ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€€falseï¼šæ¬¡ã¸é€²ã¾ãªã„
 bool EventControl::WaitSec(int sec)
 {
 	if( ((int)GAMEFPS * sec) > waitcnt ){
@@ -238,11 +238,11 @@ bool EventControl::WaitSec(int sec)
 	return true;
 }
 
-//! @brief ƒƒbƒZ[ƒW•\¦
-//! @param SetID ƒƒbƒZ[ƒW”Ô†
-//! @param MessageID MessageID‚Ìƒ|ƒCƒ“ƒ^
-//! @param SetMessageID SetMessageID‚Ìƒ|ƒCƒ“ƒ^
-//! @attention ”ÍˆÍŠO‚ÌƒƒbƒZ[ƒW”Ô†‚ªw’è‚³‚ê‚Äê‡‚àAV‚½‚ÈƒƒbƒZ[ƒW‚ªw’è‚³‚ê‚½‚à‚Ì‚Æ‚µ‚Äˆ—‚µ‚Ü‚·B
+//! @brief ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
+//! @param SetID ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç•ªå·
+//! @param MessageID MessageIDã®ãƒã‚¤ãƒ³ã‚¿
+//! @param SetMessageID SetMessageIDã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention ç¯„å›²å¤–ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç•ªå·ãŒæŒ‡å®šã•ã‚Œã¦å ´åˆã‚‚ã€æ–°ãŸãªãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒæŒ‡å®šã•ã‚ŒãŸã‚‚ã®ã¨ã—ã¦å‡¦ç†ã—ã¾ã™ã€‚
 void EventControl::SetMessage(int SetID, int *MessageID, bool *SetMessageID)
 {
 	if( (0 <= SetID)&&(SetID < MAX_POINTMESSAGES) ){
@@ -251,12 +251,12 @@ void EventControl::SetMessage(int SetID, int *MessageID, bool *SetMessageID)
 	*SetMessageID = true;
 }
 
-//! @brief ˆ—‚ğÀs
-//! @param SkipFlag ƒCƒxƒ“ƒgƒ^ƒXƒN‚ÌƒXƒLƒbƒvƒtƒ‰ƒO
-//! @param Param ƒCƒxƒ“ƒg‚Ìƒpƒ‰ƒ[ƒ^[‚ğó‚¯“n‚µ‚·‚é\‘¢‘Ì‚Ìƒ|ƒCƒ“ƒ^
-//! @return Às‚µ‚½ƒXƒeƒbƒv”
-//! @attention “n‚³‚ê‚½ƒpƒ‰ƒ[ƒ^[i\‘¢‘Ìj‚É•ÏX‚ª‚È‚¢ê‡A“n‚³‚ê‚½ƒpƒ‰ƒ[ƒ^[‚Í‘€ì‚³‚ê‚Ü‚¹‚ñB
-//! @attention \‘¢‘Ì‚ÌSetMessageID ‚ÍAƒƒbƒZ[ƒWƒCƒxƒ“ƒg‚ªÀs‚³‚ê‚½ê‡‚É true ‚É‚È‚è‚Ü‚·B<b>‘O‰ñ‚©‚ç•ÏX‚³‚ê‚½‚Æ‚ÍŒÀ‚è‚Ü‚¹‚ñB</b>
+//! @brief å‡¦ç†ã‚’å®Ÿè¡Œ
+//! @param SkipFlag ã‚¤ãƒ™ãƒ³ãƒˆã‚¿ã‚¹ã‚¯ã®ã‚¹ã‚­ãƒƒãƒ—ãƒ•ãƒ©ã‚°
+//! @param Param ã‚¤ãƒ™ãƒ³ãƒˆã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’å—ã‘æ¸¡ã—ã™ã‚‹æ§‹é€ ä½“ã®ãƒã‚¤ãƒ³ã‚¿
+//! @return å®Ÿè¡Œã—ãŸã‚¹ãƒ†ãƒƒãƒ—æ•°
+//! @attention æ¸¡ã•ã‚ŒãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ï¼ˆæ§‹é€ ä½“ï¼‰ã«å¤‰æ›´ãŒãªã„å ´åˆã€æ¸¡ã•ã‚ŒãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã¯æ“ä½œã•ã‚Œã¾ã›ã‚“ã€‚
+//! @attention æ§‹é€ ä½“ã®SetMessageID ã¯ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚¤ãƒ™ãƒ³ãƒˆãŒå®Ÿè¡Œã•ã‚ŒãŸå ´åˆã« true ã«ãªã‚Šã¾ã™ã€‚<b>å‰å›ã‹ã‚‰å¤‰æ›´ã•ã‚ŒãŸã¨ã¯é™ã‚Šã¾ã›ã‚“ã€‚</b>
 int EventControl::ProcessEventPoint(bool SkipFlag, EventParameter *Param)
 {
 	if( Param == NULL ){ return 0; }
@@ -267,10 +267,10 @@ int EventControl::ProcessEventPoint(bool SkipFlag, EventParameter *Param)
 	for(int i=0; i<TOTAL_EVENTFRAMESTEP; i++){
 		cnt = i;
 
-		//Ÿ‚Ìƒ|ƒCƒ“ƒg‚ğ’T‚·
+		//æ¬¡ã®ãƒã‚¤ãƒ³ãƒˆã‚’æ¢ã™
 		if( Point->SearchPointdata(&data, 0x08, 0, 0, 0, nextp4, 0) == 0 ){ return cnt; }
 
-		//–³Œø‚È”Ô†‚È‚çˆ—‚µ‚È‚¢
+		//ç„¡åŠ¹ãªç•ªå·ãªã‚‰å‡¦ç†ã—ãªã„
 		if( (data.p1 < 10)||(19 < data.p1) ){
 #ifdef ENABLE_CHECKOPENXOPSEVENT
 			if( data.p1 != 29 ){ return cnt; }
@@ -279,74 +279,74 @@ int EventControl::ProcessEventPoint(bool SkipFlag, EventParameter *Param)
 #endif
 		}
 
-		//ƒ‹[ƒv1‰ñ–Ú‚ÅƒXƒLƒbƒvƒtƒ‰ƒO‚ª—LŒø‚È‚ç‚ÎAŸƒCƒxƒ“ƒg‚Öi‚ŞB
+		//ãƒ«ãƒ¼ãƒ—1å›ç›®ã§ã‚¹ã‚­ãƒƒãƒ—ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ãªã‚‰ã°ã€æ¬¡ã‚¤ãƒ™ãƒ³ãƒˆã¸é€²ã‚€ã€‚
 		if( (cnt == 0)&&(SkipFlag == true) ){
 			nextp4 = data.p3;
 			continue;
 		}
 
 		switch(data.p1){
-			case 10:	//”C–±’B¬
+			case 10:	//ä»»å‹™é”æˆ
 				Param->endcnt += 1;
 				Param->complete = true;
 				return cnt;
 
-			case 11:	//”C–±¸”s
+			case 11:	//ä»»å‹™å¤±æ•—
 				Param->endcnt += 1;
 				Param->complete = false;
 				return cnt;
 
-			case 12:	//€–S‘Ò‚¿
+			case 12:	//æ­»äº¡å¾…ã¡
 				if( CheckDead(data.p2, false) == false ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 
-			case 13:	//“’…‘Ò‚¿
+			case 13:	//åˆ°ç€å¾…ã¡
 				if( CheckArrival(data.x, data.y, data.z, DISTANCE_CHECKPOINT, data.p2, false) == false ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 
-			case 14:	//•à‚«‚É•ÏX
+			case 14:	//æ­©ãã«å¤‰æ›´
 				SetMovePathMode(data.p2, 0);
 				nextp4 = data.p3;
 				break;
 
-			case 15:	//¬•¨”j‰ó‘Ò‚¿
+			case 15:	//å°ç‰©ç ´å£Šå¾…ã¡
 				if( CheckBreakSmallObject(data.p2, false) == false ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 
-			case 16:	//ƒP[ƒX‘Ò‚¿
+			case 16:	//ã‚±ãƒ¼ã‚¹å¾…ã¡
 				if( CheckArrival(data.x, data.y, data.z, DISTANCE_CHECKPOINT, data.p2, false) == false ){ return cnt; }
 				if( CheckHaveWeapon(ID_WEAPON_CASE, data.p2, false) == false ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 
-			case 17:	//ŠÔ‘Ò‚¿
+			case 17:	//æ™‚é–“å¾…ã¡
 				if( WaitSec(PointParamToInt(data.p2)) == false ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 
-			case 18:	//ƒƒbƒZ[ƒW
+			case 18:	//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 				SetMessage(PointParamToInt(data.p2), &(Param->MessageID), &(Param->SetMessageID));
 				nextp4 = data.p3;
 				break;
 
-			case 19:	//ƒ`[ƒ€•ÏX
+			case 19:	//ãƒãƒ¼ãƒ å¤‰æ›´
 				SetTeamID(data.p2, 0);
 				nextp4 = data.p3;
 				break;
 
 #ifdef ENABLE_CHECKOPENXOPSEVENT
-			case 29:	//OpenXOPS”»’è
+			case 29:	//OpenXOPSåˆ¤å®š
 				if( data.p2 != 0 ){ return cnt; }
 				nextp4 = data.p3;
 				break;
 #endif
 
-			//V‚½‚ÈƒCƒxƒ“ƒgƒ|ƒCƒ“ƒg‚ğ’Ç‰Á‚·‚éê‡A‚±‚±‚É‘‚­B
-			//@¦ í—Ş”Ô†‚Ì‹£‡ Œµ‹Ö
-			//@¦ –{switch•¶’¼‘O‚É‚ ‚éAğŒ”»’èi”ÍˆÍƒ`ƒFƒbƒNj‚à‘‚«Š·‚¦‚é‚±‚ÆB
+			//æ–°ãŸãªã‚¤ãƒ™ãƒ³ãƒˆãƒã‚¤ãƒ³ãƒˆã‚’è¿½åŠ ã™ã‚‹å ´åˆã€ã“ã“ã«æ›¸ãã€‚
+			//ã€€â€» ç¨®é¡ç•ªå·ã®ç«¶åˆ å³ç¦
+			//ã€€â€» æœ¬switchæ–‡ç›´å‰ã«ã‚ã‚‹ã€æ¡ä»¶åˆ¤å®šï¼ˆç¯„å›²ãƒã‚§ãƒƒã‚¯ï¼‰ã‚‚æ›¸ãæ›ãˆã‚‹ã“ã¨ã€‚
 		}
 	}
 	return cnt;

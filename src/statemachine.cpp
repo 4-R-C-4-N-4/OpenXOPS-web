@@ -1,5 +1,5 @@
 //! @file statemachine.cpp
-//! @brief StateMachineƒNƒ‰ƒX‚Ì’è‹`
+//! @brief StateMachineã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "statemachine.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 StateMachine::StateMachine()
 {
 	StateMode = 0;
@@ -40,14 +40,14 @@ StateMachine::StateMachine()
 	f12 = false;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 StateMachine::~StateMachine()
 {}
 
-//! @brief ó‘Ô‘JˆÚƒ‚[ƒh‚ğİ’è
-//! @param mode ’ÊíF0AƒuƒŠ[ƒtƒBƒ“ƒO/ƒƒCƒ“‰æ–Ê/Œ‹‰Ê•\¦‚Ì‚İF1AƒƒCƒ“‰æ–Ê‚Ì‚İF2
-//! @warning ƒvƒƒOƒ‰ƒ€ƒƒCƒ“ƒ‹[ƒvÀs‘O‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢B
-//! @warning ƒƒCƒ“ƒ‹[ƒv’†‚ÉÀs‚·‚é‚ÆAó‘Ô‘JˆÚ‚ª³‚µ‚­“®ì‚¹‚¸ƒNƒ‰ƒbƒVƒ…‚·‚éê‡‚ª‚ ‚è‚Ü‚·B
+//! @brief çŠ¶æ…‹é·ç§»ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
+//! @param mode é€šå¸¸ï¼š0ã€ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°/ãƒ¡ã‚¤ãƒ³ç”»é¢/çµæœè¡¨ç¤ºã®ã¿ï¼š1ã€ãƒ¡ã‚¤ãƒ³ç”»é¢ã®ã¿ï¼š2
+//! @warning ãƒ—ãƒ­ã‚°ãƒ©ãƒ ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—å®Ÿè¡Œå‰ã«è¨­å®šã—ã¦ãã ã•ã„ã€‚
+//! @warning ãƒ¡ã‚¤ãƒ³ãƒ«ãƒ¼ãƒ—ä¸­ã«å®Ÿè¡Œã™ã‚‹ã¨ã€çŠ¶æ…‹é·ç§»ãŒæ­£ã—ãå‹•ä½œã›ãšã‚¯ãƒ©ãƒƒã‚·ãƒ¥ã™ã‚‹å ´åˆãŒã‚ã‚Šã¾ã™ã€‚
 void StateMachine::SetStateMode(int mode)
 {
 	if( mode == 1 ){
@@ -64,11 +64,11 @@ void StateMachine::SetStateMode(int mode)
 	}
 }
 
-//! @brief Ÿ‚Ìó‘Ô‚ÖˆÚs
+//! @brief æ¬¡ã®çŠ¶æ…‹ã¸ç§»è¡Œ
 void StateMachine::NextState()
 {
 	if( StateMode == 0 ){
-		//’Êí
+		//é€šå¸¸
 		switch(NowState){
 			case STATE_CREATE_OPENING:
 				NowState = STATE_NOW_OPENING;
@@ -157,7 +157,7 @@ void StateMachine::NextState()
 		}
 	}
 	else if( StateMode == 1 ){
-		//ƒuƒŠ[ƒtƒBƒ“ƒO/ƒƒCƒ“‰æ–Ê/Œ‹‰Ê•\¦‚Ì‚İ
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°/ãƒ¡ã‚¤ãƒ³ç”»é¢/çµæœè¡¨ç¤ºã®ã¿
 		switch(NowState){
 			case STATE_CREATE_BRIEFING:
 				NowState = STATE_NOW_BRIEFING;
@@ -215,7 +215,7 @@ void StateMachine::NextState()
 		}
 	}
 	else if( StateMode == 2 ){
-		//ƒƒCƒ“‰æ–Ê‚Ì‚İ
+		//ãƒ¡ã‚¤ãƒ³ç”»é¢ã®ã¿
 		switch(NowState){
 			case STATE_CREATE_MAINGAME:
 				NowState = STATE_NOW_MAINGAME;
@@ -246,7 +246,7 @@ void StateMachine::NextState()
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	switch(NowState){
 		case STATE_CREATE_OPENING:
 			OutputLog.WriteLog(LOG_CHECK, "State machine", "Opening");
@@ -269,7 +269,7 @@ void StateMachine::NextState()
 #endif
 }
 
-//! @brief ƒ}ƒEƒXƒNƒŠƒbƒN ‚ğó‚¯‚½
+//! @brief ãƒã‚¦ã‚¹ã‚¯ãƒªãƒƒã‚¯ ã‚’å—ã‘ãŸ
 void StateMachine::PushMouseButton()
 {
 	back = false;
@@ -277,7 +277,7 @@ void StateMachine::PushMouseButton()
 	NextState();
 }
 
-//! @brief BackSpace ƒL[‚ğó‚¯‚½
+//! @brief BackSpace ã‚­ãƒ¼ã‚’å—ã‘ãŸ
 void StateMachine::PushBackSpaceKey()
 {
 	back = true;
@@ -285,7 +285,7 @@ void StateMachine::PushBackSpaceKey()
 	NextState();
 }
 
-//! @brief F12 ƒL[‚ğó‚¯‚½
+//! @brief F12 ã‚­ãƒ¼ã‚’å—ã‘ãŸ
 void StateMachine::PushF12Key()
 {
 	back = false;
@@ -293,7 +293,7 @@ void StateMachine::PushF12Key()
 	NextState();
 }
 
-//! @brief Œ»İ‚Ìó‘Ô‚ğ•Ô‚·
+//! @brief ç¾åœ¨ã®çŠ¶æ…‹ã‚’è¿”ã™
 int StateMachine::GetState()
 {
 	return NowState;

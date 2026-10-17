@@ -1,5 +1,5 @@
 //! @file doxygen.h
-//! @brief Doxygen�ݒ�t�@�C��
+//! @brief Doxygen設定ファイル
 
 //--------------------------------------------------------------------------------
 // 
@@ -36,18 +36,18 @@
 @mainpage
 
 <p>
-<b>OpenXOPS</b>�́AX operations�i���́FXOPS�j�Ƃ̌݊�����ڎw�������C�N�����A�I�[�v���\�[�X��FPS�Q�[���ł��B
+<b>OpenXOPS</b>は、X operations（略称：XOPS）との互換性を目指しリメイクした、オープンソースのFPSゲームです。
 </p>
 
 <br>
 
-@section website �����T�C�g
+@section website 公式サイト
 <p>
-�{�v���W�F�N�g�Ɋւ����{�I�ȏ��́A�ȉ��̃T�C�g����m�F���Ă��������B
+本プロジェクトに関する基本的な情報は、以下のサイトから確認してください。
 </p>
 <p>
-<b>OpenXOPS�����T�C�g</b><br>
-�@<a href="http://openxops.net/" target="blank">http://openxops.net/</a><br>
+<b>OpenXOPS公式サイト</b><br>
+　<a href="http://openxops.net/" target="blank">http://openxops.net/</a><br>
 </p>
 */ 
 

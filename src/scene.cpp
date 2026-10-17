@@ -1,5 +1,5 @@
 //! @file scene.cpp
-//! @brief Še‰æ–Ê‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ì’è‹`
+//! @brief å„ç”»é¢ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "scene.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 scene::scene()
 {
 	GameState = NULL;
@@ -41,11 +41,11 @@ scene::scene()
 	framecnt = 0;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 scene::~scene()
 {}
 
-//! @brief ƒNƒ‰ƒX‚ğİ’è
+//! @brief ã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
 void scene::SetClass(StateMachine *in_GameState, WindowControl *in_WindowCtrl, D3DGraphics *in_d3dg, InputControl *in_inputCtrl)
 {
 	GameState = in_GameState;
@@ -54,7 +54,7 @@ void scene::SetClass(StateMachine *in_GameState, WindowControl *in_WindowCtrl, D
 	inputCtrl = in_inputCtrl;
 }
 
-//! @brief ƒV[ƒ“ì¬
+//! @brief ã‚·ãƒ¼ãƒ³ä½œæˆ
 int scene::Create()
 {
 	inputCtrl->MoveMouseCenter();
@@ -64,13 +64,13 @@ int scene::Create()
 	return 0;
 }
 
-//! @brief ƒV[ƒ“•`‰æ‰ñ•œ
+//! @brief ã‚·ãƒ¼ãƒ³æç”»å›å¾©
 int scene::Recovery()
 {
 	return 0;
 }
 
-//! @brief ƒV[ƒ““ü—Íˆ—
+//! @brief ã‚·ãƒ¼ãƒ³å…¥åŠ›å‡¦ç†
 void scene::Input()
 {
 	inputCtrl->GetInputState(false);
@@ -83,15 +83,15 @@ void scene::Input()
 	}
 }
 
-//! @brief ƒV[ƒ“ŒvZˆ—
+//! @brief ã‚·ãƒ¼ãƒ³è¨ˆç®—å‡¦ç†
 void scene::Process()
 {
 	framecnt += 1;
 }
 
-//! @brief ƒV[ƒ“•`‰æˆ—
-//! @return ¬Œ÷Ffalse@¸”sFtrue
-//! @attention ¸”s‚µ‚½ê‡AD3DGraphicsƒNƒ‰ƒX‚ÌResetD3D()ŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ã‚·ãƒ¼ãƒ³æç”»å‡¦ç†
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—ï¼štrue
+//! @attention å¤±æ•—ã—ãŸå ´åˆã€D3DGraphicsã‚¯ãƒ©ã‚¹ã®ResetD3D()é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
 bool scene::RenderMain()
 {
 	if( d3dg->StartRender() ){ return true; }
@@ -104,19 +104,19 @@ bool scene::RenderMain()
 	return d3dg->EndRender();
 }
 
-//! @brief ƒV[ƒ“‰ğ•úˆ—
+//! @brief ã‚·ãƒ¼ãƒ³è§£æ”¾å‡¦ç†
 void scene::Destroy()
 {
 	GameState->NextState();
 }
 
-//! @brief ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ğŒ³‚ÉƒAƒ‹ƒtƒ@’lE“§–¾“x‚ğİ’èi1‰ñj
-//! @param tframecnt ‘ÎÛ‚Æ‚·‚éƒJƒEƒ“ƒg’l
-//! @param MaxAlpha Å‘åƒAƒ‹ƒtƒ@’l
-//! @param timingsec ŠÔŠuE•b”
-//! @param offsetsec ƒIƒtƒZƒbƒgE•b”
-//! @param reversal ”½“]ƒtƒ‰ƒOifalseFƒtƒB[ƒ‹ƒhƒCƒ“@trueFƒtƒB[ƒ‹ƒhƒAƒEƒgj
-//! @return ƒAƒ‹ƒtƒ@’l
+//! @brief ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã‚’å…ƒã«ã‚¢ãƒ«ãƒ•ã‚¡å€¤ãƒ»é€æ˜åº¦ã‚’è¨­å®šï¼ˆ1å›ï¼‰
+//! @param tframecnt å¯¾è±¡ã¨ã™ã‚‹ã‚«ã‚¦ãƒ³ãƒˆå€¤
+//! @param MaxAlpha æœ€å¤§ã‚¢ãƒ«ãƒ•ã‚¡å€¤
+//! @param timingsec é–“éš”ãƒ»ç§’æ•°
+//! @param offsetsec ã‚ªãƒ•ã‚»ãƒƒãƒˆãƒ»ç§’æ•°
+//! @param reversal åè»¢ãƒ•ãƒ©ã‚°ï¼ˆfalseï¼šãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¤ãƒ³ã€€trueï¼šãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¢ã‚¦ãƒˆï¼‰
+//! @return ã‚¢ãƒ«ãƒ•ã‚¡å€¤
 float scene::GetEffectAlpha(unsigned int tframecnt, float MaxAlpha, float timingsec, float offsetsec, bool reversal)
 {
 	float alpha;
@@ -136,12 +136,12 @@ float scene::GetEffectAlpha(unsigned int tframecnt, float MaxAlpha, float timing
 	return alpha;
 }
 
-//! @brief ƒtƒŒ[ƒ€ƒJƒEƒ“ƒg‚ğŒ³‚ÉƒAƒ‹ƒtƒ@’lE“§–¾“x‚ğİ’èiƒ‹[ƒvj
-//! @param tframecnt ‘ÎÛ‚Æ‚·‚éƒJƒEƒ“ƒg’l
-//! @param MaxAlpha Å‘åƒAƒ‹ƒtƒ@’l
-//! @param timingsec ŠÔŠuE•b”
-//! @param reversal ”½“]ƒtƒ‰ƒOifalseFƒtƒB[ƒ‹ƒhƒCƒ“@trueFƒtƒB[ƒ‹ƒhƒAƒEƒgj
-//! @return ƒAƒ‹ƒtƒ@’l
+//! @brief ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆã‚’å…ƒã«ã‚¢ãƒ«ãƒ•ã‚¡å€¤ãƒ»é€æ˜åº¦ã‚’è¨­å®šï¼ˆãƒ«ãƒ¼ãƒ—ï¼‰
+//! @param tframecnt å¯¾è±¡ã¨ã™ã‚‹ã‚«ã‚¦ãƒ³ãƒˆå€¤
+//! @param MaxAlpha æœ€å¤§ã‚¢ãƒ«ãƒ•ã‚¡å€¤
+//! @param timingsec é–“éš”ãƒ»ç§’æ•°
+//! @param reversal åè»¢ãƒ•ãƒ©ã‚°ï¼ˆfalseï¼šãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¤ãƒ³ã€€trueï¼šãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚¢ã‚¦ãƒˆï¼‰
+//! @return ã‚¢ãƒ«ãƒ•ã‚¡å€¤
 float scene::GetEffectAlphaLoop(unsigned int tframecnt, float MaxAlpha, float timingsec, bool reversal)
 {
 	float alpha;
@@ -156,17 +156,17 @@ float scene::GetEffectAlphaLoop(unsigned int tframecnt, float MaxAlpha, float ti
 	return alpha;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 D2Dscene::D2Dscene()
 {
 	gametitle = -1;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 D2Dscene::~D2Dscene()
 {}
 
-//! @brief 2DƒV[ƒ“‰Šú‰»
+//! @brief 2Dã‚·ãƒ¼ãƒ³åˆæœŸåŒ–
 int D2Dscene::Create()
 {
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
@@ -175,24 +175,24 @@ int D2Dscene::Create()
 	return 0;
 }
 
-//! @brief ƒV[ƒ“•`‰æ‰ñ•œ
+//! @brief ã‚·ãƒ¼ãƒ³æç”»å›å¾©
 int D2Dscene::Recovery()
 {
-	//‰Šú‰»
+	//åˆæœŸåŒ–
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
 	if( gametitle == -1 ){ return 1; }
 	return 0;
 }
 
-//! @brief 2DƒV[ƒ“•`‰æˆ—i2Dj
+//! @brief 2Dã‚·ãƒ¼ãƒ³æç”»å‡¦ç†ï¼ˆ2Dï¼‰
 void D2Dscene::Render2D()
 {
 	d3dg->Draw2DTextureFontText(10, 10, "hello world !", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 20, 32);
 }
 
-//! @brief 2DƒV[ƒ“•`‰æˆ—iƒƒCƒ“j
-//! @return ¬Œ÷Ffalse@¸”sFtrue
-//! @attention ¸”s‚µ‚½ê‡AD3DGraphicsƒNƒ‰ƒX‚ÌResetD3D()ŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief 2Dã‚·ãƒ¼ãƒ³æç”»å‡¦ç†ï¼ˆãƒ¡ã‚¤ãƒ³ï¼‰
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—ï¼štrue
+//! @attention å¤±æ•—ã—ãŸå ´åˆã€D3DGraphicsã‚¯ãƒ©ã‚¹ã®ResetD3D()é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
 bool D2Dscene::RenderMain()
 {
 	if( d3dg->StartRender() ){ return true; }
@@ -207,7 +207,7 @@ bool D2Dscene::RenderMain()
 	return d3dg->EndRender();
 }
 
-//! @brief 2DƒV[ƒ“‰ğ•ú
+//! @brief 2Dã‚·ãƒ¼ãƒ³è§£æ”¾
 void D2Dscene::Destroy()
 {
 	d3dg->CleanupTexture(gametitle);
@@ -215,7 +215,7 @@ void D2Dscene::Destroy()
 }
 
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 D3Dscene::D3Dscene()
 {
 	GameSound = NULL;
@@ -226,11 +226,11 @@ D3Dscene::D3Dscene()
 	camera_ry = 0.0f;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 D3Dscene::~D3Dscene()
 {}
 
-//! @brief 3DƒV[ƒ“ƒNƒ‰ƒX‚ğİ’è
+//! @brief 3Dã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
 void D3Dscene::SetClass(StateMachine *in_GameState, WindowControl *in_WindowCtrl, D3DGraphics *in_d3dg, InputControl *in_inputCtrl, SoundManager *in_GameSound)
 {
 	GameState = in_GameState;
@@ -240,28 +240,28 @@ void D3Dscene::SetClass(StateMachine *in_GameState, WindowControl *in_WindowCtrl
 	GameSound = in_GameSound;
 }
 
-//! @brief 3DƒV[ƒ“åŒvZˆ—
+//! @brief 3Dã‚·ãƒ¼ãƒ³ä¸»è¨ˆç®—å‡¦ç†
 void D3Dscene::Process()
 {}
 
-//! @brief 3DƒV[ƒ“ƒTƒEƒ“ƒhÄ¶ˆ—
+//! @brief 3Dã‚·ãƒ¼ãƒ³ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿå‡¦ç†
 void D3Dscene::Sound()
 {
-	//ƒTƒEƒ“ƒh‚ğÄ¶
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿ
 	GameSound->PlayWorldSound(camera_x, camera_y, camera_z, camera_rx, 1);
 }
 
-//! @brief 3DƒV[ƒ“•`‰æˆ—i3Dj
+//! @brief 3Dã‚·ãƒ¼ãƒ³æç”»å‡¦ç†ï¼ˆ3Dï¼‰
 void D3Dscene::Render3D()
 {}
 
-//! @brief 3DƒV[ƒ“•`‰æˆ—i2Dj
+//! @brief 3Dã‚·ãƒ¼ãƒ³æç”»å‡¦ç†ï¼ˆ2Dï¼‰
 void D3Dscene::Render2D()
 {}
 
-//! @brief 3DƒV[ƒ“•`‰æˆ—iƒƒCƒ“j
-//! @return ¬Œ÷Ffalse@¸”sFtrue
-//! @attention ¸”s‚µ‚½ê‡AD3DGraphicsƒNƒ‰ƒX‚ÌResetD3D()ŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief 3Dã‚·ãƒ¼ãƒ³æç”»å‡¦ç†ï¼ˆãƒ¡ã‚¤ãƒ³ï¼‰
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—ï¼štrue
+//! @attention å¤±æ•—ã—ãŸå ´åˆã€D3DGraphicsã‚¯ãƒ©ã‚¹ã®ResetD3D()é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
 bool D3Dscene::RenderMain()
 {
 	if( d3dg->StartRender() ){ return true; }

@@ -1,5 +1,5 @@
 //! @file config.cpp
-//! @brief configƒNƒ‰ƒX‚Ì’è‹` 
+//! @brief configã‚¯ãƒ©ã‚¹ã®å®šç¾© 
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,10 +31,10 @@
 
 #include "config.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Config::Config()
 {
-	//Šeíƒƒ“ƒo[•Ï”‰Šú‰»
+	//å„ç¨®ãƒ¡ãƒ³ãƒãƒ¼å¤‰æ•°åˆæœŸåŒ–
 	for(int i=0; i<TOTAL_ControlKey; i++){
 		Keycode[i] = 0;
 	}
@@ -56,13 +56,13 @@ Config::Config()
 	mastervolume = 0.0f;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Config::~Config()
 {}
 
-//! @brief İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int Config::LoadFile(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -71,79 +71,79 @@ int Config::LoadFile(const char *fname)
 	char buf;
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Config File", fname);
 #endif
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	fp = fopen(fname, "rb");
 	if( fp == NULL ){ return 1; }
 
-	//ƒL[ƒR[ƒh
+	//ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
 	for(int i=0; i<TOTAL_ControlKey; i++){
 		fread(&buf, 1, 1, fp);
 		Keycode[i] = (int)buf;
 	}
 
-	//ƒ}ƒEƒXŠ´“x
+	//ãƒã‚¦ã‚¹æ„Ÿåº¦
 	fread(&buf, 1, 1, fp);
 	MouseSensitivity = (int)buf;
 
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“—LŒø
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³æœ‰åŠ¹
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ FullscreenFlag = false; }
 	else{ FullscreenFlag = true; }
 
-	//Œø‰Ê‰¹—LŒø
+	//åŠ¹æœéŸ³æœ‰åŠ¹
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ SoundFlag = false; }
 	else{ SoundFlag = true; }
 
-	//oŒŒ—LŒø
+	//å‡ºè¡€æœ‰åŠ¹
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ BloodFlag = false; }
 	else{ BloodFlag = true; }
 
-	//‰æ–Ê‚Ì–¾‚é‚³
+	//ç”»é¢ã®æ˜ã‚‹ã•
 	fread(&buf, 1, 1, fp);
 	Brightness = (int)buf;
 
-	//ƒ}ƒEƒX”½“]
+	//ãƒã‚¦ã‚¹åè»¢
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ InvertMouseFlag = false; }
 	else{ InvertMouseFlag = true; }
 
-	//ƒtƒŒ[ƒ€ƒXƒLƒbƒv
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¹ã‚­ãƒƒãƒ—
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ FrameskipFlag = false; }
 	else{ FrameskipFlag = true; }
 
-	//•Ê‚ÌÆ€‚ğg—p
+	//åˆ¥ã®ç…§æº–ã‚’ä½¿ç”¨
 	fread(&buf, 1, 1, fp);
 	if( buf == 0x00 ){ AnotherGunsightFlag = false; }
 	else{ AnotherGunsightFlag = true; }
 
-	//ƒvƒŒƒCƒ„[–¼
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 	fread(PlayerName, 1, MAX_PLAYERNAME, fp);
 
-	//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ•Â‚¶‚é
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’é–‰ã˜ã‚‹
 	fclose(fp);
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 	return 0;
 }
 
-//! @brief İ’èƒtƒ@ƒCƒ‹‚É‘‚«‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int Config::SaveFile(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -152,77 +152,77 @@ int Config::SaveFile(const char *fname)
 	char buf;
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Config File (Save)", fname);
 #endif
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	fp = fopen(fname, "wb");
 	if( fp == NULL ){ return 1; }
 
-	//ƒL[ƒR[ƒh
+	//ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
 	for(int i=0; i<TOTAL_ControlKey; i++){
 		buf = (char)Keycode[i];
 		fwrite(&buf, 1, 1, fp);
 	}
 
-	//ƒ}ƒEƒXŠ´“x
+	//ãƒã‚¦ã‚¹æ„Ÿåº¦
 	buf = (char)MouseSensitivity;
 	fwrite(&buf, 1, 1, fp);
 
-	//ƒtƒ‹ƒXƒNƒŠ[ƒ“—LŒø
+	//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³æœ‰åŠ¹
 	if( FullscreenFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//Œø‰Ê‰¹—LŒø
+	//åŠ¹æœéŸ³æœ‰åŠ¹
 	if( SoundFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//oŒŒ—LŒø
+	//å‡ºè¡€æœ‰åŠ¹
 	if( BloodFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//‰æ–Ê‚Ì–¾‚é‚³
+	//ç”»é¢ã®æ˜ã‚‹ã•
 	buf = (char)Brightness;
 	fwrite(&buf, 1, 1, fp);
 
-	//ƒ}ƒEƒX”½“]
+	//ãƒã‚¦ã‚¹åè»¢
 	if( InvertMouseFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//ƒtƒŒ[ƒ€ƒXƒLƒbƒv
+	//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¹ã‚­ãƒƒãƒ—
 	if( FrameskipFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//•Ê‚ÌÆ€‚ğg—p
+	//åˆ¥ã®ç…§æº–ã‚’ä½¿ç”¨
 	if( AnotherGunsightFlag == false ){ buf = 0x00; }
 	else{ buf = 0x01; }
 	fwrite(&buf, 1, 1, fp);
 
-	//ƒvƒŒƒCƒ„[–¼
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 	fwrite(PlayerName, 1, MAX_PLAYERNAME, fp);
 
-	//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ•Â‚¶‚é
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’é–‰ã˜ã‚‹
 	fclose(fp);
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 	return 0;
 }
 
-//! @brief İ’è’l‚ğƒfƒtƒHƒ‹ƒg‚Ì’l‚Å‰Šú‰»
+//! @brief è¨­å®šå€¤ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤ã§åˆæœŸåŒ–
 void Config::SetDefaultConfig()
 {
 	Keycode[KEY_TURNUP]			= 0;
@@ -254,9 +254,9 @@ void Config::SetDefaultConfig()
 	strcpy(PlayerName, "xopsplayer");
 }
 
-//! @brief ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh‚ğæ“¾
-//! @param id ’è”
-//! @return ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh
+//! @brief ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—
+//! @param id å®šæ•°
+//! @return ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
 int Config::GetKeycode(int id)
 {
 	if( (id < 0)||(TOTAL_ControlKey <= id) ){ return 0; }
@@ -264,9 +264,9 @@ int Config::GetKeycode(int id)
 	return Keycode[id];
 }
 
-//! @brief ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh‚ğİ’è
-//! @param id ’è”
-//! @param key ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh
+//! @brief ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’è¨­å®š
+//! @param id å®šæ•°
+//! @param key ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
 void Config::SetKeycode(int id, int key)
 {
 	if( (id < 0)||(TOTAL_ControlKey <= id) ){ return; }
@@ -274,135 +274,135 @@ void Config::SetKeycode(int id, int key)
 	Keycode[id] = key;
 }
 
-//! @brief ƒ}ƒEƒXŠ´“xæ“¾
-//! @return ¶‚Ì’l
+//! @brief ãƒã‚¦ã‚¹æ„Ÿåº¦å–å¾—
+//! @return ç”Ÿã®å€¤
 int Config::GetMouseSensitivity()
 {
 	return MouseSensitivity;
 }
 
-//! @brief ƒ}ƒEƒXŠ´“xİ’è
-//! @param param ¶‚Ì’l
+//! @brief ãƒã‚¦ã‚¹æ„Ÿåº¦è¨­å®š
+//! @param param ç”Ÿã®å€¤
 void Config::SetMouseSensitivity(int param)
 {
 	MouseSensitivity = param;
 }
 
-//! @brief ‰æ–Ê•\¦ƒ‚[ƒhæ“¾
-//! @return ƒEƒBƒ“ƒhƒEFfalse@ƒtƒ‹ƒXƒNƒŠ[ƒ“Ftrue
+//! @brief ç”»é¢è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰å–å¾—
+//! @return ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ï¼šfalseã€€ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ï¼štrue
 bool Config::GetFullscreenFlag()
 {
 	return FullscreenFlag;
 }
 
-//! @brief ‰æ–Ê•\¦ƒ‚[ƒhİ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief ç”»é¢è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetFullscreenFlag(bool flag)
 {
 	FullscreenFlag = flag;
 }
 
-//! @brief Œø‰Ê‰¹İ’èæ“¾
-//! @return –³ŒøFfalse@—LŒøFtrue
+//! @brief åŠ¹æœéŸ³è¨­å®šå–å¾—
+//! @return ç„¡åŠ¹ï¼šfalseã€€æœ‰åŠ¹ï¼štrue
 bool Config::GetSoundFlag()
 {
 	return SoundFlag;
 }
 
-//! @brief Œø‰Ê‰¹İ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief åŠ¹æœéŸ³è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetSoundFlag(bool flag)
 {
 	SoundFlag = flag;
 }
 
-//! @brief oŒŒİ’èæ“¾
-//! @return –³ŒøFfalse@—LŒøFtrue
+//! @brief å‡ºè¡€è¨­å®šå–å¾—
+//! @return ç„¡åŠ¹ï¼šfalseã€€æœ‰åŠ¹ï¼štrue
 bool Config::GetBloodFlag()
 {
 	return BloodFlag;
 }
 
-//! @brief oŒŒİ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief å‡ºè¡€è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetBloodFlag(bool flag)
 {
 	BloodFlag = flag;
 }
 
-//! @brief ‰æ–Ê‚Ì–¾‚é‚³İ’èæ“¾
-//! @return ¶‚Ì’l
+//! @brief ç”»é¢ã®æ˜ã‚‹ã•è¨­å®šå–å¾—
+//! @return ç”Ÿã®å€¤
 int Config::GetBrightness()
 {
 	return Brightness;
 }
 
-//! @brief ‰æ–Ê‚Ì–¾‚é‚³İ’è
-//! @param param ¶‚Ì’l
+//! @brief ç”»é¢ã®æ˜ã‚‹ã•è¨­å®š
+//! @param param ç”Ÿã®å€¤
 void Config::SetBrightness(int param)
 {
 	Brightness = param;
 }
 
 
-//! @brief ƒ}ƒEƒX”½“]İ’èæ“¾
-//! @return –³ŒøFfalse@—LŒøFtrue
+//! @brief ãƒã‚¦ã‚¹åè»¢è¨­å®šå–å¾—
+//! @return ç„¡åŠ¹ï¼šfalseã€€æœ‰åŠ¹ï¼štrue
 bool Config::GetInvertMouseFlag()
 {
 	return InvertMouseFlag;
 }
 
-//! @brief ƒ}ƒEƒX”½“]İ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief ãƒã‚¦ã‚¹åè»¢è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetInvertMouseFlag(bool flag)
 {
 	InvertMouseFlag = flag;
 }
 
-//! @brief ƒtƒŒ[ƒ€ƒXƒLƒbƒvİ’èæ“¾
-//! @return –³ŒøFfalse@—LŒøFtrue
+//! @brief ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¹ã‚­ãƒƒãƒ—è¨­å®šå–å¾—
+//! @return ç„¡åŠ¹ï¼šfalseã€€æœ‰åŠ¹ï¼štrue
 bool Config::GetFrameskipFlag()
 {
 	return FrameskipFlag;
 }
 
-//! @brief ƒtƒŒ[ƒ€ƒXƒLƒbƒvİ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¹ã‚­ãƒƒãƒ—è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetFrameskipFlag(bool flag)
 {
 	FrameskipFlag = flag;
 }
 
-//! @brief •Ê‚ÌÆ€‚ğg—pİ’èæ“¾
-//! @return –³ŒøFfalse@—LŒøFtrue
+//! @brief åˆ¥ã®ç…§æº–ã‚’ä½¿ç”¨è¨­å®šå–å¾—
+//! @return ç„¡åŠ¹ï¼šfalseã€€æœ‰åŠ¹ï¼štrue
 bool Config::GetAnotherGunsightFlag()
 {
 	return AnotherGunsightFlag;
 }
 
-//! @brief •Ê‚ÌÆ€‚ğg—pİ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief åˆ¥ã®ç…§æº–ã‚’ä½¿ç”¨è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void Config::SetAnotherGunsightFlag(bool flag)
 {
 	AnotherGunsightFlag = flag;
 }
 
-//! @brief ƒvƒŒƒCƒ„[–¼æ“¾
-//! @param out_str ó‚¯æ‚é•¶š—ñŒ^ƒ|ƒCƒ“ƒ^
-//! @return ƒvƒŒƒCƒ„[–¼•¶š”
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åå–å¾—
+//! @param out_str å—ã‘å–ã‚‹æ–‡å­—åˆ—å‹ãƒã‚¤ãƒ³ã‚¿
+//! @return ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åæ–‡å­—æ•°
 int Config::GetPlayerName(char *out_str)
 {
 	if( out_str == NULL ){ return 0; }
 
-	//ƒ|ƒCƒ“ƒ^‚ÉƒRƒs[‚·‚é
+	//ãƒã‚¤ãƒ³ã‚¿ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
 	strcpy(out_str, PlayerName);
 
-	//•¶š”‚ğ•Ô‚·
+	//æ–‡å­—æ•°ã‚’è¿”ã™
 	return (int)strlen(PlayerName);
 }
 
-//! @brief ƒvƒŒƒCƒ„[–¼İ’è
-//! @param in_str ƒvƒŒƒCƒ„[–¼
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åè¨­å®š
+//! @param in_str ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å
 void Config::SetPlayerName(char *in_str)
 {
 	if( in_str == NULL ){ return; }
@@ -411,13 +411,13 @@ void Config::SetPlayerName(char *in_str)
 		in_str[MAX_PLAYERNAME - 1] = 0x00;
 	}
 
-	//•¶š—ñ‚ğƒRƒs[‚·‚é
+	//æ–‡å­—åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
 	strcpy(PlayerName, in_str);
 }
 
-//! @brief ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh‚Ì–¼‘O‚ğæ“¾
-//! @param code ƒIƒŠƒWƒiƒ‹ƒL[ƒR[ƒh
-//! @return ƒL[‚Ì–¼‘O
+//! @brief ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã®åå‰ã‚’å–å¾—
+//! @param code ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰
+//! @return ã‚­ãƒ¼ã®åå‰
 const char* Config::GetOriginalkeycodeString(int code)
 {
 	const char *out;
@@ -510,22 +510,22 @@ const char* Config::GetOriginalkeycodeString(int code)
 }
 
 
-//! @brief ’Ç‰Áİ’èƒtƒ@ƒCƒ‹‚ğ¶¬‚·‚é
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷Ftrue@¸”s/•s—vFfalse
+//! @brief è¿½åŠ è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”Ÿæˆã™ã‚‹
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—/ä¸è¦ï¼šfalse
 bool Config::CreateExtConfig(const char *fname)
 {
 #ifdef ENABLE_ADDCONFIG
 	if( fname == NULL ){ return false; }
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
 	FILE *fp;
 
-	//ƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚é‚È‚ç¸”siƒtƒ@ƒCƒ‹¶¬•s—vj
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰å¤±æ•—ï¼ˆãƒ•ã‚¡ã‚¤ãƒ«ç”Ÿæˆä¸è¦ï¼‰
 	fp = fopen(fname, "r");
 	if( fp != NULL ){
 		fclose(fp);
@@ -533,7 +533,7 @@ bool Config::CreateExtConfig(const char *fname)
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Config File (Create .ini)", fname);
 #endif
 
@@ -585,7 +585,7 @@ bool Config::CreateExtConfig(const char *fname)
 	fclose(fp);
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 	return true;
@@ -594,9 +594,9 @@ bool Config::CreateExtConfig(const char *fname)
 #endif
 }
 
-//! @brief ’Ç‰Áİ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief è¿½åŠ è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int Config::LoadExtFile(const char *fname)
 {
 #ifdef ENABLE_ADDCONFIG
@@ -606,26 +606,26 @@ int Config::LoadExtFile(const char *fname)
 	int mode;
 	
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Config File (.ini)", fname);
 #endif
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
 	INIConfig.LoadINIFile(fname);
 
-	//•\¦Œ¾Œêæ“¾
+	//è¡¨ç¤ºè¨€èªå–å¾—
 	Language = INIConfig.GetINIFileInt("Game", "Language", 0, NULL);
 
-	//˜r•\¦ƒtƒ‰ƒOæ“¾
+	//è…•è¡¨ç¤ºãƒ•ãƒ©ã‚°å–å¾—
 	mode = INIConfig.GetINIFileInt("Game", "ShowArm", 0, NULL);
 	if( mode == 0 ){ ShowArmFlag = false; }
 	else{ ShowArmFlag = true; }
 
-	//‰ğ‘œ“xæ“¾
+	//è§£åƒåº¦å–å¾—
 	mode = INIConfig.GetINIFileInt("Graphics", "WindowSize", 0, NULL);
 	switch(mode){
 		case  0: ScreenWidth =  640; ScreenHeight =  480; break;
@@ -641,12 +641,12 @@ int Config::LoadExtFile(const char *fname)
 		default: ScreenWidth = DEFAULT_SCREEN_WIDTH; ScreenHeight = DEFAULT_SCREEN_HEIGHT; break;
 	}
 
-	//ƒ}ƒEƒXˆÚ“®—Ê§ŒÀƒtƒ‰ƒO
+	//ãƒã‚¦ã‚¹ç§»å‹•é‡åˆ¶é™ãƒ•ãƒ©ã‚°
 	mode = INIConfig.GetINIFileInt("Input", "MouseLimit", 1, NULL);
 	if( mode == 0 ){ MouseLimitFlag = false; }
 	else{ MouseLimitFlag = true; }
 
-	//‰¹—Êæ“¾
+	//éŸ³é‡å–å¾—
 	mastervolume = INIConfig.GetINIFileFloat("Sounds", "MasterVolume", 1.0f, NULL);
 	if( mastervolume < 0.0f ){ mastervolume = 0.0f; }
 	if( mastervolume > 1.0f ){ mastervolume = 1.0f; }
@@ -654,7 +654,7 @@ int Config::LoadExtFile(const char *fname)
 	INIConfig.ReleaseINIFile();
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 
@@ -667,7 +667,7 @@ int Config::LoadExtFile(const char *fname)
 	return 0;
 }
 
-//! @brief ’Ç‰Áİ’è’l‚ğƒfƒtƒHƒ‹ƒg‚Ì’l‚Å‰Šú‰»
+//! @brief è¿½åŠ è¨­å®šå€¤ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤ã§åˆæœŸåŒ–
 void Config::SetDefaultExtConfig()
 {
 	Language = 0;
@@ -678,43 +678,43 @@ void Config::SetDefaultExtConfig()
 	mastervolume = 1.0f;
 }
 
-//! @brief Œ¾Œêİ’è‚ğæ“¾
-//! @return ’l
+//! @brief è¨€èªè¨­å®šã‚’å–å¾—
+//! @return å€¤
 int Config::GetLanguage()
 {
 	return Language;
 }
 
-//! @brief ˜r•\¦ƒtƒ‰ƒO‚ğæ“¾
-//! @return ƒtƒ‰ƒO
+//! @brief è…•è¡¨ç¤ºãƒ•ãƒ©ã‚°ã‚’å–å¾—
+//! @return ãƒ•ãƒ©ã‚°
 bool Config::GetShowArmFlag()
 {
 	return ShowArmFlag;
 }
 
-//! @brief ‰æ–Ê‰ğ‘œ“xi•j‚ğæ“¾
-//! @return ’l
+//! @brief ç”»é¢è§£åƒåº¦ï¼ˆå¹…ï¼‰ã‚’å–å¾—
+//! @return å€¤
 int Config::GetScreenWidth()
 {
 	return ScreenWidth;
 }
 
-//! @brief ‰æ–Ê‰ğ‘œ“xi‚‚³j‚ğæ“¾
-//! @return ’l
+//! @brief ç”»é¢è§£åƒåº¦ï¼ˆé«˜ã•ï¼‰ã‚’å–å¾—
+//! @return å€¤
 int Config::GetScreenHeight()
 {
 	return ScreenHeight;
 }
 
-//! @brief ƒ}ƒEƒXˆÚ“®—Ê§ŒÀƒtƒ‰ƒO
-//! @return ’l
+//! @brief ãƒã‚¦ã‚¹ç§»å‹•é‡åˆ¶é™ãƒ•ãƒ©ã‚°
+//! @return å€¤
 bool Config::GetMouseLimitFlag()
 {
 	return MouseLimitFlag;
 }
 
-//! @brief ‰¹—Êİ’è‚ğæ“¾
-//! @return ’l
+//! @brief éŸ³é‡è¨­å®šã‚’å–å¾—
+//! @return å€¤
 float Config::GetVolume()
 {
 	return mastervolume;

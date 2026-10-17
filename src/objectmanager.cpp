@@ -1,5 +1,5 @@
 //! @file objectmanager.cpp
-//! @brief ObjectManagerƒNƒ‰ƒX‚Ì’è‹`
+//! @brief ObjectManagerã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "objectmanager.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ObjectManager::ObjectManager()
 {
 	HumanIndex = new human[MAX_HUMAN];
@@ -65,7 +65,7 @@ ObjectManager::ObjectManager()
 	ObjectLog = new ObjectManagerLog;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ObjectManager::~ObjectManager()
 {
 	Cleanup();
@@ -89,16 +89,16 @@ ObjectManager::~ObjectManager()
 	if( ObjectLog != NULL ){ delete ObjectLog; }
 }
 
-//! @brief QÆ‚·‚éƒNƒ‰ƒX‚ğİ’è
-//! @param in_GameParamInfo ƒQ[ƒ€İ’èƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-//! @param in_d3dg •`‰æˆ—ƒNƒ‰ƒX
-//! @param in_Resource ƒŠƒ\[ƒXŠÇ—ƒNƒ‰ƒX
-//! @param in_BlockData ƒuƒƒbƒNƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-//! @param in_PointData ƒ|ƒCƒ“ƒgƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-//! @param in_CollD “–‚½‚è”»’èˆ—ƒNƒ‰ƒX
-//! @param in_GameSound Œø‰Ê‰¹Ä¶ƒNƒ‰ƒX
-//! @param in_MIFdata MIFƒRƒ“ƒgƒ[ƒ‹ƒNƒ‰ƒX
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å‚ç…§ã™ã‚‹ã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param in_GameParamInfo ã‚²ãƒ¼ãƒ è¨­å®šãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @param in_d3dg æç”»å‡¦ç†ã‚¯ãƒ©ã‚¹
+//! @param in_Resource ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @param in_BlockData ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @param in_PointData ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @param in_CollD å½“ãŸã‚Šåˆ¤å®šå‡¦ç†ã‚¯ãƒ©ã‚¹
+//! @param in_GameSound åŠ¹æœéŸ³å†ç”Ÿã‚¯ãƒ©ã‚¹
+//! @param in_MIFdata MIFã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚¯ãƒ©ã‚¹
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ObjectManager::SetClass(ParameterInfo *in_GameParamInfo, D3DGraphics *in_d3dg, ResourceManager *in_Resource, BlockDataInterface *in_BlockData, PointDataInterface *in_PointData, Collision *in_CollD, SoundManager *in_GameSound, MIFInterface *in_MIFdata)
 {
 	GameParamInfo = in_GameParamInfo;
@@ -148,12 +148,12 @@ void ObjectManager::SetClass(ParameterInfo *in_GameParamInfo, D3DGraphics *in_d3
 	ObjectLog->SetClass(d3dg);
 }
 
-//! @brief l’Ç‰Á
-//! @param data l‚Ìƒ|ƒCƒ“ƒgƒf[ƒ^@ipointdata\‘¢‘Ìj
-//! @param infodata QÆ‚·‚élî•ñ‚Ìƒ|ƒCƒ“ƒgƒf[ƒ^@iVj
-//! @param RandomFlag ƒ‰ƒ“ƒ_ƒ€•â³‚ğ—LŒø‚É‚·‚é
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
-//! @attention –³Œø‚Èl‚Ìí—Ş”Ô†‚ªw’è‚³‚ê‚½ê‡‚Í ’ÊÌF“älŠÔ ‚ª“oê‚µ‚Ü‚·BƒeƒNƒXƒ`ƒƒ‚Íƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ0”Ô‚ªg—p‚³‚êAHP‚Í 0 ‚ªw’èi‘¦€j‚³‚ê‚Ü‚·B
+//! @brief äººè¿½åŠ 
+//! @param data äººã®ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã€€ï¼ˆpointdataæ§‹é€ ä½“ï¼‰
+//! @param infodata å‚ç…§ã™ã‚‹äººæƒ…å ±ã®ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã€€ï¼ˆã€ƒï¼‰
+//! @param RandomFlag ãƒ©ãƒ³ãƒ€ãƒ è£œæ­£ã‚’æœ‰åŠ¹ã«ã™ã‚‹
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
+//! @attention ç„¡åŠ¹ãªäººã®ç¨®é¡ç•ªå·ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã¯ é€šç§°ï¼šè¬äººé–“ ãŒç™»å ´ã—ã¾ã™ã€‚ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£0ç•ªãŒä½¿ç”¨ã•ã‚Œã€HPã¯ 0 ãŒæŒ‡å®šï¼ˆï¼å³æ­»ï¼‰ã•ã‚Œã¾ã™ã€‚
 int ObjectManager::AddHumanIndex(pointdata data, pointdata infodata, bool RandomFlag)
 {
 	int GetHumanFlag;
@@ -176,7 +176,7 @@ int ObjectManager::AddHumanIndex(pointdata data, pointdata infodata, bool Random
 	}
 #endif
 
-	//l‚Ìƒ‚ƒfƒ‹”Ô†‚ğæ“¾
+	//äººã®ãƒ¢ãƒ‡ãƒ«ç•ªå·ã‚’å–å¾—
 	int upmodel[TOTAL_UPMODE];
 	int armmodel[TOTAL_ARMMODE];
 	int legmodel;
@@ -196,13 +196,13 @@ int ObjectManager::AddHumanIndex(pointdata data, pointdata infodata, bool Random
 
 	for(int j=0; j<MAX_HUMAN; j++){
 		if( HumanIndex[j].GetEnableFlag() == false ){
-			//‰Šú‰»‚·‚é
+			//åˆæœŸåŒ–ã™ã‚‹
 			HumanIndex[j].SetPosData(px, py, pz, rx);
 			HumanIndex[j].SetParamData(infodata.p2, data.id, data.p4, infodata.p3, true);
 			if( GetHumanFlag == 0 ){
 				int id = Resource->GetHumanTexture(infodata.p2);
 				if( id == -1 ){
-					//ƒeƒNƒXƒ`ƒƒ‚ªæ“¾‚Å‚«‚È‚¯‚ê‚ÎAƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒO‚ğ—LŒø‚É‚µ‚Ä–ˆƒtƒŒ[ƒ€æ“¾
+					//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒå–å¾—ã§ããªã‘ã‚Œã°ã€ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ã«ã—ã¦æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å–å¾—
 					Human_FrameTextureRefresh[j] = true;
 				}
 
@@ -221,37 +221,37 @@ int ObjectManager::AddHumanIndex(pointdata data, pointdata infodata, bool Random
 		}
 	}
 
-	//‰Šú‰»‚Å‚«‚È‚©‚Á‚½‚çƒGƒ‰[‚Æ‚µ‚Ä•Ô‚·
+	//åˆæœŸåŒ–ã§ããªã‹ã£ãŸã‚‰ã‚¨ãƒ©ãƒ¼ã¨ã—ã¦è¿”ã™
 	if( Humanindexid == -1 ){
 		return -1;
 	}
 
-	//l‚Ìİ’èƒf[ƒ^‚ª³‚µ‚­“Ç‚ß‚Ä‚¢‚ê‚Î`
+	//äººã®è¨­å®šãƒ‡ãƒ¼ã‚¿ãŒæ­£ã—ãèª­ã‚ã¦ã„ã‚Œã°ï½
 	if( GetHumanFlag == 0 ){
-		//•ŠíB‚ğ‰¼‘z•Ší‚Æ‚µ‚Ä’Ç‰Á
+		//æ­¦å™¨Bã‚’ä»®æƒ³æ­¦å™¨ã¨ã—ã¦è¿½åŠ 
 		Weaponindexid = AddVisualWeaponIndex(HumanParam.Weapon[0], true);
 		if( Weaponindexid != -1 ){
-			//¬Œ÷‚·‚ê‚Î”z—ñ‚É‹L˜^
+			//æˆåŠŸã™ã‚Œã°é…åˆ—ã«è¨˜éŒ²
 			Weapon[0] = &WeaponIndex[Weaponindexid];
 		}
 		if( data.p1 == POINT_P1TYPE_HUMAN ){
-			//•ŠíA‚Ì‰¼‘z•Ší‚Æ‚µ‚Ä’Ç‰Á
+			//æ­¦å™¨Aã®ä»®æƒ³æ­¦å™¨ã¨ã—ã¦è¿½åŠ 
 			Weaponindexid = AddVisualWeaponIndex(HumanParam.Weapon[1], true);
 			if( Weaponindexid != -1 ){
-				//¬Œ÷‚·‚ê‚Î”z—ñ‚É‹L˜^
+				//æˆåŠŸã™ã‚Œã°é…åˆ—ã«è¨˜éŒ²
 				Weapon[1] = &WeaponIndex[Weaponindexid];
 			}
 		}
 
-		//l‚É‚½‚¹‚é
+		//äººã«æŒãŸã›ã‚‹
 		HumanIndex[Humanindexid].SetWeapon(Weapon, lnbslist, nbslist);
 	}
 
-	//”­–Cƒtƒ‰ƒO‚ğ‰Šú‰»
+	//ç™ºç ²ãƒ•ãƒ©ã‚°ã‚’åˆæœŸåŒ–
 	Human_ShotFlag[Humanindexid] = false;
 	Human_YakkyouCnt[Humanindexid] = -1;
 
-	//ƒvƒŒƒCƒ„[‚È‚ç‚ÎA”Ô†‚ğ‹L˜^
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãªã‚‰ã°ã€ç•ªå·ã‚’è¨˜éŒ²
 	if( ( (data.p1 == POINT_P1TYPE_HUMAN)||(data.p1 == POINT_P1TYPE_HUMAN2) )&&(data.p4 == 0) ){
 		Player_HumanID = Humanindexid;
 	}
@@ -259,18 +259,18 @@ int ObjectManager::AddHumanIndex(pointdata data, pointdata infodata, bool Random
 	return Humanindexid;
 }
 
-//! @brief l’Ç‰ÁiƒQ[ƒ€’†—pj
-//! @param px XÀ•W
-//! @param py YÀ•W
-//! @param pz ZÀ•W
-//! @param rx X²Œü‚«
-//! @param paramID í—Ş”Ô†
-//! @param TeamID ƒ`[ƒ€”Ô†
-//! @param WeaponID •Šíí—Ş”Ô†‚Ì”z—ñi—v‘f”FTOTAL_HAVEWEAPONj
-//! @param param4 ‘æ4ƒpƒ‰ƒ[ƒ^[
-//! @param RandomFlag ƒ‰ƒ“ƒ_ƒ€•â³‚ğ—LŒø‚É‚·‚é
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
-//! @attention –³Œø‚Èl‚Ìí—Ş”Ô†‚ªw’è‚³‚ê‚½ê‡‚Í ’ÊÌF“älŠÔ ‚ª“oê‚µ‚Ü‚·BƒeƒNƒXƒ`ƒƒ‚Íƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ0”Ô‚ªg—p‚³‚êAHP‚Í 0 ‚ªw’èi‘¦€j‚³‚ê‚Ü‚·B
+//! @brief äººè¿½åŠ ï¼ˆã‚²ãƒ¼ãƒ ä¸­ç”¨ï¼‰
+//! @param px Xåº§æ¨™
+//! @param py Yåº§æ¨™
+//! @param pz Zåº§æ¨™
+//! @param rx Xè»¸å‘ã
+//! @param paramID ç¨®é¡ç•ªå·
+//! @param TeamID ãƒãƒ¼ãƒ ç•ªå·
+//! @param WeaponID æ­¦å™¨ç¨®é¡ç•ªå·ã®é…åˆ—ï¼ˆè¦ç´ æ•°ï¼šTOTAL_HAVEWEAPONï¼‰
+//! @param param4 ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
+//! @param RandomFlag ãƒ©ãƒ³ãƒ€ãƒ è£œæ­£ã‚’æœ‰åŠ¹ã«ã™ã‚‹
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
+//! @attention ç„¡åŠ¹ãªäººã®ç¨®é¡ç•ªå·ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã¯ é€šç§°ï¼šè¬äººé–“ ãŒç™»å ´ã—ã¾ã™ã€‚ãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£0ç•ªãŒä½¿ç”¨ã•ã‚Œã€HPã¯ 0 ãŒæŒ‡å®šï¼ˆï¼å³æ­»ï¼‰ã•ã‚Œã¾ã™ã€‚
 int ObjectManager::AddHumanIndex(float px, float py, float pz, float rx, int paramID, int TeamID, int WeaponID[], signed short int param4, bool RandomFlag)
 {
 	int GetHumanFlag;
@@ -293,7 +293,7 @@ int ObjectManager::AddHumanIndex(float px, float py, float pz, float rx, int par
 	}
 #endif
 
-	//l‚Ìƒ‚ƒfƒ‹”Ô†‚ğæ“¾
+	//äººã®ãƒ¢ãƒ‡ãƒ«ç•ªå·ã‚’å–å¾—
 	int upmodel[TOTAL_UPMODE];
 	int armmodel[TOTAL_ARMMODE];
 	int legmodel;
@@ -309,13 +309,13 @@ int ObjectManager::AddHumanIndex(float px, float py, float pz, float rx, int par
 
 	for(int i=0; i<MAX_HUMAN; i++){
 		if( HumanIndex[i].GetEnableFlag() == false ){
-			//‰Šú‰»‚·‚é
+			//åˆæœŸåŒ–ã™ã‚‹
 			HumanIndex[i].SetPosData(px, py, pz, rx);
 			HumanIndex[i].SetParamData(paramID, -1, param4, TeamID, true);
 			if( GetHumanFlag == 0 ){
 				int id = Resource->GetHumanTexture(paramID);
 				if( id == -1 ){
-					//ƒeƒNƒXƒ`ƒƒ‚ªæ“¾‚Å‚«‚È‚¯‚ê‚ÎAƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒO‚ğ—LŒø‚É‚µ‚Ä–ˆƒtƒŒ[ƒ€æ“¾
+					//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒå–å¾—ã§ããªã‘ã‚Œã°ã€ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ã«ã—ã¦æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å–å¾—
 					Human_FrameTextureRefresh[i] = true;
 				}
 
@@ -334,26 +334,26 @@ int ObjectManager::AddHumanIndex(float px, float py, float pz, float rx, int par
 		}
 	}
 
-	//‰Šú‰»‚Å‚«‚È‚©‚Á‚½‚çƒGƒ‰[‚Æ‚µ‚Ä•Ô‚·
+	//åˆæœŸåŒ–ã§ããªã‹ã£ãŸã‚‰ã‚¨ãƒ©ãƒ¼ã¨ã—ã¦è¿”ã™
 	if( Humanindexid == -1 ){
 		return -1;
 	}
 
 	if( GetHumanFlag == 0 ){
-		//‰¼‘z•Ší‚ğ’Ç‰Á
+		//ä»®æƒ³æ­¦å™¨ã‚’è¿½åŠ 
 		for(int i=0; i<TOTAL_HAVEWEAPON; i++){
 			Weaponindexid = AddVisualWeaponIndex(WeaponID[i], true);
 			if( Weaponindexid != -1 ){
-				//¬Œ÷‚·‚ê‚Î”z—ñ‚É‹L˜^
+				//æˆåŠŸã™ã‚Œã°é…åˆ—ã«è¨˜éŒ²
 				Weapon[i] = &WeaponIndex[Weaponindexid];
 			}
 		}
 
-		//l‚É‚½‚¹‚é
+		//äººã«æŒãŸã›ã‚‹
 		HumanIndex[Humanindexid].SetWeapon(Weapon, lnbslist, nbslist);
 	}
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	int player_teamid;
 	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
 	ObjectLog->AddHuman(Humanindexid, TeamID, player_teamid);
@@ -361,46 +361,46 @@ int ObjectManager::AddHumanIndex(float px, float py, float pz, float rx, int par
 	return Humanindexid;
 }
 
-//! @brief •Ší’Ç‰Á
-//! @param data •Ší‚Ìƒ|ƒCƒ“ƒgƒf[ƒ^@ipointdata\‘¢‘Ìj
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
+//! @brief æ­¦å™¨è¿½åŠ 
+//! @param data æ­¦å™¨ã®ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã€€ï¼ˆpointdataæ§‹é€ ä½“ï¼‰
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
 int ObjectManager::AddWeaponIndex(pointdata data)
 {
-	//•Ší”Ô†‚Æ’e”‚ğ‰¼“o˜^
+	//æ­¦å™¨ç•ªå·ã¨å¼¾æ•°ã‚’ä»®ç™»éŒ²
 	int WeaponID = data.p2;
 	int nbs = PointParamToInt(data.p3);
 
-	//ƒ‰ƒ“ƒ_ƒ€‚È•Ší‚È‚ç‚Î
+	//ãƒ©ãƒ³ãƒ€ãƒ ãªæ­¦å™¨ãªã‚‰ã°
 	if( data.p1 == POINT_P1TYPE_RAND_WEAPON ){
 		WeaponParameter WeaponParam;
 
 		if( GetRand(2) == 0 ){
 			if( GameParamInfo->GetWeapon(data.p2, &WeaponParam) == 1 ){ return -1; }
-			nbs = (int)WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET;		//’e”ã‘‚«
+			nbs = (int)WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET;		//å¼¾æ•°ä¸Šæ›¸ã
 		}
 		else{
 			if( GameParamInfo->GetWeapon(data.p3, &WeaponParam) == 1 ){ return -1; }
-			WeaponID = data.p3;						//•Ší”Ô†ã‘‚«
-			nbs = (int)WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET;		//’e”ã‘‚«
+			WeaponID = data.p3;						//æ­¦å™¨ç•ªå·ä¸Šæ›¸ã
+			nbs = (int)WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET;		//å¼¾æ•°ä¸Šæ›¸ã
 		}
 	}
 
-	//NONE‚È‚ç‚Î¸”s
+	//NONEãªã‚‰ã°å¤±æ•—
 	if( WeaponID == ID_WEAPON_NONE ){ return -1; }
 
-	//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+	//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 	int model, texture;
 	if( Resource->GetWeaponModelTexture(WeaponID, &model, &texture) == 1 ){
 		return -1;
 	}
 
-	//İ’è’l‚ğæ“¾
+	//è¨­å®šå€¤ã‚’å–å¾—
 	WeaponParameter WeaponParam;
 	if( GameParamInfo->GetWeapon(WeaponID, &WeaponParam) == 1 ){ return -1; }
 
 	for(int i=0; i<MAX_WEAPON; i++){
 		if( WeaponIndex[i].GetEnableFlag() == false ){
-			//‰Šú‰»‚·‚é
+			//åˆæœŸåŒ–ã™ã‚‹
 			WeaponIndex[i].SetPosData(data.x, data.y, data.z, data.r);
 			WeaponIndex[i].SetParamData(WeaponID, 0, nbs, true);
 			WeaponIndex[i].SetModel(model, WeaponParam.size);
@@ -413,22 +413,22 @@ int ObjectManager::AddWeaponIndex(pointdata data)
 	return -1;
 }
 
-//! @brief ‰¼‘z•Ší’Ç‰Á
-//! @param WeaponID •Ší‚Ìí—Ş”Ô†
-//! @param loadbullet ’e‚ğƒ[ƒh‚·‚é
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
-//! @attention l‚ªÅ‰‚©‚çŠ‚µ‚Ä‚¢‚é•Ší‚ğA•Šíƒf[ƒ^iƒIƒuƒWƒFƒNƒgj‚Æ‚µ‚Ä’Ç‰Áˆ—‚·‚é‚½‚ß‚ÌŠÖ”‚Å‚·B
-//! @attention •Ší’P‘Ì‚Æ‚µ‚Ä”z’u‚·‚éê‡‚ÍAAddWeaponIndex()ŠÖ”‚ğg—p‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ä»®æƒ³æ­¦å™¨è¿½åŠ 
+//! @param WeaponID æ­¦å™¨ã®ç¨®é¡ç•ªå·
+//! @param loadbullet å¼¾ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
+//! @attention äººãŒæœ€åˆã‹ã‚‰æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ã‚’ã€æ­¦å™¨ãƒ‡ãƒ¼ã‚¿ï¼ˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰ã¨ã—ã¦è¿½åŠ å‡¦ç†ã™ã‚‹ãŸã‚ã®é–¢æ•°ã§ã™ã€‚
+//! @attention æ­¦å™¨å˜ä½“ã¨ã—ã¦é…ç½®ã™ã‚‹å ´åˆã¯ã€AddWeaponIndex()é–¢æ•°ã‚’ä½¿ç”¨ã—ã¦ãã ã•ã„ã€‚
 int ObjectManager::AddVisualWeaponIndex(int WeaponID, bool loadbullet)
 {
-	//NONE‚È‚ç‚Î¸”s
+	//NONEãªã‚‰ã°å¤±æ•—
 	if( WeaponID == ID_WEAPON_NONE ){ return -1; }
 
-	//î•ñ‚ğæ“¾
+	//æƒ…å ±ã‚’å–å¾—
 	WeaponParameter WeaponParam;
 	if( GameParamInfo->GetWeapon(WeaponID, &WeaponParam) == 1 ){ return -1; }
 
-	//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+	//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 	int model, texture;
 	if( Resource->GetWeaponModelTexture(WeaponID, &model, &texture) == 1 ){
 		return -1;
@@ -436,7 +436,7 @@ int ObjectManager::AddVisualWeaponIndex(int WeaponID, bool loadbullet)
 
 	for(int i=0; i<MAX_WEAPON; i++){
 		if( WeaponIndex[i].GetEnableFlag() == false ){
-			//‰Šú‰»
+			//åˆæœŸåŒ–
 			WeaponIndex[i].SetPosData(0.0f, 0.0f, 0.0f, 0.0f);
 			if( loadbullet == false ){
 				WeaponIndex[i].SetParamData(WeaponID, 0, 0, true);
@@ -453,12 +453,12 @@ int ObjectManager::AddVisualWeaponIndex(int WeaponID, bool loadbullet)
 	return -1;
 }
 
-//! @brief ¬•¨’Ç‰Á
-//! @param data ¬•¨‚Ìƒ|ƒCƒ“ƒgƒf[ƒ^@ipointdata\‘¢‘Ìj
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
+//! @brief å°ç‰©è¿½åŠ 
+//! @param data å°ç‰©ã®ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã€€ï¼ˆpointdataæ§‹é€ ä½“ï¼‰
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
 int ObjectManager::AddSmallObjectIndex(pointdata data)
 {
-	//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+	//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 	int model, texture;
 	if( Resource->GetSmallObjectModelTexture(data.p2, &model, &texture) == 1 ){
 		return -1;
@@ -466,14 +466,14 @@ int ObjectManager::AddSmallObjectIndex(pointdata data)
 
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		if( SmallObjectIndex[i].GetEnableFlag() == false ){
-			//‰Šú‰»
+			//åˆæœŸåŒ–
 			SmallObjectIndex[i].SetPosData(data.x, data.y, data.z, data.r);
 			SmallObjectIndex[i].SetParamData(data.p2, data.p4, true);
 			SmallObjectIndex[i].SetModel(model, SMALLOBJECT_SCALE);
 			SmallObjectIndex[i].SetTexture(texture);
 			SmallObjectIndex[i].SetEnableFlag(true);
 
-			//ˆÊ’uC³ƒtƒ‰ƒO‚ª—LŒø‚È‚ç‚ÎAƒ}ƒbƒv‚Æ”»’è
+			//ä½ç½®ä¿®æ­£ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ãªã‚‰ã°ã€ãƒãƒƒãƒ—ã¨åˆ¤å®š
 			if( data.p3 !=0 ){
 				SmallObjectIndex[i].CollisionMap(CollD);
 			}
@@ -483,17 +483,17 @@ int ObjectManager::AddSmallObjectIndex(pointdata data)
 	return -1;
 }
 
-//! @brief ¬•¨’Ç‰ÁiƒQ[ƒ€’†—pj
-//! @param px XÀ•W
-//! @param py YÀ•W
-//! @param pz ZÀ•W
-//! @param rx X²Œü‚«
-//! @param paramID í—Ş”Ô†
-//! @param MapColl ˆÊ’uC³ƒtƒ‰ƒO
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
+//! @brief å°ç‰©è¿½åŠ ï¼ˆã‚²ãƒ¼ãƒ ä¸­ç”¨ï¼‰
+//! @param px Xåº§æ¨™
+//! @param py Yåº§æ¨™
+//! @param pz Zåº§æ¨™
+//! @param rx Xè»¸å‘ã
+//! @param paramID ç¨®é¡ç•ªå·
+//! @param MapColl ä½ç½®ä¿®æ­£ãƒ•ãƒ©ã‚°
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
 int ObjectManager::AddSmallObjectIndex(float px, float py, float pz, float rx, int paramID, bool MapColl)
 {
-	//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+	//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 	int model, texture;
 	if( Resource->GetSmallObjectModelTexture(paramID, &model, &texture) == 1 ){
 		return -1;
@@ -501,19 +501,19 @@ int ObjectManager::AddSmallObjectIndex(float px, float py, float pz, float rx, i
 
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		if( SmallObjectIndex[i].GetEnableFlag() == false ){
-			//‰Šú‰»
+			//åˆæœŸåŒ–
 			SmallObjectIndex[i].SetPosData(px, py, pz, rx);
 			SmallObjectIndex[i].SetParamData(paramID, 0, true);
 			SmallObjectIndex[i].SetModel(model, SMALLOBJECT_SCALE);
 			SmallObjectIndex[i].SetTexture(texture);
 			SmallObjectIndex[i].SetEnableFlag(true);
 
-			//ˆÊ’uC³ƒtƒ‰ƒO‚ª—LŒø‚È‚ç‚ÎAƒ}ƒbƒv‚Æ”»’è
+			//ä½ç½®ä¿®æ­£ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ãªã‚‰ã°ã€ãƒãƒƒãƒ—ã¨åˆ¤å®š
 			if( MapColl == true ){
 				SmallObjectIndex[i].CollisionMap(CollD);
 			}
 
-			//ƒƒOŠÖŒW‚Ìˆ—
+			//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 			ObjectLog->AddSmallObject(i);
 
 			return i;
@@ -522,26 +522,26 @@ int ObjectManager::AddSmallObjectIndex(float px, float py, float pz, float rx, i
 	return -1;
 }
 
-//! @brief ƒGƒtƒFƒNƒg’Ç‰Á
-//! @param pos_x XÀ•W
-//! @param pos_y YÀ•W
-//! @param pos_z ZÀ•W
-//! @param move_x X²ˆÚ“®—Ê
-//! @param move_y Y²ˆÚ“®—Ê
-//! @param move_z Z²ˆÚ“®—Ê
-//! @param addmove_y Y²ˆÚ“®—Ê‚Ì‰ÁZ—Ê
-//! @param rotation ‰ñ“]Šp“x
-//! @param addrotation ‰ñ“]Šp“x‚Ì‰ÁZ—Ê
-//! @param size •`‰æ”{—¦
-//! @param addsize •`‰æ”{—¦‚Ì‰ÁZ—Ê
-//! @param texture ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
-//! @param brightness –¾‚é‚³
-//! @param addbrightness –¾‚é‚³‚Ì‰ÁZ—Ê
-//! @param alpha “§–¾“x
-//! @param addalpha “§–¾“x‚Ì‰ÁZ—Ê
-//! @param settype ƒGƒtƒFƒNƒg‚Ìí—Ş@iEffect_Type ‚ğ‘g‚İ‡‚¹‚éj
-//! @param count •`‰æƒtƒŒ[ƒ€”
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
+//! @brief ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¿½åŠ 
+//! @param pos_x Xåº§æ¨™
+//! @param pos_y Yåº§æ¨™
+//! @param pos_z Zåº§æ¨™
+//! @param move_x Xè»¸ç§»å‹•é‡
+//! @param move_y Yè»¸ç§»å‹•é‡
+//! @param move_z Zè»¸ç§»å‹•é‡
+//! @param addmove_y Yè»¸ç§»å‹•é‡ã®åŠ ç®—é‡
+//! @param rotation å›è»¢è§’åº¦
+//! @param addrotation å›è»¢è§’åº¦ã®åŠ ç®—é‡
+//! @param size æç”»å€ç‡
+//! @param addsize æç”»å€ç‡ã®åŠ ç®—é‡
+//! @param texture ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param brightness æ˜ã‚‹ã•
+//! @param addbrightness æ˜ã‚‹ã•ã®åŠ ç®—é‡
+//! @param alpha é€æ˜åº¦
+//! @param addalpha é€æ˜åº¦ã®åŠ ç®—é‡
+//! @param settype ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡ã€€ï¼ˆEffect_Type ã‚’çµ„ã¿åˆã›ã‚‹ï¼‰
+//! @param count æç”»ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
 int ObjectManager::AddEffect(float pos_x, float pos_y, float pos_z, float move_x, float move_y, float move_z, float addmove_y, float rotation, float addrotation, float size, float addsize, int texture, int brightness, int addbrightness, float alpha, float addalpha, int settype, int count)
 {
 	for(int i=0; i<MAX_EFFECT; i++){
@@ -557,38 +557,38 @@ int ObjectManager::AddEffect(float pos_x, float pos_y, float pos_z, float move_x
 	return -1;
 }
 
-//! @brief iƒrƒ‹ƒ{[ƒh‚Å‚È‚¢jƒGƒtƒFƒNƒg’Ç‰Á
-//! @param id ƒuƒƒbƒN”Ô†
-//! @param face –Ê”Ô†
-//! @param pos_x XÀ•W
-//! @param pos_y YÀ•W
-//! @param pos_z ZÀ•W
-//! @param size •`‰æ”{—¦
-//! @param rotation ‰ñ“]Šp“x
-//! @param texture ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
-//! @param brightness –¾‚é‚³
-//! @param addbrightness –¾‚é‚³‚Ì‰ÁZ—Ê
-//! @param alpha “§–¾“x
-//! @param addalpha “§–¾“x‚Ì‰ÁZ—Ê
-//! @param count •`‰æƒtƒŒ[ƒ€”
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†i0ˆÈãj@¸”sF-1
+//! @brief ï¼ˆãƒ“ãƒ«ãƒœãƒ¼ãƒ‰ã§ãªã„ï¼‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¿½åŠ 
+//! @param id ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param face é¢ç•ªå·
+//! @param pos_x Xåº§æ¨™
+//! @param pos_y Yåº§æ¨™
+//! @param pos_z Zåº§æ¨™
+//! @param size æç”»å€ç‡
+//! @param rotation å›è»¢è§’åº¦
+//! @param texture ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param brightness æ˜ã‚‹ã•
+//! @param addbrightness æ˜ã‚‹ã•ã®åŠ ç®—é‡
+//! @param alpha é€æ˜åº¦
+//! @param addalpha é€æ˜åº¦ã®åŠ ç®—é‡
+//! @param count æç”»ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ0ä»¥ä¸Šï¼‰ã€€å¤±æ•—ï¼š-1
 int ObjectManager::AddMapEffect(int id, int face, float pos_x, float pos_y, float pos_z, float size, float rotation, int texture, int brightness, int addbrightness, float alpha, float addalpha, int count)
 {
 	blockdata data;
 	float vx, vy, vz;
 	float rx, ry;
 
-	//ƒuƒƒbƒN‚Ì–Ê‚Ìî•ñ‚ğæ“¾
+	//ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã®æƒ…å ±ã‚’å–å¾—
 	BlockData->Getdata(&data, id);
 	vx = data.material[face].vx;
 	vy = data.material[face].vy;
 	vz = data.material[face].vz;
 
-	//Šp“x‚ğ‹‚ß‚é
+	//è§’åº¦ã‚’æ±‚ã‚ã‚‹
 	rx = atan2f(vz, vx)*-1 + (float)M_PI;
 	ry = atan2f(vy, sqrtf(vx*vx + vz*vz))*-1;
 
-	//ƒGƒtƒFƒNƒgì¬
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆä½œæˆ
 	for(int i=0; i<MAX_EFFECT; i++){
 		if( EffectIndex[i].GetEnableFlag() == false ){
 			EffectIndex[i].SetPosData(pos_x, pos_y, pos_z, 0.0f);
@@ -603,12 +603,12 @@ int ObjectManager::AddMapEffect(int id, int face, float pos_x, float pos_y, floa
 	return -1;
 }
 
-//! @brief oŒŒ‚³‚¹‚é
-//! @param x XÀ•W
-//! @param y YÀ•W
-//! @param z ZÀ•W
-//! @param damage ƒ_ƒ[ƒW
-//! @param flowing —¬ŒŒ‚Ì—L–³
+//! @brief å‡ºè¡€ã•ã›ã‚‹
+//! @param x Xåº§æ¨™
+//! @param y Yåº§æ¨™
+//! @param z Zåº§æ¨™
+//! @param damage ãƒ€ãƒ¡ãƒ¼ã‚¸
+//! @param flowing æµè¡€ã®æœ‰ç„¡
 void ObjectManager::SetHumanBlood(float x, float y, float z, int damage, bool flowing)
 {
 	int addtype;
@@ -631,13 +631,13 @@ void ObjectManager::SetHumanBlood(float x, float y, float z, int damage, bool fl
 	}
 }
 
-//! @brief l“¯m‚Ì“–‚½‚è”»’è
-//! @param in_humanA ‘ÎÛ‚ÌlƒIƒuƒWƒFƒNƒgA
-//! @param in_humanB ‘ÎÛ‚ÌlƒIƒuƒWƒFƒNƒgB
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning in_humanA‚Æin_humanB‚Å‹æ•Ê‚Í‚ ‚è‚Ü‚¹‚ñB
-//! @warning in_humanA‚Æin_humanB‚Å‚Ì‘g‚İ‡‚¹‚ÍA1ƒtƒŒ[ƒ€ŠÔ‚É1“x‚¾‚¯Às‚µ‚Ä‚­‚¾‚³‚¢B
-//! @attention —¼ƒNƒ‰ƒX‚Í©“®“I‚ÉAddPosOrder()‚ğ—p‚¢‚ÄA‚¨Œİ‚¢‚ğ‰Ÿ‚µ‡‚¢‚Ü‚·B
+//! @brief äººåŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param in_humanA å¯¾è±¡ã®äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆA
+//! @param in_humanB å¯¾è±¡ã®äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆB
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning in_humanAã¨in_humanBã§åŒºåˆ¥ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
+//! @warning in_humanAã¨in_humanBã§ã®çµ„ã¿åˆã›ã¯ã€1ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã«1åº¦ã ã‘å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚
+//! @attention ä¸¡ã‚¯ãƒ©ã‚¹ã¯è‡ªå‹•çš„ã«AddPosOrder()ã‚’ç”¨ã„ã¦ã€ãŠäº’ã„ã‚’æŠ¼ã—åˆã„ã¾ã™ã€‚
 bool ObjectManager::CollideHuman(human *in_humanA, human *in_humanB)
 {
 	if( in_humanA == NULL ){ return false; }
@@ -647,19 +647,19 @@ bool ObjectManager::CollideHuman(human *in_humanA, human *in_humanB)
 	float h2_x, h2_y, h2_z;
 	float angle, length;
 
-	//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢‚©A€–S‚µ‚Ä“ü‚ê‚Î”»’è‚µ‚È‚¢
+	//åˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»äº¡ã—ã¦å…¥ã‚Œã°åˆ¤å®šã—ãªã„
 	if( in_humanA->GetEnableFlag() == false ){ return false; }
 	if( in_humanB->GetEnableFlag() == false ){ return false; }
 	if( in_humanA->GetHP() <= 0 ){ return false; }
 	if( in_humanB->GetHP() <= 0 ){ return false; }
 
-	//‚¨Œİ‚¢‚ÌÀ•W‚ğæ“¾
+	//ãŠäº’ã„ã®åº§æ¨™ã‚’å–å¾—
 	in_humanA->GetPosData(&h1_x, &h1_y, &h1_z, NULL);
 	in_humanB->GetPosData(&h2_x, &h2_y, &h2_z, NULL);
 
-	//‰~’Œ‚Ì“–‚½‚è”»’è
+	//å††æŸ±ã®å½“ãŸã‚Šåˆ¤å®š
 	if( CollideCylinder(h1_x, h1_y, h1_z, HUMAN_HUMANCOLLISION_R, HUMAN_HEIGHT-0.5f, h2_x, h2_y, h2_z, HUMAN_HUMANCOLLISION_R, HUMAN_HEIGHT-0.5f, &angle, &length) == true ){
-		//‚ß‚è‚ñ‚¾•ª‚¾‚¯‰Ÿ‚µo‚·
+		//ã‚ã‚Šè¾¼ã‚“ã åˆ†ã ã‘æŠ¼ã—å‡ºã™
 		in_humanA->AddPosOrder(angle, 0.0f, length/2);
 		in_humanB->AddPosOrder(angle + (float)M_PI, 0.0f, length/2);
 		return true;
@@ -668,16 +668,16 @@ bool ObjectManager::CollideHuman(human *in_humanA, human *in_humanB)
 	return false;
 }
 
-//! @brief ’e‚Ì“–‚½‚è”»’è‚Æˆ—
-//! @param in_bullet ‘ÎÛ‚Ì’eƒIƒuƒWƒFƒNƒg
-//! @return “–‚½‚Á‚½Ftrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @attention ”»’è‚ğs‚¤‘ÎÛ‚Íuƒ}ƒbƒvvuli“ªEã”¼gE‰º”¼gjvu¬•¨v‚Å‚·B
-//! @attention ”»’è‚ÉŒÀ‚ç‚¸Aƒ_ƒ[ƒWŒvZ‚âŒø‰Ê‰¹Ä¶‚Ü‚ÅˆêŠÑ‚µ‚Äs‚¢‚Ü‚·B
+//! @brief å¼¾ã®å½“ãŸã‚Šåˆ¤å®šã¨å‡¦ç†
+//! @param in_bullet å¯¾è±¡ã®å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//! @return å½“ãŸã£ãŸï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @attention åˆ¤å®šã‚’è¡Œã†å¯¾è±¡ã¯ã€Œãƒãƒƒãƒ—ã€ã€Œäººï¼ˆé ­ãƒ»ä¸ŠåŠèº«ãƒ»ä¸‹åŠèº«ï¼‰ã€ã€Œå°ç‰©ã€ã§ã™ã€‚
+//! @attention åˆ¤å®šã«é™ã‚‰ãšã€ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—ã‚„åŠ¹æœéŸ³å†ç”Ÿã¾ã§ä¸€è²«ã—ã¦è¡Œã„ã¾ã™ã€‚
 bool ObjectManager::CollideBullet(bullet *in_bullet)
 {
 	if( in_bullet == NULL ){ return false; }
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¢’eŠÛ‚È‚ç‚ÎAˆ—‚¹‚¸‚É•Ô‚·B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„å¼¾ä¸¸ãªã‚‰ã°ã€å‡¦ç†ã›ãšã«è¿”ã™ã€‚
 	if( in_bullet->GetEnableFlag() == false ){ return false; }
 
 	int objectID;
@@ -691,31 +691,31 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 	float ontargetcnt;
 	float vx, vy, vz;
 	bool CollideFlag = false;
-	int mapflag = 0;		//0FƒuƒƒbƒN‚È‚µA1FƒuƒƒbƒN‚ ‚è–¢”»’èA2FƒuƒƒbƒN‚ ‚è”»’èÏ‚İ
+	int mapflag = 0;		//0ï¼šãƒ–ãƒ­ãƒƒã‚¯ãªã—ã€1ï¼šãƒ–ãƒ­ãƒƒã‚¯ã‚ã‚Šæœªåˆ¤å®šã€2ï¼šãƒ–ãƒ­ãƒƒã‚¯ã‚ã‚Šåˆ¤å®šæ¸ˆã¿
 
 	float Dist;
 
-	//’eƒIƒuƒWƒFƒNƒg‚Ìƒf[ƒ^”Ô†‚ğæ“¾
+	//å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’å–å¾—
 	objectID = GetBulletObjectID(in_bullet);
 
-	//’eŠÛ‚ÌÀ•W‚ğæ“¾‚µAƒxƒNƒgƒ‹‚ğZoB
+	//å¼¾ä¸¸ã®åº§æ¨™ã‚’å–å¾—ã—ã€ãƒ™ã‚¯ãƒˆãƒ«ã‚’ç®—å‡ºã€‚
 	in_bullet->GetPosData(&bx, &by, &bz, &brx, &bry);
 	in_bullet->GetParamData(&attacks, &penetration, &speed, &teamid, &humanid, &ontargetcnt);
 	vx = cosf(brx)*cosf(bry);
 	vy = sinf(bry);
 	vz = sinf(brx)*cosf(bry);
 
-	//ƒ}ƒbƒv‚Æ‚Ì“–‚½‚è”»’èi’e“¹ã‚ÉƒuƒƒbƒN‚ª‚ ‚é‚©j
+	//ãƒãƒƒãƒ—ã¨ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆå¼¾é“ä¸Šã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹ã‹ï¼‰
 	if( CollD->CheckALLBlockIntersectRay(bx, by, bz, vx, vy, vz, NULL, NULL, &Dist, speed) == true ){
 		mapflag = 1;
 	}
 
-	// BULLET_SPEEDSCALE’è” ‚Ì•ª‰ğ”\‚ğZo
+	// BULLET_SPEEDSCALEå®šæ•° ã®åˆ†è§£èƒ½ã‚’ç®—å‡º
 	int maxcnt = (int)roundf(speed / BULLET_SPEEDSCALE);
 
-	// BULLET_SPEEDSCALE’è” ‚Ì•ª‰ğ”\‚Å“–‚½‚è”»’è
+	// BULLET_SPEEDSCALEå®šæ•° ã®åˆ†è§£èƒ½ã§å½“ãŸã‚Šåˆ¤å®š
 	for(int cnt=0; cnt<maxcnt; cnt++){
-		//ŠÑ’Ê—Í‚ªc‚Á‚Ä‚¢‚È‚¯‚ê‚Î’e‚Í–³Œø‚É‚·‚éi”»’è 1‰ñ–Új
+		//è²«é€šåŠ›ãŒæ®‹ã£ã¦ã„ãªã‘ã‚Œã°å¼¾ã¯ç„¡åŠ¹ã«ã™ã‚‹ï¼ˆåˆ¤å®š 1å›ç›®ï¼‰
 		if( penetration < 0 ){
 			in_bullet->SetEnableFlag(false);
 			mapflag = 0;
@@ -727,72 +727,72 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 		bvy = by + vy * BULLET_SPEEDSCALE * (cnt+1);
 		bvz = bz + vz * BULLET_SPEEDSCALE * (cnt+1);
 
-		//l‚Æ‚Ì“–‚½‚è”»’è
+		//äººã¨ã®å½“ãŸã‚Šåˆ¤å®š
 		for(int i=0; i<MAX_HUMAN; i++){
-			//‚»‚Ìl©g‚ª”­–C‚µ‚½’e‚È‚çˆ—‚µ‚È‚¢B
+			//ãã®äººè‡ªèº«ãŒç™ºç ²ã—ãŸå¼¾ãªã‚‰å‡¦ç†ã—ãªã„ã€‚
 			if( i == humanid ){ continue; }
 
-			//g—p‚³‚ê‚Ä‚¢‚È‚¢‚©A€‘Ì‚È‚ç‚Îˆ—‚µ‚È‚¢B
+			//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»ä½“ãªã‚‰ã°å‡¦ç†ã—ãªã„ã€‚
 			if( HumanIndex[i].GetEnableFlag() == false ){ continue; }
 			//if( HumanIndex[i].GetDeadFlag() == true ){ continue; }
 			if( HumanIndex[i].GetHP() <= 0 ){ continue; }
 
-			//Šù‚É“–‚½‚Á‚½l‚È‚çAˆ—‚µ‚È‚¢B
+			//æ—¢ã«å½“ãŸã£ãŸäººãªã‚‰ã€å‡¦ç†ã—ãªã„ã€‚
 			if( BulletObj_HumanIndex[objectID].GetIndexFlag(i) == true ){ continue; }
 
-			//À•W‚ğæ“¾
+			//åº§æ¨™ã‚’å–å¾—
 			float ox, oy, oz;
 			int h_teamid;
 			HumanIndex[i].GetPosData(&ox, &oy, &oz, NULL);
 			HumanIndex[i].GetParamData(NULL, NULL, NULL, &h_teamid);
 
 			if( FriendlyFire[i] == false ){
-				//“¯‚¶ƒ`[ƒ€”Ô†i–¡•ûj‚È‚çˆ—‚µ‚È‚¢
+				//åŒã˜ãƒãƒ¼ãƒ ç•ªå·ï¼ˆå‘³æ–¹ï¼‰ãªã‚‰å‡¦ç†ã—ãªã„
 				if( h_teamid == teamid ){ continue; }
 			}
 
-			//“ª‚Ì“–‚½‚è”»’è
+			//é ­ã®å½“ãŸã‚Šåˆ¤å®š
 			if( CollideCylinderInside(ox, oy + HUMAN_BULLETCOLLISION_LEG_H + HUMAN_BULLETCOLLISION_UP_H, oz, HUMAN_BULLETCOLLISION_HEAD_R, HUMAN_BULLETCOLLISION_HEAD_H, bvx, bvy, bvz) == true ){
-				//l‚É“–‚½‚Á‚½ˆ—
+				//äººã«å½“ãŸã£ãŸå‡¦ç†
 				HitBulletHuman(i, 0, bvx, bvy, bvz, brx, attacks, humanid, ontargetcnt);
 
-				//‘Îl”»’è—pƒŠƒXƒgİ’èiˆê“x‰Šú‰»‚µAÅŒã‚É“–‚½‚Á‚½l‚¾‚¯İ’èj
+				//å¯¾äººåˆ¤å®šç”¨ãƒªã‚¹ãƒˆè¨­å®šï¼ˆä¸€åº¦åˆæœŸåŒ–ã—ã€æœ€å¾Œã«å½“ãŸã£ãŸäººã ã‘è¨­å®šï¼‰
 				BulletObj_HumanIndex[objectID].Init();
 				BulletObj_HumanIndex[objectID].SetIndexFlag(i);
 
-				//UŒ‚—Í‚ÆŠÑ’Ê—Í‚ğŒvZ
+				//æ”»æ’ƒåŠ›ã¨è²«é€šåŠ›ã‚’è¨ˆç®—
 				attacks = (int)((float)attacks * 0.5f);
 				penetration -= 1;
 
 				CollideFlag = true;
 			}
 
-			//ã”¼g‚Æ“–‚½‚è”»’è
+			//ä¸ŠåŠèº«ã¨å½“ãŸã‚Šåˆ¤å®š
 			if( CollideCylinderInside(ox, oy + HUMAN_BULLETCOLLISION_LEG_H, oz, HUMAN_BULLETCOLLISION_UP_R, HUMAN_BULLETCOLLISION_UP_H, bvx, bvy, bvz) == true ){
-				//l‚É“–‚½‚Á‚½ˆ—
+				//äººã«å½“ãŸã£ãŸå‡¦ç†
 				HitBulletHuman(i, 1, bvx, bvy, bvz, brx, attacks, humanid, ontargetcnt);
 
-				//‘Îl”»’è—pƒŠƒXƒgİ’èiˆê“x‰Šú‰»‚µAÅŒã‚É“–‚½‚Á‚½l‚¾‚¯İ’èj
+				//å¯¾äººåˆ¤å®šç”¨ãƒªã‚¹ãƒˆè¨­å®šï¼ˆä¸€åº¦åˆæœŸåŒ–ã—ã€æœ€å¾Œã«å½“ãŸã£ãŸäººã ã‘è¨­å®šï¼‰
 				BulletObj_HumanIndex[objectID].Init();
 				BulletObj_HumanIndex[objectID].SetIndexFlag(i);
 
-				//UŒ‚—Í‚ÆŠÑ’Ê—Í‚ğŒvZ
+				//æ”»æ’ƒåŠ›ã¨è²«é€šåŠ›ã‚’è¨ˆç®—
 				attacks = (int)((float)attacks * 0.6f);
 				penetration -= 1;
 
 				CollideFlag = true;
 			}
 
-			//‘«‚Æ“–‚½‚è”»’è
+			//è¶³ã¨å½“ãŸã‚Šåˆ¤å®š
 			if( CollideCylinderInside(ox, oy, oz, HUMAN_BULLETCOLLISION_LEG_R, HUMAN_BULLETCOLLISION_LEG_H, bvx, bvy, bvz) == true ){
-				//l‚É“–‚½‚Á‚½ˆ—
+				//äººã«å½“ãŸã£ãŸå‡¦ç†
 				HitBulletHuman(i, 2, bvx, bvy, bvz, brx, attacks, humanid, ontargetcnt);
 
-				//‘Îl”»’è—pƒŠƒXƒgİ’èiˆê“x‰Šú‰»‚µAÅŒã‚É“–‚½‚Á‚½l‚¾‚¯İ’èj
+				//å¯¾äººåˆ¤å®šç”¨ãƒªã‚¹ãƒˆè¨­å®šï¼ˆä¸€åº¦åˆæœŸåŒ–ã—ã€æœ€å¾Œã«å½“ãŸã£ãŸäººã ã‘è¨­å®šï¼‰
 				BulletObj_HumanIndex[objectID].Init();
 				BulletObj_HumanIndex[objectID].SetIndexFlag(i);
 
-				//UŒ‚—Í‚ÆŠÑ’Ê—Í‚ğŒvZ
+				//æ”»æ’ƒåŠ›ã¨è²«é€šåŠ›ã‚’è¨ˆç®—
 				attacks = (int)((float)attacks * 0.7f);
 				penetration -= 1;
 
@@ -800,26 +800,26 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 			}
 		}
 
-		//ŠÑ’Ê—Í‚ªc‚Á‚Ä‚¢‚È‚¯‚ê‚Î’e‚Í–³Œø‚É‚·‚éi”»’è 2‰ñ–Új
+		//è²«é€šåŠ›ãŒæ®‹ã£ã¦ã„ãªã‘ã‚Œã°å¼¾ã¯ç„¡åŠ¹ã«ã™ã‚‹ï¼ˆåˆ¤å®š 2å›ç›®ï¼‰
 		if( penetration < 0 ){
 			in_bullet->SetEnableFlag(false);
 			mapflag = 0;
 			break;
 		}
 
-		//¬•¨‚Æ‚Ì“–‚½‚è”»’è
+		//å°ç‰©ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 		for(int i=0; i<MAX_SMALLOBJECT; i++){
-			//g—p‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+			//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 			if( SmallObjectIndex[i].GetEnableFlag() == false ){ continue; }
 
-			//À•W‚ğæ“¾
+			//åº§æ¨™ã‚’å–å¾—
 			float ox, oy, oz;
 			int id;
 			float decide;
 			SmallObjectIndex[i].GetPosData(&ox, &oy, &oz, NULL);
 			SmallObjectIndex[i].GetParamData(&id, NULL);
 
-			//“–‚½‚è”»’è‚Ì‘å‚«‚³‚ğæ“¾
+			//å½“ãŸã‚Šåˆ¤å®šã®å¤§ãã•ã‚’å–å¾—
 			if( (TOTAL_PARAMETERINFO_SMALLOBJECT <= id)&&(id <= (TOTAL_PARAMETERINFO_SMALLOBJECT + MAX_ADDSMALLOBJECT -1)) ){
 				decide = (float)MIFdata->GetAddSmallobjectDecide(id - TOTAL_PARAMETERINFO_SMALLOBJECT)*SMALLOBJECT_COLLISIONSCALE;
 			}
@@ -829,13 +829,13 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 				decide = (float)Param.decide*SMALLOBJECT_COLLISIONSCALE;
 			}
 
-			//“–‚½‚è”»’è
+			//å½“ãŸã‚Šåˆ¤å®š
 			if( CollideSphereInside(ox, oy, oz, decide, bvx, bvy, bvz) == true ){
-				//¬•¨‚É“–‚½‚Á‚½ˆ—
+				//å°ç‰©ã«å½“ãŸã£ãŸå‡¦ç†
 				int attack2 = (int)(floorf( (float)attacks * 0.25f ));
 				HitBulletSmallObject(i, bvx, bvy, bvz, attack2, teamid);
 
-				//UŒ‚—Í‚ğŒvZ
+				//æ”»æ’ƒåŠ›ã‚’è¨ˆç®—
 				attacks = (int)(floorf( (float)attacks * 0.7f ));
 
 				CollideFlag = true;
@@ -843,12 +843,12 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 		}
 
 		if( mapflag > 0 ){
-			//ƒ}ƒbƒv‚Æ‚Ì“–‚½‚è”»’è
+			//ãƒãƒƒãƒ—ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 			if( CollD->CheckALLBlockInside(bvx, bvy, bvz) == true ){
-				//’e‚ªƒ}ƒbƒv‚É“–‚½‚Á‚½ˆ—
+				//å¼¾ãŒãƒãƒƒãƒ—ã«å½“ãŸã£ãŸå‡¦ç†
 				HitBulletMap(bx + vx*(Dist-1.0f), by + vy*(Dist-1.0f), bz + vz*(Dist-1.0f), teamid);
 
-				//UŒ‚—Í‚ÆŠÑ’Ê—Í‚ğŒvZ
+				//æ”»æ’ƒåŠ›ã¨è²«é€šåŠ›ã‚’è¨ˆç®—
 				penetration -= 1;
 				if( penetration >= 0 ){
 					attacks = (int)((float)attacks * 0.6f);
@@ -860,13 +860,13 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 		}
 	}
 
-	//’e“¹ã‚ÉƒuƒƒbƒN‚ª‚ ‚é‚É‚àŠÖ‚í‚ç‚¸AƒuƒƒbƒN‚Æ“–‚½‚è”»’è‚ğs‚Á‚Ä‚¢‚È‚¢‚È‚ç‚Î
-	//@i”–‚¢ƒuƒƒbƒN‚ª‚ ‚éj
+	//å¼¾é“ä¸Šã«ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹ã«ã‚‚é–¢ã‚ã‚‰ãšã€ãƒ–ãƒ­ãƒƒã‚¯ã¨å½“ãŸã‚Šåˆ¤å®šã‚’è¡Œã£ã¦ã„ãªã„ãªã‚‰ã°
+	//ã€€ï¼ˆï¼è–„ã„ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚‹ï¼‰
 	if( mapflag == 1 ){
-		//’e‚ªƒ}ƒbƒv‚É“–‚½‚Á‚½ˆ—
+		//å¼¾ãŒãƒãƒƒãƒ—ã«å½“ãŸã£ãŸå‡¦ç†
 		HitBulletMap(bx + vx*(Dist-1.0f), by + vy*(Dist-1.0f), bz + vz*(Dist-1.0f), teamid);
 
-		//UŒ‚—Í‚ğŒvZ
+		//æ”»æ’ƒåŠ›ã‚’è¨ˆç®—
 		if( penetration > 0 ){
 			attacks = (int)((float)attacks * 0.75f);
 		}
@@ -877,36 +877,36 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 		CollideFlag = true;
 	}
 
-	//İ’è‚ğ“K—pi“Á‚ÉUŒ‚—ÍEŠÑ’Ê—Íj
+	//è¨­å®šã‚’é©ç”¨ï¼ˆç‰¹ã«æ”»æ’ƒåŠ›ãƒ»è²«é€šåŠ›ï¼‰
 	in_bullet->SetParamData(attacks, penetration, speed, teamid, humanid, ontargetcnt, false);
 
 	return CollideFlag;
 }
 
-//! @brief ’e‚ªƒ}ƒbƒv‚É“–‚½‚Á‚½ˆ—
-//! @param x ’…’eXÀ•W
-//! @param y ’…’eYÀ•W
-//! @param z ’…’eZÀ•W
-//! @param teamID ”­ËŒ³‚Ìƒ`[ƒ€”Ô†
+//! @brief å¼¾ãŒãƒãƒƒãƒ—ã«å½“ãŸã£ãŸå‡¦ç†
+//! @param x ç€å¼¾Xåº§æ¨™
+//! @param y ç€å¼¾Yåº§æ¨™
+//! @param z ç€å¼¾Zåº§æ¨™
+//! @param teamID ç™ºå°„å…ƒã®ãƒãƒ¼ãƒ ç•ªå·
 void ObjectManager::HitBulletMap(float x, float y, float z, int teamID)
 {
-	//ƒGƒtƒFƒNƒgi‰Œj‚ğ•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆç…™ï¼‰ã‚’æç”»
 	AddEffect(x, y, z, 0.0f, 0.05f, 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 3.0f, 0.24f, Resource->GetEffectSmokeTexture(), 20, 0, 0.63f, -0.03f, EFFECT_NORMAL, 20);
 
-	//Œø‰Ê‰¹‚ğÄ¶
+	//åŠ¹æœéŸ³ã‚’å†ç”Ÿ
 	GameSound->HitMap(x, y, z, teamID);
 }
 
-//! @brief ’e‚ªl‚É“–‚½‚Á‚½ˆ—
-//! @param HitHuman_id l‚Ì”Ô†
-//! @param Hit_id ”í’e‰ÓŠi“ªF0@“·‘ÌF1@‘«F2j
-//! @param x ”í’eXÀ•W
-//! @param y ”í’eYÀ•W
-//! @param z ”í’eZÀ•W
-//! @param brx …•½Šp“x
-//! @param attacks UŒ‚—Í
-//! @param Shothuman_id ”­Ë‚µ‚½l‚Ì”Ô†
-//! @param ontargetcnt –½’†‚ÌƒJƒEƒ“ƒg”
+//! @brief å¼¾ãŒäººã«å½“ãŸã£ãŸå‡¦ç†
+//! @param HitHuman_id äººã®ç•ªå·
+//! @param Hit_id è¢«å¼¾ç®‡æ‰€ï¼ˆé ­ï¼š0ã€€èƒ´ä½“ï¼š1ã€€è¶³ï¼š2ï¼‰
+//! @param x è¢«å¼¾Xåº§æ¨™
+//! @param y è¢«å¼¾Yåº§æ¨™
+//! @param z è¢«å¼¾Zåº§æ¨™
+//! @param brx æ°´å¹³è§’åº¦
+//! @param attacks æ”»æ’ƒåŠ›
+//! @param Shothuman_id ç™ºå°„ã—ãŸäººã®ç•ªå·
+//! @param ontargetcnt å‘½ä¸­æ™‚ã®ã‚«ã‚¦ãƒ³ãƒˆæ•°
 void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y, float z, float brx, int attacks, int Shothuman_id, float ontargetcnt)
 {
 	int Shothuman_TeamID;
@@ -917,18 +917,18 @@ void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y
 	HumanParameter Paraminfo;
 	bool NotRobot;
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¢‚©A€‘Ì‚È‚ç‚Îˆ—‚µ‚È‚¢B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»ä½“ãªã‚‰ã°å‡¦ç†ã—ãªã„ã€‚
 	if( HumanIndex[HitHuman_id].GetEnableFlag() == false ){ return; }
 	if( HumanIndex[HitHuman_id].GetDeadFlag() == true ){ return; }
 
-	//”­ËŒ³‚Æ‘ÎÛl•¨‚Ìƒ`[ƒ€”Ô†æ“¾
+	//ç™ºå°„å…ƒã¨å¯¾è±¡äººç‰©ã®ãƒãƒ¼ãƒ ç•ªå·å–å¾—
 	HumanIndex[Shothuman_id].GetParamData(NULL, NULL, NULL, &Shothuman_TeamID);
 	HumanIndex[HitHuman_id].GetParamData(NULL, NULL, NULL, &HitHuman_TeamID);
 
-	//ƒ_ƒ[ƒWŒvZ‘O‚ÌHPæ“¾
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã®HPå–å¾—
 	hp_old = HumanIndex[HitHuman_id].GetHP();
 
-	//l‚Éƒ_ƒ[ƒW‚ÆÕŒ‚‚ğ—^‚¦‚é
+	//äººã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã¨è¡æ’ƒã‚’ä¸ãˆã‚‹
 	if( Hit_id == 0 ){ HumanIndex[HitHuman_id].HitBulletHead(attacks); }
 	if( Hit_id == 1 ){ HumanIndex[HitHuman_id].HitBulletUp(attacks); }
 	if( Hit_id == 2 ){ HumanIndex[HitHuman_id].HitBulletLeg(attacks); }
@@ -937,7 +937,7 @@ void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y
 #ifdef ENABLE_BUG_TEAMID
 	bool flag = true;
 
-	//ƒ`[ƒ€”Ô†‚ª•‰”A‚©‚Âƒ`[ƒ€”Ô†‚ª‘å‚«‚¢‚È‚çAƒtƒ‰ƒO–³Œø
+	//ãƒãƒ¼ãƒ ç•ªå·ãŒè² æ•°ã€ã‹ã¤ãƒãƒ¼ãƒ ç•ªå·ãŒå¤§ãã„ãªã‚‰ã€ãƒ•ãƒ©ã‚°ç„¡åŠ¹
 	if( (HitHuman_TeamID < 0)&&(Shothuman_TeamID < 0) ){
 		if( HitHuman_TeamID < Shothuman_TeamID ){
 			flag = false;
@@ -951,7 +951,7 @@ void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y
 	HumanIndex[HitHuman_id].SetHitFlag(brx*-1 - (float)M_PI/2);
 #endif
 
-	//ƒƒ{ƒbƒg‚©‚Ç‚¤‚©”»’è
+	//ãƒ­ãƒœãƒƒãƒˆã‹ã©ã†ã‹åˆ¤å®š
 	HumanIndex[HitHuman_id].GetParamData(&paramid, NULL, NULL, NULL);
 	GameParamInfo->GetHuman(paramid, &Paraminfo);
 	if( Paraminfo.type == 1 ){
@@ -961,28 +961,28 @@ void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y
 		NotRobot = true;
 	}
 
-	//ƒGƒtƒFƒNƒgiŒŒj‚ğ•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆè¡€ï¼‰ã‚’æç”»
 	if( Hit_id == 0 ){ damage = (int)((float)attacks * HUMAN_DAMAGE_HEAD); }
 	if( Hit_id == 1 ){ damage = (int)((float)attacks * HUMAN_DAMAGE_UP); }
 	if( Hit_id == 2 ){ damage = (int)((float)attacks * HUMAN_DAMAGE_LEG); }
 	SetHumanBlood(x, y, z, damage, NotRobot);
 
-	//Œø‰Ê‰¹‚ğÄ¶
+	//åŠ¹æœéŸ³ã‚’å†ç”Ÿ
 	GameSound->HitHuman(x, y, z, Hit_id, Shothuman_TeamID);
 
 	if( (0 <= Shothuman_id)&&(Shothuman_id < MAX_HUMAN) ){
-		//’e‚ğ”­Ë‚µ‚½l‚Ì¬‰Ê‚É‰ÁZ
+		//å¼¾ã‚’ç™ºå°„ã—ãŸäººã®æˆæœã«åŠ ç®—
 		Human_ontarget[Shothuman_id] += ontargetcnt;
 		if( Hit_id == 0 ){ Human_headshot[Shothuman_id] += 1; }
 		if( (hp_old > 0)&&(HumanIndex[HitHuman_id].GetHP() <= 0) ){
-			//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ€–S‚µ‚½B
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›æ­»äº¡ã—ãŸã€‚
 			Human_kill[Shothuman_id] += 1;
 		}
 	}
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	if( (hp_old > 0)&&(HumanIndex[HitHuman_id].GetHP() <= 0) ){
-		//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ€–S‚µ‚½B
+		//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›æ­»äº¡ã—ãŸã€‚
 
 		int player_teamid;
 		HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
@@ -991,66 +991,66 @@ void ObjectManager::HitBulletHuman(int HitHuman_id, int Hit_id, float x, float y
 	}
 }
 
-//! @brief ’e‚ª¬•¨‚É“–‚½‚Á‚½ˆ—
-//! @param HitSmallObject_id ¬•¨‚Ì”Ô†
-//! @param x ’…’eXÀ•W
-//! @param y ’…’eYÀ•W
-//! @param z ’…’eZÀ•W
-//! @param attacks UŒ‚—Í
-//! @param teamID ”­ËŒ³‚Ìƒ`[ƒ€”Ô†
+//! @brief å¼¾ãŒå°ç‰©ã«å½“ãŸã£ãŸå‡¦ç†
+//! @param HitSmallObject_id å°ç‰©ã®ç•ªå·
+//! @param x ç€å¼¾Xåº§æ¨™
+//! @param y ç€å¼¾Yåº§æ¨™
+//! @param z ç€å¼¾Zåº§æ¨™
+//! @param attacks æ”»æ’ƒåŠ›
+//! @param teamID ç™ºå°„å…ƒã®ãƒãƒ¼ãƒ ç•ªå·
 void ObjectManager::HitBulletSmallObject(int HitSmallObject_id, float x, float y, float z, int attacks, int teamID)
 {
 	int hp;
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„ã€‚
 	if( SmallObjectIndex[HitSmallObject_id].GetEnableFlag() == false ){ return; }
 
-	//‘Ì—Í‚ª‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+	//ä½“åŠ›ãŒãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 	hp = SmallObjectIndex[HitSmallObject_id].GetHP();
 	if( hp <= 0 ){ return; }
 
-	//¬•¨‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+	//å°ç‰©ã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
 	SmallObjectIndex[HitSmallObject_id].HitBullet(attacks);
 
-	//ƒGƒtƒFƒNƒgi‰Œj‚ğ•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆç…™ï¼‰ã‚’æç”»
 	//AddEffect(x, y, z, 0.01f*(GetRand(101)-50), 0.01f*(GetRand(101)-50), 0.01f*(GetRand(101)-50), 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 1.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 0.625f, -0.047f, EFFECT_NORMAL, 255);
 	//AddEffect(x, y, z, 0.01f*(GetRand(101)-50), 0.01f*(GetRand(101)-50), 0.01f*(GetRand(101)-50), 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 1.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 0.625f, -0.047f, EFFECT_NORMAL, 255);
 	AddEffect(x, y, z, 0.0f, 0.0f, 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 1.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 0.625f, -0.047f, EFFECT_NORMAL, 255);
 	AddEffect(x, y, z, 0.0f, 0.01f*(GetRand(10)-5), 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 1.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 0.625f, -0.047f, EFFECT_NORMAL, 255);
 
-	//Œø‰Ê‰¹‚ğÄ¶
+	//åŠ¹æœéŸ³ã‚’å†ç”Ÿ
 	int id;
 	SmallObjectIndex[HitSmallObject_id].GetParamData(&id, NULL);
 	GameSound->HitSmallObject(x, y, z, id, teamID);
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	hp = SmallObjectIndex[HitSmallObject_id].GetHP();
 	if( hp <= 0 ){
-		//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ”j‰ó‚³‚ê‚½B
+		//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›ç ´å£Šã•ã‚ŒãŸã€‚
 		ObjectLog->BreakSmallObject(HitSmallObject_id);
 	}
 }
 
-//! @brief èÖ’e‚Ìƒ_ƒ[ƒW”»’è‚Æˆ—
-//! @param in_grenade ‘ÎÛ‚ÌèÖ’eƒIƒuƒWƒFƒNƒg
-//! @return “–‚½‚Á‚½Ftrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @attention ”»’è‚ğs‚¤‘ÎÛ‚Íulv‚Æu¬•¨v‚Å‚·B
-//! @attention ƒ_ƒ[ƒW”»’è‚ÉŒÀ‚ç‚¸Aƒ_ƒ[ƒWŒvZ‚âŒø‰Ê‰¹Ä¶‚Ü‚ÅˆêŠÑ‚µ‚Äs‚¢‚Ü‚·B
+//! @brief æ‰‹æ¦´å¼¾ã®ãƒ€ãƒ¡ãƒ¼ã‚¸åˆ¤å®šã¨å‡¦ç†
+//! @param in_grenade å¯¾è±¡ã®æ‰‹æ¦´å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//! @return å½“ãŸã£ãŸï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @attention åˆ¤å®šã‚’è¡Œã†å¯¾è±¡ã¯ã€Œäººã€ã¨ã€Œå°ç‰©ã€ã§ã™ã€‚
+//! @attention ãƒ€ãƒ¡ãƒ¼ã‚¸åˆ¤å®šã«é™ã‚‰ãšã€ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—ã‚„åŠ¹æœéŸ³å†ç”Ÿã¾ã§ä¸€è²«ã—ã¦è¡Œã„ã¾ã™ã€‚
 bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 {
 	if( in_grenade == NULL ){ return false; }
 
 	bool returnflag = false;
 
-	//À•W‚ğæ“¾
+	//åº§æ¨™ã‚’å–å¾—
 	float gx, gy, gz;
 	int teamid, humanid;
 	in_grenade->GetPosData(&gx, &gy, &gz, NULL, NULL);
 	in_grenade->GetParamData(NULL, &teamid, &humanid, NULL);
 
-	//l‚É”š•—‚Ì“–‚½‚è”»’è
+	//äººã«çˆ†é¢¨ã®å½“ãŸã‚Šåˆ¤å®š
 	for(int i=0; i<MAX_HUMAN; i++){
-		//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢‚©A€‘Ì‚È‚ç‚Îˆ—‚µ‚È‚¢B
+		//åˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»ä½“ãªã‚‰ã°å‡¦ç†ã—ãªã„ã€‚
 		if( HumanIndex[i].GetEnableFlag() == false ){ continue; }
 		if( HumanIndex[i].GetDeadFlag() == true ){ continue; }
 
@@ -1058,38 +1058,38 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 		float hx, hy, hz;
 		float x, y, z, r;
 
-		//l‚ÌÀ•W‚ğæ“¾‚µA‹——£‚ğŒvZ
+		//äººã®åº§æ¨™ã‚’å–å¾—ã—ã€è·é›¢ã‚’è¨ˆç®—
 		HumanIndex[i].GetPosData(&hx, &hy, &hz, NULL);
 		x = hx - gx;
 		y = hy - gy;
 		z = hz - gz;
 		r = sqrtf(x*x + y*y + z*z);
 
-		//100.0‚æ‚è‰“‚¯‚ê‚ÎŒvZ‚µ‚È‚¢
+		//100.0ã‚ˆã‚Šé ã‘ã‚Œã°è¨ˆç®—ã—ãªã„
 		if( r > MAX_DAMAGE_GRENADE_DISTANCE + HUMAN_HEIGHT ){ continue; }
 
 		float dummy = 0.0f;
 		int total_damage = 0;
 		int damage;
 
-		//‘«Œ³‚É“–‚½‚è”»’è
+		//è¶³å…ƒã«å½“ãŸã‚Šåˆ¤å®š
 		y = hy + 2.0f - gy;
 		r = sqrtf(x*x + y*y + z*z);
-		//ƒuƒƒbƒN‚ªÕ‚Á‚Ä‚¢‚È‚¯‚ê‚Î@iƒŒƒC‚Å“–‚½‚è”»’è‚ğs‚¢A“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îj
+		//ãƒ–ãƒ­ãƒƒã‚¯ãŒé®ã£ã¦ã„ãªã‘ã‚Œã°ã€€ï¼ˆãƒ¬ã‚¤ã§å½“ãŸã‚Šåˆ¤å®šã‚’è¡Œã„ã€å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°ï¼‰
 		if( CollD->CheckALLBlockIntersectRay(gx, gy, gz, x/r, y/r, z/r, NULL, NULL, &dummy, r) == false ){
-			//ƒ_ƒ[ƒW—Ê‚ğŒvZ
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ã‚’è¨ˆç®—
 			damage = HUMAN_DAMAGE_GRENADE_LEG - (int)((float)HUMAN_DAMAGE_GRENADE_LEG/MAX_DAMAGE_GRENADE_DISTANCE * r);
 			if( damage > 0 ){
 				total_damage += damage;
 			}
 		}
 
-		//“ª‚É“–‚½‚è”»’è
+		//é ­ã«å½“ãŸã‚Šåˆ¤å®š
 		y = hy + (HUMAN_HEIGHT-2.0f) - gy;
 		r = sqrtf(x*x + y*y + z*z);
-		//ƒuƒƒbƒN‚ªÕ‚Á‚Ä‚¢‚È‚¯‚ê‚Î@iƒŒƒC‚Å“–‚½‚è”»’è‚ğs‚¢A“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îj
+		//ãƒ–ãƒ­ãƒƒã‚¯ãŒé®ã£ã¦ã„ãªã‘ã‚Œã°ã€€ï¼ˆãƒ¬ã‚¤ã§å½“ãŸã‚Šåˆ¤å®šã‚’è¡Œã„ã€å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°ï¼‰
 		if( CollD->CheckALLBlockIntersectRay(gx, gy, gz, x/r, y/r, z/r, NULL, NULL, &dummy, r) == false ){
-			//ƒ_ƒ[ƒW—Ê‚ğŒvZ
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ã‚’è¨ˆç®—
 			damage = HUMAN_DAMAGE_GRENADE_HEAD - (int)((float)HUMAN_DAMAGE_GRENADE_HEAD/MAX_DAMAGE_GRENADE_DISTANCE * r);
 			if( damage > 0 ){
 				total_damage += damage;
@@ -1099,10 +1099,10 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 		if( total_damage > 0 ){
 			int hp_old;
 
-			//ƒ_ƒ[ƒWŒvZ‘O‚ÌHPæ“¾
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã®HPå–å¾—
 			hp_old = HumanIndex[i].GetHP();
 
-			//ƒ_ƒ[ƒW‚ğ”½‰f
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’åæ˜ 
 			HumanIndex[i].HitGrenadeExplosion(total_damage);
 
 			HumanIndex[i].GetParamData(NULL, NULL, NULL, &HitHuman_TeamID);
@@ -1111,33 +1111,33 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 			float arx, ary;
 
 			if( (0 <= humanid)&&(humanid < MAX_HUMAN) ){
-				//“|‚µ‚Ä‚¢‚ê‚ÎA”­Ë‚µ‚½l‚Ì¬‰Ê‚É‰ÁZ
+				//å€’ã—ã¦ã„ã‚Œã°ã€ç™ºå°„ã—ãŸäººã®æˆæœã«åŠ ç®—
 				if( HumanIndex[i].GetHP() <= 0 ){ Human_kill[humanid] += 1; }
 			}
 
-			//ƒGƒtƒFƒNƒgiŒŒj‚ğ•`‰æ
+			//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆè¡€ï¼‰ã‚’æç”»
 			SetHumanBlood(hx, hy+15.0f, hz, total_damage, false);
 
-			//l‚ÆèÖ’e‚Ì‹——£‚ğZo
+			//äººã¨æ‰‹æ¦´å¼¾ã®è·é›¢ã‚’ç®—å‡º
 			x = gx - hx;
 			y = gy - (hy + 1.0f);
 			z = gz - hz;
 
-			//Šp“x‚ğ‹‚ß‚é
+			//è§’åº¦ã‚’æ±‚ã‚ã‚‹
 			arx = atan2f(z, x);
 
-			if( sinf(atan2f(y, sqrtf(x*x + z*z))) < 0.0f ){		//ã•ûŒü‚É”ò‚Ô‚È‚çAŠp“x‚ğŒvZ
+			if( sinf(atan2f(y, sqrtf(x*x + z*z))) < 0.0f ){		//ä¸Šæ–¹å‘ã«é£›ã¶ãªã‚‰ã€è§’åº¦ã‚’è¨ˆç®—
 				y2 = gy - (hy + HUMAN_HEIGHT);
 				ary = atan2f(y2, sqrtf(x*x + z*z)) + (float)M_PI;
 			}
-			else{		//‰º•ûŒü‚É”ò‚Ô‚È‚çA‚’¼Šp“x‚Í–³ŒøBi”š•—‚Å’n–Ê‚É‚ß‚è‚Ş‚Ì‚ğ–h~j
+			else{		//ä¸‹æ–¹å‘ã«é£›ã¶ãªã‚‰ã€å‚ç›´è§’åº¦ã¯ç„¡åŠ¹ã€‚ï¼ˆçˆ†é¢¨ã§åœ°é¢ã«ã‚ã‚Šè¾¼ã‚€ã®ã‚’é˜²æ­¢ï¼‰
 				ary = 0.0f;
 			}
 
 #ifdef ENABLE_BUG_TEAMID
 			bool flag = true;
 
-			//ƒ`[ƒ€”Ô†‚ª•‰”A‚©‚Âƒ`[ƒ€”Ô†‚ª‘å‚«‚¢‚È‚çAƒtƒ‰ƒO–³Œø
+			//ãƒãƒ¼ãƒ ç•ªå·ãŒè² æ•°ã€ã‹ã¤ãƒãƒ¼ãƒ ç•ªå·ãŒå¤§ãã„ãªã‚‰ã€ãƒ•ãƒ©ã‚°ç„¡åŠ¹
 			if( (HitHuman_TeamID < 0)&&(teamid < 0) ){
 				if( HitHuman_TeamID < teamid ){
 					flag = false;
@@ -1151,12 +1151,12 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 			HumanIndex[i].SetHitFlag(arx*-1 + (float)M_PI/2);
 #endif
 
-			//”š•—‚É‚æ‚é•—ˆ³
+			//çˆ†é¢¨ã«ã‚ˆã‚‹é¢¨åœ§
 			HumanIndex[i].AddPosOrder(arx, ary, 2.2f/MAX_DAMAGE_GRENADE_DISTANCE * (MAX_DAMAGE_GRENADE_DISTANCE - sqrtf(x*x + y*y + z*z)));
 
-			//ƒƒOŠÖŒW‚Ìˆ—
+			//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 			if( (hp_old > 0)&&(HumanIndex[i].GetHP() <= 0) ){
-				//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ€–S‚µ‚½B
+				//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›æ­»äº¡ã—ãŸã€‚
 
 				int player_teamid;
 				HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
@@ -1168,41 +1168,41 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 		}
 	}
 
-	//¬•¨‚É”š•—‚Ì“–‚½‚è”»’è
+	//å°ç‰©ã«çˆ†é¢¨ã®å½“ãŸã‚Šåˆ¤å®š
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
-		//g—p‚³‚ê‚Ä‚¢‚ê‚Îˆ—‚µ‚È‚¢
+		//ä½¿ç”¨ã•ã‚Œã¦ã„ã‚Œã°å‡¦ç†ã—ãªã„
 		if( SmallObjectIndex[i].GetEnableFlag() == false ){ continue; }
 
 		float sx, sy, sz;
 		float x, y, z, r;
 
-		//¬•¨‚ÌÀ•W‚ğæ“¾‚µA‹——£‚ğŒvZ
+		//å°ç‰©ã®åº§æ¨™ã‚’å–å¾—ã—ã€è·é›¢ã‚’è¨ˆç®—
 		SmallObjectIndex[i].GetPosData(&sx, &sy, &sz, NULL);
 		x = sx - gx;
 		y = sy - gy;
 		z = sz - gz;
 		r = sqrtf(x*x + y*y + z*z);
 
-		//100.0‚æ‚è‰“‚¯‚ê‚ÎŒvZ‚µ‚È‚¢
+		//100.0ã‚ˆã‚Šé ã‘ã‚Œã°è¨ˆç®—ã—ãªã„
 		if( r > MAX_DAMAGE_GRENADE_DISTANCE ){ continue; }
 
 		float dummy = 0.0f;
 
-		//ƒuƒƒbƒN‚ªÕ‚Á‚Ä‚¢‚È‚¯‚ê‚Î@iƒŒƒC‚Å“–‚½‚è”»’è‚ğs‚¢A“–‚½‚Á‚Ä‚¢‚È‚¯‚ê‚Îj
+		//ãƒ–ãƒ­ãƒƒã‚¯ãŒé®ã£ã¦ã„ãªã‘ã‚Œã°ã€€ï¼ˆãƒ¬ã‚¤ã§å½“ãŸã‚Šåˆ¤å®šã‚’è¡Œã„ã€å½“ãŸã£ã¦ã„ãªã‘ã‚Œã°ï¼‰
 		if( CollD->CheckALLBlockIntersectRay(gx, gy, gz, x/r, y/r, z/r, NULL, NULL, &dummy, r) == false ){
 			int id, damage;
 			SmallObjectIndex[i].GetParamData(&id, NULL);
 
-			//ƒ_ƒ[ƒW—Ê‚ğŒvZ‚µA”½‰f
+			//ãƒ€ãƒ¡ãƒ¼ã‚¸é‡ã‚’è¨ˆç®—ã—ã€åæ˜ 
 			damage = SMALLOBJECT_DAMAGE_GRENADE - (int)((float)SMALLOBJECT_DAMAGE_GRENADE/MAX_DAMAGE_GRENADE_DISTANCE * r);
 			SmallObjectIndex[i].HitGrenadeExplosion(damage);
 
-			//¬•¨‚©‚çŒø‰Ê‰¹‚ğ”­‚·‚é
+			//å°ç‰©ã‹ã‚‰åŠ¹æœéŸ³ã‚’ç™ºã™ã‚‹
 			GameSound->HitSmallObject(sx, sy, sz, id, teamid);
 
-			//ƒƒOŠÖŒW‚Ìˆ—
+			//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 			if( SmallObjectIndex[i].GetHP() <= 0 ){
-				//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ”j‰ó‚³‚ê‚½B
+				//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›ç ´å£Šã•ã‚ŒãŸã€‚
 				ObjectLog->BreakSmallObject(i);
 			}
 
@@ -1210,10 +1210,10 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 		}
 	}
 
-	//ƒGƒtƒFƒNƒgiƒtƒ‰ƒbƒVƒ…j‚Ì•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆãƒ•ãƒ©ãƒƒã‚·ãƒ¥ï¼‰ã®æç”»
 	AddEffect(gx, gy, gz, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 40.0f, 0.0f, Resource->GetEffectMflashTexture(), 0, 0, 0.63f, 0.0f, EFFECT_NORMAL, 2);
 
-	//ƒGƒtƒFƒNƒgi‰Œj‚Ì•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆç…™ï¼‰ã®æç”»
 	AddEffect(gx, gy, gz, 0.0f, 0.1f, 0.0f, 0.0f,
 					DegreeToRadian(10)*GetRand(36), 0.0f, 36.0f, 0.2f, Resource->GetEffectSmokeTexture(), 220, 0, 0.6f, -0.01f, EFFECT_NORMAL, 50);
 	AddEffect(gx + ((float)GetRand(7)/10-0.3f), gy + ((float)GetRand(5)/10-0.2f), gz + ((float)GetRand(7)/10-0.3f), (float)GetRand(5)/10-0.2f, (float)GetRand(3)/10, (float)GetRand(5)/10-0.2f, 0.0f,
@@ -1223,14 +1223,14 @@ bool ObjectManager::GrenadeExplosion(grenade *in_grenade)
 	AddEffect(gx + ((float)GetRand(13)/10-0.6f), gy + ((float)GetRand(11)/10-0.5f), gz + ((float)GetRand(13)/10-0.6f), (float)GetRand(7)/10-0.3f, (float)GetRand(7)/10-0.3f, (float)GetRand(7)/10-0.3f, 0.0f,
 					DegreeToRadian(10)*GetRand(36), DegreeToRadian(-1), ((float)GetRand(21)+20.0f)*2, 0.2f, Resource->GetEffectSmokeTexture(), 0, 0, 0.4f, -0.004f, EFFECT_NORMAL, 100);
 
-	//Œø‰Ê‰¹‚ğÄ¶
+	//åŠ¹æœéŸ³ã‚’å†ç”Ÿ
 	GameSound->GrenadeExplosion(gx, gy, gz, teamid);
 
 	return returnflag;
 }
 
-//! @brief “|‚ê‚½Û‚ÌƒGƒtƒFƒNƒgİ’è
-//! @param in_human ‘ÎÛ‚ÌlƒIƒuƒWƒFƒNƒg
+//! @brief å€’ã‚ŒãŸéš›ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š
+//! @param in_human å¯¾è±¡ã®äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 void ObjectManager::DeadEffect(human *in_human)
 {
 	if( in_human == NULL ){ return; }
@@ -1250,19 +1250,19 @@ void ObjectManager::DeadEffect(human *in_human)
 		robot = false;
 	}
 
-	//‚à‚µƒƒ{ƒbƒg‚È‚ç‚Î
+	//ã‚‚ã—ãƒ­ãƒœãƒƒãƒˆãªã‚‰ã°
 	if( robot == true ){
 		float hx, hy, hz, hrx, hry;
 
-		//Šeíƒpƒ‰ƒ[ƒ^[‚ğæ“¾
+		//å„ç¨®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’å–å¾—
 		in_human->GetPosData(&hx, &hy, &hz, &hrx);
 		hry = in_human->GetDeadRy();
 
-		//˜•Ó‚è‚ÌÀ•W‚ğZo
+		//è…°è¾ºã‚Šã®åº§æ¨™ã‚’ç®—å‡º
 		hx += cosf(hrx*-1 - (float)M_PI/2) * sinf(hry) * HUMAN_HEIGHT/2;
 		hz += sinf(hrx*-1 - (float)M_PI/2) * sinf(hry) * HUMAN_HEIGHT/2;
 
-		//ƒGƒtƒFƒNƒgi‰Œj‚Ì•`‰æ
+		//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆç…™ï¼‰ã®æç”»
 		float rnd = DegreeToRadian(10)*GetRand(18);
 		AddEffect(hx+1.0f, hy+1.0f, hz+1.0f, 0.1f, 0.05f, 0.1f, 0.0f, rnd, 0, GetRand(30)*0.1f+30.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 1.0f, -1.0f / (GAMEFPS * 3), EFFECT_NORMAL, (int)GAMEFPS * 3);
 		AddEffect(hx+1.0f, hy-1.0f, hz-1.0f, 0.2f, 0.05f, -0.2f, 0.0f, rnd*-1, 0, GetRand(30)*0.1f+30.0f, 0.1f, Resource->GetEffectSmokeTexture(), 10, 0, 1.0f, -1.0f / (GAMEFPS * 3), EFFECT_NORMAL, (int)GAMEFPS * 3);
@@ -1270,54 +1270,54 @@ void ObjectManager::DeadEffect(human *in_human)
 	}
 }
 
-//! ƒ}ƒbƒv‚ÉŒŒ‚ª•t’…‚·‚é‚©”»’è
-//! @param in_effect ‘ÎÛ‚ÌƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg
-//! @param id •t’…‚·‚éƒuƒƒbƒN”Ô†‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param face •t’…‚·‚é–Ê”Ô†‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param pos_x XÀ•W‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param pos_y YÀ•W‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param pos_z ZÀ•W‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return •t’…‚·‚éFtrue@•t’…‚µ‚È‚¢Ffalse
+//! ãƒãƒƒãƒ—ã«è¡€ãŒä»˜ç€ã™ã‚‹ã‹åˆ¤å®š
+//! @param in_effect å¯¾è±¡ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//! @param id ä»˜ç€ã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param face ä»˜ç€ã™ã‚‹é¢ç•ªå·ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param pos_x Xåº§æ¨™ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param pos_y Yåº§æ¨™ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param pos_z Zåº§æ¨™ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return ä»˜ç€ã™ã‚‹ï¼štrueã€€ä»˜ç€ã—ãªã„ï¼šfalse
 bool ObjectManager::CollideBlood(effect *in_effect, int *id, int *face, float *pos_x, float *pos_y, float *pos_z)
 {
 	if( in_effect == NULL ){ return false; }
 	if( (id == NULL)||(face == NULL) ){ return false; }
 	if( (pos_x == NULL)||(pos_y == NULL)||(pos_z == NULL) ){ return false; }
 
-	//–³Œø‚ÈƒGƒtƒFƒNƒg‚È‚ç‚Îˆ—‚µ‚È‚¢
+	//ç„¡åŠ¹ãªã‚¨ãƒ•ã‚§ã‚¯ãƒˆãªã‚‰ã°å‡¦ç†ã—ãªã„
 	if( in_effect->GetEnableFlag() == false ){ return false; }
 	if( in_effect->GetCollideMapFlag() == false ){ return false; }
 	if( in_effect->GetTextureID() != Resource->GetEffectBloodTexture() ){ return false; }
 
-	//ŒŒ‚ªo‚È‚¢İ’è‚È‚çˆ—‚µ‚È‚¢
+	//è¡€ãŒå‡ºãªã„è¨­å®šãªã‚‰å‡¦ç†ã—ãªã„
 	if( GameConfig.GetBloodFlag() == false ){ return false; }
 
 	float x, y, z;
 	float move_x, move_y, move_z;
 	float vx, vy, vz, dist, dist2;
 
-	//ƒGƒtƒFƒNƒg‚Ìƒpƒ‰ƒ[ƒ^[æ“¾
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼å–å¾—
 	in_effect->GetPosData(&x, &y, &z, NULL);
 	in_effect->GetMove(&move_x, &move_y, &move_z);
 
-	//ƒGƒtƒFƒNƒg‚ªˆÚ“®‚µ‚È‚¢‚È‚çˆ—‚µ‚È‚¢
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒç§»å‹•ã—ãªã„ãªã‚‰å‡¦ç†ã—ãªã„
 	if( (move_x == 0.0f)&&(move_y == 0.0f)&&(move_z == 0.0f) ){ return false; }
 
-	//ƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+	//ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 	dist = sqrtf(move_x*move_x + move_y*move_y + move_z*move_z);
 	vx = move_x / dist;
 	vy = move_y / dist;
 	vz = move_z / dist;
 
-	//ƒŒƒC‚Ì“–‚½‚è”»’è
+	//ãƒ¬ã‚¤ã®å½“ãŸã‚Šåˆ¤å®š
 	if( CollD->CheckALLBlockIntersectRay(x, y, z, vx, vy, vz, id, face, &dist2, dist) == false ){
 		return false;
 	}
 
-	//ƒ}ƒbƒv‚æ‚è‚í‚¸‚©‚É•‚‚©‚¹‚é
+	//ãƒãƒƒãƒ—ã‚ˆã‚Šã‚ãšã‹ã«æµ®ã‹ã›ã‚‹
 	dist2 -= 1.0f;
 
-	//•t’…‚·‚éÀ•W‚ğ‹‚ß‚é
+	//ä»˜ç€ã™ã‚‹åº§æ¨™ã‚’æ±‚ã‚ã‚‹
 	*pos_x = x + vx*dist2;
 	*pos_y = y + vy*dist2;
 	*pos_z = z + vz*dist2;
@@ -1325,44 +1325,44 @@ bool ObjectManager::CollideBlood(effect *in_effect, int *id, int *face, float *p
 	return true;
 }
 
-//! @brief •Ší‚ğE‚¤
-//! @param in_human ‘ÎÛ‚ÌlƒIƒuƒWƒFƒNƒg
-//! @param in_weapon ‘ÎÛ‚Ì•ŠíƒIƒuƒWƒFƒNƒg
-//! @attention l‚Ìí—Ş‚ª ƒ]ƒ“ƒr ‚Ìê‡A‚±‚ÌŠÖ”‚Í¸”s‚µ‚Ü‚·B
+//! @brief æ­¦å™¨ã‚’æ‹¾ã†
+//! @param in_human å¯¾è±¡ã®äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//! @param in_weapon å¯¾è±¡ã®æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+//! @attention äººã®ç¨®é¡ãŒ ã‚¾ãƒ³ãƒ“ ã®å ´åˆã€ã“ã®é–¢æ•°ã¯å¤±æ•—ã—ã¾ã™ã€‚
 void ObjectManager::PickupWeapon(human *in_human, weapon *in_weapon)
 {
 	if( in_human == NULL ){ return; }
 	if( in_weapon == NULL ){ return; }
 
-	//–³Œø‚Èl‚È‚ç‚Îˆ—‚µ‚È‚¢
+	//ç„¡åŠ¹ãªäººãªã‚‰ã°å‡¦ç†ã—ãªã„
 	if( in_human->GetEnableFlag() == false ){ return; }
 	if( in_human->GetHP() <= 0 ){ return; }
 
-	//l‚Ìí—Ş‚ª ƒ]ƒ“ƒr ‚È‚ç‚ÎA¸”s
+	//äººã®ç¨®é¡ãŒ ã‚¾ãƒ³ãƒ“ ãªã‚‰ã°ã€å¤±æ•—
 	int paramid;
 	HumanParameter Paraminfo;
 	in_human->GetParamData(&paramid, NULL, NULL, NULL);
 	GameParamInfo->GetHuman(paramid, &Paraminfo);
 	if( Paraminfo.type == 2 ){ return; }
 
-	//‰Šú‰»‚³‚ê‚Ä‚¢‚é•Ší‚ÅA‚©‚Â’N‚àg‚Á‚Ä‚¢‚È‚¢•Ší‚È‚ç‚Î`
+	//åˆæœŸåŒ–ã•ã‚Œã¦ã„ã‚‹æ­¦å™¨ã§ã€ã‹ã¤èª°ã‚‚ä½¿ã£ã¦ã„ãªã„æ­¦å™¨ãªã‚‰ã°ï½
 	if( (in_weapon->GetEnableFlag() == true)&&(in_weapon->GetUsingFlag() == false) ){
 		float human_x, human_y, human_z;
 		float weapon_x, weapon_y, weapon_z;
 		float x, z;
 		float r;
 
-		//l‚Æ•Ší‚ÌÀ•W‚ğæ“¾
+		//äººã¨æ­¦å™¨ã®åº§æ¨™ã‚’å–å¾—
 		in_human->GetPosData(&human_x, &human_y, &human_z, NULL);
 		in_weapon->GetPosData(&weapon_x, &weapon_y, &weapon_z, NULL);
 
-		//‚‚³‚ª”ÍˆÍ“à‚È‚ç‚Î
+		//é«˜ã•ãŒç¯„å›²å†…ãªã‚‰ã°
 		if( ((human_y + HUMAN_PICKUPWEAPON_L) <= weapon_y)&&(weapon_y <= (human_y + HUMAN_PICKUPWEAPON_H)) ){
-			//‹——£‚ğŒvZ
+			//è·é›¢ã‚’è¨ˆç®—
 			x = human_x - weapon_x;
 			z = human_z - weapon_z;
 			r = x*x + z*z;
-			//‹——£‚à”ÍˆÍ“à‚È‚ç‚ÎAE‚í‚¹‚éB
+			//è·é›¢ã‚‚ç¯„å›²å†…ãªã‚‰ã°ã€æ‹¾ã‚ã›ã‚‹ã€‚
 			if( r < (HUMAN_PICKUPWEAPON_R * HUMAN_PICKUPWEAPON_R) ){
 				in_human->PickupWeapon(in_weapon);
 			}
@@ -1370,7 +1370,7 @@ void ObjectManager::PickupWeapon(human *in_human, weapon *in_weapon)
 	}
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒg‚ğ‰ğ•ú
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è§£æ”¾
 void ObjectManager::CleanupPointDataToObject()
 {
 	for(int i=0; i<MAX_HUMAN; i++){
@@ -1403,55 +1403,55 @@ void ObjectManager::CleanupPointDataToObject()
 	}
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğŒ³‚ÉƒIƒuƒWƒFƒNƒg‚ğ”z’u
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å…ƒã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’é…ç½®
 void ObjectManager::LoadPointData()
 {
 	AddCollisionFlag = false;
 	Player_HumanID = 0;
 
-	//”­–Cƒtƒ‰ƒO‰Šú‰»
+	//ç™ºç ²ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
 	for(int i=0; i<MAX_HUMAN; i++){
 		Human_ShotFlag[i] = false;
 		Human_YakkyouCnt[i] = -1;
 	}
 
-	//FFi“¯m“¢‚¿j—LŒø‰»ƒtƒ‰ƒOİ’è
+	//FFï¼ˆåŒå£«è¨ã¡ï¼‰æœ‰åŠ¹åŒ–ãƒ•ãƒ©ã‚°è¨­å®š
 	for(int i=0; i<MAX_HUMAN; i++){
 		FriendlyFire[i] = false;
 	}
 
-	//l‚ÌƒeƒNƒXƒ`ƒƒƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒO‰Šú‰»
+	//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°åˆæœŸåŒ–
 	for(int i=0; i<MAX_HUMAN; i++){
 		Human_FrameTextureRefresh[i] = false;
 	}
 
 	/*
-	//lî•ñƒ|ƒCƒ“ƒg‚ğ’T‚·
+	//äººæƒ…å ±ãƒã‚¤ãƒ³ãƒˆã‚’æ¢ã™
 	for(int i=0; i<PointData->GetTotaldatas(); i++){
 		pointdata data;
 		PointData->Getdata(&data, i);
 
 		if( data.p1 == POINT_P1TYPE_HUMANINFO ){
-			//l‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“o˜^
+			//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç™»éŒ²
 			Resource->AddHumanTexture(data.p2);
 		}
 	}
 	*/
 
-	//lE•ŠíE¬•¨‚ğ’T‚·
+	//äººãƒ»æ­¦å™¨ãƒ»å°ç‰©ã‚’æ¢ã™
 	for(int i=0; i<PointData->GetTotaldatas(); i++){
 		pointdata data;
 		PointData->Getdata(&data, i);
 
-		//l‚È‚ç‚Î
+		//äººãªã‚‰ã°
 		if( (data.p1 == POINT_P1TYPE_HUMAN)||(data.p1 == POINT_P1TYPE_HUMAN2) ){
 			pointdata humaninfodata;
 
-			//lî•ñƒ|ƒCƒ“ƒg‚ğ’T‚·
+			//äººæƒ…å ±ãƒã‚¤ãƒ³ãƒˆã‚’æ¢ã™
 			if( PointData->SearchPointdata(&humaninfodata, 0x01 + 0x08, POINT_P1TYPE_HUMANINFO, 0, 0, data.p2, 0) == 0 ){
 				//continue;
 
-				//lî•ñƒ|ƒCƒ“ƒg‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½‚çA‚Æ‚è‚ ‚¦‚¸u“Áê • Av‚Æ‚µ‚Ä’Ç‰ÁBiƒoƒO‚ÌÄŒ»j
+				//äººæƒ…å ±ãƒã‚¤ãƒ³ãƒˆãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸã‚‰ã€ã¨ã‚Šã‚ãˆãšã€Œç‰¹æ®Š é»’ Aã€ã¨ã—ã¦è¿½åŠ ã€‚ï¼ˆãƒã‚°ã®å†ç¾ï¼‰
 
 				HumanParameter HumanParam;
 				int Weapon[TOTAL_HAVEWEAPON];
@@ -1460,15 +1460,15 @@ void ObjectManager::LoadPointData()
 					Weapon[j] = HumanParam.Weapon[j];
 				}
 
-				//l‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“o˜^
+				//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç™»éŒ²
 				Resource->AddHumanTexture(0);
 
-				//l‚ğ’Ç‰Á
+				//äººã‚’è¿½åŠ 
 				if( data.p1 == POINT_P1TYPE_HUMAN2 ){
 					Weapon[1] = ID_WEAPON_NONE;
 				}
 
-				//ƒvƒŒƒCƒ„[‚È‚ç‚ÎA”Ô†‚ğ‹L˜^
+				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãªã‚‰ã°ã€ç•ªå·ã‚’è¨˜éŒ²
 				if( (data.p4 == 0)&&(Player_HumanID == 0) ){
 					Player_HumanID = AddHumanIndex(data.x, data.y, data.z, data.r, 0, 0, Weapon, data.p4, true);
 				}
@@ -1477,35 +1477,35 @@ void ObjectManager::LoadPointData()
 				}
 			}
 			else{
-				//l‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“o˜^
+				//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç™»éŒ²
 				Resource->AddHumanTexture(humaninfodata.p2);
 
-				//l‚Æ‚µ‚Ä’Ç‰Á
+				//äººã¨ã—ã¦è¿½åŠ 
 				AddHumanIndex(data, humaninfodata, true);
 			}
 		}
 
-		//•Ší‚È‚ç‚Î
+		//æ­¦å™¨ãªã‚‰ã°
 		if( (data.p1 == POINT_P1TYPE_WEAPON)||(data.p1 == POINT_P1TYPE_RAND_WEAPON) ){
 			AddWeaponIndex(data);
 		}
 
-		//¬•¨‚È‚ç‚Î
+		//å°ç‰©ãªã‚‰ã°
 		if( data.p1 == POINT_P1TYPE_SMALLOBJ ){
 			AddSmallObjectIndex(data);
 		}
 	}
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	ObjectLog->ClearLog();
 	ObjectLog->InfoLog("Set object...");
 }
 
-//! @brief ƒŠƒ\[ƒX‚Ì‰ñ•œ
-//! @todo ‘S‚Ä‚ÌƒGƒtƒFƒNƒg‚ª–³Œø‰»‚·‚éB
+//! @brief ãƒªã‚½ãƒ¼ã‚¹ã®å›å¾©
+//! @todo å…¨ã¦ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãŒç„¡åŠ¹åŒ–ã™ã‚‹ã€‚
 void ObjectManager::Recovery()
 {
-	//l‚Ìƒ‚ƒfƒ‹”Ô†‚ğæ“¾
+	//äººã®ãƒ¢ãƒ‡ãƒ«ç•ªå·ã‚’å–å¾—
 	int upmodel[TOTAL_UPMODE];
 	int armmodel[TOTAL_ARMMODE];
 	int legmodel;
@@ -1513,7 +1513,7 @@ void ObjectManager::Recovery()
 	int runmodel[TOTAL_RUNMODE];
 	Resource->GetHumanModel(upmodel, armmodel, &legmodel, walkmodel, runmodel);
 
-	//l
+	//äºº
 	int HumanID;
 	int GetHumanFlag;
 	HumanParameter HumanParam;
@@ -1531,12 +1531,12 @@ void ObjectManager::Recovery()
 #endif
 
 			if( GetHumanFlag == 0 ){
-				//l‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“o˜^
+				//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ç™»éŒ²
 				Resource->AddHumanTexture(HumanID);
 
 				int id = Resource->GetHumanTexture(HumanID);
 				if( id == -1 ){
-					//ƒeƒNƒXƒ`ƒƒ‚ªæ“¾‚Å‚«‚È‚¯‚ê‚ÎAƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒO‚ğ—LŒø‚É‚µ‚Ä–ˆƒtƒŒ[ƒ€æ“¾
+					//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒå–å¾—ã§ããªã‘ã‚Œã°ã€ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ã«ã—ã¦æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å–å¾—
 					Human_FrameTextureRefresh[i] = true;
 				}
 
@@ -1552,33 +1552,33 @@ void ObjectManager::Recovery()
 		}
 	}
 
-	//•Ší
+	//æ­¦å™¨
 	int WeaponID;
 	int Weaponmodel, Weapontexture;
 	for(int i=0; i<MAX_WEAPON; i++){
 		if( WeaponIndex[i].GetEnableFlag() == true ){
-			//İ’è’l‚ğæ“¾
+			//è¨­å®šå€¤ã‚’å–å¾—
 			WeaponParameter WeaponParam;
 			WeaponIndex[i].GetParamData(&WeaponID, NULL, NULL);
 			if( Resource->GetWeaponModelTexture(WeaponID, &Weaponmodel, &Weapontexture) == 1 ){ continue; }
 			if( GameParamInfo->GetWeapon(WeaponID, &WeaponParam) == 1 ){ continue; }
 
-			//“K—p
+			//é©ç”¨
 			WeaponIndex[i].SetModel(Weaponmodel, WeaponParam.size);
 			WeaponIndex[i].SetTexture(Weapontexture);
 		}
 	}
 
-	//¬•¨
+	//å°ç‰©
 	int SmallObjectID;
 	int SmallObjectmodel, SmallObjecttexture;
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		if( SmallObjectIndex[i].GetEnableFlag() == true ){
-			//İ’è’l‚ğæ“¾
+			//è¨­å®šå€¤ã‚’å–å¾—
 			SmallObjectIndex[i].GetParamData(&SmallObjectID, NULL);
 			if( Resource->GetSmallObjectModelTexture(SmallObjectID, &SmallObjectmodel, &SmallObjecttexture) == 1 ){ continue; }
 
-			//“K—p
+			//é©ç”¨
 			SmallObjectIndex[i].SetModel(SmallObjectmodel, SMALLOBJECT_SCALE);
 			SmallObjectIndex[i].SetTexture(SmallObjecttexture);
 		}
@@ -1587,7 +1587,7 @@ void ObjectManager::Recovery()
 	int bulletmodel, bullettexture;
 	BulletParameter data;
 
-	//e’e“K—p
+	//éŠƒå¼¾é©ç”¨
 	if( Resource->GetBulletModelTexture(0, &bulletmodel, &bullettexture) == 0 ){
 		if( GameParamInfo->GetBullet(0, &data) == 0 ){
 			for(int i=0; i<MAX_BULLET; i++){
@@ -1597,7 +1597,7 @@ void ObjectManager::Recovery()
 		}
 	}
 
-	//èÖ’e“K—p
+	//æ‰‹æ¦´å¼¾é©ç”¨
 	if( Resource->GetBulletModelTexture(1, &bulletmodel, &bullettexture) == 0 ){
 		if( GameParamInfo->GetBullet(1, &data) == 0 ){
 			for(int i=0; i<MAX_GRENADE; i++){
@@ -1607,75 +1607,75 @@ void ObjectManager::Recovery()
 		}
 	}
 
-	//‘S‚Ä‚ÌƒGƒtƒFƒNƒg‚ğ–³Œø‰»
+	//å…¨ã¦ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç„¡åŠ¹åŒ–
 	for(int i=0; i<MAX_EFFECT; i++){
 		if( EffectIndex[i].GetEnableFlag() == true ){
 			EffectIndex[i].SetEnableFlag(false);
 		}
 	}
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	ObjectLog->InfoLog("Recovery object...");
 }
 
-//! @brief ’Ç‰Á‚Ì“–‚½‚è”»’èƒtƒ‰ƒO‚ğİ’è
-//! @param flag ƒtƒ‰ƒO
+//! @brief è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šãƒ•ãƒ©ã‚°ã‚’è¨­å®š
+//! @param flag ãƒ•ãƒ©ã‚°
 void ObjectManager::SetAddCollisionFlag(bool flag)
 {
 	AddCollisionFlag = flag;
 }
 
-//! @brief FFi“¯m“¢‚¿j—LŒø‰»ƒtƒ‰ƒO‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return ƒtƒ‰ƒO
+//! @brief FFï¼ˆåŒå£«è¨ã¡ï¼‰æœ‰åŠ¹åŒ–ãƒ•ãƒ©ã‚°ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return ãƒ•ãƒ©ã‚°
 bool ObjectManager::GetFriendlyFireFlag(int id)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return false; }
 	return FriendlyFire[id];
 }
 
-//! @brief FFi“¯m“¢‚¿j—LŒø‰»ƒtƒ‰ƒO‚ğİ’è
-//! @param id ƒf[ƒ^”Ô†
-//! @param flag ƒtƒ‰ƒO
+//! @brief FFï¼ˆåŒå£«è¨ã¡ï¼‰æœ‰åŠ¹åŒ–ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param flag ãƒ•ãƒ©ã‚°
 void ObjectManager::SetFriendlyFireFlag(int id, bool flag)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return; }
 	FriendlyFire[id] = flag;
 }
 
-//! @brief ƒvƒŒƒCƒ„[”Ô†‚ğæ“¾
-//! @return ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^”Ô†
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’å–å¾—
+//! @return ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ObjectManager::GetPlayerID()
 {
 	return Player_HumanID;
 }
 
-//! @brief ƒvƒŒƒCƒ„[”Ô†‚ğİ’è
-//! @param id ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^”Ô†
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’è¨­å®š
+//! @param id ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 void ObjectManager::SetPlayerID(int id)
 {
 	Player_HumanID = id;
 }
 
-//! @brief w’è‚µ‚½ƒf[ƒ^”Ô†‚ÌhumanƒNƒ‰ƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return lƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i–³Œø‚Èƒf[ƒ^”Ô†‚Å NULLj
+//! @brief æŒ‡å®šã—ãŸãƒ‡ãƒ¼ã‚¿ç•ªå·ã®humanã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆç„¡åŠ¹ãªãƒ‡ãƒ¼ã‚¿ç•ªå·ã§ NULLï¼‰
 human* ObjectManager::GetHumanObject(int id)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return NULL; }
 	return &(HumanIndex[id]);
 }
 
-//! @brief ƒvƒŒƒCƒ„[‚ÌhumanƒNƒ‰ƒX‚ğæ“¾
-//! @return lƒIƒuƒWƒFƒNƒgiƒvƒŒƒCƒ„[j‚Ìƒ|ƒCƒ“ƒ^
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®humanã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @return äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼‰ã®ãƒã‚¤ãƒ³ã‚¿
 human* ObjectManager::GetPlayerHumanObject()
 {
 	return GetHumanObject(Player_HumanID);
 }
 
-//! @brief w’è‚µ‚½humanƒ|ƒCƒ“ƒ^‚Ìƒf[ƒ^”Ô†‚ğæ“¾
-//! @param object lƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ƒf[ƒ^”Ô†@iƒGƒ‰[F-1j
+//! @brief æŒ‡å®šã—ãŸhumanãƒã‚¤ãƒ³ã‚¿ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’å–å¾—
+//! @param object äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return ãƒ‡ãƒ¼ã‚¿ç•ªå·ã€€ï¼ˆã‚¨ãƒ©ãƒ¼ï¼š-1ï¼‰
 int ObjectManager::GetHumanObjectID(human* object)
 {
 	if( object == NULL ){ return -1; }
@@ -1689,36 +1689,36 @@ int ObjectManager::GetHumanObjectID(human* object)
 	return -1;
 }
 
-//! @brief w’è‚µ‚½ƒf[ƒ^”Ô†‚ÌweaponƒNƒ‰ƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return •ŠíƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i–³Œø‚Èƒf[ƒ^”Ô†‚Å NULLj
+//! @brief æŒ‡å®šã—ãŸãƒ‡ãƒ¼ã‚¿ç•ªå·ã®weaponã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆç„¡åŠ¹ãªãƒ‡ãƒ¼ã‚¿ç•ªå·ã§ NULLï¼‰
 weapon* ObjectManager::GetWeaponObject(int id)
 {
 	if( (id < 0)||(MAX_WEAPON <= id) ){ return NULL; }
 	return &(WeaponIndex[id]);
 }
 
-//! @brief w’è‚µ‚½ƒf[ƒ^”Ô†‚ÌsmallobjectƒNƒ‰ƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return ¬•¨ƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i–³Œø‚Èƒf[ƒ^”Ô†‚Å NULLj
+//! @brief æŒ‡å®šã—ãŸãƒ‡ãƒ¼ã‚¿ç•ªå·ã®smallobjectã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return å°ç‰©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆç„¡åŠ¹ãªãƒ‡ãƒ¼ã‚¿ç•ªå·ã§ NULLï¼‰
 smallobject* ObjectManager::GetSmallObject(int id)
 {
 	if( (id < 0)||(MAX_SMALLOBJECT <= id) ){ return NULL; }
 	return &(SmallObjectIndex[id]);
 }
 
-//! @brief w’è‚µ‚½ƒf[ƒ^”Ô†‚ÌbulletƒNƒ‰ƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return ’eƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i–³Œø‚Èƒf[ƒ^”Ô†‚Å NULLj
+//! @brief æŒ‡å®šã—ãŸãƒ‡ãƒ¼ã‚¿ç•ªå·ã®bulletã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆç„¡åŠ¹ãªãƒ‡ãƒ¼ã‚¿ç•ªå·ã§ NULLï¼‰
 bullet* ObjectManager::GetBulletObject(int id)
 {
 	if( (id < 0)||(MAX_BULLET <= id) ){ return NULL; }
 	return &(BulletIndex[id]);
 }
 
-//! @brief w’è‚µ‚½bulletƒ|ƒCƒ“ƒ^‚Ìƒf[ƒ^”Ô†‚ğæ“¾
-//! @param object ’eƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ƒf[ƒ^”Ô†@iƒGƒ‰[F-1j
+//! @brief æŒ‡å®šã—ãŸbulletãƒã‚¤ãƒ³ã‚¿ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’å–å¾—
+//! @param object å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return ãƒ‡ãƒ¼ã‚¿ç•ªå·ã€€ï¼ˆã‚¨ãƒ©ãƒ¼ï¼š-1ï¼‰
 int ObjectManager::GetBulletObjectID(bullet* object)
 {
 	if( object == NULL ){ return -1; }
@@ -1732,8 +1732,8 @@ int ObjectManager::GetBulletObjectID(bullet* object)
 	return -1;
 }
 
-//! @brief g—p‚³‚ê‚Ä‚¢‚È‚¢bulletƒNƒ‰ƒX‚ğæ“¾
-//! @return Œ»İ–¢g—p‚Ì’eƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i¸”s‚·‚é‚Æ NULLj
+//! @brief ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„bulletã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @return ç¾åœ¨æœªä½¿ç”¨ã®å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆå¤±æ•—ã™ã‚‹ã¨ NULLï¼‰
 bullet* ObjectManager::GetNewBulletObject()
 {
 	for(int i=0; i<MAX_BULLET; i++){
@@ -1744,8 +1744,8 @@ bullet* ObjectManager::GetNewBulletObject()
 	return NULL;
 }
 
-//! @brief g—p‚³‚ê‚Ä‚¢‚È‚¢grenadeƒNƒ‰ƒX‚ğæ“¾
-//! @return Œ»İ–¢g—p‚ÌèÖ’eƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^@i¸”s‚·‚é‚Æ NULLj
+//! @brief ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„grenadeã‚¯ãƒ©ã‚¹ã‚’å–å¾—
+//! @return ç¾åœ¨æœªä½¿ç”¨ã®æ‰‹æ¦´å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆå¤±æ•—ã™ã‚‹ã¨ NULLï¼‰
 grenade* ObjectManager::GetNewGrenadeObject()
 {
 	for(int i=0; i<MAX_GRENADE; i++){
@@ -1756,22 +1756,22 @@ grenade* ObjectManager::GetNewGrenadeObject()
 	return NULL;
 }
 
-//! @brief l‚ğŒŸõ
-//! @param p4 ŒŸõ‘ÎÛ‚Ì¯•Ê”Ô†
-//! @return ŠY“–‚µ‚½humanƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^@iŒ©‚Â‚©‚ç‚È‚¢ê‡‚ÍNULLj
-//! @attention •¡”ŠY“–‚·‚éê‡AÅ‰‚ÉŠY“–‚µ‚½ƒf[ƒ^‚ğ•Ô‚µ‚Ü‚·B
+//! @brief äººã‚’æ¤œç´¢
+//! @param p4 æ¤œç´¢å¯¾è±¡ã®è­˜åˆ¥ç•ªå·
+//! @return è©²å½“ã—ãŸhumanã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯NULLï¼‰
+//! @attention è¤‡æ•°è©²å½“ã™ã‚‹å ´åˆã€æœ€åˆã«è©²å½“ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã—ã¾ã™ã€‚
 human* ObjectManager::SearchHuman(signed short int p4)
 {
 	signed short int humanp4;
 
 	for(int i=0; i<MAX_HUMAN; i++){
-		//g‚í‚ê‚Ä‚¢‚È‚¢l‚È‚ç‚Îˆ—‚µ‚È‚¢
+		//ä½¿ã‚ã‚Œã¦ã„ãªã„äººãªã‚‰ã°å‡¦ç†ã—ãªã„
 		if( HumanIndex[i].GetEnableFlag() == false ){ continue; }
 
-		//‘æ4ƒpƒ‰ƒ[ƒ^‚ğæ“¾
+		//ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
 		HumanIndex[i].GetParamData(NULL, NULL, &humanp4, NULL);
 
-		//w’è‚³‚ê‚½p4‚Æˆê’v‚·‚ê‚Î•Ô‚·
+		//æŒ‡å®šã•ã‚ŒãŸp4ã¨ä¸€è‡´ã™ã‚Œã°è¿”ã™
 		if( humanp4 == p4 ){
 			return &(HumanIndex[i]);
 		}
@@ -1779,23 +1779,23 @@ human* ObjectManager::SearchHuman(signed short int p4)
 	return NULL;
 }
 
-//! @brief ¬•¨‚ğŒŸõ
-//! @param p4 ŒŸõ‘ÎÛ‚Ì¯•Ê”Ô†
-//! @return ŠY“–‚µ‚½smallobjectƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^@iŒ©‚Â‚©‚ç‚È‚¢ê‡‚ÍNULLj
-//! @attention •¡”ŠY“–‚·‚éê‡AÅ‰‚ÉŠY“–‚µ‚½ƒf[ƒ^‚ğ•Ô‚µ‚Ü‚·B
+//! @brief å°ç‰©ã‚’æ¤œç´¢
+//! @param p4 æ¤œç´¢å¯¾è±¡ã®è­˜åˆ¥ç•ªå·
+//! @return è©²å½“ã—ãŸsmallobjectã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆè¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã¯NULLï¼‰
+//! @attention è¤‡æ•°è©²å½“ã™ã‚‹å ´åˆã€æœ€åˆã«è©²å½“ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’è¿”ã—ã¾ã™ã€‚
 smallobject* ObjectManager::SearchSmallobject(signed short int p4)
 {
 	signed short int smallobjectp4;
 
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
-		//g‚í‚ê‚Ä‚¢‚È‚¢l‚È‚ç‚Îˆ—‚µ‚È‚¢
-		//@y”j‰óÏ‚İ‚ÌƒIƒuƒWƒFƒNƒg‚à”»’è‚·‚é‚½‚ßA–³Œøz
+		//ä½¿ã‚ã‚Œã¦ã„ãªã„äººãªã‚‰ã°å‡¦ç†ã—ãªã„
+		//ã€€ã€ç ´å£Šç©ã¿ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚‚åˆ¤å®šã™ã‚‹ãŸã‚ã€ç„¡åŠ¹ã€‘
 		//if( SmallObjectIndex[i].GetEnableFlag() == false ){ continue; }
 
-		//‘æ4ƒpƒ‰ƒ[ƒ^‚ğæ“¾
+		//ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å–å¾—
 		SmallObjectIndex[i].GetParamData(NULL, &smallobjectp4);
 
-		//w’è‚³‚ê‚½p4‚Æˆê’v‚·‚ê‚Î•Ô‚·
+		//æŒ‡å®šã•ã‚ŒãŸp4ã¨ä¸€è‡´ã™ã‚Œã°è¿”ã™
 		if( smallobjectp4 == p4 ){
 			return &(SmallObjectIndex[i]);
 		}
@@ -1803,13 +1803,13 @@ smallobject* ObjectManager::SearchSmallobject(signed short int p4)
 	return NULL;
 }
 
-//! @brief —LŒø‚ÈƒIƒuƒWƒFƒNƒg”‚ğæ“¾
-//! @param HumanCnt lƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param WeaponCnt •ŠíƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param SmallobjectCnt ¬•¨ƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param BulletCnt ’eƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param GrenadeCnt èÖ’eƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param EffectCnt ƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg‚Ì—LŒø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
+//! @brief æœ‰åŠ¹ãªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã‚’å–å¾—
+//! @param HumanCnt äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param WeaponCnt æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param SmallobjectCnt å°ç‰©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param BulletCnt å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param GrenadeCnt æ‰‹æ¦´å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param EffectCnt ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æœ‰åŠ¹æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
 void ObjectManager::GetTotalObjects(int *HumanCnt, int *WeaponCnt, int *SmallobjectCnt, int *BulletCnt, int *GrenadeCnt, int *EffectCnt)
 {
 	if( HumanCnt != NULL ){
@@ -1855,77 +1855,77 @@ void ObjectManager::GetTotalObjects(int *HumanCnt, int *WeaponCnt, int *Smallobj
 	}
 }
 
-//! @brief ‘Oii‘–‚èj‚ğÀs
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief å‰é€²ï¼ˆèµ°ã‚Šï¼‰ã‚’å®Ÿè¡Œ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveForward(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	//ƒIƒuƒWƒFƒNƒg‚Éƒtƒ‰ƒO‚ğİ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 	HumanIndex[human_id].SetMoveForward();
 }
 
-//! @brief Œã‘Ş‚ğÀs
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief å¾Œé€€ã‚’å®Ÿè¡Œ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveBack(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	//ƒIƒuƒWƒFƒNƒg‚Éƒtƒ‰ƒO‚ğİ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 	HumanIndex[human_id].SetMoveBack();
 }
 
-//! @brief ¶‘–‚è‚ğÀs
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief å·¦èµ°ã‚Šã‚’å®Ÿè¡Œ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveLeft(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	//ƒIƒuƒWƒFƒNƒg‚Éƒtƒ‰ƒO‚ğİ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 	HumanIndex[human_id].SetMoveLeft();
 }
 
-//! @brief ‰E‘–‚è‚ğÀs
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief å³èµ°ã‚Šã‚’å®Ÿè¡Œ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveRight(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	//ƒIƒuƒWƒFƒNƒg‚Éƒtƒ‰ƒO‚ğİ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 	HumanIndex[human_id].SetMoveRight();
 }
 
-//! @brief •à‚«‚ğÀs
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief æ­©ãã‚’å®Ÿè¡Œ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveWalk(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	//ƒIƒuƒWƒFƒNƒg‚Éƒtƒ‰ƒO‚ğİ’è
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 	HumanIndex[human_id].SetMoveWalk();
 }
 
-//! @brief ƒWƒƒƒ“ƒv
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief ã‚¸ãƒ£ãƒ³ãƒ—
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::MoveJump(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
 	HumanIndex[human_id].Jump();
 }
 
-//! @brief ”­–C
-//! @param human_id ”­–C‚·‚él”Ô†
-//! @return ’Êí’e”­ËF1@èÖ’e”­ËF2@¸”sF0
+//! @brief ç™ºç ²
+//! @param human_id ç™ºç ²ã™ã‚‹äººç•ªå·
+//! @return é€šå¸¸å¼¾ç™ºå°„ï¼š1ã€€æ‰‹æ¦´å¼¾ç™ºå°„ï¼š2ã€€å¤±æ•—ï¼š0
 int ObjectManager::ShotWeapon(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return 0; }
 
 	human *MyHuman = &(HumanIndex[human_id]);
@@ -1939,12 +1939,12 @@ int ObjectManager::ShotWeapon(int human_id)
 	bool playerflag;
 	bool grenadeflag;
 
-	//l‚ÌÀ•W‚ÆŠp“x‚ğæ“¾
+	//äººã®åº§æ¨™ã¨è§’åº¦ã‚’å–å¾—
 	MyHuman->GetPosData(&pos_x, &pos_y, &pos_z, NULL);
 	MyHuman->GetParamData(NULL, NULL, NULL, &teamid);
 	MyHuman->GetRxRy(&rotation_x, &armrotation_y);
 
-	//‘ÎÛÒ‚ªƒvƒŒƒCƒ„[©g‚©”»’è
+	//å¯¾è±¡è€…ãŒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«ã‹åˆ¤å®š
 	if( MyHuman == &(HumanIndex[Player_HumanID]) ){
 		playerflag = true;
 	}
@@ -1952,56 +1952,56 @@ int ObjectManager::ShotWeapon(int human_id)
 		playerflag = false;
 	}
 
-	//’e‚Ì”­Ë‚ğ—v‹
+	//å¼¾ã®ç™ºå°„ã‚’è¦æ±‚
 	if( MyHuman->ShotWeapon(&weapon_paramid, &GunsightErrorRange) == false ){ return 0; }
 
-	//•Ší‚Ìî•ñ‚ğæ“¾
+	//æ­¦å™¨ã®æƒ…å ±ã‚’å–å¾—
 	if( GameParamInfo->GetWeapon(weapon_paramid, &ParamData) != 0 ){ return 0; }
 
-	//èÖ’e‚©”»’è
+	//æ‰‹æ¦´å¼¾ã‹åˆ¤å®š
 	if( weapon_paramid == ID_WEAPON_GRENADE ){ grenadeflag = true; }
 	else{ grenadeflag = false; }
 
-	//Œë·‚Ì”ÍˆÍ‚ğŒvZ
+	//èª¤å·®ã®ç¯„å›²ã‚’è¨ˆç®—
 	int ErrorRange;
 	ErrorRange = GunsightErrorRange;
 	if( ErrorRange < ParamData.ErrorRangeMIN ){ ErrorRange = ParamData.ErrorRangeMIN; }
 
-	//”­ËŠp“xiŒë·ƒ[ƒ‚Ìƒx[ƒXj‚ğŒˆ’è
+	//ç™ºå°„è§’åº¦ï¼ˆèª¤å·®ã‚¼ãƒ­ã®ãƒ™ãƒ¼ã‚¹ï¼‰ã‚’æ±ºå®š
 	float rx, ry;
 	rx = rotation_x*-1 + (float)M_PI/2;
 	ry = armrotation_y;
 
-	//Œë·‚ğŒˆ’è
+	//èª¤å·®ã‚’æ±ºå®š
 	if( ErrorRange != 0 ){
 		int ErrorRange_x, ErrorRange_y;
 
 		ErrorRange_x = GetRand(ErrorRange*2+1) - ErrorRange;
 		ErrorRange_y = GetRand(ErrorRange*2+1) - ErrorRange;
 
-		//”­ËŒë·•ª@Šp“x‚É‰ÁZ
+		//ç™ºå°„èª¤å·®åˆ†ã€€è§’åº¦ã«åŠ ç®—
 		rx += ErrorRange_x * DegreeToRadian(0.15f);
 		ry += ErrorRange_y * DegreeToRadian(0.15f);
 	}
 
-	//èÖ’e‚Å‚È‚¯‚ê‚Î
+	//æ‰‹æ¦´å¼¾ã§ãªã‘ã‚Œã°
 	if( grenadeflag == false ){
 		class bullet* newbullet;
 
-		//ƒVƒ‡ƒbƒgƒKƒ“‚È‚Ç”­Ë‚·‚é’eiƒyƒŒƒbƒgj‚Ì”•ªŒJ‚è•Ô‚·
+		//ã‚·ãƒ§ãƒƒãƒˆã‚¬ãƒ³ãªã©ç™ºå°„ã™ã‚‹å¼¾ï¼ˆãƒšãƒ¬ãƒƒãƒˆï¼‰ã®æ•°åˆ†ç¹°ã‚Šè¿”ã™
 		for(int i=0; i<ParamData.pellet; i++){
 			int attacks;
 			float ontargetcnt;
 			float rx2, ry2;
 
-			//ƒVƒ‡ƒbƒgƒKƒ“‚È‚Ç”­Ë‚·‚é’eiƒyƒŒƒbƒgj‚ª•¡”‚ ‚ê‚Î
+			//ã‚·ãƒ§ãƒƒãƒˆã‚¬ãƒ³ãªã©ç™ºå°„ã™ã‚‹å¼¾ï¼ˆãƒšãƒ¬ãƒƒãƒˆï¼‰ãŒè¤‡æ•°ã‚ã‚Œã°
 			if( ParamData.pellet > 1 ){
-				//1ŒÂ‚Ì’e‚ ‚½‚è‚ÌUŒ‚—Í‚Æ–½’†‚ÌƒJƒEƒ“ƒg”‚ğZo
-				//@@‘S’e‡‚í‚¹‚ÄA2”{‚É‚È‚é‚æ‚¤‚É‚·‚éB
+				//1å€‹ã®å¼¾ã‚ãŸã‚Šã®æ”»æ’ƒåŠ›ã¨å‘½ä¸­æ™‚ã®ã‚«ã‚¦ãƒ³ãƒˆæ•°ã‚’ç®—å‡º
+				//ã€€ã€€å…¨å¼¾åˆã‚ã›ã¦ã€2å€ã«ãªã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 				attacks = (int)( (float)ParamData.attacks / ((float)ParamData.pellet/2) );
 				ontargetcnt = 1.0f / ((float)ParamData.pellet/2);
 
-				//‚³‚ç‚ÉŒë·‚ğ‘‚â‚µ‚ÄŠgU‚³‚¹‚é
+				//ã•ã‚‰ã«èª¤å·®ã‚’å¢—ã‚„ã—ã¦æ‹¡æ•£ã•ã›ã‚‹
 				int len;
 				float a = DegreeToRadian(10) * GetRand(36);
 				len = GetRand(5)*2+5;
@@ -2009,47 +2009,47 @@ int ObjectManager::ShotWeapon(int human_id)
 				ry2 = ry + sinf(a)*len * DegreeToRadian(0.15f);
 			}
 			else{
-				//‚»‚Ì‚Ü‚ÜUŒ‚—Í‚Æ–½’†‚ÌƒJƒEƒ“ƒg”‚ğ”½‰f
+				//ãã®ã¾ã¾æ”»æ’ƒåŠ›ã¨å‘½ä¸­æ™‚ã®ã‚«ã‚¦ãƒ³ãƒˆæ•°ã‚’åæ˜ 
 				attacks = ParamData.attacks;
 				ontargetcnt = 1.0f;
 
-				//”­ËŒë·‚Í‚»‚Ì‚Ü‚Ü
+				//ç™ºå°„èª¤å·®ã¯ãã®ã¾ã¾
 				rx2 = rx;
 				ry2 = ry;
 			}
 
-			//”­Ë‚·‚é–¢g—p‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
+			//ç™ºå°„ã™ã‚‹æœªä½¿ç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
 			newbullet = GetNewBulletObject();
 			if( newbullet == NULL ){ return 0; }
 
-			//e’e‚ğ”­Ë
+			//éŠƒå¼¾ã‚’ç™ºå°„
 			newbullet->SetPosData(pos_x, pos_y + WEAPONSHOT_HEIGHT, pos_z, rx2, ry2);
 			newbullet->SetParamData(attacks, ParamData.penetration, (float)ParamData.speed * BULLET_SPEEDSCALE, teamid, human_id, ontargetcnt, true);
 			newbullet->SetEnableFlag(true);
 
-			//‘Îl”»’è—pƒŠƒXƒg‰Šú‰»
+			//å¯¾äººåˆ¤å®šç”¨ãƒªã‚¹ãƒˆåˆæœŸåŒ–
 			BulletObj_HumanIndex[ GetBulletObjectID(newbullet) ].Init();
 		}
 
-		//”­–Cƒtƒ‰ƒO‚ğİ’è
+		//ç™ºç ²ãƒ•ãƒ©ã‚°ã‚’è¨­å®š
 		Human_ShotFlag[human_id] = true;
 		Human_YakkyouCnt[human_id] = ParamData.yakkyou_delay;
 	}
 	else{
 		class grenade* newgrenade;
 
-		//”­Ë‚·‚é–¢g—p‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
+		//ç™ºå°„ã™ã‚‹æœªä½¿ç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
 		newgrenade = GetNewGrenadeObject();
 		if( newgrenade == NULL ){ return 0; }
 
-		//èÖ’e”­Ë
+		//æ‰‹æ¦´å¼¾ç™ºå°„
 		newgrenade->SetPosData(pos_x, pos_y + WEAPONSHOT_HEIGHT, pos_z, rx, ry);
 		newgrenade->SetParamData(8.0f, teamid, human_id, 1.0f, true);
 		newgrenade->SetEnableFlag(true);
 	}
 
 	if( ParamData.soundvolume > 0 ){
-		//eº‚ğÄ¶
+		//éŠƒå£°ã‚’å†ç”Ÿ
 		GameSound->ShotWeapon(pos_x, pos_y + WEAPONSHOT_HEIGHT, pos_z, weapon_paramid, teamid, playerflag);
 	}
 
@@ -2059,12 +2059,12 @@ int ObjectManager::ShotWeapon(int human_id)
 	return 1;
 }
 
-//! @brief ƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…‚ğİ’è
-//! @param humanid l‚Ì”Ô†
-//! @attention ‚±‚ÌŠÖ”‚ÌŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚ğŒë‚é‚ÆAeŒû‚É‘Î‚µ‚Äƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…‚ª‡‚¢‚Ü‚¹‚ñB
+//! @brief ãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã‚’è¨­å®š
+//! @param humanid äººã®ç•ªå·
+//! @attention ã“ã®é–¢æ•°ã®å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’èª¤ã‚‹ã¨ã€éŠƒå£ã«å¯¾ã—ã¦ãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãŒåˆã„ã¾ã›ã‚“ã€‚
 void ObjectManager::ShotWeaponEffect(int humanid)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (humanid < 0)||(MAX_HUMAN <= humanid) ){ return; }
 
 	float pos_x, pos_y, pos_z;
@@ -2075,50 +2075,50 @@ void ObjectManager::ShotWeaponEffect(int humanid)
 	float flashsize, smokesize1, smokesize2;
 	float rx, emx, emy, emz;
 
-	//l‚ÌÀ•W‚ÆŠp“x‚ğæ“¾
+	//äººã®åº§æ¨™ã¨è§’åº¦ã‚’å–å¾—
 	HumanIndex[humanid].GetPosData(&pos_x, &pos_y, &pos_z, NULL);
 	HumanIndex[humanid].GetRxRy(&rotation_x, &armrotation_y);
 
-	//•Ší‚Ìî•ñ‚ğæ“¾
+	//æ­¦å™¨ã®æƒ…å ±ã‚’å–å¾—
 	weapon_paramid = HumanIndex[humanid].GetMainWeaponTypeNO();
 	if( GameParamInfo->GetWeapon(weapon_paramid, &ParamData) != 0 ){ return; }
 
-	//ƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…‚Æ‰Œ‚ÌƒTƒCƒY‚ğŒˆ’è
+	//ãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã¨ç…™ã®ã‚µã‚¤ã‚ºã‚’æ±ºå®š
 	if( ParamData.silencer == true ){ flashsize = 1.2f; }
 	else{ flashsize = 0.06f * ParamData.attacks; }
 	smokesize1 = 0.04f * ParamData.attacks;
 	smokesize2 = 0.032f * ParamData.attacks;
 
-	//‰Œ‚ÌˆÚ“®ƒxƒNƒgƒ‹‚ğŒˆ’è
+	//ç…™ã®ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±ºå®š
 	rx = rotation_x*-1 + (float)M_PI/2;
 	emx = cosf(rx)*cosf(armrotation_y);
 	emy = sinf(armrotation_y);
 	emz = sinf(rx)*cosf(armrotation_y);
 
-	//s—ñ‚ÅƒGƒtƒFƒNƒgÀ•W‚ğŒvZ
+	//è¡Œåˆ—ã§ã‚¨ãƒ•ã‚§ã‚¯ãƒˆåº§æ¨™ã‚’è¨ˆç®—
 	d3dg->SetWorldTransformHumanWeapon(pos_x, pos_y + 16.0f, pos_z, ParamData.flashx/10, ParamData.flashy/10, ParamData.flashz/10, rotation_x, armrotation_y*-1, 1.0f);
 	d3dg->GetWorldTransformPos(&x, &y, &z);
 	d3dg->ResetWorldTransform();
 
-	//ƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…•`‰æ
+	//ãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥æç”»
 	AddEffect(x, y, z, 0.0f, 0.0f, 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, flashsize, 0.0f, Resource->GetEffectMflashTexture(), 0, 0, 0.63f, 0.0f, EFFECT_NORMAL, 1);
 
-	//s—ñ‚ÅƒGƒtƒFƒNƒgÀ•W‚ğŒvZ
+	//è¡Œåˆ—ã§ã‚¨ãƒ•ã‚§ã‚¯ãƒˆåº§æ¨™ã‚’è¨ˆç®—
 	d3dg->SetWorldTransformHumanWeapon(pos_x, pos_y + 16.0f, pos_z, ParamData.flashx/10, ParamData.flashy/10, ParamData.flashz/10 - 0.1f, rotation_x, armrotation_y*-1, 1.0f);
 	d3dg->GetWorldTransformPos(&x, &y, &z);
 	d3dg->ResetWorldTransform();
 
-	//ƒGƒtƒFƒNƒgi‰Œj‚Ì•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆç…™ï¼‰ã®æç”»
 	AddEffect(x, y, z, emx*0.15f, emy*0.15f + 0.02f, emz*0.15f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, smokesize1, 0.3f, Resource->GetEffectSmokeTexture(), 0, 0, 0.47f, -0.047f, EFFECT_NORMAL, 12);
 	AddEffect(x, y, z, emx*0.45f, emy*0.45f, emz*0.45f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, smokesize2, 0.36f, Resource->GetEffectSmokeTexture(), 0, 0, 0.47f, -0.055f, EFFECT_NORMAL, 10);
 }
 
-//! @brief –òä°”ro‚ğİ’è
-//! @param humanid l‚Ì”Ô†
-//! @attention ‚±‚ÌŠÖ”‚ÌŒÄ‚Ño‚µƒ^ƒCƒ~ƒ“ƒO‚ğŒë‚é‚ÆAe‚É‘Î‚µ‚Ä–òä°”roˆÊ’u‚ª‡‚¢‚Ü‚¹‚ñB
+//! @brief è–¬è¢æ’å‡ºã‚’è¨­å®š
+//! @param humanid äººã®ç•ªå·
+//! @attention ã“ã®é–¢æ•°ã®å‘¼ã³å‡ºã—ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’èª¤ã‚‹ã¨ã€éŠƒã«å¯¾ã—ã¦è–¬è¢æ’å‡ºä½ç½®ãŒåˆã„ã¾ã›ã‚“ã€‚
 void ObjectManager::ShotWeaponYakkyou(int humanid)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (humanid < 0)||(MAX_HUMAN <= humanid) ){ return; }
 
 	float pos_x, pos_y, pos_z;
@@ -2130,62 +2130,62 @@ void ObjectManager::ShotWeaponYakkyou(int humanid)
 	float rx;
 	float mx, my, mz;
 
-	//l‚ÌÀ•W‚ÆŠp“x‚ğæ“¾
+	//äººã®åº§æ¨™ã¨è§’åº¦ã‚’å–å¾—
 	HumanIndex[humanid].GetPosData(&pos_x, &pos_y, &pos_z, NULL);
 	HumanIndex[humanid].GetRxRy(&rotation_x, &armrotation_y);
 
-	//•Ší‚Ìî•ñ‚ğæ“¾
+	//æ­¦å™¨ã®æƒ…å ±ã‚’å–å¾—
 	weapon_paramid = HumanIndex[humanid].GetMainWeaponTypeNO();
 	if( GameParamInfo->GetWeapon(weapon_paramid, &ParamData) != 0 ){ return; }
 
-	//ƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…‚Æ‰Œ‚ÌƒTƒCƒY‚ğŒˆ’è
+	//ãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã¨ç…™ã®ã‚µã‚¤ã‚ºã‚’æ±ºå®š
 	if( ParamData.yakkyou_size >= 0.0f ){ yakkyousize = ParamData.yakkyou_size/10; }
 	else{ yakkyousize = 0.012f * ParamData.attacks; }
 
-	//•Ší‚Ìî•ñ‚ğæ“¾
+	//æ­¦å™¨ã®æƒ…å ±ã‚’å–å¾—
 	weapon_paramid = HumanIndex[humanid].GetMainWeaponTypeNO();
 	if( GameParamInfo->GetWeapon(weapon_paramid, &ParamData) != 0 ){ return; }
 
-	//‰ñ“]—Ê‚ğŒˆ’è
+	//å›è»¢é‡ã‚’æ±ºå®š
 	rx = rotation_x*-1 + (float)M_PI/2;
 
-	//–òä°‚ÌˆÚ“®—Ê‚ğŒˆ’è
+	//è–¬è¢ã®ç§»å‹•é‡ã‚’æ±ºå®š
 	mx = cosf(rx - (float)M_PI/2) * ParamData.yakkyou_sx * 0.12f;
 	my = (ParamData.yakkyou_sy + (GetRand(3)-1)) * 0.12f;
 	mz = sinf(rx - (float)M_PI/2) * ParamData.yakkyou_sx * 0.12f;
 
-	//s—ñ‚ÅƒGƒtƒFƒNƒgÀ•W‚ğŒvZ
+	//è¡Œåˆ—ã§ã‚¨ãƒ•ã‚§ã‚¯ãƒˆåº§æ¨™ã‚’è¨ˆç®—
 	d3dg->SetWorldTransformHumanWeapon(pos_x, pos_y + 16.0f, pos_z, ParamData.yakkyou_px/10, ParamData.yakkyou_py/10, ParamData.yakkyou_pz/10, rotation_x, armrotation_y*-1, 1.0f);
 	d3dg->GetWorldTransformPos(&x, &y, &z);
 	d3dg->ResetWorldTransform();
 
-	//–òä°•`‰æ
+	//è–¬è¢æç”»
 	AddEffect(x, y, z, mx, my, mz, -0.15f, DegreeToRadian(10)*GetRand(36), DegreeToRadian(GetRand(61)-30), yakkyousize, 0.0f, Resource->GetEffectYakkyouTexture(), 0, 0, 1.0f, 0.0f, EFFECT_NORMAL, (int)(GAMEFPS*0.75f));
 }
 
-//! @brief •Ší‚ğƒŠƒ[ƒh
-//! @param human_id ‘ÎÛ‚Ìl”Ô†
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief æ­¦å™¨ã‚’ãƒªãƒ­ãƒ¼ãƒ‰
+//! @param human_id å¯¾è±¡ã®äººç•ªå·
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool ObjectManager::ReloadWeapon(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return false; }
 
-	//–³Œø‚Èl‚È‚ç‚Îˆ—‚µ‚È‚¢
+	//ç„¡åŠ¹ãªäººãªã‚‰ã°å‡¦ç†ã—ãªã„
 	if( HumanIndex[human_id].GetEnableFlag() == false ){ return false; }
 	if( HumanIndex[human_id].GetHP() <= 0 ){ return false; }
 
-	//ƒŠƒ[ƒh‚ğÀs
+	//ãƒªãƒ­ãƒ¼ãƒ‰ã‚’å®Ÿè¡Œ
 	if( HumanIndex[human_id].ReloadWeapon() == true ){
 		float x, y, z;
 		int id;
 
-		//l‚ÌÀ•W‚Æƒ`[ƒ€”Ô†‚ğæ“¾
+		//äººã®åº§æ¨™ã¨ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 		HumanIndex[human_id].GetPosData(&x, &y, &z, NULL);
 		HumanIndex[human_id].GetParamData(NULL, NULL, NULL, &id);
 		y += 16.0f;
 
-		//‰¹Œ¹‚ğ”z’u
+		//éŸ³æºã‚’é…ç½®
 		GameSound->ReloadWeapon(x, y, z, id);
 
 		//Human_YakkyouCnt[human_id] = -1;
@@ -2196,27 +2196,27 @@ bool ObjectManager::ReloadWeapon(int human_id)
 	return false;
 }
 
-//! @brief •Ší‚ğØ‚è‘Ö‚¦‚éi‚¿‘Ö‚¦‚éj
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @param id ‚¿‘Ö‚¦‚é•Ší@i-1 ‚ÅŸ‚Ì•Šíj
+//! @brief æ­¦å™¨ã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹ï¼ˆæŒã¡æ›¿ãˆã‚‹ï¼‰
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @param id æŒã¡æ›¿ãˆã‚‹æ­¦å™¨ã€€ï¼ˆ-1 ã§æ¬¡ã®æ­¦å™¨ï¼‰
 void ObjectManager::ChangeHaveWeapon(int human_id, int id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
 	HumanIndex[human_id].ChangeHaveWeapon(id);
 	Human_YakkyouCnt[human_id] = -1;
 }
 
-//! @brief •Ší‚Ìí—ŞØ‚è‘Ö‚¦
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief æ­¦å™¨ã®ç¨®é¡åˆ‡ã‚Šæ›¿ãˆ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ObjectManager::ChangeWeaponID(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return 1; }
 
-	//•Ší‚Ìí—Ş‚ğØ‚è‘Ö‚¦‚½‚ç
+	//æ­¦å™¨ã®ç¨®é¡ã‚’åˆ‡ã‚Šæ›¿ãˆãŸã‚‰
 	if( HumanIndex[human_id].ChangeWeaponID() == 0 ){
 		int selectweapon;
 		weapon *weapon[TOTAL_HAVEWEAPON];
@@ -2224,21 +2224,21 @@ int ObjectManager::ChangeWeaponID(int human_id)
 		int model, texture;
 		float WeaponSize;
 
-		//Œ»İ‚Ì•Ší‚ğæ“¾
+		//ç¾åœ¨ã®æ­¦å™¨ã‚’å–å¾—
 		HumanIndex[human_id].GetWeapon(&selectweapon, weapon, NULL, NULL);
 		weapon[selectweapon]->GetParamData(&WeaponID, NULL, NULL);
 
-		//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+		//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 		if( Resource->GetWeaponModelTexture(WeaponID, &model, &texture) == 1 ){
 			return 1;
 		}
 
-		//•Ší‚ÌƒTƒCƒY‚ğæ“¾
+		//æ­¦å™¨ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
 		WeaponParameter ParamData;
 		if( GameParamInfo->GetWeapon(WeaponID, &ParamData) != 0 ){ return 1; }
 		WeaponSize = ParamData.size;
 
-		//•ŠíƒIƒuƒWƒFƒNƒg‚Ìƒ‚ƒfƒ‹EƒeƒNƒXƒ`ƒƒ‚ğ•ÏX
+		//æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒ¢ãƒ‡ãƒ«ãƒ»ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å¤‰æ›´
 		weapon[selectweapon]->SetModel(model, WeaponSize);
 		weapon[selectweapon]->SetTexture(texture);
 
@@ -2249,12 +2249,12 @@ int ObjectManager::ChangeWeaponID(int human_id)
 	return 1;
 }
 
-//! @brief •Ší‚ğÌ‚Ä‚é
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief æ­¦å™¨ã‚’æ¨ã¦ã‚‹
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool ObjectManager::DumpWeapon(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return false; }
 
 	Human_YakkyouCnt[human_id] = -1;
@@ -2262,29 +2262,29 @@ bool ObjectManager::DumpWeapon(int human_id)
 	return HumanIndex[human_id].DumpWeapon();
 }
 
-//! @brief ƒXƒR[ƒvƒ‚[ƒh‚ğØ‚è‘Ö‚¦
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
+//! @brief ã‚¹ã‚³ãƒ¼ãƒ—ãƒ¢ãƒ¼ãƒ‰ã‚’åˆ‡ã‚Šæ›¿ãˆ
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
 void ObjectManager::ChangeScopeMode(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return; }
 
-	if( HumanIndex[human_id].GetScopeMode() == 0 ){	//ƒXƒR[ƒv‚ğg—p‚µ‚Ä‚¢‚È‚¯‚ê‚ÎAƒXƒR[ƒv‚ğİ’è
+	if( HumanIndex[human_id].GetScopeMode() == 0 ){	//ã‚¹ã‚³ãƒ¼ãƒ—ã‚’ä½¿ç”¨ã—ã¦ã„ãªã‘ã‚Œã°ã€ã‚¹ã‚³ãƒ¼ãƒ—ã‚’è¨­å®š
 		HumanIndex[human_id].SetEnableScope();
 	}
-	else{											//g—p’†‚È‚çA‰ğœ
+	else{											//ä½¿ç”¨ä¸­ãªã‚‰ã€è§£é™¤
 		HumanIndex[human_id].SetDisableScope();
 	}
 
 	//Human_YakkyouCnt[human_id] = -1;
 }
 
-//! @brief — ‹ZEŠ‚µ‚Ä‚¢‚é•Ší‚Ì’e‚ğ’Ç‰Á
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief è£æŠ€ãƒ»æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ã®å¼¾ã‚’è¿½åŠ 
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool ObjectManager::CheatAddBullet(int human_id)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return false; }
 
 	int selectweapon;
@@ -2292,18 +2292,18 @@ bool ObjectManager::CheatAddBullet(int human_id)
 	int id_param, lnbs, nbs;
 	WeaponParameter ParamData;
 
-	//Š‚µ‚Ä‚¢‚é•Ší‚ğæ“¾
+	//æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ã‚’å–å¾—
 	for(int i=0; i<TOTAL_HAVEWEAPON; i++){
 		weapon[i] = NULL;
 	}
 	HumanIndex[human_id].GetWeapon(&selectweapon, weapon, NULL, NULL);
 
-	//‰½‚©‚µ‚ç‚Ì•Ší‚ğ‚Á‚Ä‚¢‚ê‚Î
+	//ä½•ã‹ã—ã‚‰ã®æ­¦å™¨ã‚’æŒã£ã¦ã„ã‚Œã°
 	if( weapon[selectweapon] != NULL ){
-		//•Ší‚Ìí—Ş‚Æ’e”A•Ší‚Ìİ’è’l‚ğæ“¾
+		//æ­¦å™¨ã®ç¨®é¡ã¨å¼¾æ•°ã€æ­¦å™¨ã®è¨­å®šå€¤ã‚’å–å¾—
 		weapon[selectweapon]->GetParamData(&id_param, &lnbs, &nbs);
 		if( GameParamInfo->GetWeapon(id_param, &ParamData) == 0 ){
-			//Å‘å’e”•ª‰ÁZ‚µA“K—p
+			//æœ€å¤§å¼¾æ•°åˆ†åŠ ç®—ã—ã€é©ç”¨
 			nbs += ParamData.nbsmax;
 			weapon[selectweapon]->ResetWeaponParam(Resource, id_param, lnbs, nbs);
 			return true;
@@ -2313,13 +2313,13 @@ bool ObjectManager::CheatAddBullet(int human_id)
 	return false;
 }
 
-//! @brief — ‹ZEŠ‚µ‚Ä‚¢‚é•Ší‚ğ•ÏX
-//! @param human_id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @param new_weaponID V‚½‚Éİ’è‚·‚é•Ší‚Ìí—Ş”Ô†
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief è£æŠ€ãƒ»æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ã‚’å¤‰æ›´
+//! @param human_id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @param new_weaponID æ–°ãŸã«è¨­å®šã™ã‚‹æ­¦å™¨ã®ç¨®é¡ç•ªå·
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool ObjectManager::CheatNewWeapon(int human_id, int new_weaponID)
 {
-	//’l‚Ì”ÍˆÍ‚ğƒ`ƒFƒbƒN
+	//å€¤ã®ç¯„å›²ã‚’ãƒã‚§ãƒƒã‚¯
 	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return false; }
 	if( (new_weaponID < 0)||(TOTAL_PARAMETERINFO_WEAPON <= new_weaponID) ){ return false; }
 
@@ -2331,7 +2331,7 @@ bool ObjectManager::CheatNewWeapon(int human_id, int new_weaponID)
 	int nbslist[TOTAL_HAVEWEAPON];
 	int lnbs, nbs;
 
-	//Š‚µ‚Ä‚¢‚é•Ší‚ğæ“¾
+	//æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ã‚’å–å¾—
 	for(int i=0; i<TOTAL_HAVEWEAPON; i++){
 		weapon[i] = NULL;
 		lnbslist[i] = 0;
@@ -2339,53 +2339,53 @@ bool ObjectManager::CheatNewWeapon(int human_id, int new_weaponID)
 	}
 	myHuman->GetWeapon(&selectweapon, weapon, lnbslist, nbslist);
 
-	//Œ»İ•Ší‚ğŠ—L‚µ‚Ä‚¨‚ç‚¸AV‚½‚É‚½‚¹‚é•Ší‚à‚È‚¢‚È‚ç
+	//ç¾åœ¨æ­¦å™¨ã‚’æ‰€æœ‰ã—ã¦ãŠã‚‰ãšã€æ–°ãŸã«æŒãŸã›ã‚‹æ­¦å™¨ã‚‚ãªã„ãªã‚‰
 	if( (weapon[selectweapon] == NULL)&&(new_weaponID == ID_WEAPON_NONE) ){
-		return false;		//ˆ—©‘Ì‚ª–³ˆÓ–¡
+		return false;		//å‡¦ç†è‡ªä½“ãŒç„¡æ„å‘³
 	}
 
-	if( weapon[selectweapon] == NULL ){		//•Ší‚ğŠ—L‚µ‚Ä‚¢‚È‚¯‚ê‚Î
+	if( weapon[selectweapon] == NULL ){		//æ­¦å™¨ã‚’æ‰€æœ‰ã—ã¦ã„ãªã‘ã‚Œã°
 		int dataid = -1;
 
-		//V‚µ‚¢•Ší‚ğ”z’u
+		//æ–°ã—ã„æ­¦å™¨ã‚’é…ç½®
 		dataid = AddVisualWeaponIndex(new_weaponID, false);
 
-		//•Ší‚ª”z’u‚Å‚«‚ê‚Î
+		//æ­¦å™¨ãŒé…ç½®ã§ãã‚Œã°
 		if( dataid != -1 ){
-			//•Šíİ’è‚ğ“K—piå‚É’e”j
+			//æ­¦å™¨è¨­å®šã‚’é©ç”¨ï¼ˆä¸»ã«å¼¾æ•°ï¼‰
 			weapon[selectweapon] = &(WeaponIndex[dataid]);
 			weapon[selectweapon]->ResetWeaponParam(Resource, new_weaponID, lnbslist[selectweapon], nbslist[selectweapon]);
 
-			//–¢Š‚Ì’e”î•ñ‚Í‰Šú‰»
+			//æœªæ‰€æŒæ™‚ã®å¼¾æ•°æƒ…å ±ã¯åˆæœŸåŒ–
 			lnbslist[selectweapon] = 0;
 			nbslist[selectweapon] = 0;
 
-			//•Ší‚ğ‚½‚¹‚é
+			//æ­¦å™¨ã‚’æŒãŸã›ã‚‹
 			myHuman->SetWeapon(weapon, lnbslist, nbslist);
 
 			Human_YakkyouCnt[human_id] = -1;
 			return true;
 		}
 	}
-	else{									//•Ší‚ğŠ—L‚µ‚Ä‚¢‚ê‚Î
-		//•Šíİ’è‚ğæ“¾i’e”İ’è‚ğˆø‚«Œp‚®‚½‚ßj
+	else{									//æ­¦å™¨ã‚’æ‰€æœ‰ã—ã¦ã„ã‚Œã°
+		//æ­¦å™¨è¨­å®šã‚’å–å¾—ï¼ˆå¼¾æ•°è¨­å®šã‚’å¼•ãç¶™ããŸã‚ï¼‰
 		weapon[selectweapon]->GetParamData(NULL, &lnbs, &nbs);
 
-		if( new_weaponID == ID_WEAPON_NONE ){			//•Ší‚ğÁ‚·‚È‚ç
-			//‚»‚Ì•Ší‚Ííœ
+		if( new_weaponID == ID_WEAPON_NONE ){			//æ­¦å™¨ã‚’æ¶ˆã™ãªã‚‰
+			//ãã®æ­¦å™¨ã¯å‰Šé™¤
 			weapon[selectweapon]->SetEnableFlag(false);
 
-			//•Ší‚ğíœ‚µA’e”‚ğ”½‰f
+			//æ­¦å™¨ã‚’å‰Šé™¤ã—ã€å¼¾æ•°ã‚’åæ˜ 
 			weapon[selectweapon] = NULL;
 			lnbslist[selectweapon] = lnbs;
 			nbslist[selectweapon] = nbs;
 			myHuman->SetWeapon(weapon, lnbslist, nbslist);
 
-			//ƒXƒR[ƒvƒ‚[ƒh‚ğ‰ğœ
+			//ã‚¹ã‚³ãƒ¼ãƒ—ãƒ¢ãƒ¼ãƒ‰ã‚’è§£é™¤
 			myHuman->SetDisableScope();
 		}
-		else{											//•Ší‚ğ•ÏX‚·‚é‚È‚ç
-			//•Šíİ’è‚ğ“K—p
+		else{											//æ­¦å™¨ã‚’å¤‰æ›´ã™ã‚‹ãªã‚‰
+			//æ­¦å™¨è¨­å®šã‚’é©ç”¨
 			weapon[selectweapon]->ResetWeaponParam(Resource, new_weaponID, lnbs, nbs);
 		}
 
@@ -2396,18 +2396,18 @@ bool ObjectManager::CheatNewWeapon(int human_id, int new_weaponID)
 	return false;
 }
 
-//! @brief ƒ]ƒ“ƒr‚ÌUŒ‚‚ğó‚¯‚é‚©”»’è
-//! @param MyHuman UŒ‚‚·‚élƒIƒuƒWƒFƒNƒgiƒ]ƒ“ƒr‘¤j‚Ìƒ|ƒCƒ“ƒ^
-//! @param EnemyHuman UŒ‚‚ğó‚¯‚½lƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ¬—§Ftrue@•s¬—§Ffalse
-//! @warning MyHuman ‚Íƒ]ƒ“ƒrˆÈŠO‚àw’è‚Å‚«‚Ü‚·B<b>ƒ]ƒ“ƒr‚©‚Ç‚¤‚©‚Í”»’è‚µ‚È‚¢</b>‚½‚ßAƒ]ƒ“ƒr‚Å‚ ‚é‚©—\‚ßŠm”F‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B
-//! @attention ”»’è‚Ì‚İ‚ğÀ{‚µ‚Ü‚·B‚±‚Ì”»’è‚ª¬—§‚µ‚½‚ç HitZombieAttack()ŠÖ” ‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B 
+//! @brief ã‚¾ãƒ³ãƒ“ã®æ”»æ’ƒã‚’å—ã‘ã‚‹ã‹åˆ¤å®š
+//! @param MyHuman æ”»æ’ƒã™ã‚‹äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆã‚¾ãƒ³ãƒ“å´ï¼‰ã®ãƒã‚¤ãƒ³ã‚¿
+//! @param EnemyHuman æ”»æ’ƒã‚’å—ã‘ãŸäººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆç«‹ï¼štrueã€€ä¸æˆç«‹ï¼šfalse
+//! @warning MyHuman ã¯ã‚¾ãƒ³ãƒ“ä»¥å¤–ã‚‚æŒ‡å®šã§ãã¾ã™ã€‚<b>ã‚¾ãƒ³ãƒ“ã‹ã©ã†ã‹ã¯åˆ¤å®šã—ãªã„</b>ãŸã‚ã€ã‚¾ãƒ³ãƒ“ã§ã‚ã‚‹ã‹äºˆã‚ç¢ºèªã—ã¦ãŠãå¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+//! @attention åˆ¤å®šã®ã¿ã‚’å®Ÿæ–½ã—ã¾ã™ã€‚ã“ã®åˆ¤å®šãŒæˆç«‹ã—ãŸã‚‰ HitZombieAttack()é–¢æ•° ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚ 
 bool ObjectManager::CheckZombieAttack(human* MyHuman, human* EnemyHuman)
 {
 	if( MyHuman == NULL ){ return false; }
 	if( EnemyHuman == NULL ){ return false; }
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¢‚©A€–S‚µ‚Ä‚¢‚ê‚Îˆ—‚µ‚È‚¢B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»äº¡ã—ã¦ã„ã‚Œã°å‡¦ç†ã—ãªã„ã€‚
 	if( MyHuman->GetEnableFlag() == false ){ return false; }
 	if( MyHuman->GetHP() <= 0 ){ return false; }
 	if( EnemyHuman->GetEnableFlag() == false ){ return false; }
@@ -2425,17 +2425,17 @@ bool ObjectManager::CheckZombieAttack(human* MyHuman, human* EnemyHuman)
 	EnemyHuman->GetParamData(NULL, NULL, NULL, &tteam);
 	ty += VIEW_HEIGHT;
 
-	//–¡•û‚È‚ç‚Îˆ—‚µ‚È‚¢
+	//å‘³æ–¹ãªã‚‰ã°å‡¦ç†ã—ãªã„
 	if( mteam == tteam ){ return false; }
 
-	//UŒ‚ƒ|ƒCƒ“ƒgi˜r‚Ìæ’[j‚ğ‹‚ß‚é
+	//æ”»æ’ƒãƒã‚¤ãƒ³ãƒˆï¼ˆè…•ã®å…ˆç«¯ï¼‰ã‚’æ±‚ã‚ã‚‹
 	AttackPoint_x = mx + cosf(mrx*-1 + (float)M_PI/2) * 2.0f;
 	AttackPoint_y = my + VIEW_HEIGHT - 0.5f;
 	AttackPoint_z = mz + sinf(mrx*-1 + (float)M_PI/2) * 2.0f;
 	ax = AttackPoint_x - tx;
 	az = AttackPoint_z - tz;
 
-	//“GiUŒ‚‘ÎÛj‚ªUŒ‚ƒ|ƒCƒ“ƒg‚ÉG‚ê‚Ä‚¢‚ê‚ÎA“–‚½‚Á‚Ä‚¢‚é
+	//æ•µï¼ˆæ”»æ’ƒå¯¾è±¡ï¼‰ãŒæ”»æ’ƒãƒã‚¤ãƒ³ãƒˆã«è§¦ã‚Œã¦ã„ã‚Œã°ã€å½“ãŸã£ã¦ã„ã‚‹
 	if( (ax*ax + az*az) < 3.3f*3.3f ){
 		if( (AttackPoint_y >= ty)&&(AttackPoint_y <= (ty + HUMAN_HEIGHT)) ){
 			return true;
@@ -2445,15 +2445,15 @@ bool ObjectManager::CheckZombieAttack(human* MyHuman, human* EnemyHuman)
 	return false;
 }
 
-//! @brief ƒ]ƒ“ƒr‚ÌUŒ‚‚ğó‚¯‚½ˆ—
-//! @param MyHuman UŒ‚‚·‚élƒIƒuƒWƒFƒNƒgiƒ]ƒ“ƒr‘¤j‚Ìƒ|ƒCƒ“ƒ^
-//! @param EnemyHuman UŒ‚‚ğó‚¯‚½lƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
+//! @brief ã‚¾ãƒ³ãƒ“ã®æ”»æ’ƒã‚’å—ã‘ãŸå‡¦ç†
+//! @param MyHuman æ”»æ’ƒã™ã‚‹äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆã‚¾ãƒ³ãƒ“å´ï¼‰ã®ãƒã‚¤ãƒ³ã‚¿
+//! @param EnemyHuman æ”»æ’ƒã‚’å—ã‘ãŸäººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
 void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 {
 	if( MyHuman == NULL ){ return; }
 	if( EnemyHuman == NULL ){ return; }
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¢‚©A€–S‚µ‚Ä‚¢‚ê‚Îˆ—‚µ‚È‚¢B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ã€æ­»äº¡ã—ã¦ã„ã‚Œã°å‡¦ç†ã—ãªã„ã€‚
 	if( EnemyHuman->GetEnableFlag() == false ){ return; }
 	if( EnemyHuman->GetDeadFlag() == true ){ return; }
 
@@ -2467,7 +2467,7 @@ void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 	bool NotRobot;
 	int hp_old;
 
-	//ƒ]ƒ“ƒr‘¤‚ÆUŒ‚‚ğó‚¯‚é‘¤ƒ`[ƒ€”Ô†æ“¾
+	//ã‚¾ãƒ³ãƒ“å´ã¨æ”»æ’ƒã‚’å—ã‘ã‚‹å´ãƒãƒ¼ãƒ ç•ªå·å–å¾—
 	MyHuman->GetParamData(NULL, &MyHuman_dataID, NULL, &MyHuman_TeamID);
 	EnemyHuman->GetParamData(NULL, &EnemyHuman_dataID, NULL, &EnemyHuman_TeamID);
 
@@ -2475,10 +2475,10 @@ void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 	EnemyHuman->GetPosData(&tx, &ty, &tz, NULL);
 	ty += VIEW_HEIGHT;
 
-	//“G‚ªUŒ‚‚ğó‚¯‚½Šp“x‚ğ‹‚ß‚é
+	//æ•µãŒæ”»æ’ƒã‚’å—ã‘ãŸè§’åº¦ã‚’æ±‚ã‚ã‚‹
 	arx = atan2f(mz - tz, mx - tx);
 
-	//ƒƒ{ƒbƒg‚©‚Ç‚¤‚©”»’è
+	//ãƒ­ãƒœãƒƒãƒˆã‹ã©ã†ã‹åˆ¤å®š
 	EnemyHuman->GetParamData(&paramid, NULL, NULL, NULL);
 	GameParamInfo->GetHuman(paramid, &Paraminfo);
 	if( Paraminfo.type == 1 ){
@@ -2488,16 +2488,16 @@ void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 		NotRobot = true;
 	}
 
-	//ƒ_ƒ[ƒWŒvZ‘O‚ÌHPæ“¾
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã®HPå–å¾—
 	hp_old = EnemyHuman->GetHP();
 
-	//ƒ_ƒ[ƒW‚È‚Ç‚ğŒvZ
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸ãªã©ã‚’è¨ˆç®—
 	EnemyHuman->HitZombieAttack();
 
 #ifdef ENABLE_BUG_TEAMID
 	bool flag = true;
 
-	//ƒ`[ƒ€”Ô†‚ª•‰”A‚©‚Âƒ`[ƒ€”Ô†‚ª‘å‚«‚¢‚È‚çAƒtƒ‰ƒO–³Œø
+	//ãƒãƒ¼ãƒ ç•ªå·ãŒè² æ•°ã€ã‹ã¤ãƒãƒ¼ãƒ ç•ªå·ãŒå¤§ãã„ãªã‚‰ã€ãƒ•ãƒ©ã‚°ç„¡åŠ¹
 	if( (EnemyHuman_TeamID < 0)&&(MyHuman_TeamID < 0) ){
 		if( EnemyHuman_TeamID < MyHuman_TeamID ){
 			flag = false;
@@ -2511,15 +2511,15 @@ void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 	EnemyHuman->SetHitFlag(arx*-1 + (float)M_PI/2);
 #endif
 
-	//ƒGƒtƒFƒNƒgiŒŒj‚ğ•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆï¼ˆè¡€ï¼‰ã‚’æç”»
 	SetHumanBlood(tx, ty, tz, HUMAN_DAMAGE_ZOMBIEU, NotRobot);
 
-	//Œø‰Ê‰¹‚ğÄ¶
+	//åŠ¹æœéŸ³ã‚’å†ç”Ÿ
 	GameSound->HitHuman(tx, ty, tz, 3, MyHuman_TeamID);
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	if( (hp_old > 0)&&(EnemyHuman->GetHP() <= 0) ){
-		//ƒ_ƒ[ƒWŒvZ‘O‚É hp>0 ‚Å‚©‚ÂAŒvZŒã‚É hp <= 0 ‚È‚çA¡‰ñ€–S‚µ‚½B
+		//ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å‰ã« hp>0 ã§ã‹ã¤ã€è¨ˆç®—å¾Œã« hp <= 0 ãªã‚‰ã€ä»Šå›æ­»äº¡ã—ãŸã€‚
 
 		int player_teamid;
 		HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
@@ -2528,26 +2528,26 @@ void ObjectManager::HitZombieAttack(human* MyHuman, human* EnemyHuman)
 	}
 }
 
-//! @brief €Ò‚ğ‘h¶‚·‚é
-//! @param id l‚Ì”Ô†i0`MAX_HUMAN-1j
-//! @return trueF¬Œ÷@falseF¸”s
-//! @warning è‚Ô‚ç‚Ì‚Ü‚Ü‘h¶‚µ‚Ü‚·
-//! @attention –³Œø‚Èl”Ô†‚ªw’è‚³‚ê‚½ê‡‚âAw’è‚µ‚½l‚ª¶‘¶‚µ‚Ä‚¢‚½ê‡A‚ ‚é‚¢‚Í“älŠÔ‚É‘Î‚µ‚ÄÀs‚µ‚½ê‡A‚±‚ÌŠÖ”‚Í¸”s‚µ‚Ü‚·B
+//! @brief æ­»è€…ã‚’è˜‡ç”Ÿã™ã‚‹
+//! @param id äººã®ç•ªå·ï¼ˆ0ï½MAX_HUMAN-1ï¼‰
+//! @return trueï¼šæˆåŠŸã€€falseï¼šå¤±æ•—
+//! @warning æ‰‹ã¶ã‚‰ã®ã¾ã¾è˜‡ç”Ÿã—ã¾ã™
+//! @attention ç„¡åŠ¹ãªäººç•ªå·ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆã‚„ã€æŒ‡å®šã—ãŸäººãŒç”Ÿå­˜ã—ã¦ã„ãŸå ´åˆã€ã‚ã‚‹ã„ã¯è¬äººé–“ã«å¯¾ã—ã¦å®Ÿè¡Œã—ãŸå ´åˆã€ã“ã®é–¢æ•°ã¯å¤±æ•—ã—ã¾ã™ã€‚
 bool ObjectManager::HumanResuscitation(int id)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return false; }
 
-	//g—p‚³‚ê‚Ä‚¢‚È‚¢‚©A¶‘¶‚µ‚Ä‚¢‚ê‚Îˆ—‚µ‚È‚¢B
+	//ä½¿ç”¨ã•ã‚Œã¦ã„ãªã„ã‹ã€ç”Ÿå­˜ã—ã¦ã„ã‚Œã°å‡¦ç†ã—ãªã„ã€‚
 	if( HumanIndex[id].GetEnableFlag() == false ){ return false; }
 	if( HumanIndex[id].GetDeadFlag() == false ){ return false; }
 
 	int id_param, dataid, team;
 	signed short int p4;
 	HumanIndex[id].GetParamData(&id_param, &dataid, &p4, &team);
-	if( (id_param < 0)||( TOTAL_PARAMETERINFO_HUMAN <= id_param) ){ return false; }	//“älŠÔ‚È‚çˆ—‚µ‚È‚¢
+	if( (id_param < 0)||( TOTAL_PARAMETERINFO_HUMAN <= id_param) ){ return false; }	//è¬äººé–“ãªã‚‰å‡¦ç†ã—ãªã„
 	HumanIndex[id].SetParamData(id_param, dataid, p4, team, true);
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	int player_teamid;
 	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
 	ObjectLog->ReviveHuman(id, team, player_teamid);
@@ -2555,45 +2555,45 @@ bool ObjectManager::HumanResuscitation(int id)
 	return true;
 }
 
-//! @brief ƒQ[ƒ€ƒNƒŠƒA[EƒQ[ƒ€ƒI[ƒo[‚Ì”»’è
-//! @return ƒQ[ƒ€ƒNƒŠƒA[F1@ƒQ[ƒ€ƒI[ƒo[F2@”»’è‚È‚µF0
-//! @attention ƒQ[ƒ€ƒNƒŠƒA\‚ÆƒQ[ƒ€ƒI[ƒo[‚ª“¯‚É¬—§‚·‚éğŒ‚Å‚ÍA–{‰ÆXOPS‚Æ“¯—l‚ÉuƒQ[ƒ€ƒNƒŠƒA[v‚Æ”»’è‚³‚ê‚Ü‚·B
+//! @brief ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ãƒ»ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®åˆ¤å®š
+//! @return ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ï¼š1ã€€ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ï¼š2ã€€åˆ¤å®šãªã—ï¼š0
+//! @attention ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢â€•ã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ãŒåŒæ™‚ã«æˆç«‹ã™ã‚‹æ¡ä»¶ã§ã¯ã€æœ¬å®¶XOPSã¨åŒæ§˜ã«ã€Œã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ã€ã¨åˆ¤å®šã•ã‚Œã¾ã™ã€‚
 int ObjectManager::CheckGameOverorComplete()
 {
-	//ƒƒ‚F
+	//ãƒ¡ãƒ¢ï¼š
 	//
-	//@–{—ˆ‚ÍAƒQ[ƒ€ƒI[ƒo[”»’è‚ğæ‚És‚¢AŸ‚ÉƒQ[ƒ€ƒNƒŠƒA[”»’è‚ğÀ‘•‚µ‚½•û‚ªŒø—¦“I‚Å‚·B
-	//@‚µ‚©‚µA–{‰ÆXOPS‚ÍƒQ[ƒ€ƒNƒŠƒA[‚Ì”»’è‚ğ—Dæ‚·‚é‚½‚ßAæ‚ÉƒQ[ƒ€ƒNƒŠƒA[‚Ì”»’è‚ğs‚Á‚Ä‚¢‚Ü‚·B
-	//@¶‚«‚Ä‚¢‚é“G‚Ì”‚ği‘HP‚Æ‚µ‚Äj”‚¦A“G‚Ì”i‘HPj‚ª 0 ‚È‚ç‚ÎAƒQ[ƒ€ƒNƒŠƒA[‚Æ”»’è‚µ‚Ü‚·B
+	//ã€€æœ¬æ¥ã¯ã€ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼åˆ¤å®šã‚’å…ˆã«è¡Œã„ã€æ¬¡ã«ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼åˆ¤å®šã‚’å®Ÿè£…ã—ãŸæ–¹ãŒåŠ¹ç‡çš„ã§ã™ã€‚
+	//ã€€ã—ã‹ã—ã€æœ¬å®¶XOPSã¯ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ã®åˆ¤å®šã‚’å„ªå…ˆã™ã‚‹ãŸã‚ã€å…ˆã«ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ã®åˆ¤å®šã‚’è¡Œã£ã¦ã„ã¾ã™ã€‚
+	//ã€€ç”Ÿãã¦ã„ã‚‹æ•µã®æ•°ã‚’ï¼ˆç·HPã¨ã—ã¦ï¼‰æ•°ãˆã€æ•µã®æ•°ï¼ˆç·HPï¼‰ãŒ 0 ãªã‚‰ã°ã€ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼ã¨åˆ¤å®šã—ã¾ã™ã€‚
 
-	//ƒQ[ƒ€ƒNƒŠƒA[”»’è
+	//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼åˆ¤å®š
 	int MyTeamid, teamid;
 	int TotalEnemyHP = 0;
-	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &MyTeamid);	//ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†‚ğæ“¾
+	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &MyTeamid);	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 	for(int i=0; i<MAX_HUMAN; i++){
-		//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+		//åˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 		if( HumanIndex[i].GetEnableFlag() == false ){ continue; }
 
-		//’²‚×‚é‘ÎÛ‚Ìƒ`[ƒ€”Ô†‚ğæ“¾
+		//èª¿ã¹ã‚‹å¯¾è±¡ã®ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 		HumanIndex[i].GetParamData(NULL, NULL, NULL, &teamid);
 
-		//ˆÙ‚È‚éƒ`[ƒ€”Ô†i“Gj‚È‚ç‚Î
+		//ç•°ãªã‚‹ãƒãƒ¼ãƒ ç•ªå·ï¼ˆï¼æ•µï¼‰ãªã‚‰ã°
 		if( teamid != MyTeamid ){
-			//¶‚«‚Ä‚¢‚ê‚ÎA“G‚ÌHP‚Æ‚µ‚Ä‰ÁZ
+			//ç”Ÿãã¦ã„ã‚Œã°ã€æ•µã®HPã¨ã—ã¦åŠ ç®—
 			//if( HumanIndex[i].GetDeadFlag() == false ){
 			if( HumanIndex[i].GetHP() > 0 ){
 				TotalEnemyHP += HumanIndex[i].GetHP();
 			}
 		}
 	}
-	if( TotalEnemyHP == 0 ){	//‘S“G‚ÌHP‚ª 0 ‚È‚ç‚Î
+	if( TotalEnemyHP == 0 ){	//å…¨æ•µã®HPãŒ 0 ãªã‚‰ã°
 		return 1;
 	}
 
 
-	//ƒQ[ƒ€ƒI[ƒo[”»’è
-	if( HumanIndex[Player_HumanID].GetEnableFlag() == true ){	//‘€ì‘ÎÛ‚ª—LŒø‚È‚ç‚Î@i’F— ‹Z‚É‚æ‚é•ÏX‘Îôj
-		if( HumanIndex[Player_HumanID].GetDeadFlag() == true ){		//ƒvƒŒƒCƒ„[‚ª€–S‚µ‚Ä‚¢‚ê‚Î
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼åˆ¤å®š
+	if( HumanIndex[Player_HumanID].GetEnableFlag() == true ){	//æ“ä½œå¯¾è±¡ãŒæœ‰åŠ¹ãªã‚‰ã°ã€€ï¼ˆæ³¨ï¼šè£æŠ€ã«ã‚ˆã‚‹å¤‰æ›´å¯¾ç­–ï¼‰
+		if( HumanIndex[Player_HumanID].GetDeadFlag() == true ){		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ­»äº¡ã—ã¦ã„ã‚Œã°
 			return 2;
 		}
 	}
@@ -2601,15 +2601,15 @@ int ObjectManager::CheckGameOverorComplete()
 	return 0;
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒg‚Ìî•ñ‚ğæ“¾
-//! @param camera_x ƒJƒƒ‰‚ÌXÀ•W
-//! @param camera_y ƒJƒƒ‰‚ÌYÀ•W
-//! @param camera_z ƒJƒƒ‰‚ÌZÀ•W
-//! @param camera_rx ƒJƒƒ‰‚Ì‰¡²Šp“x
-//! @param camera_ry ƒJƒƒ‰‚Ìc²Šp“x
-//! @param color F‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^
-//! @param infostr •¶š‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^
-//! @return •\¦î•ñ‚ ‚èFtrue@•\¦î•ñ‚È‚µFfalse
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±ã‚’å–å¾—
+//! @param camera_x ã‚«ãƒ¡ãƒ©ã®Xåº§æ¨™
+//! @param camera_y ã‚«ãƒ¡ãƒ©ã®Yåº§æ¨™
+//! @param camera_z ã‚«ãƒ¡ãƒ©ã®Zåº§æ¨™
+//! @param camera_rx ã‚«ãƒ¡ãƒ©ã®æ¨ªè»¸è§’åº¦
+//! @param camera_ry ã‚«ãƒ¡ãƒ©ã®ç¸¦è»¸è§’åº¦
+//! @param color è‰²ã‚’å–å¾—ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param infostr æ–‡å­—ã‚’å–å¾—ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return è¡¨ç¤ºæƒ…å ±ã‚ã‚Šï¼štrueã€€è¡¨ç¤ºæƒ…å ±ãªã—ï¼šfalse
 bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camera_z, float camera_rx, float camera_ry, int *color, char *infostr)
 {
 	if( color == NULL ){ return false; }
@@ -2621,25 +2621,25 @@ bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camer
 	float r;
 	int Player_teamID;
 
-	//•¶š‚ğ‰Šú‰»
+	//æ–‡å­—ã‚’åˆæœŸåŒ–
 	infostr[0] = '\0';
 
-	//ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &Player_teamID);
 
-	//l
+	//äºº
 	for(int i=0; i<MAX_HUMAN; i++){
-		//ƒvƒŒƒCƒ„[©g‚È‚çˆ—‚µ‚È‚¢
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«ãªã‚‰å‡¦ç†ã—ãªã„
 		if( i == Player_HumanID ){ continue; }
 
 		if( HumanIndex[i].GetEnableFlag() == true ){
 			HumanIndex[i].GetPosData(&px, &py, &pz, NULL);
 
-			//‹“_‚ğŠî€‚É‘ÎÛ‚Ü‚Å‚ÌŠp“x‚ğZo
+			//è¦–ç‚¹ã‚’åŸºæº–ã«å¯¾è±¡ã¾ã§ã®è§’åº¦ã‚’ç®—å‡º
 			if( CheckTargetAngle(camera_x, camera_y, camera_z, camera_rx, 0.0f, px, py, pz, dist, &rx, NULL, &r) == true ){
 				int team;
 
-				//Šp“xãA‹ŠE‚É“ü‚Á‚Ä‚¢‚ê‚Î
+				//è§’åº¦ä¸Šã€è¦–ç•Œã«å…¥ã£ã¦ã„ã‚Œã°
 				if( fabsf(rx) < DegreeToRadian(10) ){
 					HumanIndex[i].GetParamData(NULL, NULL, NULL, &team);
 					if( team == Player_teamID ){
@@ -2656,7 +2656,7 @@ bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camer
 		}
 	}
 
-	//•Ší
+	//æ­¦å™¨
 	for(int i=0; i<MAX_WEAPON; i++){
 		if( (WeaponIndex[i].GetEnableFlag() == true)&&(WeaponIndex[i].GetUsingFlag() == false) ){
 			int lnbs, nbs;
@@ -2664,9 +2664,9 @@ bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camer
 			WeaponIndex[i].GetPosData(&px, &py, &pz, NULL);
 			WeaponIndex[i].GetParamData(NULL, &lnbs, &nbs);
 
-			//‹“_‚ğŠî€‚É‘ÎÛ‚Ü‚Å‚ÌŠp“x‚ğZo
+			//è¦–ç‚¹ã‚’åŸºæº–ã«å¯¾è±¡ã¾ã§ã®è§’åº¦ã‚’ç®—å‡º
 			if( CheckTargetAngle(camera_x, camera_y, camera_z, camera_rx, camera_ry, px, py, pz, dist, &rx, &ry, &r) == true ){
-				//Šp“xãA‹ŠE‚É“ü‚Á‚Ä‚¢‚ê‚Î
+				//è§’åº¦ä¸Šã€è¦–ç•Œã«å…¥ã£ã¦ã„ã‚Œã°
 				if( (fabsf(rx) < DegreeToRadian(10))&&(fabsf(ry) < DegreeToRadian(10)) ){
 					*color = d3dg->GetColorCode(0.0f,1.0f,0.0f,1.0f);
 					sprintf(infostr, "Weapon[%d]  %d:%d", i, lnbs, (nbs - lnbs));
@@ -2676,14 +2676,14 @@ bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camer
 		}
 	}
 
-	//¬•¨
+	//å°ç‰©
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		if( SmallObjectIndex[i].GetEnableFlag() == true ){
 			SmallObjectIndex[i].GetPosData(&px, &py, &pz, NULL);
 			
-			//‹“_‚ğŠî€‚É‘ÎÛ‚Ü‚Å‚ÌŠp“x‚ğZo
+			//è¦–ç‚¹ã‚’åŸºæº–ã«å¯¾è±¡ã¾ã§ã®è§’åº¦ã‚’ç®—å‡º
 			if( CheckTargetAngle(camera_x, camera_y, camera_z, camera_rx, camera_ry, px, py, pz, dist, &rx, &ry, &r) == true ){
-				//Šp“xãA‹ŠE‚É“ü‚Á‚Ä‚¢‚ê‚Î
+				//è§’åº¦ä¸Šã€è¦–ç•Œã«å…¥ã£ã¦ã„ã‚Œã°
 				if( (fabsf(rx) < DegreeToRadian(10))&&(fabsf(ry) < DegreeToRadian(10)) ){
 					*color = d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f);
 					sprintf(infostr, "SmallObject[%d]  HP %d", i, SmallObjectIndex[i].GetHP());
@@ -2693,30 +2693,30 @@ bool ObjectManager::GetObjectInfoTag(float camera_x, float camera_y, float camer
 		}
 	}
 
-	//•¶š‚ªİ’è‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ÅA—LŒø‚Èˆ—‚ª‚³‚ê‚½‚©”»’èB
+	//æ–‡å­—ãŒè¨­å®šã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã§ã€æœ‰åŠ¹ãªå‡¦ç†ãŒã•ã‚ŒãŸã‹åˆ¤å®šã€‚
 	if( infostr[0] == NULL ){
 		return false;
 	}
 	return true;
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒg‚ÌåŒvZˆ—
-//! @param cmdF5id ã¸‹@”\iF5— ‹Zj‚³‚¹‚élƒf[ƒ^”Ô†i-1‚Å‹@”\–³Œøj
-//! @param demomode ƒfƒ‚ƒ‚[ƒh
-//! @param screen ‰æ–Ê‚ğˆÃ‚­‚·‚é
-//! @return í‚É 0
-//! @attention ˆê”Ê“I‚É cmdF5id ‚ÍAF5— ‹Zg—p’†‚ÍƒvƒŒƒCƒ„[”Ô†iGetPlayerID()ŠÖ”‚Åæ“¾jA–¢g—p‚Í -1 ‚ğw’è‚µ‚Ü‚·B
-//! @attention demomode ‚Íå‚Éƒƒjƒ…[‰æ–Ê‚Åg—p‚µ‚Ü‚·B—LŒø‚É‚·‚é‚ÆAe’eEèÖ’e‚ğˆ—‚µ‚Ü‚¹‚ñB
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸»è¨ˆç®—å‡¦ç†
+//! @param cmdF5id ä¸Šæ˜‡æ©Ÿèƒ½ï¼ˆF5è£æŠ€ï¼‰ã•ã›ã‚‹äººãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆ-1ã§æ©Ÿèƒ½ç„¡åŠ¹ï¼‰
+//! @param demomode ãƒ‡ãƒ¢ãƒ¢ãƒ¼ãƒ‰
+//! @param screen ç”»é¢ã‚’æš—ãã™ã‚‹
+//! @return å¸¸ã« 0
+//! @attention ä¸€èˆ¬çš„ã« cmdF5id ã¯ã€F5è£æŠ€ä½¿ç”¨ä¸­ã¯ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ï¼ˆGetPlayerID()é–¢æ•°ã§å–å¾—ï¼‰ã€æœªä½¿ç”¨æ™‚ã¯ -1 ã‚’æŒ‡å®šã—ã¾ã™ã€‚
+//! @attention demomode ã¯ä¸»ã«ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã§ä½¿ç”¨ã—ã¾ã™ã€‚æœ‰åŠ¹ã«ã™ã‚‹ã¨ã€éŠƒå¼¾ãƒ»æ‰‹æ¦´å¼¾ã‚’å‡¦ç†ã—ã¾ã›ã‚“ã€‚
 int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 {
-	//‚±‚ÌƒtƒŒ[ƒ€‚Ìí—ğ‚ğ‰Šú‰»
+	//ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®æˆ¦æ­´ã‚’åˆæœŸåŒ–
 	for(int i=0; i<MAX_HUMAN; i++){
 		Human_ontarget[i] = 0.0f;
 		Human_kill[i] = 0;
 		Human_headshot[i] = 0;
 	}
 
-	//lƒIƒuƒWƒFƒNƒg‚Ìˆ—
+	//äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†
 	for(int i=0; i<MAX_HUMAN; i++){
 		bool cmdF5, player;
 		int rtn;
@@ -2726,7 +2726,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		int MoveMode;
 		int JumpLandingMode;
 
-		//ƒvƒŒƒCƒ„[‚©‚Ç‚¤‚©”»’è
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã©ã†ã‹åˆ¤å®š
 		if( Player_HumanID == i ){
 			player = true;
 		}
@@ -2743,7 +2743,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 
 		rtn = HumanIndex[i].ProcessObject(CollD, BlockData, AddCollisionFlag, player, cmdF5);
 		if( rtn == 2 ){
-			//€–S‚ÌƒGƒtƒFƒNƒg
+			//æ­»äº¡æ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
 			DeadEffect(&(HumanIndex[i]));
 		}
 		if( rtn == 4 ){
@@ -2751,13 +2751,13 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 			HumanIndex[i].GetParamData(NULL, NULL, NULL, &teamid);
 			HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &player_teamid);
 
-			//ƒƒOŠÖŒW‚Ìˆ—
+			//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 			ObjectLog->DiedHuman(-1, i, -1, teamid, player_teamid);
 		}
 
 		HumanIndex[i].SetDarkModelFlag(screen);
 
-		//‘«Œ³‚É‚ ‚éƒuƒƒbƒN‚ÌƒeƒNƒXƒ`ƒƒ[”Ô†‚ğæ“¾‚·‚é
+		//è¶³å…ƒã«ã‚ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ç•ªå·ã‚’å–å¾—ã™ã‚‹
 		HumanIndex[i].GetUnderBlock(&block_id, &block_face);
 		if( block_id != -1 ){
 			blockdata bdata;
@@ -2771,10 +2771,10 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		MoveMode = HumanIndex[i].GetMovemode(false);
 		JumpLandingMode = HumanIndex[i].GetJumpLanding(false);
 
-		//‘«‰¹
+		//è¶³éŸ³
 		if( (1 <= MoveMode)&&(MoveMode <= 4) ){
-			//‘«‰¹’Ç‰Á
-			//@¦‘«Œ³‚É‚ ‚éƒuƒƒbƒN‚ÌƒeƒNƒXƒ`ƒƒ[”Ô†‚ğA‘«‰¹‚Ìí—Ş”Ô†‚Æ‚·‚éB
+			//è¶³éŸ³è¿½åŠ 
+			//ã€€â€»è¶³å…ƒã«ã‚ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ç•ªå·ã‚’ã€è¶³éŸ³ã®ç¨®é¡ç•ªå·ã¨ã™ã‚‹ã€‚
 			float posx, posy, posz;
 			int teamid;
 			int cnt;
@@ -2784,9 +2784,9 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 			GameSound->SetFootsteps(posx, posy, posz, block_textureid, MoveMode - 1, teamid, cnt);
 		}
 
-		//ƒWƒƒƒ“ƒv‚·‚é‰¹
+		//ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹éŸ³
 		if( JumpLandingMode == 1 ){
-			//‘«‰¹’Ç‰Á
+			//è¶³éŸ³è¿½åŠ 
 			float posx, posy, posz;
 			int teamid;
 			HumanIndex[i].GetPosData(&posx, &posy, &posz, NULL);
@@ -2794,9 +2794,9 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 			GameSound->SetFootsteps(posx, posy, posz, block_textureid, 4, teamid, 0);
 		}
 
-		//’…’n‚·‚é‰¹
+		//ç€åœ°ã™ã‚‹éŸ³
 		if( JumpLandingMode == 2 ){
-			//‘«‰¹’Ç‰Á
+			//è¶³éŸ³è¿½åŠ 
 			float posx, posy, posz;
 			int teamid;
 			HumanIndex[i].GetPosData(&posx, &posy, &posz, NULL);
@@ -2805,31 +2805,31 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		}
 	}
 
-	//•ŠíƒIƒuƒWƒFƒNƒg‚Ìˆ—
+	//æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†
 	for(int i=0; i<MAX_WEAPON; i++){
 		WeaponIndex[i].ProcessObject(CollD);
 		WeaponIndex[i].SetDarkModelFlag(screen);
 	}
 
-	//¬•¨ƒIƒuƒWƒFƒNƒg‚Ìˆ—
+	//å°ç‰©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		SmallObjectIndex[i].ProcessObject();
 		SmallObjectIndex[i].SetDarkModelFlag(screen);
 	}
 
 	if( demomode == false ){
-		//’eƒIƒuƒWƒFƒNƒg‚Ìˆ—
+		//å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†
 		for(int i=0; i<MAX_BULLET; i++){
 			float bx, by, bz, brx, bry, speed;
 			int teamid;
 			float mx, my, mz;
 
-			CollideBullet(&BulletIndex[i]);		//“–‚½‚è”»’è‚ğÀs
-			BulletIndex[i].ProcessObject();		//åŒvZ
+			CollideBullet(&BulletIndex[i]);		//å½“ãŸã‚Šåˆ¤å®šã‚’å®Ÿè¡Œ
+			BulletIndex[i].ProcessObject();		//ä¸»è¨ˆç®—
 			BulletIndex[i].SetDarkModelFlag(screen);
 
 			if( BulletIndex[i].GetEnableFlag() == true ){
-				//’e‚ÌÀ•W‚ÆŠp“x‚ğæ“¾
+				//å¼¾ã®åº§æ¨™ã¨è§’åº¦ã‚’å–å¾—
 				BulletIndex[i].GetParamData(NULL, NULL, &speed, &teamid, NULL, NULL);
 				BulletIndex[i].GetPosData(&bx, &by, &bz, &brx, &bry);
 				mx = cosf(brx)*cosf(bry)*speed;
@@ -2840,7 +2840,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		}
 	}
 	else{
-		//‘S‚Ä‚Ì’eƒIƒuƒWƒFƒNƒg‚ğÁ‚·
+		//å…¨ã¦ã®å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
 		for(int i=0; i<MAX_BULLET; i++){
 			if( BulletIndex[i].GetEnableFlag() == true ){
 				BulletIndex[i].SetEnableFlag(false);
@@ -2848,7 +2848,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		}
 	}
 
-	//•Ší‚ğ”­–C‚µ‚½Û‚ÌƒGƒtƒFƒNƒg‚ğo‚·
+	//æ­¦å™¨ã‚’ç™ºç ²ã—ãŸéš›ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’å‡ºã™
 	for(int i=0; i<MAX_HUMAN; i++){
 		if( Human_ShotFlag[i] == true ){
 			ShotWeaponEffect(i);
@@ -2861,7 +2861,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		if( Human_YakkyouCnt[i] > -1 ){ Human_YakkyouCnt[i] -= 1; }
 	}
 
-	//ƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg‚Ìˆ—
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†
 	for(int i=0; i<MAX_EFFECT; i++){
 		int id, face;
 		float pos_x, pos_y, pos_z;
@@ -2876,18 +2876,18 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 	}
 
 	if( demomode == false ){
-		//èÖ’e‚Ìˆ—
+		//æ‰‹æ¦´å¼¾ã®å‡¦ç†
 		for(int i=0; i<MAX_GRENADE; i++){
 			float speed = GrenadeIndex[i].GetSpeed();
 
-			//åŒvZ
+			//ä¸»è¨ˆç®—
 			int rcr = GrenadeIndex[i].ProcessObject(CollD);
 			GrenadeIndex[i].SetDarkModelFlag(screen);
 
-			//ƒoƒEƒ“ƒhE’µ‚Ë•Ô‚Á‚½‚È‚ç‚Î
+			//ãƒã‚¦ãƒ³ãƒ‰ãƒ»è·³ã­è¿”ã£ãŸãªã‚‰ã°
 			if( rcr == 1 ){
 				if( speed > 3.4f ){
-					//À•W‚ğæ“¾‚µAŒø‰Ê‰¹Ä¶
+					//åº§æ¨™ã‚’å–å¾—ã—ã€åŠ¹æœéŸ³å†ç”Ÿ
 					float x, y, z;
 					int teamid;
 					GrenadeIndex[i].GetPosData(&x, &y, &z, NULL, NULL);
@@ -2896,14 +2896,14 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 				}
 			}
 
-			//”š”­‚µ‚½‚È‚ç
+			//çˆ†ç™ºã—ãŸãªã‚‰
 			if( rcr == 2 ){
 				GrenadeExplosion(&(GrenadeIndex[i]));
 			}
 		}
 	}
 	else{
-		//‘S‚Ä‚ÌèÖ’e‚ğÁ‚·
+		//å…¨ã¦ã®æ‰‹æ¦´å¼¾ã‚’æ¶ˆã™
 		for(int i=0; i<MAX_GRENADE; i++){
 			if( GrenadeIndex[i].GetEnableFlag() == true ){
 				GrenadeIndex[i].SetEnableFlag(false);
@@ -2912,11 +2912,11 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 	}
 
 
-	//•Ší‚ğE‚¤ˆ—
+	//æ­¦å™¨ã‚’æ‹¾ã†å‡¦ç†
 	for(int i=0; i<MAX_HUMAN; i++){
 		if( HumanIndex[i].GetEnableFlag() == true ){
-			//•Ší‚ğE‚¤‚¾‚¯‚Å–ˆƒtƒŒ[ƒ€‘“–‚½‚è‚Åˆ—‚·‚éˆÓ–¡‚Í‚È‚¢‚Ì‚ÅAŠe•Ší2ƒtƒŒ[ƒ€‚É1‰ñˆ—‚ÉƒPƒ`‚Á‚Ä‚Ü‚·@iOOG
-			//ƒtƒŒ[ƒ€”‚ª‹ô”–Ú‚Ì‚ÍAƒf[ƒ^”Ô†‚ª‹ô”‚Ì•ŠíBŠï”‚Ì‚ÍAŠï”‚Ì•Ší‚ğˆ—B
+			//æ­¦å™¨ã‚’æ‹¾ã†ã ã‘ã§æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ç·å½“ãŸã‚Šã§å‡¦ç†ã™ã‚‹æ„å‘³ã¯ãªã„ã®ã§ã€å„æ­¦å™¨2ãƒ•ãƒ¬ãƒ¼ãƒ ã«1å›å‡¦ç†ã«ã‚±ãƒã£ã¦ã¾ã™ã€€ï¼ˆï¼¾ï¼¾ï¼›
+			//ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ãŒå¶æ•°ç›®ã®æ™‚ã¯ã€ãƒ‡ãƒ¼ã‚¿ç•ªå·ãŒå¶æ•°ã®æ­¦å™¨ã€‚å¥‡æ•°ã®æ™‚ã¯ã€å¥‡æ•°ã®æ­¦å™¨ã‚’å‡¦ç†ã€‚
 			for(int j=(framecnt%2); j<MAX_WEAPON; j+=2){
 				PickupWeapon(&HumanIndex[i], &WeaponIndex[j]);
 			}
@@ -2928,7 +2928,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 			for(int j=i+1; j<MAX_HUMAN; j++){
 				if( HumanIndex[j].GetEnableFlag() == true ){
 
-					//l“¯m‚Ì“–‚½‚è”»’èi‰Ÿ‚µ‡‚¢j
+					//äººåŒå£«ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆæŠ¼ã—åˆã„ï¼‰
 					CollideHuman(&HumanIndex[i], &HumanIndex[j]);
 
 				}
@@ -2936,7 +2936,7 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 		}
 	}
 
-	//ƒƒOŠÖŒW‚Ìˆ—
+	//ãƒ­ã‚°é–¢ä¿‚ã®å‡¦ç†
 	ObjectLog->Process();
 
 	framecnt += 1;
@@ -2944,12 +2944,12 @@ int ObjectManager::Process(int cmdF5id, bool demomode, bool screen)
 	return 0;
 }
 
-//! @brief Œ»ƒtƒŒ[ƒ€‚Ì –½’†—¦E“|‚µ‚½“G‚Ì”EƒwƒbƒgƒVƒ‡ƒbƒg” ‚Ìæ“¾
-//! @param id æ“¾‚·‚él‚Ìƒf[ƒ^”Ô†
-//! @param ontarget –½’†”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param kill “|‚µ‚½“G‚Ì”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param headshot “G‚Ì“ª•”‚É–½’†‚µ‚½”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷Ftrue@¸”sFfalse
+//! @brief ç¾ãƒ•ãƒ¬ãƒ¼ãƒ ã® å‘½ä¸­ç‡ãƒ»å€’ã—ãŸæ•µã®æ•°ãƒ»ãƒ˜ãƒƒãƒˆã‚·ãƒ§ãƒƒãƒˆæ•° ã®å–å¾—
+//! @param id å–å¾—ã™ã‚‹äººã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param ontarget å‘½ä¸­æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param kill å€’ã—ãŸæ•µã®æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param headshot æ•µã®é ­éƒ¨ã«å‘½ä¸­ã—ãŸæ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
 bool ObjectManager::GetHumanShotInfo(int id, float *ontarget, int *kill, int *headshot)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return false; }
@@ -2961,23 +2961,23 @@ bool ObjectManager::GetHumanShotInfo(int id, float *ontarget, int *kill, int *he
 	return true;
 }
 
-//! @brief ƒGƒtƒFƒNƒg‚ğƒ\[ƒg‚·‚é
-//! @param camera_x ƒJƒƒ‰‚ÌXÀ•W
-//! @param camera_y ƒJƒƒ‰‚ÌYÀ•W
-//! @param camera_z ƒJƒƒ‰‚ÌZÀ•W
-//! @param data Œ‹‰Ê‚ğó‚¯æ‚é effectdata\‘¢‘Ì@i—v‘f”FMAX_EFFECTj
-//! @return —LŒø‚ÈƒGƒtƒFƒNƒg‚Ì”
+//! @brief ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ã‚½ãƒ¼ãƒˆã™ã‚‹
+//! @param camera_x ã‚«ãƒ¡ãƒ©ã®Xåº§æ¨™
+//! @param camera_y ã‚«ãƒ¡ãƒ©ã®Yåº§æ¨™
+//! @param camera_z ã‚«ãƒ¡ãƒ©ã®Zåº§æ¨™
+//! @param data çµæœã‚’å—ã‘å–ã‚‹ effectdataæ§‹é€ ä½“ã€€ï¼ˆè¦ç´ æ•°ï¼šMAX_EFFECTï¼‰
+//! @return æœ‰åŠ¹ãªã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æ•°
 int ObjectManager::SortEffect(float camera_x, float camera_y, float camera_z, effectdata data[])
 {
 	int cnt = 0;
 
-	//ƒJƒƒ‰‚©‚ç‚Ì‹——£‚ğ‹‚ß‚Â‚ÂA‘”‚ğ”‚¦‚éB
+	//ã‚«ãƒ¡ãƒ©ã‹ã‚‰ã®è·é›¢ã‚’æ±‚ã‚ã¤ã¤ã€ç·æ•°ã‚’æ•°ãˆã‚‹ã€‚
 	for(int i=0; i<MAX_EFFECT; i++){
 		if( EffectIndex[i].GetEnableFlag() == true ){
 			float ex, ey, ez;
 			float x, y, z;
 
-			//À•W‚ğæ“¾‚µA‹——£‚ğŒvZAƒf[ƒ^‚É“o˜^B
+			//åº§æ¨™ã‚’å–å¾—ã—ã€è·é›¢ã‚’è¨ˆç®—ã€ãƒ‡ãƒ¼ã‚¿ã«ç™»éŒ²ã€‚
 			EffectIndex[i].GetPosData(&ex, &ey, &ez, NULL);
 			x = ex - camera_x;
 			y = ey - camera_y;
@@ -2985,12 +2985,12 @@ int ObjectManager::SortEffect(float camera_x, float camera_y, float camera_z, ef
 			data[cnt].id = i;
 			data[cnt].dist = x*x + y*y + z*z;
 
-			//ƒJƒEƒ“ƒg‚ğ‰ÁZ
+			//ã‚«ã‚¦ãƒ³ãƒˆã‚’åŠ ç®—
 			cnt += 1;
 		}
 	}
 
-	//’Pƒ‘}“üƒ\[ƒg
+	//å˜ç´”æŒ¿å…¥ã‚½ãƒ¼ãƒˆ
 	effectdata temp;
 	for(int i=1; i<cnt; i++) {
 		int j;
@@ -3004,44 +3004,44 @@ int ObjectManager::SortEffect(float camera_x, float camera_y, float camera_z, ef
 	return cnt;
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒg‚Ì•`‰æˆ—
-//! @param camera_x ƒJƒƒ‰‚ÌXÀ•W
-//! @param camera_y ƒJƒƒ‰‚ÌYÀ•W
-//! @param camera_z ƒJƒƒ‰‚ÌZÀ•W
-//! @param camera_rx ƒJƒƒ‰‚Ì‰¡²Šp“x
-//! @param camera_ry ƒJƒƒ‰‚Ìc²Šp“x
-//! @param HidePlayer ƒvƒŒƒCƒ„[‚Ì•`‰æİ’è@i•`‰æ‚·‚éF0@•`‰æ‚µ‚È‚¢F1@˜r‚Æ•Ší‚Ì‚İ•`‰æ‚·‚éF2j
-//! @param NoModel ƒ‚ƒfƒ‹•`‰æ–³Œø‰»
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»å‡¦ç†
+//! @param camera_x ã‚«ãƒ¡ãƒ©ã®Xåº§æ¨™
+//! @param camera_y ã‚«ãƒ¡ãƒ©ã®Yåº§æ¨™
+//! @param camera_z ã‚«ãƒ¡ãƒ©ã®Zåº§æ¨™
+//! @param camera_rx ã‚«ãƒ¡ãƒ©ã®æ¨ªè»¸è§’åº¦
+//! @param camera_ry ã‚«ãƒ¡ãƒ©ã®ç¸¦è»¸è§’åº¦
+//! @param HidePlayer ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»è¨­å®šã€€ï¼ˆæç”»ã™ã‚‹ï¼š0ã€€æç”»ã—ãªã„ï¼š1ã€€è…•ã¨æ­¦å™¨ã®ã¿æç”»ã™ã‚‹ï¼š2ï¼‰
+//! @param NoModel ãƒ¢ãƒ‡ãƒ«æç”»ç„¡åŠ¹åŒ–
 void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float camera_rx, float camera_ry, int HidePlayer, bool NoModel)
 {
-	//ƒ[ƒ‹ƒhÀ•W‚ğŒ´“_‚Ö
+	//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’åŸç‚¹ã¸
 	d3dg->ResetWorldTransform();
 
-	//l•`‰æ
+	//äººæç”»
 	for(int i=0; i<MAX_HUMAN; i++){
 		bool DrawArm, player;
 
-		//l‚ÌƒeƒNƒXƒ`ƒƒƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒO‚ª—LŒø‚È‚ç
+		//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ãªã‚‰
 		if( Human_FrameTextureRefresh[i] == true ){
 			if( i > 0 ){
-				//‘O‚Ìl‚ª‚Á‚Ä‚¢‚é•Ší‚ğæ“¾
+				//å‰ã®äººãŒæŒã£ã¦ã„ã‚‹æ­¦å™¨ã‚’å–å¾—
 				int WeaponType = HumanIndex[i-1].GetMainWeaponTypeNO();
 
 				if( WeaponType != ID_WEAPON_NONE ){
 					int model, texture;
 
-					//•Ší‚ğ‚Á‚Ä‚¢‚ê‚ÎA‚»‚Ì•Ší‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“K—p
+					//æ­¦å™¨ã‚’æŒã£ã¦ã„ã‚Œã°ã€ãã®æ­¦å™¨ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’é©ç”¨
 					Resource->GetWeaponModelTexture(WeaponType, &model, &texture);
 					HumanIndex[i].SetTexture(texture);
 				}
 				else{
-					//è‚Ô‚ç‚È‚çAl‚ÌƒeƒNƒXƒ`ƒƒ‚ğ‚»‚Ì‚Ü‚Ü”½‰f
+					//æ‰‹ã¶ã‚‰ãªã‚‰ã€äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ãã®ã¾ã¾åæ˜ 
 					HumanIndex[i].SetTexture( HumanIndex[i-1].GetTexture() );
 				}
 			}
 		}
 
-		//˜r‚Ì•`‰æ
+		//è…•ã®æç”»
 		if( HidePlayer == 0 ){
 			DrawArm = false;
 		}
@@ -3052,10 +3052,10 @@ void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float
 			DrawArm = true;
 		}
 		else{							// Player_HumanID == i && HidePlayer == 1
-			continue;	//ƒvƒŒƒCƒ„[©g‚ğ•`‰æ‚µ‚È‚¢‚È‚çƒXƒLƒbƒv
+			continue;	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«ã‚’æç”»ã—ãªã„ãªã‚‰ã‚¹ã‚­ãƒƒãƒ—
 		}
 
-		//ƒvƒŒƒCƒ„[‚©‚Ç‚¤‚©”»’è
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã©ã†ã‹åˆ¤å®š
 		if( Player_HumanID == i ){
 			player = true;
 		}
@@ -3066,7 +3066,7 @@ void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float
 		HumanIndex[i].Render(d3dg, Resource, DrawArm, player, NoModel);
 
 		/*
-		//“–‚½‚è”»’è‚ÌŠÈˆÕ•\¦
+		//å½“ãŸã‚Šåˆ¤å®šã®ç°¡æ˜“è¡¨ç¤º
 		float x, y, z;
 		HumanIndex[i].GetPosData(&x, &y, &z, NULL);
 		if( HumanIndex[i].GetHP() > 0 ){
@@ -3081,27 +3081,27 @@ void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float
 		*/
 	}
 
-	//•Ší•`‰æ
+	//æ­¦å™¨æç”»
 	for(int i=0; i<MAX_WEAPON; i++){
 		WeaponIndex[i].Render(d3dg, NoModel);
 	}
 
-	//¬•¨•`‰æ
+	//å°ç‰©æç”»
 	for(int i=0; i<MAX_SMALLOBJECT; i++){
 		SmallObjectIndex[i].Render(d3dg, NoModel);
 	}
 
-	//’e•`‰æ
+	//å¼¾æç”»
 	for(int i=0; i<MAX_BULLET; i++){
 		BulletIndex[i].Render(d3dg, NoModel);
 	}
 
-	//èÖ’e•`‰æ
+	//æ‰‹æ¦´å¼¾æç”»
 	for(int i=0; i<MAX_GRENADE; i++){
 		GrenadeIndex[i].Render(d3dg, NoModel);
 	}
 
-	//ƒGƒtƒFƒNƒg•`‰æ
+	//ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»
 	d3dg->StartEffectRender();
 	/*
 	for(int i=0; i<MAX_EFFECT; i++){
@@ -3116,22 +3116,22 @@ void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float
 	d3dg->EndEffectRender();
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒO‚Ì•`‰æˆ—
-//! @param x ¶ã‚Ì xÀ•W
-//! @param y ¶ã‚Ì yÀ•W
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®æç”»å‡¦ç†
+//! @param x å·¦ä¸Šã® xåº§æ¨™
+//! @param y å·¦ä¸Šã® yåº§æ¨™
 void ObjectManager::RenderLog(int x, int y)
 {
 	ObjectLog->Render(x, y);
 }
 
-//! @brief ƒf[ƒ^‚Ì‰ğ•ú
+//! @brief ãƒ‡ãƒ¼ã‚¿ã®è§£æ”¾
 void ObjectManager::Cleanup()
 {
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰ğ•ú
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿è§£æ”¾
 	CleanupPointDataToObject();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 BulletObjectHumanIndex::BulletObjectHumanIndex()
 {
 	HumanIndex = new bool[MAX_HUMAN];
@@ -3139,13 +3139,13 @@ BulletObjectHumanIndex::BulletObjectHumanIndex()
 	Init();
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 BulletObjectHumanIndex::~BulletObjectHumanIndex()
 {
 	if( HumanIndex != NULL ){ delete [] HumanIndex; }
 }
 
-//! @brief ‰Šú‰»
+//! @brief åˆæœŸåŒ–
 void BulletObjectHumanIndex::Init()
 {
 	for(int i=0; i<MAX_HUMAN; i++){
@@ -3153,24 +3153,24 @@ void BulletObjectHumanIndex::Init()
 	}
 }
 
-//! @brief ƒtƒ‰ƒO‚ğæ“¾
-//! @param id l‚Ìƒf[ƒ^”Ô†
-//! @return ƒtƒ‰ƒO’l
+//! @brief ãƒ•ãƒ©ã‚°ã‚’å–å¾—
+//! @param id äººã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return ãƒ•ãƒ©ã‚°å€¤
 bool BulletObjectHumanIndex::GetIndexFlag(int id)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return false; }
 	return HumanIndex[id];
 }
 
-//! @brief ƒtƒ‰ƒO‚ğ—LŒø‰»
-//! @param id l‚Ìƒf[ƒ^”Ô†
+//! @brief ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹åŒ–
+//! @param id äººã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 void BulletObjectHumanIndex::SetIndexFlag(int id)
 {
 	if( (id < 0)||(MAX_HUMAN <= id) ){ return; }
 	HumanIndex[id] = true;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ObjectManagerLog::ObjectManagerLog()
 {
 	d3dg = NULL;
@@ -3180,7 +3180,7 @@ ObjectManagerLog::ObjectManagerLog()
 	ClearLog();
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ObjectManagerLog::~ObjectManagerLog()
 {
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN; i++){
@@ -3188,15 +3188,15 @@ ObjectManagerLog::~ObjectManagerLog()
 	}
 }
 
-//! @brief QÆ‚·‚éƒNƒ‰ƒX‚ğİ’è
-//! @param in_d3dg •`‰æˆ—ƒNƒ‰ƒX
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å‚ç…§ã™ã‚‹ã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param in_d3dg æç”»å‡¦ç†ã‚¯ãƒ©ã‚¹
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ObjectManagerLog::SetClass(D3DGraphics *in_d3dg)
 {
 	d3dg = in_d3dg;
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒO‚ğ‰Šú‰»
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã‚’åˆæœŸåŒ–
 void ObjectManagerLog::ClearLog()
 {
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN; i++){
@@ -3206,24 +3206,24 @@ void ObjectManagerLog::ClearLog()
 	}
 }
 
-//! @brief î•ñ‚ğ’Ç‹L
-//! @param str •¶š—ñ@i‰üsƒR[ƒhF<b>•s‰Â</b>j
+//! @brief æƒ…å ±ã‚’è¿½è¨˜
+//! @param str æ–‡å­—åˆ—ã€€ï¼ˆæ”¹è¡Œã‚³ãƒ¼ãƒ‰ï¼š<b>ä¸å¯</b>ï¼‰
 void ObjectManagerLog::InfoLog(const char *str)
 {
 	if( str == NULL ){ return; }
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, d3dg->GetColorCode(0.0f,1.0f,0.0f,1.0f));
 }
 
-//! @brief l‚ğ’Ç‰Á‚µ‚½
-//! @param humanID l‚ÌID
-//! @param TeamID ƒ`[ƒ€”Ô†
-//! @param PlayerTeamID ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†
+//! @brief äººã‚’è¿½åŠ ã—ãŸ
+//! @param humanID äººã®ID
+//! @param TeamID ãƒãƒ¼ãƒ ç•ªå·
+//! @param PlayerTeamID ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·
 void ObjectManagerLog::AddHuman(int humanID, int TeamID, int PlayerTeamID)
 {
 	char str[64];
 	int str_color;
 
-	//•¶š‚ÌF‚ğŒˆ’è
+	//æ–‡å­—ã®è‰²ã‚’æ±ºå®š
 	if( PlayerTeamID == TeamID ){ str_color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f); }
 	else{ str_color = d3dg->GetColorCode(1.0f,0.5f,0.0f,1.0f); }
 
@@ -3232,18 +3232,18 @@ void ObjectManagerLog::AddHuman(int humanID, int TeamID, int PlayerTeamID)
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, str_color);
 }
 
-//! @brief l‚ª€–S‚µ‚½
-//! @param ShothumanID  UŒ‚‚ğ‚µ‚½l‚ÌID
-//! @param HitHumanID UŒ‚‚ğó‚¯‚½l‚ÌID
-//! @param ShothumanTeamID UŒ‚‚ğ‚µ‚½l‚Ìƒ`[ƒ€”Ô†
-//! @param HitHumanTeamID UŒ‚‚ğó‚¯‚½l‚Ìƒ`[ƒ€”Ô†
-//! @param PlayerTeamID ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†
+//! @brief äººãŒæ­»äº¡ã—ãŸ
+//! @param ShothumanID  æ”»æ’ƒã‚’ã—ãŸäººã®ID
+//! @param HitHumanID æ”»æ’ƒã‚’å—ã‘ãŸäººã®ID
+//! @param ShothumanTeamID æ”»æ’ƒã‚’ã—ãŸäººã®ãƒãƒ¼ãƒ ç•ªå·
+//! @param HitHumanTeamID æ”»æ’ƒã‚’å—ã‘ãŸäººã®ãƒãƒ¼ãƒ ç•ªå·
+//! @param PlayerTeamID ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·
 void ObjectManagerLog::DiedHuman(int ShothumanID, int HitHumanID, int ShothumanTeamID, int HitHumanTeamID, int PlayerTeamID)
 {
 	char str[64];
 	int str_color;
 
-	//•¶š‚ÌF‚ğŒˆ’è
+	//æ–‡å­—ã®è‰²ã‚’æ±ºå®š
 	if( PlayerTeamID == HitHumanTeamID ){ str_color = d3dg->GetColorCode(1.0f,0.5f,0.0f,1.0f); }
 	else{ str_color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f); }
 
@@ -3253,7 +3253,7 @@ void ObjectManagerLog::DiedHuman(int ShothumanID, int HitHumanID, int ShothumanT
 	else{
 		sprintf(str, "human[%d] killed human[%d]", ShothumanID, HitHumanID);
 
-		//TK”»’è
+		//TKåˆ¤å®š
 		if( ShothumanTeamID == HitHumanTeamID ){
 			strcat(str, " (TK)");
 		}
@@ -3262,16 +3262,16 @@ void ObjectManagerLog::DiedHuman(int ShothumanID, int HitHumanID, int ShothumanT
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, str_color);
 }
 
-//! @brief l‚ª‘h¶‚µ‚½
-//! @param humanID l‚ÌID
-//! @param TeamID ƒ`[ƒ€”Ô†
-//! @param PlayerTeamID ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†
+//! @brief äººãŒè˜‡ç”Ÿã—ãŸ
+//! @param humanID äººã®ID
+//! @param TeamID ãƒãƒ¼ãƒ ç•ªå·
+//! @param PlayerTeamID ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·
 void ObjectManagerLog::ReviveHuman(int humanID, int TeamID, int PlayerTeamID)
 {
 	char str[64];
 	int str_color;
 
-	//•¶š‚ÌF‚ğŒˆ’è
+	//æ–‡å­—ã®è‰²ã‚’æ±ºå®š
 	if( PlayerTeamID == TeamID ){ str_color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f); }
 	else{ str_color = d3dg->GetColorCode(1.0f,0.5f,0.0f,1.0f); }
 
@@ -3280,8 +3280,8 @@ void ObjectManagerLog::ReviveHuman(int humanID, int TeamID, int PlayerTeamID)
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, str_color);
 }
 
-//! @brief ¬•¨‚ğ’Ç‰Á‚µ‚½
-//! @param objID ¬•¨‚ÌID
+//! @brief å°ç‰©ã‚’è¿½åŠ ã—ãŸ
+//! @param objID å°ç‰©ã®ID
 void ObjectManagerLog::AddSmallObject(int objID)
 {
 	char str[64];
@@ -3289,8 +3289,8 @@ void ObjectManagerLog::AddSmallObject(int objID)
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f));
 }
 
-//! @brief ¬•¨‚ğ”j‰ó‚µ‚½
-//! @param objID ¬•¨‚ÌID
+//! @brief å°ç‰©ã‚’ç ´å£Šã—ãŸ
+//! @param objID å°ç‰©ã®ID
 void ObjectManagerLog::BreakSmallObject(int objID)
 {
 	char str[64];
@@ -3298,16 +3298,16 @@ void ObjectManagerLog::BreakSmallObject(int objID)
 	AddTextLog(MAX_OBJECTMANAGER_LOGCNT, str, d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f));
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒO’Ç‰Á
-//! @param cnt •`‰æƒtƒŒ[ƒ€”
-//! @param str •¶š—ñ@i‰üsƒR[ƒhF<b>•s‰Â</b>j
-//! @param color F
-//! @return 1sã‘‚«Ftrue@’Ç‰Á‚Ì‚İFfalse
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°è¿½åŠ 
+//! @param cnt æç”»ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+//! @param str æ–‡å­—åˆ—ã€€ï¼ˆæ”¹è¡Œã‚³ãƒ¼ãƒ‰ï¼š<b>ä¸å¯</b>ï¼‰
+//! @param color è‰²
+//! @return 1è¡Œä¸Šæ›¸ãï¼štrueã€€è¿½åŠ ã®ã¿ï¼šfalse
 bool ObjectManagerLog::AddTextLog(int cnt, const char *str, int color)
 {
 	if( str == NULL ){ return false; }
 
-	//‹ó‚¢‚Ä‚¢‚és‚ª‚ ‚é‚È‚çA‚»‚Ìs‚É‘‚¢‚ÄI—¹
+	//ç©ºã„ã¦ã„ã‚‹è¡ŒãŒã‚ã‚‹ãªã‚‰ã€ãã®è¡Œã«æ›¸ã„ã¦çµ‚äº†
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN; i++){
 		if( TextCnt[i] == -1 ){
 			TextCnt[i] = cnt;
@@ -3317,24 +3317,24 @@ bool ObjectManagerLog::AddTextLog(int cnt, const char *str, int color)
 		}
 	}
 
-	//‹ó‚¢‚Ä‚¢‚és‚ª‚È‚¯‚ê‚ÎA1s‚Ã‚Â‹l‚ß‚é
+	//ç©ºã„ã¦ã„ã‚‹è¡ŒãŒãªã‘ã‚Œã°ã€1è¡Œã¥ã¤è©°ã‚ã‚‹
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN-1; i++){
 		TextCnt[i] = TextCnt[i+1];
 		strcpy(TextStr[i], TextStr[i+1]);
 		TextColor[i] = TextColor[i+1];
 	}
 
-	//ÅŒã‚Ìs‚É‘‚­
+	//æœ€å¾Œã®è¡Œã«æ›¸ã
 	TextCnt[MAX_OBJECTMANAGER_LOGLEN-1] = cnt;
 	strcpy(TextStr[MAX_OBJECTMANAGER_LOGLEN-1], str);
 	TextColor[MAX_OBJECTMANAGER_LOGLEN-1] = color;
 	return true;
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒO‚ÌåŒvZˆ—
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®ä¸»è¨ˆç®—å‡¦ç†
 void ObjectManagerLog::Process()
 {
-	//Šes‚²‚Æ‚ÉƒJƒEƒ“ƒgˆ—
+	//å„è¡Œã”ã¨ã«ã‚«ã‚¦ãƒ³ãƒˆå‡¦ç†
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN; i++){
 		if( TextCnt[i] == 0 ){
 			TextCnt[i] = -1;
@@ -3346,7 +3346,7 @@ void ObjectManagerLog::Process()
 		}
 	}
 
-	//ƒ[ƒƒJƒEƒ“ƒg‚Ìs‚ğ‹l‚ß‚é
+	//ã‚¼ãƒ­ã‚«ã‚¦ãƒ³ãƒˆã®è¡Œã‚’è©°ã‚ã‚‹
 	for(int i=0; i<MAX_OBJECTMANAGER_LOGLEN-1; i++){
 		if( TextCnt[i] == 0 ){
 			for(int j=i; j<MAX_OBJECTMANAGER_LOGLEN-1; j++){
@@ -3355,7 +3355,7 @@ void ObjectManagerLog::Process()
 				TextColor[j] = TextColor[j+1];
 			}
 
-			//ÅŒã‚Ìs‚Í‹ós‚É
+			//æœ€å¾Œã®è¡Œã¯ç©ºè¡Œã«
 			TextCnt[MAX_OBJECTMANAGER_LOGLEN-1] = -1;
 			TextStr[MAX_OBJECTMANAGER_LOGLEN-1][0] = '\0';
 			TextColor[MAX_OBJECTMANAGER_LOGLEN-1] = 0;
@@ -3363,10 +3363,10 @@ void ObjectManagerLog::Process()
 	}
 }
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒO‚Ì•`‰æˆ—
-//! @param x ¶ã‚Ì xÀ•W
-//! @param y ¶ã‚Ì yÀ•W
-//! @attention ã‚©‚ç‹t‡‚Å•`‰æ‚³‚ê‚Ü‚·B
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®æç”»å‡¦ç†
+//! @param x å·¦ä¸Šã® xåº§æ¨™
+//! @param y å·¦ä¸Šã® yåº§æ¨™
+//! @attention ä¸Šã‹ã‚‰é€†é †ã§æç”»ã•ã‚Œã¾ã™ã€‚
 void ObjectManagerLog::Render(int x, int y)
 {
 #ifdef ENABLE_DEBUGCONSOLE

@@ -1,5 +1,5 @@
 //! @file debug.cpp
-//! @brief DebugLogƒNƒ‰ƒX‚Ì’è‹`
+//! @brief DebugLogã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -33,10 +33,10 @@
 
 #ifdef ENABLE_DEBUGLOG
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DebugLog::DebugLog()
 {
-	//ƒtƒ@ƒCƒ‹–¼‚ğ¶¬
+	//ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ç”Ÿæˆ
 	char time[32];
 	GetTimeName(time);
 	sprintf(fname, GAMENAME"_log-%s.html", time);
@@ -45,10 +45,10 @@ DebugLog::DebugLog()
 	error = false;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DebugLog::~DebugLog()
 {
-	//o—Íƒtƒ‰ƒO‚ğ—LŒø‚È‚ç‚ÎAƒtƒ@ƒCƒ‹‚Éƒtƒbƒ^[‚ğ’Ç‰Á
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ãªã‚‰ã°ã€ãƒ•ã‚¡ã‚¤ãƒ«ã«ãƒ•ãƒƒã‚¿ãƒ¼ã‚’è¿½åŠ 
 	if( OutputFlag == true ){
 		FILE *fp;
 
@@ -63,28 +63,28 @@ DebugLog::~DebugLog()
 	}
 }
 
-//! @brief ƒƒOƒtƒ@ƒCƒ‹‚Ìo—Í‚ğ—LŒø‰»
-//! @warning ‚±‚ÌŠÖ”‚ğÀs‚µ‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª“®ì‚µ‚Ü‚¹‚ñB
+//! @brief ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®å‡ºåŠ›ã‚’æœ‰åŠ¹åŒ–
+//! @warning ã“ã®é–¢æ•°ã‚’å®Ÿè¡Œã—ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒå‹•ä½œã—ã¾ã›ã‚“ã€‚
 void DebugLog::EnableOutputLog()
 {
-	//o—Íƒtƒ‰ƒO‚ğ—LŒø
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹
 	OutputFlag = true;
 }
 
-//! @brief ƒƒOƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹–¼‚ğ•ÏX
-//! @param name ƒtƒ@ƒCƒ‹–¼
+//! @brief ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å¤‰æ›´
+//! @param name ãƒ•ã‚¡ã‚¤ãƒ«å
 void DebugLog::SetLogName(const char* name)
 {
 	strcpy(fname, name);
 }
 
-//! @brief ƒƒOƒtƒ@ƒCƒ‹‚ğV‹Kì¬
-//! @return ¬Œ÷Ffalse@¸”s:true
-//! @warning EnableOutputLog()ŠÖ”ÀsŒã‚ÉA‚±‚ÌŠÖ”‚ğÀs‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-//! @attention Šù‚Éƒtƒ@ƒCƒ‹‚ª‘¶İ‚·‚éê‡Aã‘‚«•Û‘¶‚³‚ê‚Ü‚·BŠù‘¶‚Ìƒtƒ@ƒCƒ‹‚Í¸‚í‚ê‚Ü‚·B
+//! @brief ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ–°è¦ä½œæˆ
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—:true
+//! @warning EnableOutputLog()é–¢æ•°å®Ÿè¡Œå¾Œã«ã€ã“ã®é–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+//! @attention æ—¢ã«ãƒ•ã‚¡ã‚¤ãƒ«ãŒå­˜åœ¨ã™ã‚‹å ´åˆã€ä¸Šæ›¸ãä¿å­˜ã•ã‚Œã¾ã™ã€‚æ—¢å­˜ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯å¤±ã‚ã‚Œã¾ã™ã€‚
 bool DebugLog::MakeLog()
 {
-	//o—Íƒtƒ‰ƒO‚ª—LŒø‚Å‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ã§ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 	if( OutputFlag == false ){ return true; }
 
 	FILE *fp;
@@ -92,7 +92,7 @@ bool DebugLog::MakeLog()
 	time_t timer;
 	struct tm *local;
 
-	//“ú‚ğæ“¾
+	//æ—¥æ™‚ã‚’å–å¾—
 	timer = time(NULL);
 	local = localtime(&timer);
 
@@ -100,7 +100,7 @@ bool DebugLog::MakeLog()
 	fp = fopen(fname, "w");
 	if( fp == NULL ){ return true; }
 
-	//ƒwƒbƒ_[
+	//ãƒ˜ãƒƒãƒ€ãƒ¼
 	fprintf(fp, "<html>\n");
 	fprintf(fp, "<head>\n");
 	fprintf(fp, "<title>%s %s Debug Log</title>\n", GAMENAME, GAMEVERSION);
@@ -114,7 +114,7 @@ bool DebugLog::MakeLog()
 
 	fprintf(fp, "<body>\n");
 
-	//ƒy[ƒWã•”
+	//ãƒšãƒ¼ã‚¸ä¸Šéƒ¨
 	fprintf(fp, "<p>\n");
 	fprintf(fp, "<b>%s %s Debug Log</b><br>\n", GAMENAME, GAMEVERSION);
 	fprintf(fp, "Date and time : %04d-%02d-%02d %02d:%02d:%02d<br>\n", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday, local->tm_hour, local->tm_min, local->tm_sec);
@@ -126,45 +126,45 @@ bool DebugLog::MakeLog()
 
 	fclose(fp);
 
-	//o—Íƒtƒ‰ƒO‚ğ—LŒø
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹
 	//OutputFlag = true;
 
 	return false;
 }
 
-//! @brief ƒƒOƒtƒ@ƒCƒ‹‚É’Ç‹L
-//! @param tag o—Íƒ‚[ƒh‚ğ•\‚·’è”
-//! @param title ƒ^ƒCƒgƒ‹
+//! @brief ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã«è¿½è¨˜
+//! @param tag å‡ºåŠ›ãƒ¢ãƒ¼ãƒ‰ã‚’è¡¨ã™å®šæ•°
+//! @param title ã‚¿ã‚¤ãƒˆãƒ«
 //! @param id ID
-//! @return ¬Œ÷Ffalse@¸”s:true
-//! @attention WriteLog(int tag, const char* title, const char* text)ŠÖ”‚ğƒI[ƒo[ƒ[ƒh‚µ‚Ü‚·B
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—:true
+//! @attention WriteLog(int tag, const char* title, const char* text)é–¢æ•°ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
 bool DebugLog::WriteLog(int tag, const char* title, int id)
 {
 	if( title == NULL ){ return true; }
 
-	//o—Íƒtƒ‰ƒO‚ğ—LŒø‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 	if( OutputFlag == false ){ return true; }
 
 	char str[16];
-	sprintf(str, "IDF%d", id);
+	sprintf(str, "IDï¼š%d", id);
 
-	//ƒI[ƒo[ƒ[ƒh
+	//ã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰
 	return WriteLog(tag, title, str);
 }
 
-//! @brief ƒƒOƒtƒ@ƒCƒ‹‚É’Ç‹L
-//! @param tag o—Íƒ‚[ƒh‚ğ•\‚·’è”
-//! @param title ƒ^ƒCƒgƒ‹
-//! @param text –{•¶
-//! @return ¬Œ÷Ffalse@¸”s:true
-//! @attention ‘O‰ñA‰Šú‰»iLOG_INITj‚©“Ç‚İ‚İiLOG_LOADj‚ªw’è‚³‚ê‚½ó‘Ô‚ÅAŠ®—¹iLOG_COMPLETEj‚ªw’è‚³‚ê‚È‚©‚Á‚½ê‡Aæ‚ÉƒGƒ‰[iLOG_ERRORjî•ñ‚ğ‹L‰¯‚µ‚Ü‚·B
-//! @attention ‚·‚È‚í‚¿A‰Šú‰»‚©“Ç‚İ‚İ‚ğ‹L˜^‚µ‚½ê‡AŸ‚ÉŠ®—¹‚ª‹L˜^‚³‚ê‚È‚¯‚ê‚ÎA©“®“I‚ÉƒGƒ‰[‚Æ‚µ‚Ä‹L˜^‚µ‚Ü‚·B
+//! @brief ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«ã«è¿½è¨˜
+//! @param tag å‡ºåŠ›ãƒ¢ãƒ¼ãƒ‰ã‚’è¡¨ã™å®šæ•°
+//! @param title ã‚¿ã‚¤ãƒˆãƒ«
+//! @param text æœ¬æ–‡
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—:true
+//! @attention å‰å›ã€åˆæœŸåŒ–ï¼ˆLOG_INITï¼‰ã‹èª­ã¿è¾¼ã¿ï¼ˆLOG_LOADï¼‰ãŒæŒ‡å®šã•ã‚ŒãŸçŠ¶æ…‹ã§ã€å®Œäº†ï¼ˆLOG_COMPLETEï¼‰ãŒæŒ‡å®šã•ã‚Œãªã‹ã£ãŸå ´åˆã€å…ˆã«ã‚¨ãƒ©ãƒ¼ï¼ˆLOG_ERRORï¼‰æƒ…å ±ã‚’è¨˜æ†¶ã—ã¾ã™ã€‚
+//! @attention ã™ãªã‚ã¡ã€åˆæœŸåŒ–ã‹èª­ã¿è¾¼ã¿ã‚’è¨˜éŒ²ã—ãŸå ´åˆã€æ¬¡ã«å®Œäº†ãŒè¨˜éŒ²ã•ã‚Œãªã‘ã‚Œã°ã€è‡ªå‹•çš„ã«ã‚¨ãƒ©ãƒ¼ã¨ã—ã¦è¨˜éŒ²ã—ã¾ã™ã€‚
 bool DebugLog::WriteLog(int tag, const char* title, const char* text)
 {
 	if( title == NULL ){ return true; }
 	if( text == NULL ){ return true; }
 
-	//o—Íƒtƒ‰ƒO‚ğ—LŒø‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+	//å‡ºåŠ›ãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
 	if( OutputFlag == false ){ return true; }
 
 	FILE *fp;
@@ -172,18 +172,18 @@ bool DebugLog::WriteLog(int tag, const char* title, const char* text)
 	char tagcolor[32];
 	char tagstr[32];
 
-	//Š®—¹î•ñ‚©‘f’¼‚ÉƒGƒ‰[‚ğ“`‚¦‚Ä‚«‚½‚È‚çAƒGƒ‰[ƒtƒ‰ƒO‚ğ‰º‚·
+	//å®Œäº†æƒ…å ±ã‹ç´ ç›´ã«ã‚¨ãƒ©ãƒ¼ã‚’ä¼ãˆã¦ããŸãªã‚‰ã€ã‚¨ãƒ©ãƒ¼ãƒ•ãƒ©ã‚°ã‚’ä¸‹ã™
 	if( (tag == LOG_COMPLETE)||(tag == LOG_ERROR) ){
 		error = false;
 	}
 
-	//ƒGƒ‰[ƒtƒ‰ƒO‚ª—LŒø‚È‚ç‚ÎAƒGƒ‰[‚ª”­¶‚µ‚½‚à‚Ì‚Æ‚µ‚Ä‹L˜^B
+	//ã‚¨ãƒ©ãƒ¼ãƒ•ãƒ©ã‚°ãŒæœ‰åŠ¹ãªã‚‰ã°ã€ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ãŸã‚‚ã®ã¨ã—ã¦è¨˜éŒ²ã€‚
 	if( error == true ){
 		error = false;
 		WriteLog(LOG_ERROR, "", "");
 	}
 
-	//’è”‚©‚ç•¶š‚ÆF‚ğ‹‚ß‚é
+	//å®šæ•°ã‹ã‚‰æ–‡å­—ã¨è‰²ã‚’æ±‚ã‚ã‚‹
 	switch(tag){
 		case LOG_CHECK:
 			strcpy(tagcolor, "008000");
@@ -217,16 +217,16 @@ bool DebugLog::WriteLog(int tag, const char* title, const char* text)
 	fp = fopen(fname, "a");
 	if( fp == NULL ){ return true; }
 
-	//Œ»İ‚Ìƒ~ƒŠ•b
-	fprintf(fp, "<tr><td>@%u@</td>", GetTimeMS());
+	//ç¾åœ¨ã®ãƒŸãƒªç§’
+	fprintf(fp, "<tr><td>ã€€%uã€€</td>", GetTimeMS());
 
 	if( (tag != LOG_COMPLETE)&&(tag != LOG_ERROR) ){
-		//’Êí‚Ìî•ñ
+		//é€šå¸¸ã®æƒ…å ±
 		fprintf(fp, "<td width=100><b><font color=#%s>%s</font></b></td>", tagcolor, tagstr);
 		fprintf(fp, "<td width=100>%s</td><td colspan=3>%s</td>", title, text);
 	}
 	else{
-		//Š®—¹EƒGƒ‰[î•ñ
+		//å®Œäº†ãƒ»ã‚¨ãƒ©ãƒ¼æƒ…å ±
 		fprintf(fp, "<td colspan=2></td><td width=100><b><font color=#%s>%s</font></b></td>", tagcolor, tagstr);
 		fprintf(fp, "<td>%s</td><td>%s</td>", title, text);
 	}
@@ -235,7 +235,7 @@ bool DebugLog::WriteLog(int tag, const char* title, const char* text)
 
 	fclose(fp);
 
-	//‰Šú‰»‚©“Ç‚İ‚İ‚È‚çAƒGƒ‰[ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+	//åˆæœŸåŒ–ã‹èª­ã¿è¾¼ã¿ãªã‚‰ã€ã‚¨ãƒ©ãƒ¼ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
 	if( (tag == LOG_INIT)||(tag == LOG_LOAD) ){
 		error = true;
 	}

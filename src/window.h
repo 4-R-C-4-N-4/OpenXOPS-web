@@ -1,5 +1,5 @@
 //! @file window.h
-//! @brief window.cppŠÖŒW‚Ìƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+//! @brief window.cppé–¢ä¿‚ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,7 +32,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-class WindowControl;	//ƒvƒƒgƒ^ƒCƒvéŒ¾
+class WindowControl;	//ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 1		//!< Select include file.
@@ -45,13 +45,13 @@ class WindowControl;	//ƒvƒƒgƒ^ƒCƒvéŒ¾
 
 #pragma comment(lib, "winmm.lib")
 
-//! @brief ƒEƒBƒ“ƒhƒE§ŒäƒNƒ‰ƒX
-//! @details ƒQ[ƒ€‰æ–Ê‚ğ•\¦‚·‚éƒEƒBƒ“ƒhƒE‚ğ§Œä‚µŠÇ—‚µ‚Ü‚·B
+//! @brief ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
+//! @details ã‚²ãƒ¼ãƒ ç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆ¶å¾¡ã—ç®¡ç†ã—ã¾ã™ã€‚
 class WindowControl
 {
-	HINSTANCE hInstance;	//!< ƒCƒ“ƒXƒ^ƒ“ƒX ƒnƒ“ƒhƒ‹
-	int nCmdShow;			//!< ƒEƒBƒ“ƒhƒE‚Ì•\¦ó‘Ô
-	HWND hWnd;				//!< ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+	HINSTANCE hInstance;	//!< ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ ãƒãƒ³ãƒ‰ãƒ«
+	int nCmdShow;			//!< ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºçŠ¶æ…‹
+	HWND hWnd;				//!< ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 
 	static LRESULT WINAPI WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

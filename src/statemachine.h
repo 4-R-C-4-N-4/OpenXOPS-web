@@ -1,5 +1,5 @@
 //! @file statemachine.h
-//! @brief StateMachineƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief StateMachineã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -37,36 +37,36 @@
 #endif
 #include "main.h"
 
-//! ó‘Ô‚ğ•\‚·’è”
+//! çŠ¶æ…‹ã‚’è¡¨ã™å®šæ•°
 enum State
 {
-	STATE_NULL = 0,			//!< mƒGƒ‰[n–³Œø‚Èó‘Ô
-	STATE_CREATE_OPENING,	//!< ƒI[ƒvƒjƒ“ƒO‰æ–Ê ‰Šú‰»E€”õ
-	STATE_NOW_OPENING,		//!< ƒI[ƒvƒjƒ“ƒO‰æ–Ê Às’†
-	STATE_DESTROY_OPENING,	//!< ƒI[ƒvƒjƒ“ƒO‰æ–Ê I—¹E”pŠü
-	STATE_CREATE_MENU,		//!< ƒƒjƒ…[‰æ–Ê ‰Šú‰»E€”õ
-	STATE_NOW_MENU,			//!< ƒƒjƒ…[‰æ–Ê Às’†
-	STATE_DESTROY_MENU,		//!< ƒƒjƒ…[‰æ–Ê I—¹E”pŠü
-	STATE_CREATE_BRIEFING,	//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ–Ê ‰Šú‰»E€”õ
-	STATE_NOW_BRIEFING,		//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ–Ê Às’†
-	STATE_DESTROY_BRIEFING,	//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ–Ê I—¹E”pŠü
-	STATE_CREATE_MAINGAME,	//!< ƒƒCƒ“‰æ–Ê ‰Šú‰»E€”õ
-	STATE_NOW_MAINGAME,		//!< ƒƒCƒ“‰æ–Ê Às’†
-	STATE_DESTROY_MAINGAME,	//!< ƒƒCƒ“‰æ–Ê I—¹E”pŠü
-	STATE_CREATE_RESULT,	//!< Œ‹‰Ê•\¦‰æ–Ê ‰Šú‰»E€”õ
-	STATE_NOW_RESULT,		//!< Œ‹‰Ê•\¦‰æ–Ê Às’†
-	STATE_DESTROY_RESULT,	//!< Œ‹‰Ê•\¦‰æ–Ê I—¹E”pŠü
-	STATE_EXIT				//!< ƒQ[ƒ€I—¹
+	STATE_NULL = 0,			//!< ï¼»ã‚¨ãƒ©ãƒ¼ï¼½ç„¡åŠ¹ãªçŠ¶æ…‹
+	STATE_CREATE_OPENING,	//!< ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ç”»é¢ åˆæœŸåŒ–ãƒ»æº–å‚™
+	STATE_NOW_OPENING,		//!< ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ç”»é¢ å®Ÿè¡Œä¸­
+	STATE_DESTROY_OPENING,	//!< ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ç”»é¢ çµ‚äº†ãƒ»å»ƒæ£„
+	STATE_CREATE_MENU,		//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ åˆæœŸåŒ–ãƒ»æº–å‚™
+	STATE_NOW_MENU,			//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ å®Ÿè¡Œä¸­
+	STATE_DESTROY_MENU,		//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ çµ‚äº†ãƒ»å»ƒæ£„
+	STATE_CREATE_BRIEFING,	//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»é¢ åˆæœŸåŒ–ãƒ»æº–å‚™
+	STATE_NOW_BRIEFING,		//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»é¢ å®Ÿè¡Œä¸­
+	STATE_DESTROY_BRIEFING,	//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»é¢ çµ‚äº†ãƒ»å»ƒæ£„
+	STATE_CREATE_MAINGAME,	//!< ãƒ¡ã‚¤ãƒ³ç”»é¢ åˆæœŸåŒ–ãƒ»æº–å‚™
+	STATE_NOW_MAINGAME,		//!< ãƒ¡ã‚¤ãƒ³ç”»é¢ å®Ÿè¡Œä¸­
+	STATE_DESTROY_MAINGAME,	//!< ãƒ¡ã‚¤ãƒ³ç”»é¢ çµ‚äº†ãƒ»å»ƒæ£„
+	STATE_CREATE_RESULT,	//!< çµæœè¡¨ç¤ºç”»é¢ åˆæœŸåŒ–ãƒ»æº–å‚™
+	STATE_NOW_RESULT,		//!< çµæœè¡¨ç¤ºç”»é¢ å®Ÿè¡Œä¸­
+	STATE_DESTROY_RESULT,	//!< çµæœè¡¨ç¤ºç”»é¢ çµ‚äº†ãƒ»å»ƒæ£„
+	STATE_EXIT				//!< ã‚²ãƒ¼ãƒ çµ‚äº†
 };
 
-//! @brief ó‘Ô‘JˆÚƒNƒ‰ƒX
-//! @details ƒQ[ƒ€‘S‘Ì‚Ì‰æ–Ê‘JˆÚ‚ÉŠÖ‚í‚éŠÇ—‚ğs‚¢‚Ü‚·B
+//! @brief çŠ¶æ…‹é·ç§»ã‚¯ãƒ©ã‚¹
+//! @details ã‚²ãƒ¼ãƒ å…¨ä½“ã®ç”»é¢é·ç§»ã«é–¢ã‚ã‚‹ç®¡ç†ã‚’è¡Œã„ã¾ã™ã€‚
 class StateMachine
 {
-	int StateMode;	//!< ó‘Ô‘JˆÚƒ‚[ƒh
-	int NowState;	//!< Œ»İ‚ÌƒXƒe[ƒg
-	bool back;		//!< ESCƒL[‚ª‰Ÿ‚³‚ê‚½
-	bool f12;		//!< F12ƒL[‚ª‰Ÿ‚³‚ê‚½
+	int StateMode;	//!< çŠ¶æ…‹é·ç§»ãƒ¢ãƒ¼ãƒ‰
+	int NowState;	//!< ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
+	bool back;		//!< ESCã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
+	bool f12;		//!< F12ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸ
 
 public:
 	StateMachine();

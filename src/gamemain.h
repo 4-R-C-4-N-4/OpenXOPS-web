@@ -1,5 +1,5 @@
 //! @file gamemain.h
-//! @brief ƒQ[ƒ€ƒƒCƒ“ˆ—‚Ìƒwƒbƒ_[
+//! @brief ã‚²ãƒ¼ãƒ ãƒ¡ã‚¤ãƒ³å‡¦ç†ã®ãƒ˜ãƒƒãƒ€ãƒ¼
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,34 +32,34 @@
 #ifndef GAMEMAIN_H
 #define GAMEMAIN_H
 
-#define MAINMENU_X (GameConfig.GetScreenWidth() - 360)	//!< ƒƒjƒ…[‚Ì•\¦ XÀ•Wi¶ãŠî€j
-#define MAINMENU_Y (GameConfig.GetScreenHeight() - 340)	//!< ƒƒjƒ…[‚Ì•\¦ YÀ•WiVj
-#define TOTAL_MENUITEMS 8								//!< ƒƒjƒ…[1‰æ–Ê‚É•\¦‚·‚éƒ~ƒbƒVƒ‡ƒ“”
-#define MAINMENU_H (TOTAL_MENUITEMS+2)*30 + 25			//!< ƒƒjƒ…[‚Ì•\¦ƒTƒCƒYE‚‚³
-#define MAINMENU_OPTION_X 10							//!< ƒƒjƒ…[‚Ì•\¦ ƒIƒvƒVƒ‡ƒ“€–ÚƒŠƒ“ƒN‚ÌXÀ•Wi¶ãŠî€j
-#define MAINMENU_OPTION_Y (MAINMENU_Y+MAINMENU_H - 16)	//!< ƒƒjƒ…[‚Ì•\¦ ƒIƒvƒVƒ‡ƒ“€–ÚƒŠƒ“ƒN‚ÌYÀ•WiVj
+#define MAINMENU_X (GameConfig.GetScreenWidth() - 360)	//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤º Xåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+#define MAINMENU_Y (GameConfig.GetScreenHeight() - 340)	//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤º Yåº§æ¨™ï¼ˆã€ƒï¼‰
+#define TOTAL_MENUITEMS 8								//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼1ç”»é¢ã«è¡¨ç¤ºã™ã‚‹ãƒŸãƒƒã‚·ãƒ§ãƒ³æ•°
+#define MAINMENU_H (TOTAL_MENUITEMS+2)*30 + 25			//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤ºã‚µã‚¤ã‚ºãƒ»é«˜ã•
+#define MAINMENU_OPTION_X 10							//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤º ã‚ªãƒ—ã‚·ãƒ§ãƒ³é …ç›®ãƒªãƒ³ã‚¯ã®Xåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+#define MAINMENU_OPTION_Y (MAINMENU_Y+MAINMENU_H - 16)	//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è¡¨ç¤º ã‚ªãƒ—ã‚·ãƒ§ãƒ³é …ç›®ãƒªãƒ³ã‚¯ã®Yåº§æ¨™ï¼ˆã€ƒï¼‰
 
-#define INPUT_ARROWKEYS_ANGLE DegreeToRadian(4)		//!< •ûŒüƒL[‚Å‚Ì‰ñ“]Šp“x
-#define INPUT_F1NUMKEYS_ANGLE DegreeToRadian(2)		//!< OlÌ‹“_‚Å‚Ìƒeƒ“ƒL[‚Ì‰ñ“]Šp“x
+#define INPUT_ARROWKEYS_ANGLE DegreeToRadian(4)		//!< æ–¹å‘ã‚­ãƒ¼ã§ã®å›è»¢è§’åº¦
+#define INPUT_F1NUMKEYS_ANGLE DegreeToRadian(2)		//!< ä¸‰äººç§°è¦–ç‚¹ã§ã®ãƒ†ãƒ³ã‚­ãƒ¼ã®å›è»¢è§’åº¦
 
-#define HUDA_WEAPON_POSX (GameConfig.GetScreenWidth() - 255)	//!< •Šíî•ñ‚ğ•`‰æ‚·‚é—ÌˆæEXÀ•W
-#define HUDA_WEAPON_POSY (GameConfig.GetScreenHeight() - 98)	//!< •Šíî•ñ‚ğ•`‰æ‚·‚é—ÌˆæEYÀ•W
-#define HUDA_WEAPON_SIZEW 8										//!< •Šíî•ñ‚ğ•`‰æ‚·‚é—ÌˆæE‰¡ƒTƒCƒYi32ƒsƒNƒZƒ‹‚Ì”z’uŒÂ”j
-#define HUDA_WEAPON_SIZEH 3										//!< •Šíî•ñ‚ğ•`‰æ‚·‚é—ÌˆæEcƒTƒCƒYi32ƒsƒNƒZƒ‹‚Ì”z’uŒÂ”j
+#define HUDA_WEAPON_POSX (GameConfig.GetScreenWidth() - 255)	//!< æ­¦å™¨æƒ…å ±ã‚’æç”»ã™ã‚‹é ˜åŸŸãƒ»Xåº§æ¨™
+#define HUDA_WEAPON_POSY (GameConfig.GetScreenHeight() - 98)	//!< æ­¦å™¨æƒ…å ±ã‚’æç”»ã™ã‚‹é ˜åŸŸãƒ»Yåº§æ¨™
+#define HUDA_WEAPON_SIZEW 8										//!< æ­¦å™¨æƒ…å ±ã‚’æç”»ã™ã‚‹é ˜åŸŸãƒ»æ¨ªã‚µã‚¤ã‚ºï¼ˆ32ãƒ”ã‚¯ã‚»ãƒ«ã®é…ç½®å€‹æ•°ï¼‰
+#define HUDA_WEAPON_SIZEH 3										//!< æ­¦å™¨æƒ…å ±ã‚’æç”»ã™ã‚‹é ˜åŸŸãƒ»ç¸¦ã‚µã‚¤ã‚ºï¼ˆ32ãƒ”ã‚¯ã‚»ãƒ«ã®é…ç½®å€‹æ•°ï¼‰
 
-#define VIEW_HEIGHT 19.0f							//!< ‹“_‚Ì‚‚³
-#define VIEW_DIST 0.1f								//!< ’†S‚©‚ç‹“_‚Ü‚Å‚Ì‹——£
-#define VIEW_F1MODE_ANGLE DegreeToRadian(-22.5f)	//!< OlÌ‹“_‚Å‚Ì‹“_Šp“xi‰Šúj
-#define VIEW_F1MODE_DIST 14.0f						//!< OlÌ‹“_‚Å‚Ì‹“_‹——£iÅ‘åj
-#define VIEW_FREECAMERA_SCALE 1.5f					//!< ƒtƒŠ[ƒJƒƒ‰‚Å‚ÌˆÚ“®‘¬“xi‚‘¬ƒ‚[ƒh‚Í~2j
-#define VIEWANGLE_NORMAL DegreeToRadian(65)			//!< •W€“I‚È‹–ìŠp
+#define VIEW_HEIGHT 19.0f							//!< è¦–ç‚¹ã®é«˜ã•
+#define VIEW_DIST 0.1f								//!< ä¸­å¿ƒã‹ã‚‰è¦–ç‚¹ã¾ã§ã®è·é›¢
+#define VIEW_F1MODE_ANGLE DegreeToRadian(-22.5f)	//!< ä¸‰äººç§°è¦–ç‚¹ã§ã®è¦–ç‚¹è§’åº¦ï¼ˆåˆæœŸï¼‰
+#define VIEW_F1MODE_DIST 14.0f						//!< ä¸‰äººç§°è¦–ç‚¹ã§ã®è¦–ç‚¹è·é›¢ï¼ˆæœ€å¤§ï¼‰
+#define VIEW_FREECAMERA_SCALE 1.5f					//!< ãƒ•ãƒªãƒ¼ã‚«ãƒ¡ãƒ©ã§ã®ç§»å‹•é€Ÿåº¦ï¼ˆé«˜é€Ÿãƒ¢ãƒ¼ãƒ‰ã¯Ã—2ï¼‰
+#define VIEWANGLE_NORMAL DegreeToRadian(65)			//!< æ¨™æº–çš„ãªè¦–é‡è§’
 
-#define TOTAL_EVENTLINE 3				//!< ƒCƒxƒ“ƒg‚Ìƒ‰ƒCƒ“”
-#define TOTAL_EVENTENTRYPOINT_0 -100	//!< ƒ‰ƒCƒ“ 0 ‚ÌŠJn¯•Ê”Ô†
-#define TOTAL_EVENTENTRYPOINT_1 -110	//!< ƒ‰ƒCƒ“ 1 ‚ÌŠJn¯•Ê”Ô†
-#define TOTAL_EVENTENTRYPOINT_2 -120	//!< ƒ‰ƒCƒ“ 2 ‚ÌŠJn¯•Ê”Ô†
+#define TOTAL_EVENTLINE 3				//!< ã‚¤ãƒ™ãƒ³ãƒˆã®ãƒ©ã‚¤ãƒ³æ•°
+#define TOTAL_EVENTENTRYPOINT_0 -100	//!< ãƒ©ã‚¤ãƒ³ 0 ã®é–‹å§‹è­˜åˆ¥ç•ªå·
+#define TOTAL_EVENTENTRYPOINT_1 -110	//!< ãƒ©ã‚¤ãƒ³ 1 ã®é–‹å§‹è­˜åˆ¥ç•ªå·
+#define TOTAL_EVENTENTRYPOINT_2 -120	//!< ãƒ©ã‚¤ãƒ³ 2 ã®é–‹å§‹è­˜åˆ¥ç•ªå·
 
-#define TOTAL_EVENTENT_SHOWMESSEC 5.0f		//!< ƒCƒxƒ“ƒgƒƒbƒZ[ƒW‚ğ•\¦‚·‚é•b”
+#define TOTAL_EVENTENT_SHOWMESSEC 5.0f		//!< ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã™ã‚‹ç§’æ•°
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 3		//!< Select include file.
@@ -67,84 +67,84 @@
 #include "main.h"
 
 #ifdef ENABLE_MENUOPTIONS
- #define OPTIONS_P1_W 340															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@•
- #define OPTIONS_P1_H (30*6)														//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@‚‚³
- #define OPTIONS_P1_X (GameConfig.GetScreenWidth() - 360)							//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@XÀ•W
- #define OPTIONS_P1_Y (MAINMENU_Y+MAINMENU_H - OPTIONS_P1_H - 24)					//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@YÀ•W
- #define OPTIONS_P1_DATAS 3															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@ƒŠƒ“ƒNƒeƒLƒXƒg‚Ì”
- #define OPTIONS_P2_W 600															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@•
- #define OPTIONS_P2_H 360															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@‚‚³
- #define OPTIONS_P2_X ((GameConfig.GetScreenWidth() - OPTIONS_P2_W)/2)				//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@XÀ•W
- #define OPTIONS_P2_Y (105 + (GameConfig.GetScreenHeight()-105 - OPTIONS_P2_H)/2)	//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@YÀ•W
- #define OPTIONS_P2_DATAS 32														//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@ƒŠƒ“ƒNƒeƒLƒXƒg‚Ì”
- #define OPTIONS_P3_W 600															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@•
- #define OPTIONS_P3_H 320															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@‚‚³
- #define OPTIONS_P3_X ((GameConfig.GetScreenWidth() - OPTIONS_P3_W)/2)				//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@XÀ•W
- #define OPTIONS_P3_Y (105 + (GameConfig.GetScreenHeight()-105 - OPTIONS_P3_H)/2)	//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@YÀ•W
- #define OPTIONS_P3_DATAS 1															//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@ƒŠƒ“ƒNƒeƒLƒXƒg‚Ì”
+ #define OPTIONS_P1_W 340															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€å¹…
+ #define OPTIONS_P1_H (30*6)														//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€é«˜ã•
+ #define OPTIONS_P1_X (GameConfig.GetScreenWidth() - 360)							//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€Xåº§æ¨™
+ #define OPTIONS_P1_Y (MAINMENU_Y+MAINMENU_H - OPTIONS_P1_H - 24)					//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€Yåº§æ¨™
+ #define OPTIONS_P1_DATAS 3															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã®æ•°
+ #define OPTIONS_P2_W 600															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€å¹…
+ #define OPTIONS_P2_H 360															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€é«˜ã•
+ #define OPTIONS_P2_X ((GameConfig.GetScreenWidth() - OPTIONS_P2_W)/2)				//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€Xåº§æ¨™
+ #define OPTIONS_P2_Y (105 + (GameConfig.GetScreenHeight()-105 - OPTIONS_P2_H)/2)	//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€Yåº§æ¨™
+ #define OPTIONS_P2_DATAS 32														//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã®æ•°
+ #define OPTIONS_P3_W 600															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€å¹…
+ #define OPTIONS_P3_H 320															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€é«˜ã•
+ #define OPTIONS_P3_X ((GameConfig.GetScreenWidth() - OPTIONS_P3_W)/2)				//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€Xåº§æ¨™
+ #define OPTIONS_P3_Y (105 + (GameConfig.GetScreenHeight()-105 - OPTIONS_P3_H)/2)	//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€Yåº§æ¨™
+ #define OPTIONS_P3_DATAS 1															//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã®æ•°
 #if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
- #define OPTIONS_LICENSELINE 26											//!< ƒ‰ƒCƒZƒ“ƒX•¶‚Ìs”
+ #define OPTIONS_LICENSELINE 26											//!< ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã®è¡Œæ•°
 #elif GRAPHIC_ENGINE == 8
- #define OPTIONS_LICENSELINE 6											//!< ƒ‰ƒCƒZƒ“ƒX•¶‚Ìs”
+ #define OPTIONS_LICENSELINE 6											//!< ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã®è¡Œæ•°
 #endif	//GRAPHIC_ENGINE
 #endif	//ENABLE_MENUOPTIONS
 
 #ifdef ENABLE_DEBUGCONSOLE
- #define MAX_CONSOLELEN 78		//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ì•¶š”isj
- #define MAX_CONSOLELINES 12	//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ìs”
- #define CONSOLE_PROMPT ">"		//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ìƒvƒƒ“ƒvƒg
+ #define MAX_CONSOLELEN 78		//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®æ–‡å­—æ•°ï¼ˆè¡Œï¼‰
+ #define MAX_CONSOLELINES 12	//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®è¡Œæ•°
+ #define CONSOLE_PROMPT ">"		//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆ
 #endif
 
 int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath);
 void CleanupGame();
 
-//! ƒQ[ƒ€‚Ìó‘Ô‚ğó‚¯“n‚µ‚·‚é\‘¢‘Ì
+//! ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹ã‚’å—ã‘æ¸¡ã—ã™ã‚‹æ§‹é€ ä½“
 typedef struct
 {
-	int selectmission_id;	//!< ‘I‘ğ‚³‚ê‚½ƒ~ƒbƒVƒ‡ƒ“
-	char mifpath[MAX_PATH];	//!< MIFƒtƒ@ƒCƒ‹‚ÌƒpƒX
-	bool missioncomplete;	//!< ƒ~ƒbƒVƒ‡ƒ“Š®—¹
-	unsigned int framecnt;	//!< ƒtƒŒ[ƒ€”
-	int fire;		//!< ËŒ‚‰ñ”
-	float ontarget;	//!< –½’†”
-	int kill;		//!< “|‚µ‚½“G‚Ì”	
-	int headshot;	//!< “G‚Ì“ª•”‚É–½’†‚µ‚½”
+	int selectmission_id;	//!< é¸æŠã•ã‚ŒãŸãƒŸãƒƒã‚·ãƒ§ãƒ³
+	char mifpath[MAX_PATH];	//!< MIFãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
+	bool missioncomplete;	//!< ãƒŸãƒƒã‚·ãƒ§ãƒ³å®Œäº†
+	unsigned int framecnt;	//!< ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+	int fire;		//!< å°„æ’ƒå›æ•°
+	float ontarget;	//!< å‘½ä¸­æ•°
+	int kill;		//!< å€’ã—ãŸæ•µã®æ•°	
+	int headshot;	//!< æ•µã®é ­éƒ¨ã«å‘½ä¸­ã—ãŸæ•°
 } GameInfo;
 
 #ifdef ENABLE_MENUOPTIONS
-//! ƒƒjƒ…[ƒŠƒ“ƒNƒeƒLƒXƒg\‘¢‘Ì
+//! ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆæ§‹é€ ä½“
 typedef struct
 {
-	bool enable;	//!< ƒŠƒ“ƒNƒeƒLƒXƒg‚Æ‚µ‚Ä‚Ì—LŒø‰»ƒtƒ‰ƒO	
-	int pos_x;		//!< XÀ•W
-	int pos_y;		//!< YÀ•W
-	int text_w;		//!< •¶š‚Ì•
-	int text_h;		//!< •¶š‚Ì‚‚³
-	int text_defaultcolor;		//!< •W€‚Ì•¶šF
-	int text_cursorcolor;		//!< ‘I‘ğ‚Ì•¶šF
-	char text[32];				//!< ƒeƒLƒXƒg
+	bool enable;	//!< ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã¨ã—ã¦ã®æœ‰åŠ¹åŒ–ãƒ•ãƒ©ã‚°	
+	int pos_x;		//!< Xåº§æ¨™
+	int pos_y;		//!< Yåº§æ¨™
+	int text_w;		//!< æ–‡å­—ã®å¹…
+	int text_h;		//!< æ–‡å­—ã®é«˜ã•
+	int text_defaultcolor;		//!< æ¨™æº–ã®æ–‡å­—è‰²
+	int text_cursorcolor;		//!< é¸æŠæ™‚ã®æ–‡å­—è‰²
+	char text[32];				//!< ãƒ†ã‚­ã‚¹ãƒˆ
 } MenuLinkTextData;
 #endif	//ENABLE_MENUOPTIONS
 
 #ifdef ENABLE_DEBUGCONSOLE
-//! ƒRƒ“ƒ\[ƒ‹‚ğŠÇ—‚·‚é\‘¢‘Ì
+//! ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’ç®¡ç†ã™ã‚‹æ§‹é€ ä½“
 typedef struct
 {
-	int color;							//!< F
-	char textdata[MAX_CONSOLELEN+1];	//!< •¶š—ñ
+	int color;							//!< è‰²
+	char textdata[MAX_CONSOLELEN+1];	//!< æ–‡å­—åˆ—
 } ConsoleData;
 #endif
 
-//! @brief ƒI[ƒvƒjƒ“ƒO‰æ–ÊŠÇ—ƒNƒ‰ƒX
-//! @details ƒI[ƒvƒjƒ“ƒO‰æ–Ê‚ğŠÇ—‚µ‚Ü‚·B
+//! @brief ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ç”»é¢ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ç”»é¢ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 class opening : public D3Dscene
 {
-	float add_camera_x;			//!< ƒJƒƒ‰À•W X‚Ì‘Œ¸—Ê
-	float add_camera_y;			//!< ƒJƒƒ‰À•W Y‚Ì‘Œ¸—Ê
-	float add_camera_z;			//!< ƒJƒƒ‰À•W Z‚Ì‘Œ¸—Ê
-	float add_camera_rx;		//!< ƒJƒƒ‰‰ñ“]Šp“x RX‚Ì‘Œ¸—Ê
-	float add_camera_ry;		//!< ƒJƒƒ‰‰ñ“]Šp“x RY‚Ì‘Œ¸—Ê
-	//int opening_banner;		//!< ƒI[ƒvƒjƒ“ƒO‚Å•\¦‚·‚éƒeƒNƒXƒ`ƒƒID
+	float add_camera_x;			//!< ã‚«ãƒ¡ãƒ©åº§æ¨™ Xã®å¢—æ¸›é‡
+	float add_camera_y;			//!< ã‚«ãƒ¡ãƒ©åº§æ¨™ Yã®å¢—æ¸›é‡
+	float add_camera_z;			//!< ã‚«ãƒ¡ãƒ©åº§æ¨™ Zã®å¢—æ¸›é‡
+	float add_camera_rx;		//!< ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦ RXã®å¢—æ¸›é‡
+	float add_camera_ry;		//!< ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦ RYã®å¢—æ¸›é‡
+	//int opening_banner;		//!< ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ã§è¡¨ç¤ºã™ã‚‹ãƒ†ã‚¯ã‚¹ãƒãƒ£ID
 	void Render3D();
 	void Render2D();
 
@@ -158,29 +158,29 @@ public:
 	void Destroy();
 };
 
-//! @brief ƒƒjƒ…[‰æ–ÊŠÇ—ƒNƒ‰ƒX
-//! @details ƒƒjƒ…[‰æ–Ê‚ğŠÇ—‚µ‚Ü‚·B
+//! @brief ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 class mainmenu : public D3Dscene
 {
-	char demopath[MAX_PATH];		//!< ƒfƒ‚ƒtƒ@ƒCƒ‹‚ÌƒpƒX
-	int modescreen;					//!< •\¦‰æ–Ê
-	int mainmenu_mouseX;			//!< ƒƒjƒ…[‰æ–Êƒ}ƒEƒXXÀ•W
-	int mainmenu_mouseY;			//!< ƒƒjƒ…[‰æ–Êƒ}ƒEƒXYÀ•W
-	int mainmenu_mouseY_old;		//!< ƒƒjƒ…[‰æ–Êƒ}ƒEƒXYÀ•Wi‘O‰ñ‚ÌƒtƒŒ[ƒ€j
-	class ScrollbarObject scrollbar_official;	//!< •W€ƒ~ƒbƒVƒ‡ƒ“‚ÌƒXƒNƒ[ƒ‹ƒo[
-	class ScrollbarObject scrollbar_addon;		//!< addon‚ÌƒXƒNƒ[ƒ‹ƒo[
-	int gametitle;					//!< ƒQ[ƒ€ƒ^ƒCƒgƒ‹‰æ‘œ
+	char demopath[MAX_PATH];		//!< ãƒ‡ãƒ¢ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
+	int modescreen;					//!< è¡¨ç¤ºç”»é¢
+	int mainmenu_mouseX;			//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãƒã‚¦ã‚¹Xåº§æ¨™
+	int mainmenu_mouseY;			//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãƒã‚¦ã‚¹Yåº§æ¨™
+	int mainmenu_mouseY_old;		//!< ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãƒã‚¦ã‚¹Yåº§æ¨™ï¼ˆå‰å›ã®ãƒ•ãƒ¬ãƒ¼ãƒ ï¼‰
+	class ScrollbarObject scrollbar_official;	//!< æ¨™æº–ãƒŸãƒƒã‚·ãƒ§ãƒ³ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼
+	class ScrollbarObject scrollbar_addon;		//!< addonã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼
+	int gametitle;					//!< ã‚²ãƒ¼ãƒ ã‚¿ã‚¤ãƒˆãƒ«ç”»åƒ
 #ifdef ENABLE_MENUOPTIONS
-	MenuLinkTextData Options_p1LinkTextData[OPTIONS_P1_DATAS];		//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.1@ƒŠƒ“ƒNƒeƒLƒXƒgƒf[ƒ^
-	MenuLinkTextData Options_p2LinkTextData[OPTIONS_P2_DATAS];		//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@ƒŠƒ“ƒNƒeƒLƒXƒgƒf[ƒ^
-	MenuLinkTextData Options_p3LinkTextData[OPTIONS_P3_DATAS];		//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.3@ƒŠƒ“ƒNƒeƒLƒXƒgƒf[ƒ^
-	class ScrollbarObject scrollbar_license;		//!< ƒ‰ƒCƒZƒ“ƒX•¶‚ÌƒXƒNƒ[ƒ‹ƒo[
-	int Options_p2LinkTextID;						//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@‰Ÿ‚³‚ê‚½ƒŠƒ“ƒNƒeƒLƒXƒg‚ÌID
-	bool Options_FullscreenFlag_old;				//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒtƒ‰ƒO
-	int Options_KeyConfigID;						//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@ƒL[İ’èID
-	int Options_KeyConfigCnt;						//!< ƒIƒvƒVƒ‡ƒ“‰æ–Ê No.2@ƒL[İ’èƒJƒEƒ“ƒgiƒtƒŒ[ƒ€”j
-	const char *licenseinfo[OPTIONS_LICENSELINE];	//!< ƒ‰ƒCƒZƒ“ƒX•¶
-	char *licenseinfobuf;							//!< •\¦‚·‚éƒ‰ƒCƒZƒ“ƒX•¶‚ğ•Û‚·‚éƒoƒbƒtƒ@[
+	MenuLinkTextData Options_p1LinkTextData[OPTIONS_P1_DATAS];		//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.1ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿
+	MenuLinkTextData Options_p2LinkTextData[OPTIONS_P2_DATAS];		//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿
+	MenuLinkTextData Options_p3LinkTextData[OPTIONS_P3_DATAS];		//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.3ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿
+	class ScrollbarObject scrollbar_license;		//!< ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼
+	int Options_p2LinkTextID;						//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€æŠ¼ã•ã‚ŒãŸãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã®ID
+	bool Options_FullscreenFlag_old;				//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãƒ•ãƒ©ã‚°
+	int Options_KeyConfigID;						//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€ã‚­ãƒ¼è¨­å®šID
+	int Options_KeyConfigCnt;						//!< ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ No.2ã€€ã‚­ãƒ¼è¨­å®šã‚«ã‚¦ãƒ³ãƒˆï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ æ•°ï¼‰
+	const char *licenseinfo[OPTIONS_LICENSELINE];	//!< ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡
+	char *licenseinfobuf;							//!< è¡¨ç¤ºã™ã‚‹ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã‚’ä¿æŒã™ã‚‹ãƒãƒƒãƒ•ã‚¡ãƒ¼
 #endif	//ENABLE_MENUOPTIONS
 
 	void Render3D();
@@ -202,13 +202,13 @@ public:
 	void Destroy();
 };
 
-//! @brief ƒuƒŠ[ƒtƒBƒ“ƒO‰æ–ÊŠÇ—ƒNƒ‰ƒX
-//! @details ƒuƒŠ[ƒtƒBƒ“ƒO‰æ–Ê‚ğŠÇ—‚µ‚Ü‚·B
+//! @brief ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»é¢ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»é¢ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 class briefing : public D2Dscene
 {
-	bool TwoTexture;	//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ‚ğ2–‡g—p
-	int TextureA;		//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œA
-	int TextureB;		//!< ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œB
+	bool TwoTexture;	//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒã‚’2æšä½¿ç”¨
+	int TextureA;		//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒA
+	int TextureB;		//!< ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒB
 	void Render2D();
 
 public:
@@ -219,53 +219,53 @@ public:
 	void Destroy();
 };
 
-//! @brief ƒƒCƒ“ƒQ[ƒ€‰æ–ÊŠÇ—ƒNƒ‰ƒX
-//! @details ƒƒCƒ“ƒQ[ƒ€‰æ–Ê‚ğŠÇ—‚µ‚Ü‚·B
+//! @brief ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ç”»é¢ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ç”»é¢ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 class maingame : public D3Dscene
 {
-	//class EventControl Event[TOTAL_EVENTLINE];	//!< ƒCƒxƒ“ƒg§ŒäƒNƒ‰ƒX
-	int SkyNumber;			//!< ”wŒi‹ó”Ô†
-	bool DarkScreenFlag;	//!< ‰æ–Ê‚ğˆÃ‚­
-	bool FogFlag;			//!< ƒtƒHƒO—LŒø
-	float mouse_rx;				//!< ƒ}ƒEƒX‚É‚æ‚é…•½²Šp“x
-	float mouse_ry;				//!< ƒ}ƒEƒX‚É‚æ‚é‚’¼²Šp“x
-	float view_rx;				//!< ƒ}ƒEƒXŠp“x‚ÆƒJƒƒ‰Šp“x‚Ì·i…•½²j
-	float view_ry;				//!< ƒ}ƒEƒXŠp“x‚ÆƒJƒƒ‰Šp“x‚Ì·i‚’¼²j
-	float add_camera_rx;		//!< ƒJƒƒ‰‰ñ“]Šp“x RX‚Ì‘Œ¸—Ê
-	float add_camera_ry;		//!< ƒJƒƒ‰‰ñ“]Šp“x RY‚Ì‘Œ¸—Ê
-	bool ShowInfo_Debugmode;	//!< À•W‚È‚Ç‚ğ•\¦‚·‚éƒfƒoƒbƒNƒ‚[ƒh
-	bool Camera_Debugmode;		//!< ƒJƒƒ‰ƒfƒoƒbƒNƒ‚[ƒh
-	bool tag;					//!< ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğ•\¦
-	bool radar;					//!< ŠÈˆÕƒŒ[ƒ_[•\¦
-	bool wireframe;				//!< ƒ}ƒbƒv‚ğƒƒCƒ„[ƒtƒŒ[ƒ€•\¦
-	bool nomodel;				//!< ƒ‚ƒfƒ‹•`‰æƒtƒ‰ƒO
-	bool CenterLine;			//!< 3D‹óŠÔ‚É’†Sü‚ğ•\¦
-	bool Camera_Blind;			//!< –Ú‰B‚µ•`‰æ
-	bool Camera_F1mode;			//!< ƒJƒƒ‰F1ƒ‚[ƒh
-	int Camera_F2mode;			//!< ƒJƒƒ‰F2ƒ‚[ƒh
-	bool Camera_HOMEmode;		//!< ƒJƒƒ‰HOMEƒ‚[ƒh
-	bool Cmd_F5;				//!< — ‹ZF5ƒ‚[ƒh
-	int InvincibleID;			//!< –³“G‚Èl‚Ì”»’è
-	bool PlayerAI;				//!< ƒvƒŒƒCƒ„[‘€ì‚ğAI‚ÉˆÏ‚Ë‚é
-	bool AIstop;				//!< AIˆ—‚ğ’â~‚·‚é
-	bool AINoFight;				//!< AI‚ª”ñí“¬‰»‚·‚éií‚í‚È‚¢j
-	int AIdebuginfoID;			//!< AI‚ÌƒfƒoƒbƒNî•ñ•\¦
-	int start_framecnt;			//!< ƒƒCƒ“ƒQ[ƒ€ŠJn‚ÌƒJƒEƒ“ƒg
-	int end_framecnt;			//!< ƒƒCƒ“ƒQ[ƒ€I—¹‚ÌƒJƒEƒ“ƒg
-	bool EventStop;				//!< ƒCƒxƒ“ƒgˆ—‚ğ’â~‚·‚é
-	bool EventSkip[TOTAL_EVENTLINE];	//!< ƒCƒxƒ“ƒgˆ—‚ğƒXƒLƒbƒv‚·‚é
-	int GameSpeed;				//!< ƒQ[ƒ€‚ÌÀs‘¬“xi1ˆÈã‚Ì®”’lj
-	int message_id;				//!< •\¦’†‚ÌƒCƒxƒ“ƒgƒƒbƒZ[ƒW”Ô†
-	int message_cnt;			//!< •\¦’†‚ÌƒCƒxƒ“ƒgƒƒbƒZ[ƒWƒJƒEƒ“ƒg
-	bool redflash_flag;			//!< ƒŒƒbƒhƒtƒ‰ƒbƒVƒ…•`‰æƒtƒ‰ƒO
+	//class EventControl Event[TOTAL_EVENTLINE];	//!< ã‚¤ãƒ™ãƒ³ãƒˆåˆ¶å¾¡ã‚¯ãƒ©ã‚¹
+	int SkyNumber;			//!< èƒŒæ™¯ç©ºç•ªå·
+	bool DarkScreenFlag;	//!< ç”»é¢ã‚’æš—ã
+	bool FogFlag;			//!< ãƒ•ã‚©ã‚°æœ‰åŠ¹
+	float mouse_rx;				//!< ãƒã‚¦ã‚¹ã«ã‚ˆã‚‹æ°´å¹³è»¸è§’åº¦
+	float mouse_ry;				//!< ãƒã‚¦ã‚¹ã«ã‚ˆã‚‹å‚ç›´è»¸è§’åº¦
+	float view_rx;				//!< ãƒã‚¦ã‚¹è§’åº¦ã¨ã‚«ãƒ¡ãƒ©è§’åº¦ã®å·®ï¼ˆæ°´å¹³è»¸ï¼‰
+	float view_ry;				//!< ãƒã‚¦ã‚¹è§’åº¦ã¨ã‚«ãƒ¡ãƒ©è§’åº¦ã®å·®ï¼ˆå‚ç›´è»¸ï¼‰
+	float add_camera_rx;		//!< ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦ RXã®å¢—æ¸›é‡
+	float add_camera_ry;		//!< ã‚«ãƒ¡ãƒ©å›è»¢è§’åº¦ RYã®å¢—æ¸›é‡
+	bool ShowInfo_Debugmode;	//!< åº§æ¨™ãªã©ã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰
+	bool Camera_Debugmode;		//!< ã‚«ãƒ¡ãƒ©ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰
+	bool tag;					//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’è¡¨ç¤º
+	bool radar;					//!< ç°¡æ˜“ãƒ¬ãƒ¼ãƒ€ãƒ¼è¡¨ç¤º
+	bool wireframe;				//!< ãƒãƒƒãƒ—ã‚’ãƒ¯ã‚¤ãƒ¤ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤º
+	bool nomodel;				//!< ãƒ¢ãƒ‡ãƒ«æç”»ãƒ•ãƒ©ã‚°
+	bool CenterLine;			//!< 3Dç©ºé–“ã«ä¸­å¿ƒç·šã‚’è¡¨ç¤º
+	bool Camera_Blind;			//!< ç›®éš ã—æç”»
+	bool Camera_F1mode;			//!< ã‚«ãƒ¡ãƒ©F1ãƒ¢ãƒ¼ãƒ‰
+	int Camera_F2mode;			//!< ã‚«ãƒ¡ãƒ©F2ãƒ¢ãƒ¼ãƒ‰
+	bool Camera_HOMEmode;		//!< ã‚«ãƒ¡ãƒ©HOMEãƒ¢ãƒ¼ãƒ‰
+	bool Cmd_F5;				//!< è£æŠ€F5ãƒ¢ãƒ¼ãƒ‰
+	int InvincibleID;			//!< ç„¡æ•µãªäººã®åˆ¤å®š
+	bool PlayerAI;				//!< ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œã‚’AIã«å§”ã­ã‚‹
+	bool AIstop;				//!< AIå‡¦ç†ã‚’åœæ­¢ã™ã‚‹
+	bool AINoFight;				//!< AIãŒéæˆ¦é—˜åŒ–ã™ã‚‹ï¼ˆæˆ¦ã‚ãªã„ï¼‰
+	int AIdebuginfoID;			//!< AIã®ãƒ‡ãƒãƒƒã‚¯æƒ…å ±è¡¨ç¤º
+	int start_framecnt;			//!< ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	int end_framecnt;			//!< ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ çµ‚äº†ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	bool EventStop;				//!< ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’åœæ­¢ã™ã‚‹
+	bool EventSkip[TOTAL_EVENTLINE];	//!< ã‚¤ãƒ™ãƒ³ãƒˆå‡¦ç†ã‚’ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹
+	int GameSpeed;				//!< ã‚²ãƒ¼ãƒ ã®å®Ÿè¡Œé€Ÿåº¦ï¼ˆ1ä»¥ä¸Šã®æ•´æ•°å€¤ï¼‰
+	int message_id;				//!< è¡¨ç¤ºä¸­ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ç•ªå·
+	int message_cnt;			//!< è¡¨ç¤ºä¸­ã®ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚«ã‚¦ãƒ³ãƒˆ
+	bool redflash_flag;			//!< ãƒ¬ãƒƒãƒ‰ãƒ•ãƒ©ãƒƒã‚·ãƒ¥æç”»ãƒ•ãƒ©ã‚°
 	int time;		//!< timer
-	int time_input;					//!< “ü—Íæ“¾‚Ìˆ—ŠÔ
-	int time_process_object;		//!< Šî–{ƒIƒuƒWƒFƒNƒg‚Ìˆ—ŠÔ
-	int time_process_ai;			//!< AI‚Ìˆ—ŠÔ
-	int time_process_event;			//!< ƒCƒxƒ“ƒg‚Ìˆ—ŠÔ
-	int time_sound;					//!< ƒTƒEƒ“ƒh‚Ìˆ—ŠÔ
-	int time_render;				//!< •`‰æ‚Ìˆ—ŠÔ
-	GameInfo MainGameInfo;			//!< ƒŠƒUƒ‹ƒg—pŠÇ—ƒNƒ‰ƒX
+	int time_input;					//!< å…¥åŠ›å–å¾—ã®å‡¦ç†æ™‚é–“
+	int time_process_object;		//!< åŸºæœ¬ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å‡¦ç†æ™‚é–“
+	int time_process_ai;			//!< AIã®å‡¦ç†æ™‚é–“
+	int time_process_event;			//!< ã‚¤ãƒ™ãƒ³ãƒˆã®å‡¦ç†æ™‚é–“
+	int time_sound;					//!< ã‚µã‚¦ãƒ³ãƒ‰ã®å‡¦ç†æ™‚é–“
+	int time_render;				//!< æç”»ã®å‡¦ç†æ™‚é–“
+	GameInfo MainGameInfo;			//!< ãƒªã‚¶ãƒ«ãƒˆç”¨ç®¡ç†ã‚¯ãƒ©ã‚¹
 	bool CheckInputControl(int CheckKey, int mode);
 	void InputPlayer(human *myHuman, int mouse_x, int mouse_y, float MouseSensitivity);
 	void InputViewCamera(int mouse_x, int mouse_y, float MouseSensitivity);
@@ -275,11 +275,11 @@ class maingame : public D3Dscene
 	void RenderRadar();
 
 #ifdef ENABLE_DEBUGCONSOLE
-	bool Show_Console;						//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚ğ•\¦
-	ConsoleData *InfoConsoleData;			//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹ƒf[ƒ^i•\¦Ï‚İj
-	TextBoxObject ConsoleTextBoxControl;	//!< ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹ƒf[ƒ^i“ü—Í’†j
-	char NewCommand[MAX_CONSOLELEN];		//!< V‚½‚É“ü—Í‚³‚ê‚½–¢ˆ—‚ÌƒRƒ}ƒ“ƒh
-	int ScreenShot;		//!< SS‚ğB‰e‚·‚é
+	bool Show_Console;						//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’è¡¨ç¤º
+	ConsoleData *InfoConsoleData;			//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ãƒ‡ãƒ¼ã‚¿ï¼ˆè¡¨ç¤ºæ¸ˆã¿ï¼‰
+	TextBoxObject ConsoleTextBoxControl;	//!< ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ãƒ‡ãƒ¼ã‚¿ï¼ˆå…¥åŠ›ä¸­ï¼‰
+	char NewCommand[MAX_CONSOLELEN];		//!< æ–°ãŸã«å…¥åŠ›ã•ã‚ŒãŸæœªå‡¦ç†ã®ã‚³ãƒãƒ³ãƒ‰
+	int ScreenShot;		//!< SSã‚’æ’®å½±ã™ã‚‹
 	void AddInfoConsole(int color, const char *str);
 	bool GetCommandNum(const char *cmd, int *num);
 	void InputConsole();
@@ -300,8 +300,8 @@ public:
 	void Destroy();
 };
 
-//! @brief ƒŠƒUƒ‹ƒg‰æ–ÊŠÇ—ƒNƒ‰ƒX
-//! @details ƒŠƒUƒ‹ƒgiŒ‹‰Ê•\¦j‰æ–Ê‚ğŠÇ—‚µ‚Ü‚·B
+//! @brief ãƒªã‚¶ãƒ«ãƒˆç”»é¢ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details ãƒªã‚¶ãƒ«ãƒˆï¼ˆçµæœè¡¨ç¤ºï¼‰ç”»é¢ã‚’ç®¡ç†ã—ã¾ã™ã€‚
 class result : public D2Dscene
 {
 	void Render2D();

@@ -1,5 +1,5 @@
 //! @file main.cpp
-//! @brief WinMain()ŠÖ”‚Ì’è‹`‚¨‚æ‚ÑƒeƒXƒgƒvƒƒOƒ‰ƒ€ 
+//! @brief WinMain()é–¢æ•°ã®å®šç¾©ãŠã‚ˆã³ãƒ†ã‚¹ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ  
 
 //--------------------------------------------------------------------------------
 // 
@@ -29,7 +29,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------------
 
-//Doxygenİ’èƒtƒ@ƒCƒ‹
+//Doxygenè¨­å®šãƒ•ã‚¡ã‚¤ãƒ«
 #include "doxygen.h"
 
 #include "main.h"
@@ -40,23 +40,23 @@
 #endif
 
 #ifdef ENABLE_DEBUGLOG
- //! ƒƒOo—Í
+ //! ãƒ­ã‚°å‡ºåŠ›
  DebugLog OutputLog;
 #endif
 
-//! ƒXƒe[ƒgƒ}ƒVƒ“
+//! ã‚¹ãƒ†ãƒ¼ãƒˆãƒã‚·ãƒ³
 StateMachine GameState;
 
-//! ƒQ[ƒ€İ’èƒf[ƒ^
+//! ã‚²ãƒ¼ãƒ è¨­å®šãƒ‡ãƒ¼ã‚¿
 Config GameConfig;
 
-//! ƒƒCƒ“ƒEƒBƒ“ƒhƒE
+//! ãƒ¡ã‚¤ãƒ³ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 WindowControl MainWindow;
 
-//! @brief WinMain()ŠÖ”
+//! @brief WinMain()é–¢æ•°
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	//–¢g—pˆø”‘Îô
+	//æœªä½¿ç”¨å¼•æ•°å¯¾ç­–
 	UNREFERENCED_PARAMETER(hInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -67,15 +67,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int gamemode = 0;
 #endif
 
-	//—”‰Šú‰»
+	//ä¹±æ•°åˆæœŸåŒ–
 	InitRand();
 
-	//Àsƒtƒ@ƒCƒ‹‚Ì‚ ‚éêŠ‚ğAƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É‚·‚éB
+	//å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚ã‚‹å ´æ‰€ã‚’ã€ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã™ã‚‹ã€‚
 	GetFileDirectory(__argv[0], path);
 	chdir(path);
 
 #ifdef _DEBUG
-	//ƒƒ‚ƒŠƒŠ[ƒN‚ÌŒŸo
+	//ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯ã®æ¤œå‡º
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	char str[255];
@@ -83,15 +83,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	MessageBox(NULL, str, GAMENAME, MB_OK);
 #endif
 
-	//ˆø”ˆ—
-	//ƒƒ‚FWindowsŠÂ‹«‚È‚çAlpCmdLineˆø”‚Æ‚©GetCommandLine()ŠÖ”‚Å‚àæ‚ê‚Ü‚·‚¯‚Ç‚ËEEB
+	//å¼•æ•°å‡¦ç†
+	//ãƒ¡ãƒ¢ï¼šWindowsç’°å¢ƒãªã‚‰ã€lpCmdLineå¼•æ•°ã¨ã‹GetCommandLine()é–¢æ•°ã§ã‚‚å–ã‚Œã¾ã™ã‘ã©ã­ãƒ»ãƒ»ã€‚
 	strcpy(path, "");
 	if( __argc > 1 ){
 		for(int param=1; param<__argc; param++){
 #ifdef ENABLE_DEBUGLOG
-			//"Log"‚ª—^‚¦‚ç‚ê‚Ä‚¢‚½‚çAƒƒOo—Í‚ğ—LŒø‰»
+			//"Log"ãŒä¸ãˆã‚‰ã‚Œã¦ã„ãŸã‚‰ã€ãƒ­ã‚°å‡ºåŠ›ã‚’æœ‰åŠ¹åŒ–
 			if( CheckCommandParameter(__argv[param], "-Log") == true ){
-				//ƒƒOo—Í‚ğ—LŒø‰»
+				//ãƒ­ã‚°å‡ºåŠ›ã‚’æœ‰åŠ¹åŒ–
 				OutputLog.EnableOutputLog();
 
 				MainWindow.ErrorInfo("Enable Debug Log...");
@@ -100,7 +100,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 #ifdef ENABLE_AUTOLOADMIF
-			//"Dir"‚ª—^‚¦‚ç‚ê‚Ä‚¢‚½‚çAƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠˆÚ“®
+			//"Dir"ãŒä¸ãˆã‚‰ã‚Œã¦ã„ãŸã‚‰ã€ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªç§»å‹•
 			if( CheckCommandParameter(__argv[param], "-Dir") == true ){
 				if( (param+1) < __argc ){
 					chdir(__argv[param+1]);
@@ -109,22 +109,22 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				continue;
 			}
 
-			//"NoBriefing"‚ª—^‚¦‚ç‚ê‚Ä‚¢‚½‚çAi.mifw’è‚ÍjƒuƒŠ[ƒtƒBƒ“ƒO‚ğÈ—ª‚·‚é
+			//"NoBriefing"ãŒä¸ãˆã‚‰ã‚Œã¦ã„ãŸã‚‰ã€ï¼ˆ.mifæŒ‡å®šæ™‚ã¯ï¼‰ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ã‚’çœç•¥ã™ã‚‹
 			if( CheckCommandParameter(__argv[param], "-NoBriefing") == true ){
 				NoBriefingFlag = true;
 				continue;
 			}
 
-			//‚»‚êˆÈŠO‚Ìˆø”‚È‚ç‚ÎŠg’£q‚ğ”»’è‚µ‚Ä‚İ‚é
+			//ãã‚Œä»¥å¤–ã®å¼•æ•°ãªã‚‰ã°æ‹¡å¼µå­ã‚’åˆ¤å®šã—ã¦ã¿ã‚‹
 			if( CheckFileExtension(__argv[param], ".mif") == true ){
-				//.mif‚Å‚ ‚ê‚Îƒtƒ@ƒCƒ‹ƒpƒX‚Æ‚µ‚Ä‹L‰¯
+				//.mifã§ã‚ã‚Œã°ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã¨ã—ã¦è¨˜æ†¶
 				strcpy(path, __argv[param]);
 			}
 #endif
 		}
 
 #ifdef ENABLE_AUTOLOADMIF
-		//‰½‚©‚µ‚ç‚Ì.mif‚ªw’è‚³‚ê‚Ä‚¢‚é‚È‚ç‚ÎAƒuƒŠ[ƒtƒBƒ“ƒOƒtƒ‰ƒO”½‰f
+		//ä½•ã‹ã—ã‚‰ã®.mifãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚‹ãªã‚‰ã°ã€ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ãƒ•ãƒ©ã‚°åæ˜ 
 		if( path[0] != '\0' ){
 			if( NoBriefingFlag == false ){ gamemode = 1; }
 			else{ gamemode = 2; }
@@ -133,16 +133,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒtƒ@ƒCƒ‹ì¬
+	//ãƒ•ã‚¡ã‚¤ãƒ«ä½œæˆ
 	OutputLog.MakeLog();
 
-	//ƒ†[ƒU[ŠÂ‹«‚ğo—Í
+	//ãƒ¦ãƒ¼ã‚¶ãƒ¼ç’°å¢ƒã‚’å‡ºåŠ›
 	GetOperatingEnvironment();
 
 	char infostr[64];
 
 	/*
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	sprintf(infostr, "Total Parameters : %d", __argc);
 	OutputLog.WriteLog(LOG_CHECK, "Parameter", infostr);
 	for(int i=0; i<__argc; i++){
@@ -151,12 +151,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 	*/
 
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Startup", "Start program entry point");
 #endif
 
 #ifdef _DEBUG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Startup", "Visual C++ debug mode");
 #endif
 
@@ -165,13 +165,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	getcwd(path2, MAX_PATH);
 	sprintf(infostr, "EXE directory path length : %d", strlen(path2));
 
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Environment", infostr);
 #endif
 
-	//ƒf[ƒ^ƒtƒHƒ‹ƒ_ƒ`ƒFƒbƒN
+	//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ«ãƒ€ãƒã‚§ãƒƒã‚¯
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Directory", "data folder");
 	if( CheckDirectory("data") == true ){
 		OutputLog.WriteLog(LOG_COMPLETE, "", "");
@@ -187,13 +187,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 #endif
 
-	//İ’èƒtƒ@ƒCƒ‹“Ç‚İ‚İ
+	//è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿
 	if( GameConfig.LoadFile("config.dat") == 1 ){
 #ifndef ENABLE_AUTOCREATECONFIG
 		MainWindow.ErrorInfo("config data open failed");
 		return 1;
 #else
-		//ƒfƒtƒHƒ‹ƒg’l‚ğ”½‰f‚µAİ’èƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚é
+		//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’åæ˜ ã—ã€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹
 		GameConfig.SetDefaultConfig();
 		if( GameConfig.SaveFile("config.dat") == 1 ){
 			MainWindow.ErrorInfo("config data save failed");
@@ -202,7 +202,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 	}
 
-	//’Ç‰Áİ’è‚ğ“Ç‚İ‚Ş
+	//è¿½åŠ è¨­å®šã‚’èª­ã¿è¾¼ã‚€
 #ifdef ENABLE_ADDCONFIG
 	GameConfig.CreateExtConfig("config-openxops.ini");
 	GameConfig.LoadExtFile("config-openxops.ini");
@@ -211,7 +211,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	sprintf(infostr, "Display resolution : %d x %d", GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight());
 	OutputLog.WriteLog(LOG_CHECK, "Environment", infostr);
 	if( GameConfig.GetFullscreenFlag() == false ){
@@ -225,15 +225,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Startup", "Start game initialize");
 #endif
 
-	//ƒEƒBƒ“ƒhƒE‰Šú‰»
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆæœŸåŒ–
 	MainWindow.SetParam(hPrevInstance, nCmdShow);
 	MainWindow.InitWindow(GAMENAME, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), GameConfig.GetFullscreenFlag());
 
-	//Šî–{“I‚È‰Šú‰»ˆ—
+	//åŸºæœ¬çš„ãªåˆæœŸåŒ–å‡¦ç†
 #ifdef ENABLE_AUTOLOADMIF
 	if( InitGame(&MainWindow, gamemode, path) ){
 #else
@@ -250,13 +250,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	InitScreen(&MainWindow, &Opening, &MainMenu, &Briefing, &MainGame, &Result);
 
 #ifdef ENABLE_AUTOLOADMIF
-	//ƒƒCƒ“ƒQ[ƒ€‚Ì‚İ•\¦‚·‚éƒ‚[ƒh‚È‚ç‚ÎA•W€‚ÅƒfƒoƒbƒN•\¦‚ğ—LŒø‚É‚·‚éB
+	//ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã®ã¿è¡¨ç¤ºã™ã‚‹ãƒ¢ãƒ¼ãƒ‰ãªã‚‰ã°ã€æ¨™æº–ã§ãƒ‡ãƒãƒƒã‚¯è¡¨ç¤ºã‚’æœ‰åŠ¹ã«ã™ã‚‹ã€‚
 	if( gamemode == 2 ){ MainGame.SetShowInfoFlag(true); }
 #endif
 
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Startup", "Start main loop");
 #endif
 
@@ -264,10 +264,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	for(int flag = 0; flag != -1; flag = MainWindow.CheckMainLoop()){
 		if( flag == 1 ){
-			//ƒƒCƒ“ˆ—
+			//ãƒ¡ã‚¤ãƒ³å‡¦ç†
 			ProcessScreen(&MainWindow, &Opening, &MainMenu, &Briefing, &MainGame, &Result, framecnt);
 
-			//FPS’²®
+			//FPSèª¿æ•´
 			ControlFps();
 
 			framecnt++;
@@ -275,27 +275,27 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Exit", "Exit main loop");
 #endif
 
 
-	//Šî–{“I‚È‰ğ•úˆ—
+	//åŸºæœ¬çš„ãªè§£æ”¾å‡¦ç†
 	CleanupGame();
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Exit", "Exit program entry point");
 #endif
 	return 0;
 }
 
-//! @brief ƒRƒ}ƒ“ƒhˆø””»’è
-//! @param param Œ³‚Ì•¶š—ñ
-//! @param cmd ”»’è‚·‚éˆø”
-//! @return ŠY“–Ftrue@”ñŠY“–Ffalse
-//! @warning cmdˆø”‚ÌÅ‰‚Ìˆê•¶š‚Í–³‹‚³‚ê‚Ü‚·B
-//! @attention Ÿ‚Ìˆø”‚ğ”»’è‚µ‚Ü‚·B„/[ˆø”]A-[ˆø”]A/[ˆø”i¬•¶šj]A-[ˆø”i¬•¶šj]
+//! @brief ã‚³ãƒãƒ³ãƒ‰å¼•æ•°åˆ¤å®š
+//! @param param å…ƒã®æ–‡å­—åˆ—
+//! @param cmd åˆ¤å®šã™ã‚‹å¼•æ•°
+//! @return è©²å½“ï¼štrueã€€éè©²å½“ï¼šfalse
+//! @warning cmdå¼•æ•°ã®æœ€åˆã®ä¸€æ–‡å­—ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚
+//! @attention æ¬¡ã®å¼•æ•°ã‚’åˆ¤å®šã—ã¾ã™ã€‚ï¼/[å¼•æ•°]ã€-[å¼•æ•°]ã€/[å¼•æ•°ï¼ˆå°æ–‡å­—ï¼‰]ã€-[å¼•æ•°ï¼ˆå°æ–‡å­—ï¼‰]
 bool CheckCommandParameter(const char *param, const char *cmd)
 {
 	if( param == NULL ){ return false; }
@@ -322,10 +322,10 @@ bool CheckCommandParameter(const char *param, const char *cmd)
 	return false;
 }
 
-//! @brief Šp“xiƒ‰ƒWƒAƒ“j³‹K‰»
-//! @param r Šp“x
-//! @return ³‹K‰»Œã‚ÌŠp“x
-//! @note -PI`PI ‚ÌŠÔ‚É³‹K‰»‚µ‚Ü‚·B
+//! @brief è§’åº¦ï¼ˆãƒ©ã‚¸ã‚¢ãƒ³ï¼‰æ­£è¦åŒ–
+//! @param r è§’åº¦
+//! @return æ­£è¦åŒ–å¾Œã®è§’åº¦
+//! @note -PIï½PI ã®é–“ã«æ­£è¦åŒ–ã—ã¾ã™ã€‚
 float AngleNormalization(float r)
 {
 	for(; r > (float)M_PI;    r -= (float)M_PI*2){}
@@ -333,17 +333,17 @@ float AngleNormalization(float r)
 	return r;
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒpƒ‰ƒ[ƒ^[‚Ì’l‚ğunsigned intŒ^‚É•ÏŠ·
-//! @param value ’l
-//! @return ®”’l
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®å€¤ã‚’unsigned intå‹ã«å¤‰æ›
+//! @param value å€¤
+//! @return æ•´æ•°å€¤
 unsigned int PointParamToInt(signed short int value)
 {
 	return (unsigned int)((unsigned char)value);
 }
 
-//! @brief 2ƒoƒCƒg‚É”’lİ’èiƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ“j
-//! @param outdata 2ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @param value ”’l
+//! @brief 2ãƒã‚¤ãƒˆã«æ•°å€¤è¨­å®šï¼ˆãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param outdata 2ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @param value æ•°å€¤
 void Set2ByteLittleEndian(unsigned char *outdata, unsigned int value)
 {
 	if( outdata == NULL ){ return; }
@@ -352,9 +352,9 @@ void Set2ByteLittleEndian(unsigned char *outdata, unsigned int value)
 	outdata[1] = (unsigned char)(( value >> 8 ) & 0x00FF);
 }
 
-//! @brief 4ƒoƒCƒg‚É”’lİ’èiƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ“j
-//! @param outdata 4ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @param value ”’l
+//! @brief 4ãƒã‚¤ãƒˆã«æ•°å€¤è¨­å®šï¼ˆãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param outdata 4ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @param value æ•°å€¤
 void Set4ByteLittleEndian(unsigned char *outdata, unsigned int value)
 {
 	if( outdata == NULL ){ return; }
@@ -365,9 +365,9 @@ void Set4ByteLittleEndian(unsigned char *outdata, unsigned int value)
 	outdata[3] = (unsigned char)(( value >> 24 ) & 0x000000FF);
 }
 
-//! @brief 2ƒoƒCƒg‚É”’lİ’èiƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“j
-//! @param outdata 2ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @param value ”’l
+//! @brief 2ãƒã‚¤ãƒˆã«æ•°å€¤è¨­å®šï¼ˆãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param outdata 2ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @param value æ•°å€¤
 void Set2ByteBigEndian(unsigned char *outdata, unsigned int value)
 {
 	if( outdata == NULL ){ return; }
@@ -376,9 +376,9 @@ void Set2ByteBigEndian(unsigned char *outdata, unsigned int value)
 	outdata[1] = (unsigned char)(( value >> 0 ) & 0x00FF);
 }
 
-//! @brief 4ƒoƒCƒg‚É”’lİ’èiƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“j
-//! @param outdata 4ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @param value ”’l
+//! @brief 4ãƒã‚¤ãƒˆã«æ•°å€¤è¨­å®šï¼ˆãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param outdata 4ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @param value æ•°å€¤
 void Set4ByteBigEndian(unsigned char *outdata, unsigned int value)
 {
 	if( outdata == NULL ){ return; }
@@ -389,9 +389,9 @@ void Set4ByteBigEndian(unsigned char *outdata, unsigned int value)
 	outdata[3] = (unsigned char)(( value >> 0 ) & 0x000000FF);
 }
 
-//! @brief 2ƒoƒCƒg‚Ì”’læ“¾iƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ“j
-//! @param indata 2ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ”’l
+//! @brief 2ãƒã‚¤ãƒˆã®æ•°å€¤å–å¾—ï¼ˆãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param indata 2ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æ•°å€¤
 unsigned int Get2ByteLittleEndian(unsigned char *indata)
 {
 	if( indata == NULL ){ return 0; }
@@ -399,9 +399,9 @@ unsigned int Get2ByteLittleEndian(unsigned char *indata)
 	return (unsigned int)( ((indata[1]<<8)&0xFF00) + ((indata[0]<<0)&0x00FF) );
 }
 
-//! @brief 4ƒoƒCƒg‚Ì”’læ“¾iƒŠƒgƒ‹ƒGƒ“ƒfƒBƒAƒ“j
-//! @param indata 4ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ”’l
+//! @brief 4ãƒã‚¤ãƒˆã®æ•°å€¤å–å¾—ï¼ˆãƒªãƒˆãƒ«ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param indata 4ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æ•°å€¤
 unsigned int Get4ByteLittleEndian(unsigned char *indata)
 {
 	if( indata == NULL ){ return 0; }
@@ -409,9 +409,9 @@ unsigned int Get4ByteLittleEndian(unsigned char *indata)
 	return (unsigned int)( ((indata[3]<<24)&0xFF000000) + ((indata[2]<<16)&0x00FF0000) + ((indata[1]<<8)&0x0000FF00) + ((indata[0]<<0)&0x000000FF) );
 }
 
-//! @brief 2ƒoƒCƒg‚Ì”’læ“¾iƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“j
-//! @param indata 2ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ”’l
+//! @brief 2ãƒã‚¤ãƒˆã®æ•°å€¤å–å¾—ï¼ˆãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param indata 2ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æ•°å€¤
 unsigned int Get2ByteBigEndian(unsigned char *indata)
 {
 	if( indata == NULL ){ return 0; }
@@ -419,9 +419,9 @@ unsigned int Get2ByteBigEndian(unsigned char *indata)
 	return (unsigned int)( ((indata[0]<<8)&0xFF00) + ((indata[1]<<0)&0x00FF) );
 }
 
-//! @brief 4ƒoƒCƒg‚Ì”’læ“¾iƒrƒbƒOƒGƒ“ƒfƒBƒAƒ“j
-//! @param indata 4ƒoƒCƒg‚Ìƒ|ƒCƒ“ƒ^
-//! @return ”’l
+//! @brief 4ãƒã‚¤ãƒˆã®æ•°å€¤å–å¾—ï¼ˆãƒ“ãƒƒã‚°ã‚¨ãƒ³ãƒ‡ã‚£ã‚¢ãƒ³ï¼‰
+//! @param indata 4ãƒã‚¤ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æ•°å€¤
 unsigned int Get4ByteBigEndian(unsigned char *indata)
 {
 	if( indata == NULL ){ return 0; }

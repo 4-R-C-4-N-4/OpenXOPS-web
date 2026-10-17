@@ -1,5 +1,5 @@
 //! @file resource.cpp
-//! @brief ResourceManagerƒNƒ‰ƒX‚Ì’è‹`
+//! @brief ResourceManagerã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "resource.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ResourceManager::ResourceManager()
 {
 	ParamInfo = NULL;
@@ -86,38 +86,38 @@ ResourceManager::ResourceManager()
 	effecttexture_yakkyou = -1;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ResourceManager::~ResourceManager()
 {
 	DestroyResource();
 }
 
-//! @brief QÆ‚·‚éParameterInfoƒNƒ‰ƒX‚ğİ’è
-//! @param *_ParamInfo ParameterInfoƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å‚ç…§ã™ã‚‹ParameterInfoã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param *_ParamInfo ParameterInfoã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ResourceManager::SetParameterInfo(ParameterInfo *_ParamInfo)
 {
 	ParamInfo = _ParamInfo;
 }
 
-//! @brief QÆ‚·‚éD3DGraphicsƒNƒ‰ƒX‚ğİ’è
-//! @param *_d3dg D3DGraphicsƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å‚ç…§ã™ã‚‹D3DGraphicsã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param *_d3dg D3DGraphicsã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ResourceManager::SetD3DGraphics(D3DGraphics *_d3dg)
 {
 	d3dg = _d3dg;
 }
 
-//! @brief QÆ‚·‚éSoundControlƒNƒ‰ƒX‚ğİ’è
-//! @param *_SoundCtrl SoundControlƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-//! @attention ‚±‚ÌŠÖ”‚Åİ’è‚ğs‚í‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief å‚ç…§ã™ã‚‹SoundControlã‚¯ãƒ©ã‚¹ã‚’è¨­å®š
+//! @param *_SoundCtrl SoundControlã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention ã“ã®é–¢æ•°ã§è¨­å®šã‚’è¡Œã‚ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ResourceManager::SetSoundControl(SoundControl *_SoundCtrl)
 {
 	SoundCtrl = _SoundCtrl;
 }
 
-//! @brief ‰ğ•ú
-//! @attention –{ŠÖ”‚Í©“®“I‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·‚ªA–¾¦“I‚ÉŒÄ‚Ño‚·‚±‚Æ‚à‰Â”\‚Å‚·B
+//! @brief è§£æ”¾
+//! @attention æœ¬é–¢æ•°ã¯è‡ªå‹•çš„ã«å‘¼ã³å‡ºã•ã‚Œã¾ã™ãŒã€æ˜ç¤ºçš„ã«å‘¼ã³å‡ºã™ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 void ResourceManager::DestroyResource()
 {
 	CleanupHumanModel();
@@ -134,8 +134,8 @@ void ResourceManager::DestroyResource()
 	CleanupEffectTexture();
 }
 
-//! @brief l‚Ìƒ‚ƒfƒ‹‚ğ“Ç‚İ‚İ
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief äººã®ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadHumanModel()
 {
 	if( d3dg == NULL ){ return 1; }
@@ -162,7 +162,7 @@ int ResourceManager::LoadHumanModel()
 	human_runmodel[10] = d3dg->LoadModel("data\\model\\run06.x");
 
 #ifdef ENABLE_HUMANMODEL_MORPHING
-	//ƒ‚[ƒtƒBƒ“ƒOˆ—‚ğÀs‚·‚é
+	//ãƒ¢ãƒ¼ãƒ•ã‚£ãƒ³ã‚°å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹
 	human_walkmodel[1] = d3dg->MorphingModel(human_walkmodel[0], human_walkmodel[2]);
 	human_walkmodel[3] = d3dg->MorphingModel(human_walkmodel[2], human_walkmodel[4]);
 	human_walkmodel[5] = d3dg->MorphingModel(human_walkmodel[4], human_walkmodel[6]);
@@ -174,7 +174,7 @@ int ResourceManager::LoadHumanModel()
 	human_runmodel[9] = d3dg->MorphingModel(human_runmodel[8], human_runmodel[10]);
 	human_runmodel[11] = d3dg->MorphingModel(human_runmodel[10], human_runmodel[0]);
 #else
-	//ƒ‚[ƒtƒBƒ“ƒOˆ—‚ğÀs‚µ‚È‚¢
+	//ãƒ¢ãƒ¼ãƒ•ã‚£ãƒ³ã‚°å‡¦ç†ã‚’å®Ÿè¡Œã—ãªã„
 	human_walkmodel[1] = human_walkmodel[0];
 	human_walkmodel[3] = human_walkmodel[2];
 	human_walkmodel[5] = human_walkmodel[4];
@@ -190,12 +190,12 @@ int ResourceManager::LoadHumanModel()
 	return 0;
 }
 
-//! @brief l‚Ìƒ‚ƒfƒ‹‚Ìƒf[ƒ^”Ô†‚ğæ“¾
-//! @param out_upmodel[] ã”¼g‚Ìƒ‚ƒfƒ‹@i”z—ñ”FTOTAL_UPMODEj
-//! @param out_armmodel[] ˜r‚Ìƒ‚ƒfƒ‹@i”z—ñ”FTOTAL_ARMMODEj
-//! @param *legmodel ‘«iÃ~ó‘Ôj‚Ìƒ‚ƒfƒ‹‚Ìƒ|ƒCƒ“ƒ^
-//! @param out_walkmodel[] ‘«i•à‚«j‚Ìƒ‚ƒfƒ‹@i”z—ñ”FTOTAL_WALKMODEj
-//! @param out_runmodel[] ‘«i‘–‚èj‚Ìƒ‚ƒfƒ‹@i”z—ñ”FTOTAL_RUNMODEj
+//! @brief äººã®ãƒ¢ãƒ‡ãƒ«ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’å–å¾—
+//! @param out_upmodel[] ä¸ŠåŠèº«ã®ãƒ¢ãƒ‡ãƒ«ã€€ï¼ˆé…åˆ—æ•°ï¼šTOTAL_UPMODEï¼‰
+//! @param out_armmodel[] è…•ã®ãƒ¢ãƒ‡ãƒ«ã€€ï¼ˆé…åˆ—æ•°ï¼šTOTAL_ARMMODEï¼‰
+//! @param *legmodel è¶³ï¼ˆé™æ­¢çŠ¶æ…‹ï¼‰ã®ãƒ¢ãƒ‡ãƒ«ã®ãƒã‚¤ãƒ³ã‚¿
+//! @param out_walkmodel[] è¶³ï¼ˆæ­©ãï¼‰ã®ãƒ¢ãƒ‡ãƒ«ã€€ï¼ˆé…åˆ—æ•°ï¼šTOTAL_WALKMODEï¼‰
+//! @param out_runmodel[] è¶³ï¼ˆèµ°ã‚Šï¼‰ã®ãƒ¢ãƒ‡ãƒ«ã€€ï¼ˆé…åˆ—æ•°ï¼šTOTAL_RUNMODEï¼‰
 void ResourceManager::GetHumanModel(int out_upmodel[], int out_armmodel[], int *legmodel, int out_walkmodel[], int out_runmodel[])
 {
 	for(int i=0; i<TOTAL_UPMODE; i++){
@@ -213,7 +213,7 @@ void ResourceManager::GetHumanModel(int out_upmodel[], int out_armmodel[], int *
 	}
 }
 
-//! @brief l‚Ìƒ‚ƒfƒ‹‚ğ‰ğ•ú
+//! @brief äººã®ãƒ¢ãƒ‡ãƒ«ã‚’è§£æ”¾
 void ResourceManager::CleanupHumanModel()
 {
 	if( d3dg == NULL ){ return; }
@@ -237,9 +237,9 @@ void ResourceManager::CleanupHumanModel()
 	}
 }
 
-//! @brief l‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-//! @param id l‚Ìí—ŞID
-//! @return ¬Œ÷F0ˆÈã@¸”sF-1
+//! @brief äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
+//! @param id äººã®ç¨®é¡ID
+//! @return æˆåŠŸï¼š0ä»¥ä¸Šã€€å¤±æ•—ï¼š-1
 int ResourceManager::AddHumanTexture(int id)
 {
 	if( d3dg == NULL ){ return -1; }
@@ -249,20 +249,20 @@ int ResourceManager::AddHumanTexture(int id)
 	char path[MAX_PATH];
 	if( ParamInfo->GetHuman(id, &data) == 1 ){ return -1; }
 
-	//Šù‚É“Ç‚İ‚ñ‚¾ƒeƒNƒXƒ`ƒƒ‚©‚Ç‚¤‚©’²‚×‚é
+	//æ—¢ã«èª­ã¿è¾¼ã‚“ã ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‹ã©ã†ã‹èª¿ã¹ã‚‹
 	for(int i=0; i<MAX_LOADHUMANTEXTURE; i++){
 		if( human_texture_Param[i] == data.texture ){
 			return -1;
 		}
 	}
 
-	//ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 	for(int i=0; i<MAX_LOADHUMANTEXTURE; i++){
 		if( human_texture_Param[i] == -1 ){
 			int TexturePathID = data.texture;
 			if( ParamInfo->GetHumanTexturePath(TexturePathID, path) == 1 ){ return -1; }
-			human_texture_Param[i] = TexturePathID;				//ƒf[ƒ^”Ô†‚ğ‹L˜^
-			human_texture_d3dg[i] = d3dg->LoadTexture(path, false, false);	//ƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
+			human_texture_Param[i] = TexturePathID;				//ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’è¨˜éŒ²
+			human_texture_d3dg[i] = d3dg->LoadTexture(path, false, false);	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
 			return i;
 		}
 	}
@@ -270,8 +270,8 @@ int ResourceManager::AddHumanTexture(int id)
 	return -1;
 }
 
-//! @brief “Ç‚İ‚ñ‚Å‚¢‚él‚ÌƒeƒNƒXƒ`ƒƒ”‚ğæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ”iÅ‘å MAX_LOADHUMANTEXTUREj
+//! @brief èª­ã¿è¾¼ã‚“ã§ã„ã‚‹äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æ•°ã‚’å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£æ•°ï¼ˆæœ€å¤§ MAX_LOADHUMANTEXTUREï¼‰
 int ResourceManager::GetHumanTextures()
 {
 	int Textures = 0;
@@ -285,9 +285,9 @@ int ResourceManager::GetHumanTextures()
 	return Textures;
 }
 
-//! @brief l‚ÌƒeƒNƒXƒ`ƒƒ”Ô†‚ğæ“¾
-//! @param id l‚Ìí—ŞID
-//! @return ¬Œ÷FƒeƒNƒXƒ`ƒƒID@¸”sF-1
+//! @brief äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ç•ªå·ã‚’å–å¾—
+//! @param id äººã®ç¨®é¡ID
+//! @return æˆåŠŸï¼šãƒ†ã‚¯ã‚¹ãƒãƒ£IDã€€å¤±æ•—ï¼š-1
 int ResourceManager::GetHumanTexture(int id)
 {
 	if( (id < 0)||(TOTAL_PARAMETERINFO_HUMAN <= id ) ){ return -1; }
@@ -304,12 +304,12 @@ int ResourceManager::GetHumanTexture(int id)
 	return -1;
 }
 
-//! @brief “Ç‚İ‚ñ‚Å‚¢‚él‚ÌƒeƒNƒXƒ`ƒƒî•ñ‚ğæ“¾
-//! @param dataid ƒf[ƒ^”Ô†
-//! @param ParamID l‚Ìí—ŞID‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param TextureID ƒeƒNƒXƒ`ƒƒID‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return ¬Œ÷Ftrue@¸”sFfalse
-//! @attention ƒfƒoƒbƒN—p‚ÌŠÖ”‚Å‚·B’Êí‚Íg—p‚µ‚Ü‚¹‚ñB
+//! @brief èª­ã¿è¾¼ã‚“ã§ã„ã‚‹äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æƒ…å ±ã‚’å–å¾—
+//! @param dataid ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param ParamID äººã®ç¨®é¡IDã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param TextureID ãƒ†ã‚¯ã‚¹ãƒãƒ£IDã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
+//! @attention ãƒ‡ãƒãƒƒã‚¯ç”¨ã®é–¢æ•°ã§ã™ã€‚é€šå¸¸ã¯ä½¿ç”¨ã—ã¾ã›ã‚“ã€‚
 bool ResourceManager::GetHumanTextureInfo(int dataid, int *ParamID, int *TextureID)
 {
 	if( (dataid < 0)||(MAX_LOADHUMANTEXTURE <= dataid ) ){ return false; }
@@ -319,7 +319,7 @@ bool ResourceManager::GetHumanTextureInfo(int dataid, int *ParamID, int *Texture
 	return true;
 }
 
-//! @brief l‚ÌƒeƒNƒXƒ`ƒƒ‚ğˆêŠ‡‰ğ•ú
+//! @brief äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupHumanTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -333,8 +333,8 @@ void ResourceManager::CleanupHumanTexture()
 	}
 }
 
-//! @brief •Ší‚Ìƒ‚ƒfƒ‹‚âƒeƒNƒXƒ`ƒƒ‚ğˆêŠ‡“Ç‚İ‚İ
-//! @return ¬Œ÷F0@¸”sF1ˆÈã
+//! @brief æ­¦å™¨ã®ãƒ¢ãƒ‡ãƒ«ã‚„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¸€æ‹¬èª­ã¿è¾¼ã¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1ä»¥ä¸Š
 int ResourceManager::LoadWeaponModelTexture()
 {
 	int cnt = 0;
@@ -344,14 +344,14 @@ int ResourceManager::LoadWeaponModelTexture()
 	for(int i=0; i<TOTAL_PARAMETERINFO_WEAPON; i++){
 		WeaponParameter data;
 		if( ParamInfo->GetWeapon(i, &data) == 0 ){
-			//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚İAƒGƒ‰[‚ªo‚ê‚ÎƒJƒEƒ“ƒg‚·‚éB
+			//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã¿ã€ã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã€‚
 			weapon_model[i] = d3dg->LoadModel(data.model);
 			weapon_texture[i] = d3dg->LoadTexture(data.texture, false, false);
 			if( weapon_model[i] == -1 ){ cnt += 1; }
 			if( weapon_texture[i] == -1 ){ cnt += 1; }
 		}
 		else{
-			//İ’èƒf[ƒ^‚ª‚¨‚©‚µ‚¯‚ê‚ÎAƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ 2‚Â‚Æ‚àƒGƒ‰[B
+			//è¨­å®šãƒ‡ãƒ¼ã‚¿ãŒãŠã‹ã—ã‘ã‚Œã°ã€ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ 2ã¤ã¨ã‚‚ã‚¨ãƒ©ãƒ¼ã€‚
 			cnt += 2;
 		}
 	}
@@ -359,8 +359,8 @@ int ResourceManager::LoadWeaponModelTexture()
 	return cnt;
 }
 
-//! @brief •Ší‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief æ­¦å™¨ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::GetWeaponModelTexture(int id, int *model, int *texture)
 {
 	if( model == NULL ){ return 1; }
@@ -380,10 +380,10 @@ int ResourceManager::GetWeaponModelTexture(int id, int *model, int *texture)
 }
 
 #ifdef ENABLE_BUG_HUMANWEAPON
-//! @brief ƒoƒO•Ší‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-//! @return ¬Œ÷F0@¸”sF1
-//! @warning æ‚É GetWeaponModelTexture()ŠÖ” ‚ğÀs‚µ‚Äæ“¾‚É¸”s‚µ‚½‚ÉŒÀ‚èA‚±‚ÌŠÖ”‚ğg‚Á‚Ä‚­‚¾‚³‚¢B
-//! @attention ƒoƒO•Ší‚ğ’Ç‰Á‚·‚éê‡‚ÍAParameterInfoƒNƒ‰ƒX‚Ì GetBugWeapon() ŠÖ”‚à•ÒW‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ãƒã‚°æ­¦å™¨ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
+//! @warning å…ˆã« GetWeaponModelTexture()é–¢æ•° ã‚’å®Ÿè¡Œã—ã¦å–å¾—ã«å¤±æ•—ã—ãŸæ™‚ã«é™ã‚Šã€ã“ã®é–¢æ•°ã‚’ä½¿ã£ã¦ãã ã•ã„ã€‚
+//! @attention ãƒã‚°æ­¦å™¨ã‚’è¿½åŠ ã™ã‚‹å ´åˆã¯ã€ParameterInfoã‚¯ãƒ©ã‚¹ã® GetBugWeapon() é–¢æ•°ã‚‚ç·¨é›†ã—ã¦ãã ã•ã„ã€‚
 int ResourceManager::GetBugWeaponModelTexture(int id, int *model, int *texture)
 {
 	if( d3dg == NULL ){ return 1; }
@@ -415,7 +415,7 @@ int ResourceManager::GetBugWeaponModelTexture(int id, int *model, int *texture)
 }
 #endif
 
-//! @brief •Ší‚Ìƒ‚ƒfƒ‹‚âƒeƒNƒXƒ`ƒƒ‚ğˆêŠ‡‰ğ•ú
+//! @brief æ­¦å™¨ã®ãƒ¢ãƒ‡ãƒ«ã‚„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupWeaponModelTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -428,8 +428,8 @@ void ResourceManager::CleanupWeaponModelTexture()
 	}
 }
 
-//! @brief •Ší‚ÌƒTƒEƒ“ƒh‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief æ­¦å™¨ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadWeaponSound()
 {
 	if( SoundCtrl == NULL ){ return 1; }
@@ -437,7 +437,7 @@ int ResourceManager::LoadWeaponSound()
 	int soundid[6];
 	int reloadid;
 
-	//ƒTƒEƒ“ƒhƒtƒ@ƒCƒ‹‚ğ‚Ü‚Æ‚ß‚Ä“Ç‚İ‚Ş
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã¾ã¨ã‚ã¦èª­ã¿è¾¼ã‚€
 	soundid[0] = SoundCtrl->LoadSound("data\\sound\\bang1.wav");
 	soundid[1] = SoundCtrl->LoadSound("data\\sound\\bang2.wav");
 	soundid[2] = SoundCtrl->LoadSound("data\\sound\\bang3.wav");
@@ -450,7 +450,7 @@ int ResourceManager::LoadWeaponSound()
 	for(int i=0; i<TOTAL_PARAMETERINFO_WEAPON; i++){
 		WeaponParameter data;
 		if( ParamInfo->GetWeapon(i, &data) == 0 ){
-			//ƒTƒEƒ“ƒh”Ô†‚É‡‚í‚¹‚ÄAŒø‰Ê‰¹‚ğŠ„‚è“–‚Ä‚éB
+			//ã‚µã‚¦ãƒ³ãƒ‰ç•ªå·ã«åˆã‚ã›ã¦ã€åŠ¹æœéŸ³ã‚’å‰²ã‚Šå½“ã¦ã‚‹ã€‚
 			if( data.soundid == 0 ){
 				weapon_sound[i] = soundid[0];
 			}
@@ -476,7 +476,7 @@ int ResourceManager::LoadWeaponSound()
 	}
 	weapon_reloadsound = reloadid;
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÉƒGƒ‰[‚ªo‚È‚©‚Á‚½‚©’²‚×‚é
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿æ™‚ã«ã‚¨ãƒ©ãƒ¼ãŒå‡ºãªã‹ã£ãŸã‹èª¿ã¹ã‚‹
 	for(int i=0; i<6; i++){
 		if( soundid[i] == -1 ){ return 1; }
 	}
@@ -484,9 +484,9 @@ int ResourceManager::LoadWeaponSound()
 	return 0;
 }
 
-//! @brief •Ší‚ÌƒTƒEƒ“ƒh‚ğæ“¾
-//! @param id 0ˆÈã‚Å•Ší‚Ìƒf[ƒ^”Ô†A-1‚ÅƒŠƒ[ƒh‰¹
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†@¸”sF-1
+//! @brief æ­¦å™¨ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’å–å¾—
+//! @param id 0ä»¥ä¸Šã§æ­¦å™¨ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã€-1ã§ãƒªãƒ­ãƒ¼ãƒ‰éŸ³
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ã€€å¤±æ•—ï¼š-1
 int ResourceManager::GetWeaponSound(int id)
 {
 	if( SoundCtrl == NULL ){ return -1; }
@@ -496,7 +496,7 @@ int ResourceManager::GetWeaponSound(int id)
 	return weapon_sound[id];
 }
 
-//! @brief •Ší‚ÌƒTƒEƒ“ƒh‚ğˆêŠ‡‰ğ•ú
+//! @brief æ­¦å™¨ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupWeaponSound()
 {
 	if( SoundCtrl == NULL ){ return; }
@@ -509,8 +509,8 @@ void ResourceManager::CleanupWeaponSound()
 	weapon_reloadsound = -1;
 }
 
-//! @brief ¬•¨‚Ìƒ‚ƒfƒ‹‚âƒeƒNƒXƒ`ƒƒ‚ğˆêŠ‡“Ç‚İ‚İ
-//! @return ¬Œ÷F0@¸”sF1ˆÈã
+//! @brief å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ã‚„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¸€æ‹¬èª­ã¿è¾¼ã¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1ä»¥ä¸Š
 int ResourceManager::LoadSmallObjectModelTexture()
 {
 	int cnt = 0;
@@ -520,14 +520,14 @@ int ResourceManager::LoadSmallObjectModelTexture()
 	for(int i=0; i<TOTAL_PARAMETERINFO_SMALLOBJECT; i++){
 		SmallObjectParameter data;
 		if( ParamInfo->GetSmallObject(i, &data) == 0 ){
-			//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚İAƒGƒ‰[‚ªo‚ê‚ÎƒJƒEƒ“ƒg‚·‚éB
+			//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã¿ã€ã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã€‚
 			smallobject_model[i] = d3dg->LoadModel(data.model);
 			smallobject_texture[i] = d3dg->LoadTexture(data.texture, false, false);
 			if( smallobject_model[i] == -1 ){ cnt += 1; }
 			if( smallobject_texture[i] == -1 ){ cnt += 1; }
 		}
 		else{
-			//İ’èƒf[ƒ^‚ª‚¨‚©‚µ‚¯‚ê‚ÎAƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ 2‚Â‚Æ‚àƒGƒ‰[B
+			//è¨­å®šãƒ‡ãƒ¼ã‚¿ãŒãŠã‹ã—ã‘ã‚Œã°ã€ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ 2ã¤ã¨ã‚‚ã‚¨ãƒ©ãƒ¼ã€‚
 			cnt += 2;
 		}
 	}
@@ -535,8 +535,8 @@ int ResourceManager::LoadSmallObjectModelTexture()
 	return cnt;
 }
 
-//! @brief ¬•¨‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::GetSmallObjectModelTexture(int id, int *model, int *texture)
 {
 	if( model == NULL ){ return 1; }
@@ -548,7 +548,7 @@ int ResourceManager::GetSmallObjectModelTexture(int id, int *model, int *texture
 	return 0;
 }
 
-//! @brief ¬•¨‚Ìƒ‚ƒfƒ‹‚âƒeƒNƒXƒ`ƒƒ‚ğˆêŠ‡‰ğ•ú
+//! @brief å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ã‚„ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupSmallObjectModelTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -561,22 +561,22 @@ void ResourceManager::CleanupSmallObjectModelTexture()
 	}
 }
 
-//! @brief ¬•¨‚ÌƒTƒEƒ“ƒh‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief å°ç‰©ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadSmallObjectSound()
 {
 	if( SoundCtrl == NULL ){ return 1; }
 
 	int soundid[2];
 
-	//ƒTƒEƒ“ƒhƒtƒ@ƒCƒ‹‚ğ‚Ü‚Æ‚ß‚Ä“Ç‚İ‚Ş
+	//ã‚µã‚¦ãƒ³ãƒ‰ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ã¾ã¨ã‚ã¦èª­ã¿è¾¼ã‚€
 	soundid[0] = SoundCtrl->LoadSound("data\\sound\\can.wav");
 	soundid[1] = SoundCtrl->LoadSound("data\\sound\\dan.wav");
 
 	for(int i=0; i<TOTAL_PARAMETERINFO_SMALLOBJECT; i++){
 		SmallObjectParameter data;
 		if( ParamInfo->GetSmallObject(i, &data) == 0 ){
-			//ƒTƒEƒ“ƒh”Ô†‚É‡‚í‚¹‚ÄAŒø‰Ê‰¹‚ğŠ„‚è“–‚Ä‚éB
+			//ã‚µã‚¦ãƒ³ãƒ‰ç•ªå·ã«åˆã‚ã›ã¦ã€åŠ¹æœéŸ³ã‚’å‰²ã‚Šå½“ã¦ã‚‹ã€‚
 			if( data.sound == 0 ){
 				smallobject_sound[i] = soundid[0];
 			}
@@ -589,16 +589,16 @@ int ResourceManager::LoadSmallObjectSound()
 		}
 	}
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÉƒGƒ‰[‚ªo‚È‚©‚Á‚½‚©’²‚×‚é
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿æ™‚ã«ã‚¨ãƒ©ãƒ¼ãŒå‡ºãªã‹ã£ãŸã‹èª¿ã¹ã‚‹
 	for(int i=0; i<2; i++){
 		if( soundid[i] == -1 ){ return 1; }
 	}
 	return 0;
 }
 
-//! @brief ¬•¨‚ÌƒTƒEƒ“ƒh‚ğæ“¾
-//! @param id ¬•¨‚Ìƒf[ƒ^”Ô†
-//! @return ¬Œ÷Fƒf[ƒ^”Ô†@¸”sF-1
+//! @brief å°ç‰©ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’å–å¾—
+//! @param id å°ç‰©ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æˆåŠŸï¼šãƒ‡ãƒ¼ã‚¿ç•ªå·ã€€å¤±æ•—ï¼š-1
 int ResourceManager::GetSmallObjectSound(int id)
 {
 	if( SoundCtrl == NULL ){ return -1; }
@@ -606,7 +606,7 @@ int ResourceManager::GetSmallObjectSound(int id)
 	return smallobject_sound[id];
 }
 
-//! @brief ¬•¨‚ÌƒTƒEƒ“ƒh‚ğˆêŠ‡‰ğ•ú
+//! @brief å°ç‰©ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupSmallObjectSound()
 {
 	if( SoundCtrl == NULL ){ return; }
@@ -617,12 +617,12 @@ void ResourceManager::CleanupSmallObjectSound()
 	}
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ìƒ‚ƒfƒ‹EƒeƒNƒXƒ`ƒƒEƒTƒEƒ“ƒh‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @param modelpath ƒ‚ƒfƒ‹ƒf[ƒ^‚ÌƒpƒX
-//! @param texturepath ƒeƒNƒXƒ`ƒƒƒf[ƒ^‚ÌƒpƒX
-//! @param soundpath ƒTƒEƒ“ƒhƒf[ƒ^‚ÌƒpƒX
-//! @return ¬Œ÷F0@¸”sF1ˆÈã
+//! @brief è¿½åŠ å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ãƒ»ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ»ã‚µã‚¦ãƒ³ãƒ‰ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @param modelpath ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹
+//! @param texturepath ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹
+//! @param soundpath ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1ä»¥ä¸Š
 int ResourceManager::LoadAddSmallObject(int id, char *modelpath, char *texturepath, char *soundpath)
 {
 	if( d3dg == NULL ){ return 1; }
@@ -645,8 +645,8 @@ int ResourceManager::LoadAddSmallObject(int id, char *modelpath, char *texturepa
 	return cnt;
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ìƒ‚ƒfƒ‹EƒeƒNƒXƒ`ƒƒEƒTƒEƒ“ƒh‚ğ‰ğ•ú
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
+//! @brief è¿½åŠ å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ãƒ»ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ»ã‚µã‚¦ãƒ³ãƒ‰ã‚’è§£æ”¾
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
 void ResourceManager::CleanupAddSmallObject(int id)
 {
 	if( d3dg == NULL ){ return; }
@@ -660,8 +660,8 @@ void ResourceManager::CleanupAddSmallObject(int id)
 	SoundCtrl->CleanupSound(smallobject_sound[dataid]);
 }
 
-//! @brief ’e‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1ˆÈã
+//! @brief å¼¾ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1ä»¥ä¸Š
 int ResourceManager::LoadBulletModelTexture()
 {
 	int cnt = 0;
@@ -671,14 +671,14 @@ int ResourceManager::LoadBulletModelTexture()
 	for(int i=0; i<TOTAL_PARAMETERINFO_BULLET; i++){
 		BulletParameter data;
 		if( ParamInfo->GetBullet(i, &data) == 0 ){
-			//ƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚İAƒGƒ‰[‚ªo‚ê‚ÎƒJƒEƒ“ƒg‚·‚éB
+			//ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã¿ã€ã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚Œã°ã‚«ã‚¦ãƒ³ãƒˆã™ã‚‹ã€‚
 			bullet_model[i] = d3dg->LoadModel(data.model);
 			bullet_texture[i] = d3dg->LoadTexture(data.texture, false, false);
 			if( bullet_model[i] == -1 ){ cnt += 1; }
 			if( bullet_texture[i] == -1 ){ cnt += 1; }
 		}
 		else{
-			//İ’èƒf[ƒ^‚ª‚¨‚©‚µ‚¯‚ê‚ÎAƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ 2‚Â‚Æ‚àƒGƒ‰[B
+			//è¨­å®šãƒ‡ãƒ¼ã‚¿ãŒãŠã‹ã—ã‘ã‚Œã°ã€ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ 2ã¤ã¨ã‚‚ã‚¨ãƒ©ãƒ¼ã€‚
 			cnt += 2;
 		}
 	}
@@ -686,8 +686,8 @@ int ResourceManager::LoadBulletModelTexture()
 	return cnt;
 }
 
-//! @brief ’e‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief å¼¾ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::GetBulletModelTexture(int id, int *model, int *texture)
 {
 	if( model == NULL ){ return 1; }
@@ -700,7 +700,7 @@ int ResourceManager::GetBulletModelTexture(int id, int *model, int *texture)
 	return 0;
 }
 
-//! @brief ’e‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ‰ğ•ú
+//! @brief å¼¾ã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è§£æ”¾
 void ResourceManager::CleanupBulletModelTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -714,8 +714,8 @@ void ResourceManager::CleanupBulletModelTexture()
 	}
 }
 
-//! @brief ƒXƒR[ƒvƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ã‚¹ã‚³ãƒ¼ãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadScopeTexture()
 {
 	if( d3dg == NULL ){ return 1; }
@@ -725,14 +725,14 @@ int ResourceManager::LoadScopeTexture()
 	return 0;
 }
 
-//! @brief ƒXƒR[ƒvƒeƒNƒXƒ`ƒƒ‚ğæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
+//! @brief ã‚¹ã‚³ãƒ¼ãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ResourceManager::GetScopeTexture()
 {
 	return scopetexture;
 }
 
-//! @brief ƒXƒR[ƒvƒeƒNƒXƒ`ƒƒ‚ğ‰ğ•ú
+//! @brief ã‚¹ã‚³ãƒ¼ãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è§£æ”¾
 void ResourceManager::CleanupScopeTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -742,18 +742,18 @@ void ResourceManager::CleanupScopeTexture()
 	scopetexture = -1;
 }
 
-//! @brief ”wŒi‹ó‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-//! @param id ‹ó‚Ì”Ô†i1`5j
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief èƒŒæ™¯ç©ºã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
+//! @param id ç©ºã®ç•ªå·ï¼ˆ1ï½5ï¼‰
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadSkyModelTexture(int id)
 {
 	if( d3dg == NULL ){ return 1; }
 	if( (id < 1)||(5 < id) ){ return 1; }
 
-	//ƒ‚ƒfƒ‹‚ğ“Ç‚İ‚ŞiŒÅ’èj
+	//ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã‚€ï¼ˆå›ºå®šï¼‰
 	skymodel = d3dg->LoadModel("data\\sky\\sky.x");
 
-	//ƒeƒNƒXƒ`ƒƒ–¼‚ğ¶¬‚µ‚Ä“Ç‚İ‚Ş
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£åã‚’ç”Ÿæˆã—ã¦èª­ã¿è¾¼ã‚€
 	char path[MAX_PATH];
 	sprintf(path, "data\\sky\\sky%d.bmp", id);
 	skytexture = d3dg->LoadTexture(path, false, false);
@@ -763,7 +763,7 @@ int ResourceManager::LoadSkyModelTexture(int id)
 	return 0;
 }
 
-//! @brief ”wŒi‹ó‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+//! @brief èƒŒæ™¯ç©ºã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 void ResourceManager::GetSkyModelTexture(int *model, int *texture)
 {
 	if( model == NULL ){ return; }
@@ -773,7 +773,7 @@ void ResourceManager::GetSkyModelTexture(int *model, int *texture)
 	*texture = skytexture;
 }
 
-//! @brief ”wŒi‹ó‚Ìƒ‚ƒfƒ‹‚ÆƒeƒNƒXƒ`ƒƒ‚ğ‰ğ•ú
+//! @brief èƒŒæ™¯ç©ºã®ãƒ¢ãƒ‡ãƒ«ã¨ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è§£æ”¾
 void ResourceManager::CleanupSkyModelTexture()
 {
 	if( d3dg == NULL ){ return; }
@@ -788,8 +788,8 @@ void ResourceManager::CleanupSkyModelTexture()
 	}
 }
 
-//! @brief ’eEèÖ’e‚ÌƒTƒEƒ“ƒh‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief å¼¾ãƒ»æ‰‹æ¦´å¼¾ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadBulletSound()
 {
 	if( SoundCtrl == NULL ){ return 1; }
@@ -810,13 +810,13 @@ int ResourceManager::LoadBulletSound()
 	return 0;
 }
 
-//! @brief ’eEèÖ’e‚ÌƒTƒEƒ“ƒh‚ğæ“¾
-//! @param hitsoundA ’eƒqƒbƒgƒTƒEƒ“ƒhFA@iNULL‰Âj
-//! @param hitsoundB ’eƒqƒbƒgƒTƒEƒ“ƒhFB@iNULL‰Âj
-//! @param humanhitsound ’eƒqƒbƒgƒTƒEƒ“ƒhFl@iNULL‰Âj
-//! @param passingsound ’e’Ê‰ßƒTƒEƒ“ƒh@iNULL‰Âj
-//! @param grenadebang èÖ’e ”š”­ƒTƒEƒ“ƒh@iNULL‰Âj
-//! @param grenadecco èÖ’eƒoƒEƒ“ƒh ƒTƒEƒ“ƒh@iNULL‰Âj
+//! @brief å¼¾ãƒ»æ‰‹æ¦´å¼¾ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’å–å¾—
+//! @param hitsoundA å¼¾ãƒ’ãƒƒãƒˆã‚µã‚¦ãƒ³ãƒ‰ï¼šAã€€ï¼ˆNULLå¯ï¼‰
+//! @param hitsoundB å¼¾ãƒ’ãƒƒãƒˆã‚µã‚¦ãƒ³ãƒ‰ï¼šBã€€ï¼ˆNULLå¯ï¼‰
+//! @param humanhitsound å¼¾ãƒ’ãƒƒãƒˆã‚µã‚¦ãƒ³ãƒ‰ï¼šäººã€€ï¼ˆNULLå¯ï¼‰
+//! @param passingsound å¼¾é€šéã‚µã‚¦ãƒ³ãƒ‰ã€€ï¼ˆNULLå¯ï¼‰
+//! @param grenadebang æ‰‹æ¦´å¼¾ çˆ†ç™ºã‚µã‚¦ãƒ³ãƒ‰ã€€ï¼ˆNULLå¯ï¼‰
+//! @param grenadecco æ‰‹æ¦´å¼¾ãƒã‚¦ãƒ³ãƒ‰ ã‚µã‚¦ãƒ³ãƒ‰ã€€ï¼ˆNULLå¯ï¼‰
 void ResourceManager::GetBulletSound(int *hitsoundA, int *hitsoundB, int *humanhitsound, int *passingsound, int *grenadebang, int *grenadecco)
 {
 	if( SoundCtrl == NULL ){ return; }
@@ -829,7 +829,7 @@ void ResourceManager::GetBulletSound(int *hitsoundA, int *hitsoundB, int *humanh
 	if( grenadecco != NULL ){ *grenadecco = grenade_cco; }
 }
 
-//! @brief ’eEèÖ’e‚ÌƒTƒEƒ“ƒh‚ğˆêŠ‡‰ğ•ú
+//! @brief å¼¾ãƒ»æ‰‹æ¦´å¼¾ã®ã‚µã‚¦ãƒ³ãƒ‰ã‚’ä¸€æ‹¬è§£æ”¾
 void ResourceManager::CleanupBulletSound()
 {
 	if( SoundCtrl == NULL ){ return; }
@@ -849,8 +849,8 @@ void ResourceManager::CleanupBulletSound()
 	grenade_cco = -1;
 }
 
-//! @brief ƒGƒtƒFƒNƒg‚ÌƒeƒNƒXƒ`ƒƒ‚ğ“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ResourceManager::LoadEffectTexture()
 {
 	if( d3dg == NULL ){ return 1; }
@@ -867,35 +867,35 @@ int ResourceManager::LoadEffectTexture()
 	return 0;
 }
 
-//! @brief ŒŒƒeƒNƒXƒ`ƒƒæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
+//! @brief è¡€ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ResourceManager::GetEffectBloodTexture()
 {
 	return effecttexture_blood;
 }
 
-//! @brief ƒtƒ‰ƒbƒVƒ…ƒeƒNƒXƒ`ƒƒæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
+//! @brief ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ResourceManager::GetEffectMflashTexture()
 {
 	return effecttexture_mflash;
 }
 
-//! @brief ‰ŒƒeƒNƒXƒ`ƒƒæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
+//! @brief ç…™ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ResourceManager::GetEffectSmokeTexture()
 {
 	return effecttexture_smoke;
 }
 
-//! @brief –òä°ƒeƒNƒXƒ`ƒƒæ“¾
-//! @return ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
+//! @brief è–¬è¢ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
 int ResourceManager::GetEffectYakkyouTexture()
 {
 	return effecttexture_yakkyou;
 }
 
-//! @brief ƒGƒtƒFƒNƒg‚ÌƒeƒNƒXƒ`ƒƒ‚ğ‰ğ•ú
+//! @brief ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è§£æ”¾
 void ResourceManager::CleanupEffectTexture()
 {
 	if( d3dg == NULL ){ return; }

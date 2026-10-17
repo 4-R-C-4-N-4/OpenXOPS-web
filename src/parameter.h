@@ -1,5 +1,5 @@
 //! @file parameter.h
-//! @brief ParameterInfo�N���X�̐錾
+//! @brief ParameterInfoクラスの宣言
 
 //--------------------------------------------------------------------------------
 // 
@@ -29,160 +29,160 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------------
 
-// �l�E����E���� �ݒ�f�[�^�̊m�F���
-// �@Manda����@�i2014�N12���j
+// 人・武器・小物 設定データの確認作業
+// 　Mandaさん　（2014年12月）
 
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-#define TOTAL_PARAMETERINFO_HUMAN 43			//!< �l�̐ݒ萔
-#define TOTAL_HUMANTEXTURE 30					//!< �l�̃e�N�X�`���̍��v����
-#define TOTAL_PARAMETERINFO_WEAPON 23			//!< ����̐ݒ萔
-#define TOTAL_PARAMETERINFO_SMALLOBJECT 12	//!< �����̐ݒ萔
-#define TOTAL_PARAMETERINFO_BULLET 2		//!< �e�e�I�u�W�F�N�g�̐ݒ萔
-#define TOTAL_OFFICIALMISSION 58			//!< �W���~�b�V�����̐�
-#define TOTAL_PARAMETERINFO_AILEVEL 6		//!< AI���x���̐ݒ萔
-#define TOTAL_PARAMETERINFO_SCOPE 4			//!< �X�R�[�v�̐ݒ萔
+#define TOTAL_PARAMETERINFO_HUMAN 43			//!< 人の設定数
+#define TOTAL_HUMANTEXTURE 30					//!< 人のテクスチャの合計枚数
+#define TOTAL_PARAMETERINFO_WEAPON 23			//!< 武器の設定数
+#define TOTAL_PARAMETERINFO_SMALLOBJECT 12	//!< 小物の設定数
+#define TOTAL_PARAMETERINFO_BULLET 2		//!< 銃弾オブジェクトの設定数
+#define TOTAL_OFFICIALMISSION 58			//!< 標準ミッションの数
+#define TOTAL_PARAMETERINFO_AILEVEL 6		//!< AIレベルの設定数
+#define TOTAL_PARAMETERINFO_SCOPE 4			//!< スコープの設定数
 
-#define ID_WEAPON_NONE 0		//!< ����F�Ȃ� �Ƃ��Ď�舵������ԍ�
-#define ID_WEAPON_GRENADE 13	//!< ��֒e�Ƃ��Ď�舵������ԍ�
-#define ID_WEAPON_CASE 15		//!< �P�[�X�Ƃ��Ď�舵������ԍ�
+#define ID_WEAPON_NONE 0		//!< 武器：なし として取り扱う武器番号
+#define ID_WEAPON_GRENADE 13	//!< 手榴弾として取り扱う武器番号
+#define ID_WEAPON_CASE 15		//!< ケースとして取り扱う武器番号
 
-#define OFFICIALMISSION_BD1 "temp.bd1"		//!< �W���~�b�V������BD1�t�@�C����
+#define OFFICIALMISSION_BD1 "temp.bd1"		//!< 標準ミッションのBD1ファイル名
 
-#define SMALLOBJECT_SCALE 5.0f				//!< �����̕`��{��
+#define SMALLOBJECT_SCALE 5.0f				//!< 小物の描画倍率
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 1		//!< Select include file.
 #endif
 #include "main.h"
 
-//! �l�ݒ�p�̍\����
+//! 人設定用の構造体
 typedef struct
 {
-	int texture;		//!< �e�N�X�`���ԍ�
-	int model;			//!< ���f���ԍ�
-	int hp;				//!< �̗�
-	int AIlevel;		//!< AI���x��
-	int AItrackability;	//!< AI�U�����̒Ǐ]���i�]���r�̂݁j
-	int Weapon[TOTAL_HAVEWEAPON];	//!< ����
-	int type;			//!< ���
+	int texture;		//!< テクスチャ番号
+	int model;			//!< モデル番号
+	int hp;				//!< 体力
+	int AIlevel;		//!< AIレベル
+	int AItrackability;	//!< AI攻撃時の追従性（ゾンビのみ）
+	int Weapon[TOTAL_HAVEWEAPON];	//!< 武器
+	int type;			//!< 種類
 } HumanParameter;
 
-//! ����ݒ�p�̍\����
+//! 武器設定用の構造体
 typedef struct
 {
-	const char *name;		//!< ���햼
-	const char *model;		//!< ���f���t�@�C����
-	const char *texture;	//!< �e�N�X�`���t�@�C����
-	int attacks;		//!< �U����
-	int penetration;	//!< �ђʗ�
-	int blazings;		//!< �A�ˊԊu
-	int speed;			//!< �e��
-	int nbsmax;			//!< ���e��
-	int reloads;		//!< �����[�h����
-	int reaction;		//!< �����p�x
-	int ErrorRangeMIN;	//!< �e���덷 �ŏ�
-	int ErrorRangeMAX;	//!< �e���덷 �ő�
-	float mx;		//!< �e�̈ʒu�FX
-	float my;		//!< �e�̈ʒu�FY
-	float mz;		//!< �e�̈ʒu�FZ
-	float flashx;	//!< �}�Y���t���b�V���̈ʒu�FX
-	float flashy;	//!< �}�Y���t���b�V���̈ʒu�FY
-	float flashz;	//!< �}�Y���t���b�V���̈ʒu�FZ
-	float yakkyou_px;	//!< ��䰔r�o �ʒu�FX
-	float yakkyou_py;	//!< ��䰔r�o �ʒu�FY
-	float yakkyou_pz;	//!< ��䰔r�o �ʒu�FZ
-	float yakkyou_sx;	//!< ��䰔r�o �����FX
-	float yakkyou_sy;	//!< ��䰔r�o �����FY
-	float yakkyou_size;	//!< ��� �`��{���i�������ōU���͂���Z�o�j
-	int yakkyou_delay;	//!< ��䰔r�o �x���J�E���g
-	int burstcnt;		//!< �A�˒e���i0�F�t���I�[�g�@1�F�Z�~�I�[�g�@2�ȏ�F�o�[�X�g���[�h�j
-	int scopemode;		//!< �X�R�[�v���[�h
-	float size;			//!< �`��{��
-	int soundid;		//!< ���C���̔ԍ�
-	int soundvolume;	//!< ���C���̉���
-	bool silencer;		//!< �T�C�����T�[�̗L��
-	int WeaponP;		//!< �������@
-	int ChangeWeaponID;		//!< �؂�ւ��镐��Ώ�
-	int ChangeWeaponCnt;	//!< ����؂�ւ�����
-	int pellet;			//!< ���˒e���i�y���b�g���j
+	const char *name;		//!< 武器名
+	const char *model;		//!< モデルファイル名
+	const char *texture;	//!< テクスチャファイル名
+	int attacks;		//!< 攻撃力
+	int penetration;	//!< 貫通力
+	int blazings;		//!< 連射間隔
+	int speed;			//!< 弾速
+	int nbsmax;			//!< 装弾数
+	int reloads;		//!< リロード時間
+	int reaction;		//!< 反動角度
+	int ErrorRangeMIN;	//!< 弾道誤差 最小
+	int ErrorRangeMAX;	//!< 弾道誤差 最大
+	float mx;		//!< 銃の位置：X
+	float my;		//!< 銃の位置：Y
+	float mz;		//!< 銃の位置：Z
+	float flashx;	//!< マズルフラッシュの位置：X
+	float flashy;	//!< マズルフラッシュの位置：Y
+	float flashz;	//!< マズルフラッシュの位置：Z
+	float yakkyou_px;	//!< 薬莢排出 位置：X
+	float yakkyou_py;	//!< 薬莢排出 位置：Y
+	float yakkyou_pz;	//!< 薬莢排出 位置：Z
+	float yakkyou_sx;	//!< 薬莢排出 初速：X
+	float yakkyou_sy;	//!< 薬莢排出 初速：Y
+	float yakkyou_size;	//!< 薬莢 描画倍率（※負数で攻撃力から算出）
+	int yakkyou_delay;	//!< 薬莢排出 遅延カウント
+	int burstcnt;		//!< 連射弾数（0：フルオート　1：セミオート　2以上：バーストモード）
+	int scopemode;		//!< スコープモード
+	float size;			//!< 描画倍率
+	int soundid;		//!< 発砲音の番号
+	int soundvolume;	//!< 発砲音の音量
+	bool silencer;		//!< サイレンサーの有無
+	int WeaponP;		//!< 装備方法
+	int ChangeWeaponID;		//!< 切り替える武器対象
+	int ChangeWeaponCnt;	//!< 武器切り替え時間
+	int pellet;			//!< 発射弾数（ペレット数）
 } WeaponParameter;
 
-//! �����ݒ�p�̍\����
+//! 小物設定用の構造体
 typedef struct
 {
-	const char *model;		//!< ���f����
-	const char *texture;	//!< �e�N�X�`����
-	int decide;		//!< �����蔻��̑傫��
-	int hp;			//!< �ϋv��
-	int sound;		//!< �������̌��ʉ��ԍ�
-	int jump;		//!< ��ы
+	const char *model;		//!< モデル名
+	const char *texture;	//!< テクスチャ名
+	int decide;		//!< 当たり判定の大きさ
+	int hp;			//!< 耐久力
+	int sound;		//!< 命中時の効果音番号
+	int jump;		//!< 飛び具合
 } SmallObjectParameter;
 
-//! �e�e�I�u�W�F�N�g�p�̍\����
+//! 銃弾オブジェクト用の構造体
 typedef struct
 {
-	const char *model;		//!< ���f����
-	const char *texture;	//!< �e�N�X�`����
-	float size;				//!< �`��{��
+	const char *model;		//!< モデル名
+	const char *texture;	//!< テクスチャ名
+	float size;				//!< 描画倍率
 } BulletParameter;
 
-//! �W���~�b�V�����ݒ�p�̍\����
+//! 標準ミッション設定用の構造体
 typedef struct
 {
-	const char *name;				//!< �~�b�V�������ʖ�
-	const char *fullname;			//!< �~�b�V������������
-	const char *directory;			//!< �f�[�^�f�B���N�g��
-	const char *txt;				//!< �t�@�C�����i.pd1/.txt�j
-	bool collision;			//!< �ǉ��̓����蔻��������t���O
-	bool screen;			//!< ��ʂ��Â�����t���O
+	const char *name;				//!< ミッション識別名
+	const char *fullname;			//!< ミッション正式名称
+	const char *directory;			//!< データディレクトリ
+	const char *txt;				//!< ファイル名（.pd1/.txt）
+	bool collision;			//!< 追加の当たり判定を示すフラグ
+	bool screen;			//!< 画面を暗くするフラグ
 } OfficialMissionParameter;
 
-//! AI���x���ɂ��ݒ�i���\�l�j�p�\����
+//! AIレベルによる設定（性能値）用構造体
 typedef struct
 {
-	int aiming;			//!< �G�C�~���O�\��
-	int attack;			//!< �U����
-	int search;			//!< �����\��
-	int limitserror;	//!< ���e�덷
+	int aiming;			//!< エイミング能力
+	int attack;			//!< 攻撃性
+	int search;			//!< 発見能力
+	int limitserror;	//!< 許容誤差
 } AIParameter;
 
-//! �X�R�[�v�ݒ�p�̍\����
+//! スコープ設定用の構造体
 typedef struct
 {
-	float ViewAngle;				//!< ����p
-	float MouseRange;				//!< ���슴�x
-	int ScopeGunsight;				//!< �X�R�[�v�g�p���̏Ə��\���i0�F�ʏ�A1�F�ȈՁA2�F�����j
-	bool NoScopeGunsight;			//!< �ʏ펞�̏Ə��\��
-	int WeaponNoScopeReaction;		//!< �ʏ픭�C���̔���
-	float WeaponMotionReactionY;	//!< ���C���̔����i���[�V�����j
-	bool WeaponRecoil_ScopeOnly;	//!< �X�R�[�v ���C���̔��� �X�R�[�v���̂�
-	float WeaponRecoil_ScopeRx;		//!< �X�R�[�v ���C���̔��� �����@���x���@ 0.1f����
-	float WeaponRecoil_ScopeRyMin;	//!< �X�R�[�v ���C���̔��� �c���ŏ��@���x���@ 0.1f����
-	float WeaponRecoil_ScopeRyMax;	//!< �X�R�[�v ���C���̔��� �c���ő�@���x���@ 0.1f����
-	float AI_ShotAngle;							//!< AI ���C���ɓG�𑨂���p�x
-	float AI_ShotAngleLong;						//!< AI ���C���ɓG�𑨂���p�x�i�������j
-	float AI_AddSearchEnemyMaxDist_Normal;		//!< AI �G�������鋗�� ���Z���i�ʏ펞�j
-	float AI_AddSearchEnemyMaxDist_Caution;		//!< AI �G�������鋗�� ���Z���i�x�����j
+	float ViewAngle;				//!< 視野角
+	float MouseRange;				//!< 操作感度
+	int ScopeGunsight;				//!< スコープ使用時の照準表示（0：通常、1：簡易、2：精密）
+	bool NoScopeGunsight;			//!< 通常時の照準表示
+	int WeaponNoScopeReaction;		//!< 通常発砲時の反動
+	float WeaponMotionReactionY;	//!< 発砲時の反動（モーション）
+	bool WeaponRecoil_ScopeOnly;	//!< スコープ 発砲時の反動 スコープ時のみ
+	float WeaponRecoil_ScopeRx;		//!< スコープ 発砲時の反動 横軸　※度数法 0.1f刻み
+	float WeaponRecoil_ScopeRyMin;	//!< スコープ 発砲時の反動 縦軸最小　※度数法 0.1f刻み
+	float WeaponRecoil_ScopeRyMax;	//!< スコープ 発砲時の反動 縦軸最大　※度数法 0.1f刻み
+	float AI_ShotAngle;							//!< AI 発砲時に敵を捉える角度
+	float AI_ShotAngleLong;						//!< AI 発砲時に敵を捉える角度（長距離）
+	float AI_AddSearchEnemyMaxDist_Normal;		//!< AI 敵を見つける距離 加算分（通常時）
+	float AI_AddSearchEnemyMaxDist_Caution;		//!< AI 敵を見つける距離 加算分（警戒時）
 } ScopeParameter;
 
-//! @brief �ݒ肳�ꂽ�l���Ǘ�����N���X
-//! @details �\�ߌŒ肳�ꂽ�ݒ�l���Ǘ����܂��B
-//! @details ��̓I�ɂ́A�l�E����E��������A�W���~�b�V�����Ɋ֌W����ݒ�l�Ȃǂł��B
+//! @brief 設定された値を管理するクラス
+//! @details 予め固定された設定値を管理します。
+//! @details 具体的には、人・武器・小物から、標準ミッションに関係する設定値などです。
 class ParameterInfo
 {
-	HumanParameter *Human;								//!< �l�̏����i�[����|�C���^
-	const char *HumanTexturePath[TOTAL_HUMANTEXTURE];	//!< �l�̃e�N�X�`�����i�[����|�C���^
-	WeaponParameter *Weapon;							//!< ����̏����i�[����|�C���^
+	HumanParameter *Human;								//!< 人の情報を格納するポインタ
+	const char *HumanTexturePath[TOTAL_HUMANTEXTURE];	//!< 人のテクスチャを格納するポインタ
+	WeaponParameter *Weapon;							//!< 武器の情報を格納するポインタ
 #ifdef ENABLE_BUG_HUMANWEAPON
-	WeaponParameter *BugWeapon;							//!< �o�O����̏����i�[����|�C���^
+	WeaponParameter *BugWeapon;							//!< バグ武器の情報を格納するポインタ
 #endif
-	SmallObjectParameter *SmallObject;					//!< �����̏����i�[����|�C���^
-	BulletParameter *Bullet;							//!< �e�e�I�u�W�F�N�g�̏����i�[����|�C���^
-	OfficialMissionParameter *MissionData;				//!< �W���~�b�V�����̏����i�[����|�C���^
-	AIParameter *AIlevel;								//!< AI�̐��\�l
-	ScopeParameter *Scope;								//!< �X�R�[�v�ݒ���i�[����|�C���^
+	SmallObjectParameter *SmallObject;					//!< 小物の情報を格納するポインタ
+	BulletParameter *Bullet;							//!< 銃弾オブジェクトの情報を格納するポインタ
+	OfficialMissionParameter *MissionData;				//!< 標準ミッションの情報を格納するポインタ
+	AIParameter *AIlevel;								//!< AIの性能値
+	ScopeParameter *Scope;								//!< スコープ設定を格納するポインタ
 
 public:
 	ParameterInfo();
