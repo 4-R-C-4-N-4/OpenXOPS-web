@@ -381,7 +381,9 @@ def postprocess(slot, i):
     if slot.get("tileable"):
         s0 = seam_metrics(im)
         meta["seam_raw"] = s0
-        if s0["flagged"]:
+        # seam_heal:false for framed designs (crate faces, panels) whose
+        # border is meant to repeat; healing would ghost the frame.
+        if s0["flagged"] and slot.get("seam_heal", True):
             im = heal_seams(im)
             healed = True
     q = quantize(im)
@@ -454,7 +456,8 @@ def pick(slot, i):
     rec = {"path": slot["path"], "sha256": digest, "generator": GENERATOR,
            "prompt": m["prompt"], "license": LICENSE, "author": AUTHOR,
            "date": dt.date.today().isoformat(), "curated_by": None,
-           "seam_metric": m.get("seam"), "candidate": i,
+           "seam_metric": dict(m["seam"], raw_excess=m.get("seam_raw", {}).get("excess"))
+           if m.get("seam") else None, "candidate": i,
            "source_png_sha256": m.get("raw_sha256")}
     recs = [r for r in read_provenance() if r["path"] != slot["path"]] + [rec]
     with open(PROVENANCE, "w") as f:

@@ -59,9 +59,22 @@ mean abs diff between all adjacent interior columns/rows. **`excess` =
 max(edge_h − interior_h, edge_v − interior_v)**, 0–255 scale; `ratio` is the
 same as a quotient. A candidate is flagged when `excess > SEAM_MAX`.
 
-Tuning (`SEAM_MAX`, default 12.0): see the Wave 1a numbers in the table
-below. Seamless Codex tiles land at roughly 0–3; a synthetic non-tileable crop
-measured 33.7 (2.2 after healing). 12 sits well clear of both groups.
+Tuning (`SEAM_MAX`, default 12.0), from Wave 1a (13 real Codex candidates):
+
+| tile | excess (raw → final) | note |
+|---|---|---|
+| ceramic_floor_tile, metal_grate, dirt | −1.2 … −0.1 | seamless |
+| white_plaster, wood_floor, grass, asphalt | 0.8 … 2.2 | seamless |
+| concrete_wall, office_carpet, red_brick #2 | 4.2 … 4.9 | seamless by eye |
+| steel_plate | 8.2 | panel border sits on the edge, by design |
+| red_brick #1 | 18.0 → 4.8 (healed) | courses misaligned at wrap; visible seam |
+| wooden_crate | 36.7 (`seam_heal:false`) | framed crate face, repeats as stacked crates |
+
+Visually seamless tiles stay below ~8; a real seam starts around 18. 12 sits
+in the gap. Healing works on stochastic and brick-like textures (faint
+ghosting of joints near the border) but destroys framed designs. For those,
+set `"seam_heal": false` on the slot: the flag is still recorded. Prefer
+regenerating structured tiles (bricks, tiles) over healing them.
 
 ## Pick / provenance
 

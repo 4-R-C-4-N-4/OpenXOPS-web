@@ -20,7 +20,7 @@
     {"path": "data/tiles_w1/grass.bmp", "summary": "short natural lawn grass seen from directly above, dense green-olive blades with a few dry yellowish patches spread evenly"},
     {"path": "data/tiles_w1/dirt.bmp", "summary": "packed brown earth ground seen from directly above, with small pebbles, fine soil grain and faint dry cracks spread evenly"},
     {"path": "data/tiles_w1/asphalt.bmp", "summary": "a dark grey weathered asphalt road surface seen from directly above, fine aggregate grain with small light stones, no road markings"},
-    {"path": "data/tiles_w1/wooden_crate.bmp", "summary": "the face of a wooden shipping crate: horizontal pine planks framed by a plank border around the whole square, with nail heads, no stencils or markings"},
+    {"path": "data/tiles_w1/wooden_crate.bmp", "summary": "the face of a wooden shipping crate: horizontal pine planks framed by a plank border around the whole square, with nail heads, no stencils or markings", "seam_heal": false, "seam_note": "framed design: the border plank repeats as stacked crates; a high seam excess is expected"},
     {"path": "data/tiles_w1/office_carpet.bmp", "summary": "a commercial office floor carpet in dull blue-grey with a fine woven loop-pile texture and subtle flecks, seen from directly above"}
   ]
 }
