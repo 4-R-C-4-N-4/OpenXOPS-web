@@ -52,3 +52,10 @@ Paused: GLES renderer and Japanese text branches. Next sequence: review and
 merge these bounded components, integrate VFS reads, then renderer and text.
 The browser game is not playable yet. Completed sound pack remains pending
 human listening/in-engine mix review.
+
+### Recovery batch results (awaiting review)
+
+- p1-vfs `4b5e950`: library complete; parent reran CTest 2/2, including 497 original archive files read/CRC-checked. Game integration still deferred.
+- p1-shell `065b1d0`: SDL window/input complete; backend and full-game headless/offscreen smoke tests provided. Renderer/audio still stubs.
+- fdp-w1b `2b37a3a`: DDS/alpha tooling + procedural scope complete; parent reran 6 tooling tests successfully. Scope leaves 66 required P0 slots missing.
+- Three independent read-only reviewers now run on `openai-codex/gpt-6-luna` with low reasoning. Runtime worker list confirms that exact model. Results are not merged until review and integration pass.
