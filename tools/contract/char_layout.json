@@ -1,0 +1,576 @@
+{
+  "file": "data/char.dds",
+  "source": "src/d3dgraphics-opengl.cpp:2707-2786 (Draw2DTextureFontText); src/gamemain.cpp:3041-3110,3195-3198",
+  "texture_size_reference": [
+    512,
+    512
+  ],
+  "texture_size_note": "The engine only uses normalised UVs (1/16 per cell), so any square size works. 512x512 gives 32 px cells. Power-of-two is recommended (see ASSET-CONTRACT.md 1.6).",
+  "grid": {
+    "cols": 16,
+    "rows": 16,
+    "cell_px_at_512": 32,
+    "code_to_cell": "col = code % 16, row = code / 16 (code = unsigned byte 0..255)",
+    "uv_per_cell": 0.0625,
+    "uv_origin": "top-left; v grows downward",
+    "cell_drawn_whole": true,
+    "notes": [
+      "Code 0x00 is never drawn (strlen terminator).",
+      "Space 0x20 is drawn as a quad, so its cell must be fully transparent.",
+      "Glyphs are drawn at many sizes and aspect ratios (10x14 to 60x42 px at 640x480 reference), with GL_LINEAR filtering and no mipmaps."
+    ]
+  },
+  "colour": "Vertex colour modulates the texel (GL_MODULATE). Glyphs should be white, with the glyph shape in alpha. HUD frame cells are drawn with colour (1,1,1,0.5).",
+  "glyph_ranges": [
+    {
+      "range": [
+        32,
+        126
+      ],
+      "purpose": "printable ASCII text (menus, HUD numbers, weapon names, mission names, fps counter)",
+      "required": true
+    },
+    {
+      "range": [
+        1,
+        31
+      ],
+      "purpose": "never referenced by engine string literals",
+      "required": false
+    },
+    {
+      "range": [
+        127,
+        175
+      ],
+      "purpose": "not referenced by the engine; reachable only from user/mission strings",
+      "required": false
+    },
+    {
+      "range": [
+        191,
+        255
+      ],
+      "purpose": "0xBF and 0xCA-0xFF are not referenced by the engine (only 0xC0-0xC9 and 0xD0-0xD2 are used); reachable from user strings",
+      "required": false
+    }
+  ],
+  "hud_cells": [
+    {
+      "code": "0xB0",
+      "code_dec": 176,
+      "col": 0,
+      "row": 11,
+      "rect_px": [
+        0,
+        352,
+        32,
+        384
+      ],
+      "purpose": "Weapon panel: top-left corner",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3060,3068"
+    },
+    {
+      "code": "0xB1",
+      "code_dec": 177,
+      "col": 1,
+      "row": 11,
+      "rect_px": [
+        32,
+        352,
+        64,
+        384
+      ],
+      "purpose": "Weapon panel: top edge (repeated x6)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3061-3063,3068"
+    },
+    {
+      "code": "0xB2",
+      "code_dec": 178,
+      "col": 2,
+      "row": 11,
+      "rect_px": [
+        64,
+        352,
+        96,
+        384
+      ],
+      "purpose": "Weapon panel: top-right corner",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3064,3068"
+    },
+    {
+      "code": "0xB3",
+      "code_dec": 179,
+      "col": 3,
+      "row": 11,
+      "rect_px": [
+        96,
+        352,
+        128,
+        384
+      ],
+      "purpose": "Status panels A and B: top-left cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3045,3047,3052,3054"
+    },
+    {
+      "code": "0xB4",
+      "code_dec": 180,
+      "col": 4,
+      "row": 11,
+      "rect_px": [
+        128,
+        352,
+        160,
+        384
+      ],
+      "purpose": "Status panels A and B: top edge (panel A x6, panel B x2)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3045-3047,3052-3054"
+    },
+    {
+      "code": "0xB5",
+      "code_dec": 181,
+      "col": 5,
+      "row": 11,
+      "rect_px": [
+        160,
+        352,
+        192,
+        384
+      ],
+      "purpose": "Status panel A: top-right cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3046-3047"
+    },
+    {
+      "code": "0xB6",
+      "code_dec": 182,
+      "col": 6,
+      "row": 11,
+      "rect_px": [
+        192,
+        352,
+        224,
+        384
+      ],
+      "purpose": "Status panel B: top, transition from B4 run to B7 run",
+      "role": "transition",
+      "call_sites": "gamemain.cpp:3052,3054"
+    },
+    {
+      "code": "0xB7",
+      "code_dec": 183,
+      "col": 7,
+      "row": 11,
+      "rect_px": [
+        224,
+        352,
+        256,
+        384
+      ],
+      "purpose": "Status panel B: top edge, second run (x3)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3052-3054"
+    },
+    {
+      "code": "0xB8",
+      "code_dec": 184,
+      "col": 8,
+      "row": 11,
+      "rect_px": [
+        256,
+        352,
+        288,
+        384
+      ],
+      "purpose": "Status panel B: top, second-to-last cell",
+      "role": "transition",
+      "call_sites": "gamemain.cpp:3053-3054"
+    },
+    {
+      "code": "0xB9",
+      "code_dec": 185,
+      "col": 9,
+      "row": 11,
+      "rect_px": [
+        288,
+        352,
+        320,
+        384
+      ],
+      "purpose": "Status panel B: top-right cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3053-3054"
+    },
+    {
+      "code": "0xBA",
+      "code_dec": 186,
+      "col": 10,
+      "row": 11,
+      "rect_px": [
+        320,
+        352,
+        352,
+        384
+      ],
+      "purpose": "Ammo readout: icon that replaces 'B' (reserve rounds, nbs-lnbs)",
+      "role": "icon",
+      "call_sites": "gamemain.cpp:3077-3082"
+    },
+    {
+      "code": "0xBB",
+      "code_dec": 187,
+      "col": 11,
+      "row": 11,
+      "rect_px": [
+        352,
+        352,
+        384,
+        384
+      ],
+      "purpose": "Ammo readout: icon that replaces 'A' (rounds in magazine, lnbs)",
+      "role": "icon",
+      "call_sites": "gamemain.cpp:3077-3082"
+    },
+    {
+      "code": "0xBD",
+      "code_dec": 189,
+      "col": 13,
+      "row": 11,
+      "rect_px": [
+        416,
+        352,
+        448,
+        384
+      ],
+      "purpose": "Crosshair, left bracket; cell centred at (W/2-ErrorRange, H/2)",
+      "role": "icon",
+      "call_sites": "gamemain.cpp:3195-3196"
+    },
+    {
+      "code": "0xBE",
+      "code_dec": 190,
+      "col": 14,
+      "row": 11,
+      "rect_px": [
+        448,
+        352,
+        480,
+        384
+      ],
+      "purpose": "Crosshair, right bracket; cell centred at (W/2+ErrorRange, H/2)",
+      "role": "icon",
+      "call_sites": "gamemain.cpp:3197-3198"
+    },
+    {
+      "code": "0xC0",
+      "code_dec": 192,
+      "col": 0,
+      "row": 12,
+      "rect_px": [
+        0,
+        384,
+        32,
+        416
+      ],
+      "purpose": "Weapon panel: middle-left edge",
+      "role": "edge",
+      "call_sites": "gamemain.cpp:3069-3072"
+    },
+    {
+      "code": "0xC1",
+      "code_dec": 193,
+      "col": 1,
+      "row": 12,
+      "rect_px": [
+        32,
+        384,
+        64,
+        416
+      ],
+      "purpose": "Weapon panel: middle fill (repeated x6)",
+      "role": "tile-xy",
+      "call_sites": "gamemain.cpp:3069-3072"
+    },
+    {
+      "code": "0xC2",
+      "code_dec": 194,
+      "col": 2,
+      "row": 12,
+      "rect_px": [
+        64,
+        384,
+        96,
+        416
+      ],
+      "purpose": "Weapon panel: middle-right edge",
+      "role": "edge",
+      "call_sites": "gamemain.cpp:3069-3072"
+    },
+    {
+      "code": "0xC3",
+      "code_dec": 195,
+      "col": 3,
+      "row": 12,
+      "rect_px": [
+        96,
+        384,
+        128,
+        416
+      ],
+      "purpose": "Status panels A and B: bottom-left cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3049-3050,3056-3057"
+    },
+    {
+      "code": "0xC4",
+      "code_dec": 196,
+      "col": 4,
+      "row": 12,
+      "rect_px": [
+        128,
+        384,
+        160,
+        416
+      ],
+      "purpose": "Status panels A and B: bottom edge (panel A x6, panel B x2)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3049-3050,3056-3057"
+    },
+    {
+      "code": "0xC5",
+      "code_dec": 197,
+      "col": 5,
+      "row": 12,
+      "rect_px": [
+        160,
+        384,
+        192,
+        416
+      ],
+      "purpose": "Status panel A: bottom-right cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3049-3050"
+    },
+    {
+      "code": "0xC6",
+      "code_dec": 198,
+      "col": 6,
+      "row": 12,
+      "rect_px": [
+        192,
+        384,
+        224,
+        416
+      ],
+      "purpose": "Status panel B: bottom, transition from C4 run to C7 run",
+      "role": "transition",
+      "call_sites": "gamemain.cpp:3056-3057"
+    },
+    {
+      "code": "0xC7",
+      "code_dec": 199,
+      "col": 7,
+      "row": 12,
+      "rect_px": [
+        224,
+        384,
+        256,
+        416
+      ],
+      "purpose": "Status panel B: bottom edge, second run (x3)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3056-3057"
+    },
+    {
+      "code": "0xC8",
+      "code_dec": 200,
+      "col": 8,
+      "row": 12,
+      "rect_px": [
+        256,
+        384,
+        288,
+        416
+      ],
+      "purpose": "Status panel B: bottom, second-to-last cell",
+      "role": "transition",
+      "call_sites": "gamemain.cpp:3056-3057"
+    },
+    {
+      "code": "0xC9",
+      "code_dec": 201,
+      "col": 9,
+      "row": 12,
+      "rect_px": [
+        288,
+        384,
+        320,
+        416
+      ],
+      "purpose": "Status panel B: bottom-right cap",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3056-3057"
+    },
+    {
+      "code": "0xD0",
+      "code_dec": 208,
+      "col": 0,
+      "row": 13,
+      "rect_px": [
+        0,
+        416,
+        32,
+        448
+      ],
+      "purpose": "Weapon panel: bottom-left corner",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3073-3074"
+    },
+    {
+      "code": "0xD1",
+      "code_dec": 209,
+      "col": 1,
+      "row": 13,
+      "rect_px": [
+        32,
+        416,
+        64,
+        448
+      ],
+      "purpose": "Weapon panel: bottom edge (repeated x6)",
+      "role": "tile-x",
+      "call_sites": "gamemain.cpp:3073-3074"
+    },
+    {
+      "code": "0xD2",
+      "code_dec": 210,
+      "col": 2,
+      "row": 13,
+      "rect_px": [
+        64,
+        416,
+        96,
+        448
+      ],
+      "purpose": "Weapon panel: bottom-right corner",
+      "role": "corner",
+      "call_sites": "gamemain.cpp:3073-3074"
+    }
+  ],
+  "hud_placements_640x480": [
+    {
+      "what": "Status panel A (2 rows x 8 cells)",
+      "rows": [
+        "B3 B4 B4 B4 B4 B4 B4 B5",
+        "C3 C4 C4 C4 C4 C4 C4 C5"
+      ],
+      "pos": "(15, H-105) and (15, H-73)",
+      "cell_px": [
+        32,
+        32
+      ],
+      "rgba": [
+        1,
+        1,
+        1,
+        0.5
+      ],
+      "src": "gamemain.cpp:3045-3050"
+    },
+    {
+      "what": "Status panel B (2 rows x 9 cells)",
+      "rows": [
+        "B3 B4 B4 B6 B7 B7 B7 B8 B9",
+        "C3 C4 C4 C6 C7 C7 C7 C8 C9"
+      ],
+      "pos": "(15, H-55) and (15, H-23)",
+      "cell_px": [
+        32,
+        32
+      ],
+      "rgba": [
+        1,
+        1,
+        1,
+        0.5
+      ],
+      "src": "gamemain.cpp:3052-3057",
+      "note": "Its first row overlaps panel A's second row by 18 px."
+    },
+    {
+      "what": "Weapon panel (3 rows x 8 cells)",
+      "rows": [
+        "B0 B1 B1 B1 B1 B1 B1 B2",
+        "C0 C1 C1 C1 C1 C1 C1 C2",
+        "D0 D1 D1 D1 D1 D1 D1 D2"
+      ],
+      "pos": "(W-255, H-98)",
+      "cell_px": [
+        32,
+        32
+      ],
+      "rgba": [
+        1,
+        1,
+        1,
+        0.5
+      ],
+      "src": "gamemain.cpp:3059-3074, gamemain.h:45-48"
+    },
+    {
+      "what": "Ammo readout '<BB>n <BA>m'",
+      "pos": "(25, H-96)",
+      "cell_px": [
+        23,
+        24
+      ],
+      "rgba": [
+        1,
+        1,
+        1,
+        1
+      ],
+      "src": "gamemain.cpp:3077-3082"
+    },
+    {
+      "what": "STATE FINE/CAUTION/DANGER/DEAD",
+      "pos": "(23, H-45), word at x=135..155",
+      "cell_px": [
+        18,
+        24
+      ],
+      "rgba": "HP colour",
+      "src": "gamemain.cpp:3085-3100"
+    },
+    {
+      "what": "Weapon name",
+      "pos": "(W-246, H-94)",
+      "cell_px": [
+        16,
+        20
+      ],
+      "note": "Shrunk proportionally when longer than 14 chars",
+      "src": "gamemain.cpp:3104-3106"
+    },
+    {
+      "what": "Crosshair brackets BD/BE",
+      "pos": "centre +-ErrorRange, H/2-16",
+      "cell_px": [
+        32,
+        32
+      ],
+      "rgba": [
+        1,
+        1,
+        1,
+        0.5
+      ],
+      "src": "gamemain.cpp:3195-3198"
+    }
+  ]
+}
