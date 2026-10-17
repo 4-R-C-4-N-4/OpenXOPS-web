@@ -1,0 +1,7176 @@
+{
+ "version": 1,
+ "generated_by": "tools/manifest/build.py",
+ "upstream": "OpenXOPS 1.080 (src/)",
+ "reference": "tools/manifest/xops096_reference.json",
+ "stats": {
+  "hard_literals_distinct": 152,
+  "hard_literals_by_category": {
+   "article": 17,
+   "briefing": 1,
+   "map": 19,
+   "model": 92,
+   "root": 7,
+   "sky": 2,
+   "sound": 14
+  },
+  "slots_by_kind": {
+   "dir": 18,
+   "map": 17,
+   "mission": 117,
+   "model": 52,
+   "points": 65,
+   "sound": 14,
+   "texture": 70
+  },
+  "slots_by_class": {
+   "article_skin": 7,
+   "briefing": 1,
+   "effect": 5,
+   "hud": 2,
+   "model": 52,
+   "other": 216,
+   "sfx": 14,
+   "skin": 30,
+   "sky": 5,
+   "weapon_skin": 21
+  },
+  "slots_by_priority": {
+   "P0": 81,
+   "P1": 81,
+   "P2": 191
+  }
+ },
+ "dynamic_patterns": [
+  {
+   "pattern": "data/sky/sky%d.bmp",
+   "expands_to": [
+    "data/sky/sky1.bmp",
+    "data/sky/sky2.bmp",
+    "data/sky/sky3.bmp",
+    "data/sky/sky4.bmp",
+    "data/sky/sky5.bmp"
+   ],
+   "source_refs": [
+    "src/resource.cpp:758",
+    "src/resource.cpp:751"
+   ],
+   "note": "sprintf with id 1..5 (LoadSkyModelTexture range check); the mission script's 3rd line picks the number."
+  },
+  {
+   "pattern": "<MissionData.directory>temp.bd1",
+   "source_refs": [
+    "src/parameter.h:51",
+    "src/gamemain.cpp:1827"
+   ],
+   "note": "Standard mission block map: directory + OFFICIALMISSION_BD1."
+  },
+  {
+   "pattern": "<MissionData.directory><MissionData.txt>.pd1",
+   "source_refs": [
+    "src/gamemain.cpp:1830"
+   ],
+   "note": "Standard mission point file."
+  },
+  {
+   "pattern": "<MissionData.directory><MissionData.txt>.txt",
+   "source_refs": [
+    "src/gamemain.cpp:1627"
+   ],
+   "note": "Standard mission briefing script (picture names, sky number, briefing text)."
+  },
+  {
+   "pattern": "<point file without extension>.msg",
+   "source_refs": [
+    "src/datafile.cpp:487"
+   ],
+   "note": "Optional event message file next to every .pd1; load failure is ignored."
+  },
+  {
+   "pattern": "<demopath>temp.bd1 and <demopath>demo.pd1",
+   "source_refs": [
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:562"
+   ],
+   "note": "Menu background demo; demopath is one of 6 map dirs chosen by GetRand(6). Any missing file shows 'block/point data open failed', so all six are P0."
+  },
+  {
+   "pattern": "<map dir><bd1 texture name>",
+   "source_refs": [
+    "src/d3dgraphics-opengl.cpp:2068"
+   ],
+   "note": "Map tiles: 10 x 31-byte names in the .bd1 header, relative to the .bd1 dir. Defined by the pack's own maps; listed as map_tile slots once those .bd1 files exist."
+  },
+  {
+   "pattern": "data/briefing/<name>.bmp",
+   "source_refs": [
+    "src/datafile.cpp:822"
+   ],
+   "note": "Briefing pictures named by mission scripts; covered by the data/briefing/ dir slot."
+  }
+ ],
+ "slots": [
+  {
+   "path": "data/article/can.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1349"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/can.x",
+   "summary": "Small object skin: drink can.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/can.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1348"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: drink can.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/cone.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1426"
+   ],
+   "ref_size": [
+    64,
+    64
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/cone.x",
+   "summary": "Small object skin: traffic cone.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/cone.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1425"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: traffic cone.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/dan.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1405"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/dan.x",
+   "summary": "Small object skin: cardboard box.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/dan.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1404"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: cardboard box.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/isu.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1398"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/isu.x",
+   "summary": "Small object skin: chair.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/isu.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1397"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: chair.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1356",
+    "src/parameter.cpp:1363",
+    "src/parameter.cpp:1370",
+    "src/parameter.cpp:1377",
+    "src/parameter.cpp:1384",
+    "src/parameter.cpp:1391"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/pc.x",
+   "summary": "Small object skin: desktop PC; desktop PC keyboard on top; desktop PC tower on the other side; desktop PC widescreen; desktop PC widescreen keyboard on top; desktop PC widescreen tower on the other side.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1355",
+    "src/parameter.cpp:1411",
+    "src/parameter.cpp:1418"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC; desktop PC powered on; desktop PC powered on dark screen.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc2.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1362"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC keyboard on top.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc2_w.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1383"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC widescreen keyboard on top.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc3.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1369"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC tower on the other side.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc3_w.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1390"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC widescreen tower on the other side.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc_d.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1419"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/pc.x",
+   "summary": "Small object skin: desktop PC powered on dark screen.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc_sw.bmp",
+   "kind": "texture",
+   "class": "article_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1412"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/article/pc.x",
+   "summary": "Small object skin: desktop PC powered on.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/article/pc_w.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1376"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object model: desktop PC widescreen.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/blood.dds",
+   "kind": "texture",
+   "class": "effect",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:858"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Effect billboard: blood splash sprite (effecttexture_blood).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/briefing/",
+   "kind": "dir",
+   "class": "briefing",
+   "hard": true,
+   "source_refs": [
+    "src/datafile.cpp:822",
+    "src/datafile.cpp:835"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing picture directory; mission scripts name the pictures inside it.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Dynamic: datafile.cpp builds data/briefing/<name>.bmp from lines 1-2 of a mission .txt (\"!\" = no picture). The pack's own mission scripts define the names."
+  },
+  {
+   "path": "data/char.dds",
+   "kind": "texture",
+   "class": "hud",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:66"
+   ],
+   "ref_size": [
+    512,
+    512
+   ],
+   "ref_format": "dds_argb4",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Font and HUD atlas, loaded once at D3D/GL init (InitD3D TextureFontFname).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map0/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1445"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map0 (TRAINING YARD): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map0/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1445"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map0 (TRAINING YARD).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map0/tr.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1445",
+    "src/parameter.cpp:1446"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 0 'TRAINING YARD'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map0/tr.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1445",
+    "src/parameter.cpp:1446"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 0 'TRAINING YARD' (TRAINING YARD training): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map0/tr.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1445",
+    "src/parameter.cpp:1446"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 0 'TRAINING YARD' (TRAINING YARD training).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1457",
+    "src/parameter.cpp:1697",
+    "src/parameter.cpp:1733"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map1 (BUILDING): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map1/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1733",
+    "src/parameter.cpp:1734"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 48 'BUILDING_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map1/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1733",
+    "src/parameter.cpp:1734"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 48 'BUILDING_DEF' (BUILDING defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1733",
+    "src/parameter.cpp:1734"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 48 'BUILDING_DEF' (BUILDING defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1457",
+    "src/parameter.cpp:1458"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 2 'BUILDING_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map1/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1457",
+    "src/parameter.cpp:1458"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 2 'BUILDING_EXT' (BUILDING extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1457",
+    "src/parameter.cpp:1458"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 2 'BUILDING_EXT' (BUILDING extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1697",
+    "src/parameter.cpp:1698"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 42 'BUILDING_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map1/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1697",
+    "src/parameter.cpp:1698"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 42 'BUILDING_KT' (BUILDING kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1697",
+    "src/parameter.cpp:1698"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 42 'BUILDING_KT' (BUILDING kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map1/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1457",
+    "src/parameter.cpp:1697",
+    "src/parameter.cpp:1733"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map1 (BUILDING).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:238",
+    "src/gamemain.cpp:284",
+    "src/parameter.cpp:1607",
+    "src/parameter.cpp:1643",
+    "src/parameter.cpp:1709"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map10 (ALLEY): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map10/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1643",
+    "src/parameter.cpp:1644"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 33 'ALLEY_EXT'.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map10/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1643",
+    "src/parameter.cpp:1644"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 33 'ALLEY_EXT' (ALLEY extermination): spawns, paths, events.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1643",
+    "src/parameter.cpp:1644"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 33 'ALLEY_EXT' (ALLEY extermination).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/ext2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1709",
+    "src/parameter.cpp:1710"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 44 'ALLEY_EXT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map10/ext2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1709",
+    "src/parameter.cpp:1710"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 44 'ALLEY_EXT2' (ALLEY extermination2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/ext2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1709",
+    "src/parameter.cpp:1710"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 44 'ALLEY_EXT2' (ALLEY extermination2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1607",
+    "src/parameter.cpp:1608"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 27 'ALLEY_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map10/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1607",
+    "src/parameter.cpp:1608"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 27 'ALLEY_KT' (ALLEY kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1607",
+    "src/parameter.cpp:1608"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 27 'ALLEY_KT' (ALLEY kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/op.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/gamemain.cpp:227"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Optional event messages for the opening fly-through.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map10/op.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:227"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the opening fly-through: camera path and actors.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map10/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:224",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1607",
+    "src/parameter.cpp:1643",
+    "src/parameter.cpp:1709"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for the opening fly-through (map10).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1775",
+    "src/parameter.cpp:1781",
+    "src/parameter.cpp:1787"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map11 (SCHOOL): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map11/de.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1787",
+    "src/parameter.cpp:1788"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 57 'SCHOOL_DE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map11/de.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1787",
+    "src/parameter.cpp:1788"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 57 'SCHOOL_DE' (SCHOOL destroy): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/de.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1787",
+    "src/parameter.cpp:1788"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 57 'SCHOOL_DE' (SCHOOL destroy).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1775",
+    "src/parameter.cpp:1776"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 55 'SCHOOL_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map11/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1775",
+    "src/parameter.cpp:1776"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 55 'SCHOOL_EXT' (SCHOOL extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1775",
+    "src/parameter.cpp:1776"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 55 'SCHOOL_EXT' (SCHOOL extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/ext2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1781",
+    "src/parameter.cpp:1782"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 56 'SCHOOL_EXT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map11/ext2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1781",
+    "src/parameter.cpp:1782"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 56 'SCHOOL_EXT2' (SCHOOL extermination2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/ext2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1781",
+    "src/parameter.cpp:1782"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 56 'SCHOOL_EXT2' (SCHOOL extermination2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map11/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1775",
+    "src/parameter.cpp:1781",
+    "src/parameter.cpp:1787"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map11 (SCHOOL).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1517",
+    "src/parameter.cpp:1589",
+    "src/parameter.cpp:1649",
+    "src/parameter.cpp:1751"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map12 (TUNNEL): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map12/esc.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1649",
+    "src/parameter.cpp:1650"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 34 'TUNNEL_ESC'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map12/esc.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1649",
+    "src/parameter.cpp:1650"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 34 'TUNNEL_ESC' (TUNNEL escape): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/esc.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1649",
+    "src/parameter.cpp:1650"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 34 'TUNNEL_ESC' (TUNNEL escape).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1517",
+    "src/parameter.cpp:1518"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 12 'TUNNEL_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map12/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1517",
+    "src/parameter.cpp:1518"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 12 'TUNNEL_EXT' (TUNNEL extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1517",
+    "src/parameter.cpp:1518"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 12 'TUNNEL_EXT' (TUNNEL extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/ext2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1589",
+    "src/parameter.cpp:1590"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 24 'TUNNEL_EXT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map12/ext2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1589",
+    "src/parameter.cpp:1590"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 24 'TUNNEL_EXT2' (TUNNEL extermination2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/ext2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1589",
+    "src/parameter.cpp:1590"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 24 'TUNNEL_EXT2' (TUNNEL extermination2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1751",
+    "src/parameter.cpp:1752"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 51 'TUNNEL_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map12/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1751",
+    "src/parameter.cpp:1752"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 51 'TUNNEL_KT' (TUNNEL kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1751",
+    "src/parameter.cpp:1752"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 51 'TUNNEL_KT' (TUNNEL kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map12/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1517",
+    "src/parameter.cpp:1589",
+    "src/parameter.cpp:1649",
+    "src/parameter.cpp:1751"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map12 (TUNNEL).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1493",
+    "src/parameter.cpp:1655",
+    "src/parameter.cpp:1703"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map13 (MAZE): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map13/cap.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1655",
+    "src/parameter.cpp:1656"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 35 'MAZE_CAP'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map13/cap.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1655",
+    "src/parameter.cpp:1656"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 35 'MAZE_CAP' (MAZE capture): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/cap.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1655",
+    "src/parameter.cpp:1656"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 35 'MAZE_CAP' (MAZE capture).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/esc.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1703",
+    "src/parameter.cpp:1704"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 43 'MAZE_ESC'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map13/esc.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1703",
+    "src/parameter.cpp:1704"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 43 'MAZE_ESC' (MAZE escape): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/esc.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1703",
+    "src/parameter.cpp:1704"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 43 'MAZE_ESC' (MAZE escape).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1493",
+    "src/parameter.cpp:1494"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 8 'MAZE_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map13/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1493",
+    "src/parameter.cpp:1494"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 8 'MAZE_EXT' (MAZE extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1493",
+    "src/parameter.cpp:1494"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 8 'MAZE_EXT' (MAZE extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map13/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1493",
+    "src/parameter.cpp:1655",
+    "src/parameter.cpp:1703"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map13 (MAZE).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1499",
+    "src/parameter.cpp:1547",
+    "src/parameter.cpp:1565",
+    "src/parameter.cpp:1667"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map14 (RUINS): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map14/cap.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1565",
+    "src/parameter.cpp:1566"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 20 'RUINS_CAP'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map14/cap.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1565",
+    "src/parameter.cpp:1566"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 20 'RUINS_CAP' (RUINS capture): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/cap.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1565",
+    "src/parameter.cpp:1566"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 20 'RUINS_CAP' (RUINS capture).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/de.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1667",
+    "src/parameter.cpp:1668"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 37 'RUINS_DE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map14/de.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1667",
+    "src/parameter.cpp:1668"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 37 'RUINS_DE' (RUINS destroy): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/de.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1667",
+    "src/parameter.cpp:1668"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 37 'RUINS_DE' (RUINS destroy).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1499",
+    "src/parameter.cpp:1500"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 9 'RUINS_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map14/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1499",
+    "src/parameter.cpp:1500"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 9 'RUINS_EXT' (RUINS extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1499",
+    "src/parameter.cpp:1500"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 9 'RUINS_EXT' (RUINS extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/re.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1547",
+    "src/parameter.cpp:1548"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 17 'RUINS_RE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map14/re.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1547",
+    "src/parameter.cpp:1548"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 17 'RUINS_RE' (RUINS release): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/re.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1547",
+    "src/parameter.cpp:1548"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 17 'RUINS_RE' (RUINS release).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map14/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1499",
+    "src/parameter.cpp:1547",
+    "src/parameter.cpp:1565",
+    "src/parameter.cpp:1667"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map14 (RUINS).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1631",
+    "src/parameter.cpp:1727",
+    "src/parameter.cpp:1739",
+    "src/parameter.cpp:1757"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map15 (OFFICE): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map15/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1631",
+    "src/parameter.cpp:1632"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 31 'OFFICE_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map15/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1631",
+    "src/parameter.cpp:1632"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 31 'OFFICE_DEF' (OFFICE defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1631",
+    "src/parameter.cpp:1632"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 31 'OFFICE_DEF' (OFFICE defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1727",
+    "src/parameter.cpp:1728"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 47 'OFFICE_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map15/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1727",
+    "src/parameter.cpp:1728"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 47 'OFFICE_KT' (OFFICE kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1727",
+    "src/parameter.cpp:1728"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 47 'OFFICE_KT' (OFFICE kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/kt2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1739",
+    "src/parameter.cpp:1740"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 49 'OFFICE_KT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map15/kt2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1739",
+    "src/parameter.cpp:1740"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 49 'OFFICE_KT2' (OFFICE kill the target2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/kt2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1739",
+    "src/parameter.cpp:1740"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 49 'OFFICE_KT2' (OFFICE kill the target2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/re.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1757",
+    "src/parameter.cpp:1758"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 52 'OFFICE_RE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map15/re.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1757",
+    "src/parameter.cpp:1758"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 52 'OFFICE_RE' (OFFICE release): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/re.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1757",
+    "src/parameter.cpp:1758"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 52 'OFFICE_RE' (OFFICE release).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map15/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1631",
+    "src/parameter.cpp:1727",
+    "src/parameter.cpp:1739",
+    "src/parameter.cpp:1757"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map15 (OFFICE).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:556",
+    "src/parameter.cpp:1553",
+    "src/parameter.cpp:1595",
+    "src/parameter.cpp:1685"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map16 (RELIC): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map16/cap.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1553",
+    "src/parameter.cpp:1554"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 18 'RELIC_CAP'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map16/cap.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1553",
+    "src/parameter.cpp:1554"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 18 'RELIC_CAP' (RELIC capture): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/cap.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1553",
+    "src/parameter.cpp:1554"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 18 'RELIC_CAP' (RELIC capture).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1595",
+    "src/parameter.cpp:1596"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 25 'RELIC_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map16/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1595",
+    "src/parameter.cpp:1596"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 25 'RELIC_DEF' (RELIC defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1595",
+    "src/parameter.cpp:1596"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 25 'RELIC_DEF' (RELIC defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:556",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map16 (RELIC).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1685",
+    "src/parameter.cpp:1686"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 40 'RELIC_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map16/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1685",
+    "src/parameter.cpp:1686"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 40 'RELIC_EXT' (RELIC extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1685",
+    "src/parameter.cpp:1686"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 40 'RELIC_EXT' (RELIC extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map16/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:556",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1553",
+    "src/parameter.cpp:1595",
+    "src/parameter.cpp:1685"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map16 (RELIC); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:541",
+    "src/parameter.cpp:1463",
+    "src/parameter.cpp:1577",
+    "src/parameter.cpp:1691"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map2 (SNOW BASE): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map2/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1691",
+    "src/parameter.cpp:1692"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 41 'SNOW BASE_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map2/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1691",
+    "src/parameter.cpp:1692"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 41 'SNOW BASE_DEF' (SNOW BASE defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1691",
+    "src/parameter.cpp:1692"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 41 'SNOW BASE_DEF' (SNOW BASE defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:541",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map2 (SNOW BASE).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1463",
+    "src/parameter.cpp:1464"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 3 'SNOW BASE_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map2/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1463",
+    "src/parameter.cpp:1464"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 3 'SNOW BASE_EXT' (SNOW BASE extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1463",
+    "src/parameter.cpp:1464"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 3 'SNOW BASE_EXT' (SNOW BASE extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/re.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1577",
+    "src/parameter.cpp:1578"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 22 'SNOW BASE_RE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map2/re.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1577",
+    "src/parameter.cpp:1578"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 22 'SNOW BASE_RE' (SNOW BASE release): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/re.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1577",
+    "src/parameter.cpp:1578"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 22 'SNOW BASE_RE' (SNOW BASE release).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map2/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:541",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1463",
+    "src/parameter.cpp:1577",
+    "src/parameter.cpp:1691"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map2 (SNOW BASE); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1529",
+    "src/parameter.cpp:1571",
+    "src/parameter.cpp:1721"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map3 (DTOWN): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map3/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1721",
+    "src/parameter.cpp:1722"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 46 'DTOWN_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map3/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1721",
+    "src/parameter.cpp:1722"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 46 'DTOWN_DEF' (DESERT TOWN defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1721",
+    "src/parameter.cpp:1722"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 46 'DTOWN_DEF' (DESERT TOWN defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1529",
+    "src/parameter.cpp:1530"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 14 'DTOWN_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map3/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1529",
+    "src/parameter.cpp:1530"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 14 'DTOWN_EXT' (DESERT TOWN extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1529",
+    "src/parameter.cpp:1530"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 14 'DTOWN_EXT' (DESERT TOWN extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1571",
+    "src/parameter.cpp:1572"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 21 'DTOWN_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map3/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1571",
+    "src/parameter.cpp:1572"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 21 'DTOWN_KT' (DESERT TOWN kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1571",
+    "src/parameter.cpp:1572"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 21 'DTOWN_KT' (DESERT TOWN kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map3/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1529",
+    "src/parameter.cpp:1571",
+    "src/parameter.cpp:1721"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map3 (DTOWN).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:544",
+    "src/parameter.cpp:1469",
+    "src/parameter.cpp:1559",
+    "src/parameter.cpp:1715",
+    "src/parameter.cpp:1745"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map4 (MBASE): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map4/cap.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1745",
+    "src/parameter.cpp:1746"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 50 'MBASE_CAP'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map4/cap.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1745",
+    "src/parameter.cpp:1746"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 50 'MBASE_CAP' (MILITARY BASE capture): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/cap.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1745",
+    "src/parameter.cpp:1746"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 50 'MBASE_CAP' (MILITARY BASE capture).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/de.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1559",
+    "src/parameter.cpp:1560"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 19 'MBASE_DE'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map4/de.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1559",
+    "src/parameter.cpp:1560"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 19 'MBASE_DE' (MILITARY BASE destroy): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/de.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1559",
+    "src/parameter.cpp:1560"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 19 'MBASE_DE' (MILITARY BASE destroy).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:544",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map4 (MBASE).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/esc.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1715",
+    "src/parameter.cpp:1716"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 45 'MBASE_ESC'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map4/esc.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1715",
+    "src/parameter.cpp:1716"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 45 'MBASE_ESC' (MILITARY BASE escape): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/esc.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1715",
+    "src/parameter.cpp:1716"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 45 'MBASE_ESC' (MILITARY BASE escape).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1469",
+    "src/parameter.cpp:1470"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 4 'MBASE_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map4/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1469",
+    "src/parameter.cpp:1470"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 4 'MBASE_EXT' (MILITARY BASE extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1469",
+    "src/parameter.cpp:1470"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 4 'MBASE_EXT' (MILITARY BASE extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map4/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:544",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1469",
+    "src/parameter.cpp:1559",
+    "src/parameter.cpp:1715",
+    "src/parameter.cpp:1745"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map4 (MBASE); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:547",
+    "src/parameter.cpp:1451",
+    "src/parameter.cpp:1511",
+    "src/parameter.cpp:1583",
+    "src/parameter.cpp:1769"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map5 (UNDERGROUND): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map5/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1583",
+    "src/parameter.cpp:1584"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 23 'UNDERGROUND_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map5/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1583",
+    "src/parameter.cpp:1584"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 23 'UNDERGROUND_DEF' (UNDERGROUND defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1583",
+    "src/parameter.cpp:1584"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 23 'UNDERGROUND_DEF' (UNDERGROUND defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:547",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map5 (UNDERGROUND).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1451",
+    "src/parameter.cpp:1452"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 1 'UNDERGROUND_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map5/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1451",
+    "src/parameter.cpp:1452"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 1 'UNDERGROUND_EXT' (UNDERGROUND extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1451",
+    "src/parameter.cpp:1452"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 1 'UNDERGROUND_EXT' (UNDERGROUND extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1511",
+    "src/parameter.cpp:1512"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 11 'UNDERGROUND_EXT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map5/ext2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1511",
+    "src/parameter.cpp:1512"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 11 'UNDERGROUND_EXT2' (UNDERGROUND extermination2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1511",
+    "src/parameter.cpp:1512"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 11 'UNDERGROUND_EXT2' (UNDERGROUND extermination2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext3.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1769",
+    "src/parameter.cpp:1770"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 54 'UNDERGROUND_EXT3'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map5/ext3.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1769",
+    "src/parameter.cpp:1770"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 54 'UNDERGROUND_EXT3' (UNDERGROUND extermination3): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/ext3.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1769",
+    "src/parameter.cpp:1770"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 54 'UNDERGROUND_EXT3' (UNDERGROUND extermination3).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map5/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:547",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1451",
+    "src/parameter.cpp:1511",
+    "src/parameter.cpp:1583",
+    "src/parameter.cpp:1769"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map5 (UNDERGROUND); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map6/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1487",
+    "src/parameter.cpp:1613"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map6 (STATION): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map6/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1487",
+    "src/parameter.cpp:1488"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 7 'STATION_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map6/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1487",
+    "src/parameter.cpp:1488"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 7 'STATION_EXT' (SUBWAY STATION extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map6/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1487",
+    "src/parameter.cpp:1488"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 7 'STATION_EXT' (SUBWAY STATION extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map6/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1613",
+    "src/parameter.cpp:1614"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 28 'STATION_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map6/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1613",
+    "src/parameter.cpp:1614"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 28 'STATION_KT' (SUBWAY STATION kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map6/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1613",
+    "src/parameter.cpp:1614"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 28 'STATION_KT' (SUBWAY STATION kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map6/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1487",
+    "src/parameter.cpp:1613"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map6 (STATION).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:550",
+    "src/parameter.cpp:1475",
+    "src/parameter.cpp:1541",
+    "src/parameter.cpp:1619",
+    "src/parameter.cpp:1661"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map7 (WAREHOUSE): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map7/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1619",
+    "src/parameter.cpp:1620"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 29 'WAREHOUSE_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map7/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1619",
+    "src/parameter.cpp:1620"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 29 'WAREHOUSE_DEF' (WAREHOUSE AREA defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1619",
+    "src/parameter.cpp:1620"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 29 'WAREHOUSE_DEF' (WAREHOUSE AREA defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/def2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1661",
+    "src/parameter.cpp:1662"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 36 'WAREHOUSE_DEF2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map7/def2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1661",
+    "src/parameter.cpp:1662"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 36 'WAREHOUSE_DEF2' (WAREHOUSE AREA defend target2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/def2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1661",
+    "src/parameter.cpp:1662"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 36 'WAREHOUSE_DEF2' (WAREHOUSE AREA defend target2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:550",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map7 (WAREHOUSE).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1475",
+    "src/parameter.cpp:1476"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 5 'WAREHOUSE_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map7/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1475",
+    "src/parameter.cpp:1476"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 5 'WAREHOUSE_EXT' (WAREHOUSE AREA extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1475",
+    "src/parameter.cpp:1476"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 5 'WAREHOUSE_EXT' (WAREHOUSE AREA extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1541",
+    "src/parameter.cpp:1542"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 16 'WAREHOUSE_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map7/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1541",
+    "src/parameter.cpp:1542"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 16 'WAREHOUSE_KT' (WAREHOUSE AREA kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1541",
+    "src/parameter.cpp:1542"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 16 'WAREHOUSE_KT' (WAREHOUSE AREA kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map7/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:550",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1475",
+    "src/parameter.cpp:1541",
+    "src/parameter.cpp:1619",
+    "src/parameter.cpp:1661"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map7 (WAREHOUSE); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:553",
+    "src/parameter.cpp:1505",
+    "src/parameter.cpp:1523",
+    "src/parameter.cpp:1535",
+    "src/parameter.cpp:1601",
+    "src/parameter.cpp:1625",
+    "src/parameter.cpp:1637",
+    "src/parameter.cpp:1673",
+    "src/parameter.cpp:1763"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map8 (URBAN): block map, point files, mission scripts, tiles.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map8/cap.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1637",
+    "src/parameter.cpp:1638"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 32 'URBAN_CAP'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/cap.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1637",
+    "src/parameter.cpp:1638"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 32 'URBAN_CAP' (URBAN capture): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/cap.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1637",
+    "src/parameter.cpp:1638"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 32 'URBAN_CAP' (URBAN capture).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/def.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1523",
+    "src/parameter.cpp:1524"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 13 'URBAN_DEF'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/def.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1523",
+    "src/parameter.cpp:1524"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 13 'URBAN_DEF' (URBAN defend target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/def.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1523",
+    "src/parameter.cpp:1524"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 13 'URBAN_DEF' (URBAN defend target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/def2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1535",
+    "src/parameter.cpp:1536"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 15 'URBAN_DEF2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/def2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1535",
+    "src/parameter.cpp:1536"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 15 'URBAN_DEF2' (URBAN defend target2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/def2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1535",
+    "src/parameter.cpp:1536"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 15 'URBAN_DEF2' (URBAN defend target2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/demo.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:553",
+    "src/gamemain.cpp:562"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for the menu background demo on data/map8 (URBAN).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1505",
+    "src/parameter.cpp:1506"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 10 'URBAN_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1505",
+    "src/parameter.cpp:1506"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 10 'URBAN_EXT' (URBAN extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1505",
+    "src/parameter.cpp:1506"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 10 'URBAN_EXT' (URBAN extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1601",
+    "src/parameter.cpp:1602"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 26 'URBAN_KT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/kt.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1601",
+    "src/parameter.cpp:1602"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 26 'URBAN_KT' (URBAN kill the target): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1601",
+    "src/parameter.cpp:1602"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 26 'URBAN_KT' (URBAN kill the target).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1625",
+    "src/parameter.cpp:1626"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 30 'URBAN_KT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/kt2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1625",
+    "src/parameter.cpp:1626"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 30 'URBAN_KT2' (URBAN kill the target2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1625",
+    "src/parameter.cpp:1626"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 30 'URBAN_KT2' (URBAN kill the target2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt3.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1673",
+    "src/parameter.cpp:1674"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 38 'URBAN_KT3'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/kt3.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1673",
+    "src/parameter.cpp:1674"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 38 'URBAN_KT3' (URBAN kill the target3): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt3.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1673",
+    "src/parameter.cpp:1674"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 38 'URBAN_KT3' (URBAN kill the target3).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt4.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1763",
+    "src/parameter.cpp:1764"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 53 'URBAN_KT4'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map8/kt4.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1763",
+    "src/parameter.cpp:1764"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 53 'URBAN_KT4' (URBAN kill the target4): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/kt4.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1763",
+    "src/parameter.cpp:1764"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 53 'URBAN_KT4' (URBAN kill the target4).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map8/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:553",
+    "src/gamemain.cpp:560",
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1505",
+    "src/parameter.cpp:1523",
+    "src/parameter.cpp:1535",
+    "src/parameter.cpp:1601",
+    "src/parameter.cpp:1625",
+    "src/parameter.cpp:1637",
+    "src/parameter.cpp:1673",
+    "src/parameter.cpp:1763"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map8 (URBAN); also the menu background demo.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map9/",
+   "kind": "dir",
+   "class": "other",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1481",
+    "src/parameter.cpp:1679"
+   ],
+   "ref_size": null,
+   "ref_format": null,
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Map directory data/map9 (DUEL): block map, point files, mission scripts, tiles.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Holds the pack's own temp.bd1 and the tile textures its header names."
+  },
+  {
+   "path": "data/map9/ext.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1481",
+    "src/parameter.cpp:1482"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 6 'DUEL_EXT'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map9/ext.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1481",
+    "src/parameter.cpp:1482"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 6 'DUEL_EXT' (DUEL extermination): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map9/ext.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1481",
+    "src/parameter.cpp:1482"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 6 'DUEL_EXT' (DUEL extermination).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map9/ext2.msg",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/datafile.cpp:487",
+    "src/parameter.cpp:1679",
+    "src/parameter.cpp:1680"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Event messages for standard mission 39 'DUEL_EXT2'.",
+   "priority": "P2",
+   "status": "missing",
+   "note": "Optional: a missing .msg is ignored."
+  },
+  {
+   "path": "data/map9/ext2.pd1",
+   "kind": "points",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1830",
+    "src/parameter.cpp:1679",
+    "src/parameter.cpp:1680"
+   ],
+   "ref_size": null,
+   "ref_format": "pd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Point file for standard mission 39 'DUEL_EXT2' (DUEL extermination2): spawns, paths, events.",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map9/ext2.txt",
+   "kind": "mission",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1627",
+    "src/parameter.cpp:1679",
+    "src/parameter.cpp:1680"
+   ],
+   "ref_size": null,
+   "ref_format": "text_cp932",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Briefing script for standard mission 39 'DUEL_EXT2' (DUEL extermination2).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/map9/temp.bd1",
+   "kind": "map",
+   "class": "other",
+   "hard": false,
+   "source_refs": [
+    "src/gamemain.cpp:1827",
+    "src/parameter.cpp:1481",
+    "src/parameter.cpp:1679"
+   ],
+   "ref_size": null,
+   "ref_format": "bd1",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Block map for data/map9 (DUEL).",
+   "priority": "P2",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/mflash.dds",
+   "kind": "texture",
+   "class": "effect",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:859"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Effect billboard: muzzle flash sprite (effecttexture_mflash).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/arm00.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:149"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Arms mesh: arms down (no weapon or carrying a case). Used with: CASE.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/arm01.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:150"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Arms mesh: two-handed weapon grip. Used with: AK47, AUG, FAMAS, M1, M249, M4, MP5, MP5SD, P90, PSG1, UMP.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/arm02.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:151"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Arms mesh: one-handed weapon grip. Used with: DESERT EAGLE, GLOCK17, GLOCK18 FULL, GLOCK18 SEMI, GRENADE, M1911, M92F, MAC10, MK23, MK23 SD.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/bullet.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1435"
+   ],
+   "ref_size": [
+    64,
+    64
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/bullet.x",
+   "summary": "Bullet object skin (Bullet[0]); drawn for every shot in flight.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/bullet.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1434"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Bullet object model (Bullet[0]); drawn for every shot in flight.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/civ1.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:469"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: blond man (HumanTexturePath[0]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/civ2.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:470"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: civilian 1 (HumanTexturePath[1]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/civ3.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:471"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: civilian 2 (HumanTexturePath[2]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/gates.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:472"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: VIP businessman (HumanTexturePath[3]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/gs.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:473"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in suit black (HumanTexturePath[4]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/hage.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:474"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: bald man (HumanTexturePath[5]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/islam.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:475"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: desert militia fighter (HumanTexturePath[6]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/islam2.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:476"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: general in uniform (HumanTexturePath[7]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/leg.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:152"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, standing still.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/police.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:477"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up2.x",
+   "summary": "Character skin: police officer (HumanTexturePath[8]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/riiman.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:478"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in suit brown (HumanTexturePath[9]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/riiman_b.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:479"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in suit blue (HumanTexturePath[10]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/riiman_g.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:480"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in suit grey (HumanTexturePath[11]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/riiman_k.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:481"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in suit navy (HumanTexturePath[12]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/robot.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:482"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: combat robot (HumanTexturePath[13]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run01.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:157"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 1 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run02.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:158"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 2 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run03.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:159"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 3 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run04.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:160"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 4 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run05.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:161"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 5 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/run06.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:162"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, running cycle keyframe 6 of 6 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier0.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:488"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up4.x",
+   "summary": "Character skin: soldier 1 A (HumanTexturePath[19]).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier1.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:489"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up4.x",
+   "summary": "Character skin: soldier 1 B (HumanTexturePath[20]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier2.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:490"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up4.x",
+   "summary": "Character skin: soldier 2 (HumanTexturePath[21]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier3.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:491"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: soldier 3 (HumanTexturePath[22]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/soldier_black.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:483"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up5.x",
+   "summary": "Character skin: special forces black A; special forces black B (HumanTexturePath[14]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier_blue.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:484"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up5.x",
+   "summary": "Character skin: special forces blue (HumanTexturePath[15]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier_green.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:485"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: special forces green A; special forces green B; special forces green C (HumanTexturePath[16]).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier_violet.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:486"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: special forces violet (HumanTexturePath[17]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/soldier_white.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:487"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: special forces white A; special forces white B (HumanTexturePath[18]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/syatu.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:492"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: man in shirt 1 (HumanTexturePath[23]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Also worn on body models up1.x."
+  },
+  {
+   "path": "data/model/syatu2.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:493"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up1.x",
+   "summary": "Character skin: man in shirt 2 (HumanTexturePath[24]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up0.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:143"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 0. Presets: VIP businessman, bald man, blond man, civilian 1, civilian 2, combat robot, desert militia fighter, general in uniform, man in shirt 1, man in suit black, man in suit blue, man in suit brown, man in suit grey, man in suit navy, soldier 3, special forces green A, special forces green B, special forces green C, special forces violet, special forces white A, special forces white B, zombie 1, zombie 2, zombie 3.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up1.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:144"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 1. Presets: VIP businessman, blond man, civilian 1, civilian 2, man in shirt 1, man in shirt 2, man in suit black, man in suit blue, man in suit navy, soldier 3.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up2.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:145"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 2. Presets: police officer.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up3.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:146"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 3. Presets: woman, zombie 4.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up4.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:147"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 4. Presets: soldier 1 A, soldier 1 B, soldier 2.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/up5.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:148"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Upper body mesh, body type 5. Presets: special forces black A, special forces black B, special forces blue.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/walk01.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:153"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, walking cycle keyframe 1 of 4 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/walk02.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:154"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, walking cycle keyframe 2 of 4 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/walk03.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:155"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, walking cycle keyframe 3 of 4 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/walk04.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:156"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Legs mesh, walking cycle keyframe 4 of 4 (morphed in-between frames).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/ak47.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:853"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/ak47.x",
+   "summary": "Weapon skin: AK47.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/ak47.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:852"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: AK47 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/aug.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:888"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/aug.x",
+   "summary": "Weapon skin: AUG.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/aug.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:887"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: AUG (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/case.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1028"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/case.x",
+   "summary": "Weapon skin: CASE.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/case.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1027"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: CASE (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/cg.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1098"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/cg.x",
+   "summary": "Weapon skin: M1911.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/cg.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1097"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: M1911 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/de.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:678"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/de.x",
+   "summary": "Weapon skin: DESERT EAGLE.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/de.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:677"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: DESERT EAGLE (held in hand and dropped on the ground).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/famas.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1203"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/famas.x",
+   "summary": "Weapon skin: FAMAS.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/famas.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1202"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: FAMAS (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/glock17.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1133"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/glock18.x",
+   "summary": "Weapon skin: GLOCK17.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/glock18.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:643",
+    "src/parameter.cpp:1063"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/glock18.x",
+   "summary": "Weapon skin: GLOCK18 FULL, GLOCK18 SEMI.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/glock18.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:642",
+    "src/parameter.cpp:1062",
+    "src/parameter.cpp:1132"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: GLOCK17, GLOCK18 FULL, GLOCK18 SEMI (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/grenade.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:958"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/grenade.x",
+   "summary": "Weapon skin: GRENADE.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/grenade.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:957"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: GRENADE (held in hand and dropped on the ground).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m1.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1168"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/m1.x",
+   "summary": "Weapon skin: M1.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m1.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1167"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: M1 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m249.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:923"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/m249.x",
+   "summary": "Weapon skin: M249.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m249.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:922"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: M249 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m4.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:818"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/m4.x",
+   "summary": "Weapon skin: M4.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m4.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:817"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: M4 (held in hand and dropped on the ground).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m92f.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:608"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/m92f.x",
+   "summary": "Weapon skin: M92F.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/m92f.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:607"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: M92F (held in hand and dropped on the ground).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mac10.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:713"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/mac10.x",
+   "summary": "Weapon skin: MAC10.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mac10.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:712"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: MAC10 (held in hand and dropped on the ground).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mk23.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1238",
+    "src/parameter.cpp:1273"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/mk23.x",
+   "summary": "Weapon skin: MK23, MK23 SD.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mk23.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1237"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: MK23 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mk23sd.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:1272"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: MK23 SD (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mp5.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:538"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/mp5.x",
+   "summary": "Weapon skin: MP5.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mp5.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:537"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: MP5 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mp5sd.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:993"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/mp5sd.x",
+   "summary": "Weapon skin: MP5SD.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/mp5sd.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:992"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: MP5SD (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/p90.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:783"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/p90.x",
+   "summary": "Weapon skin: P90.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/p90.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:782"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: P90 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/psg1.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:573"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/psg1.x",
+   "summary": "Weapon skin: PSG1.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/psg1.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:572"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: PSG1 (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/ump.bmp",
+   "kind": "texture",
+   "class": "weapon_skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:748"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/weapon/ump.x",
+   "summary": "Weapon skin: UMP.",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/weapon/ump.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:747"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon model: UMP (held in hand and dropped on the ground).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/woman.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:494"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up3.x",
+   "summary": "Character skin: woman (HumanTexturePath[25]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/zombie1.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:495"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: zombie 1 (HumanTexturePath[26]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/zombie2.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:496"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: zombie 2 (HumanTexturePath[27]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/zombie3.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:497"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up0.x",
+   "summary": "Character skin: zombie 3 (HumanTexturePath[28]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/model/zombie4.bmp",
+   "kind": "texture",
+   "class": "skin",
+   "hard": true,
+   "source_refs": [
+    "src/parameter.cpp:498"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/model/up3.x",
+   "summary": "Character skin: zombie 4 (HumanTexturePath[29]).",
+   "priority": "P1",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/scope.dds",
+   "kind": "texture",
+   "class": "effect",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:723"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Scope overlay drawn full-screen when zoomed (scopetexture).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sky/sky.x",
+   "kind": "model",
+   "class": "model",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:754"
+   ],
+   "ref_size": null,
+   "ref_format": "x_text",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sky box mesh; every sky texture wraps this model.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sky/sky1.bmp",
+   "kind": "texture",
+   "class": "sky",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:255",
+    "src/resource.cpp:751",
+    "src/resource.cpp:758"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/sky/sky.x",
+   "summary": "Sky texture 1 of 5, wraps the sky box mesh. Used by the opening and menu.",
+   "priority": "P0",
+   "status": "missing",
+   "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
+  },
+  {
+   "path": "data/sky/sky2.bmp",
+   "kind": "texture",
+   "class": "sky",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:751",
+    "src/resource.cpp:758"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/sky/sky.x",
+   "summary": "Sky texture 2 of 5, wraps the sky box mesh.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
+  },
+  {
+   "path": "data/sky/sky3.bmp",
+   "kind": "texture",
+   "class": "sky",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:751",
+    "src/resource.cpp:758"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/sky/sky.x",
+   "summary": "Sky texture 3 of 5, wraps the sky box mesh.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
+  },
+  {
+   "path": "data/sky/sky4.bmp",
+   "kind": "texture",
+   "class": "sky",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:751",
+    "src/resource.cpp:758"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/sky/sky.x",
+   "summary": "Sky texture 4 of 5, wraps the sky box mesh.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
+  },
+  {
+   "path": "data/sky/sky5.bmp",
+   "kind": "texture",
+   "class": "sky",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:751",
+    "src/resource.cpp:758"
+   ],
+   "ref_size": [
+    256,
+    256
+   ],
+   "ref_format": "bmp8",
+   "alpha": "none",
+   "tileable": false,
+   "uv_layout": "data/sky/sky.x",
+   "summary": "Sky texture 5 of 5, wraps the sky box mesh.",
+   "priority": "P1",
+   "status": "missing",
+   "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
+  },
+  {
+   "path": "data/smoke.dds",
+   "kind": "texture",
+   "class": "effect",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:860"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Effect billboard: smoke puff sprite (effecttexture_smoke).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:801"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: grenade explosion (grenade_bang).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang1.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:441"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, gunshot 1. Used by: CASE, GLOCK17, GLOCK18 FULL, GLOCK18 SEMI, GRENADE, MP5.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang2.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:442"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, gunshot 2. Used by: AK47, M92F, PSG1.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang3.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:443"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, gunshot 3. Used by: DESERT EAGLE, M1.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang4.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:444"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, gunshot 4. Used by: M1911, M249, M4, MAC10, P90.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/bang5.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:445"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, gunshot 5. Used by: AUG, FAMAS, MK23, UMP.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/can.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:573"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object hit sound 0. Used by: desktop PC; desktop PC keyboard on top; desktop PC powered on; desktop PC powered on dark screen; desktop PC tower on the other side; desktop PC widescreen; desktop PC widescreen keyboard on top; desktop PC widescreen tower on the other side; drink can.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/cco.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:802"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: grenade bouncing (grenade_cco).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/dan.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:574"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Small object hit sound 1. Used by: cardboard box; chair; traffic cone.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/hit1.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:797"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: bullet impact on walls and objects (A) (bullet_hitsoundA).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/hit2.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:799"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: bullet hitting a person (bullet_humanhitsound).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/hit3.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:798"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: bullet impact on walls and objects (B) (bullet_hitsoundB).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/hyu.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:800"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Sound: bullet passing close by (bullet_passingsound).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/sound/ka.wav",
+   "kind": "sound",
+   "class": "sfx",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:446"
+   ],
+   "ref_size": null,
+   "ref_format": "wav_pcm16_mono_22k",
+   "alpha": null,
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Weapon sound, suppressed shot. Used by: MK23 SD, MP5SD.",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/title.dds",
+   "kind": "texture",
+   "class": "hud",
+   "hard": true,
+   "source_refs": [
+    "src/gamemain.cpp:596",
+    "src/gamemain.cpp:632",
+    "src/gamemain.cpp:1621",
+    "src/gamemain.cpp:1668",
+    "src/scene.cpp:172",
+    "src/scene.cpp:182"
+   ],
+   "ref_size": [
+    480,
+    80
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Title logo drawn over the menu demo and briefing screens (gametitle).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  },
+  {
+   "path": "data/yakkyou.dds",
+   "kind": "texture",
+   "class": "effect",
+   "hard": true,
+   "source_refs": [
+    "src/resource.cpp:861"
+   ],
+   "ref_size": [
+    128,
+    128
+   ],
+   "ref_format": "dds_argb8",
+   "alpha": "channel",
+   "tileable": false,
+   "uv_layout": null,
+   "summary": "Effect billboard: ejected cartridge case sprite (effecttexture_yakkyou).",
+   "priority": "P0",
+   "status": "missing",
+   "note": null
+  }
+ ]
+}
