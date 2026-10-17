@@ -18,6 +18,9 @@ static void chunk(std::vector<unsigned char>& b,const char* id,const std::vector
 static std::vector<unsigned char> wav(bool stereo=false){std::vector<unsigned char>b={'R','I','F','F',0,0,0,0,'W','A','V','E'},f;put16(f,1);put16(f,stereo?2:1);put32(f,22050);put32(f,stereo?88200:44100);put16(f,stereo?4:2);put16(f,16);chunk(b,"fmt ",f);chunk(b,"LIST",std::vector<unsigned char>{'I','N','F','O'});std::vector<unsigned char>d;for(int i=0;i<2205;i++){put16(d,0x1234);if(stereo)put16(d,0x7fff);}chunk(b,"data",d);unsigned n=b.size()-8;for(int i=0;i<4;i++)b[4+i]=n>>(i*8);return b;}
 static bool save(const char* path,const std::vector<unsigned char>& b){FILE*f=fopen(path,"wb");if(!f)return false;bool ok=fwrite(b.data(),1,b.size(),f)==b.size();fclose(f);return ok;}
 int main(){
+ if(openal_pcm::distance_volume(50,MAX_SOUNDDIST/2.0f)!=25 ||
+    openal_pcm::distance_volume(100,MAX_SOUNDDIST)!=0 ||
+    openal_pcm::distance_volume(-50,MAX_SOUNDDIST/2.0f)!=-25)return 14;
  const std::filesystem::path root=std::filesystem::temp_directory_path()/"openxops-openal-generated";std::filesystem::create_directories(root/"data"/"sound");
  std::string mono=(root/"data"/"sound"/"test.wav").string(),stereo_file=(root/"data"/"sound"/"stereo.wav").string(),bad=(root/"data"/"sound"/"bad.wav").string();
  if(!save(mono.c_str(),wav())||!save(stereo_file.c_str(),wav(true))||!save(bad.c_str(),std::vector<unsigned char>{'N','O','P','E'}))return 1;

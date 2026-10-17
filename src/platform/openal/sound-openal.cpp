@@ -51,6 +51,10 @@ bool decode_wav(FILE* fp, Pcm& out)
     }
     return true;
 }
+int distance_volume(int volume, float distance) {
+    volume=std::clamp(volume,-100,100);
+    return static_cast<int>(-float(volume)/MAX_SOUNDDIST*distance+volume);
+}
 static float gain_for(int volume, float master) {
     volume=std::clamp(volume,-100,100);
     return std::clamp((float(volume+100)/200.0f)*master,0.0f,1.0f);
@@ -120,12 +124,13 @@ int SoundControl::PlaySound(int id,int volume,int pan)
 int SoundControl::Play3DSound(int id,float x,float y,float z,int volume)
 {
     if(id<0||id>=MAX_LOADSOUND||!useflag[id]) return 0;
-    if(!context) { float dx=x-camera_x,dy=y-camera_y,dz=z-camera_z;float d=std::sqrt(dx*dx+dy*dy+dz*dz);return std::isfinite(d)&&d<MAX_SOUNDDIST?1:0; }
     float dx=x-camera_x,dy=y-camera_y,dz=z-camera_z,dist=std::sqrt(dx*dx+dy*dy+dz*dz);
-    if(!std::isfinite(dist)||dist>=MAX_SOUNDDIST) return 0;
-    int atten=static_cast<int>(float(volume)-100.0f*dist/MAX_SOUNDDIST);
-    // DirectSound's 3D branch uses hardware spatialization, not pan: preserve
-    // the classic backend's centred gain model while making the source relative.
+    if(!std::isfinite(dist)||dist>MAX_SOUNDDIST) return 0;
+    // Match sound-ezds.cpp:Play3DSound/CalculationVolume exactly. Its pan
+    // calculation is commented out; compatibility playback is centred.
+    // A successfully scheduled silent voice is still a successful play.
+    volume=std::clamp(volume,-100,100);
+    int atten=openal_pcm::distance_volume(volume,dist);
     return PlaySound(id,atten,0);
 }
 int SoundControl::GetTotalSounds(){int n=0;for(bool b:useflag)if(b)n++;return n;}
