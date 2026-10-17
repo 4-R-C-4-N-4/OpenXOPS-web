@@ -160,6 +160,8 @@ int main(int argc, char **argv) {
     CHECK(std::string(vfs_debug_resolve("data/a.mif")).find("save:") == 0);
     CHECK(vfs_dir_exists("DATA"));
     CHECK(!vfs_fopen("../../escape", "wb"));
+    CHECK(!vfs_fopen("../secret", "rb"));
+    CHECK(!vfs_fopen("folder/../../secret", "rb"));
     std::filesystem::create_directory_symlink(root / "base",
                                               root / "save" / "link");
     CHECK(!vfs_fopen("link/escape", "wb"));
@@ -176,6 +178,8 @@ int main(int argc, char **argv) {
     set(b, 8, 8, 2);
     CHECK(mount(b) == VFS_ERR_CORRUPT);
     b = zip("../escape", "payload");
+    CHECK(mount(b) == VFS_ERR_CORRUPT);
+    b = zip("../evil/", "");
     CHECK(mount(b) == VFS_ERR_CORRUPT);
     b = zip("huge", "x", true);
     size_t cd = 30 + 4 + 3;

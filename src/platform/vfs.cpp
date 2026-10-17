@@ -343,7 +343,11 @@ int ParseZip(const unsigned char* p, size_t len, const char* label, std::vector<
 			if( IsLead((unsigned char)raw[i]) && i+1<raw.size() ){ ++i; lastIsDelim=false; }
 			else { lastIsDelim = raw[i] == '/' || raw[i] == '\\'; }
 		}
-		if( lastIsDelim ){ continue; }	// directory entry
+		if( lastIsDelim ){
+			std::string dirName = raw.substr(0, raw.size()-1);
+			if( !dirName.empty() && Normalize(dirName.c_str(), true).empty() ){ return VFS_ERR_CORRUPT; }
+			continue;	// directory entry
+		}
 		if( csize == 0xFFFFFFFF || usize == 0xFFFFFFFF || lofs == 0xFFFFFFFF ){
 			Log("%s: zip64 entry '%s' is not supported", label, raw.c_str()); return VFS_ERR_UNSUPPORTED;
 		}
@@ -670,7 +674,9 @@ FILE* vfs_fopen(const char* path, const char* mode)
 		return fp;
 	}
 
-	std::string key = Normalize(path, false);
+	bool valid = false;
+	std::string key = Normalize(path, false, &valid);
+	if( !valid ){ return NULL; }
 	if( key.find(':') != std::string::npos ){ return NULL; }
 	if( key.empty() ){ return NULL; }
 	std::string savepath = SaveRoot() + "/" + key;

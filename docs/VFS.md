@@ -25,7 +25,8 @@ CTest tests. No game/main/backend call sites have changed in this component.
 - Reads check the save root before mounted data. Relative writes (including `+`)
   stay under the save root, creating parents. Descriptor-relative `openat` with
   `O_NOFOLLOW` prevents save-path symlink escapes. The configured save root is
-  trusted. Absolute native reads are an explicit host-file escape hatch for CLI
+  trusted; archive paths (including directory entries) are untrusted and rejected
+  if they traverse above the virtual root. Absolute native reads are an explicit host-file escape hatch for CLI
   mission paths; absolute writes fail. This is not a sandbox for untrusted host
   directory mounts: those deliberately follow symlinks with inode loop detection.
 - ZIP `FILE*` objects refer into mount-owned memory: close them **before** unmount.
