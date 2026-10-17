@@ -1,5 +1,5 @@
 //! @file objectmanager.h
-//! @brief ObjectManagerƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief ObjectManagerã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,86 +32,86 @@
 #ifndef OBJECTMANAGER_H
 #define OBJECTMANAGER_H
 
-#define MAX_HUMAN 96			//!< Å‘ål”@yd—vzFAIƒŒƒxƒ‹’²®‚ÌŠÖŒWãe24‚Ì”{”f‚É‚·‚é‚±‚ÆI
-#define MAX_WEAPON 200			//!< •Ší‚ÌÅ‘å”
-#define MAX_SMALLOBJECT 40		//!< ¬•¨‚ÌÅ‘å”
+#define MAX_HUMAN 96			//!< æœ€å¤§äººæ•°ã€€ã€é‡è¦ã€‘ï¼šAIãƒ¬ãƒ™ãƒ«èª¿æ•´ã®é–¢ä¿‚ä¸Šâ€˜24ã®å€æ•°â€™ã«ã™ã‚‹ã“ã¨ï¼
+#define MAX_WEAPON 200			//!< æ­¦å™¨ã®æœ€å¤§æ•°
+#define MAX_SMALLOBJECT 40		//!< å°ç‰©ã®æœ€å¤§æ•°
 
-#define MAX_BULLET 128			//!< e’e‚ÌÅ‘å”
-#define MAX_GRENADE 32			//!< èÖ’e‚ÌÅ‘å”
-#define MAX_EFFECT 256			//!< ƒGƒtƒFƒNƒg‚ÌÅ‘å”
+#define MAX_BULLET 128			//!< éŠƒå¼¾ã®æœ€å¤§æ•°
+#define MAX_GRENADE 32			//!< æ‰‹æ¦´å¼¾ã®æœ€å¤§æ•°
+#define MAX_EFFECT 256			//!< ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®æœ€å¤§æ•°
 
-#define WEAPONSHOT_HEIGHT (VIEW_HEIGHT)		//!< ’e‚ğ”­Ë‚·‚é‚‚³
+#define WEAPONSHOT_HEIGHT (VIEW_HEIGHT)		//!< å¼¾ã‚’ç™ºå°„ã™ã‚‹é«˜ã•
 
-#define TOTAL_WEAPON_AUTOBULLET 3			//!< ‰Šú‰»‚É©“®“I‚É•â‚Ä‚ñ‚³‚ê‚é’e”i‘•’e”‚Ì‰½”{‚©j
+#define TOTAL_WEAPON_AUTOBULLET 3			//!< åˆæœŸåŒ–æ™‚ã«è‡ªå‹•çš„ã«è£œã¦ã‚“ã•ã‚Œã‚‹å¼¾æ•°ï¼ˆè£…å¼¾æ•°ã®ä½•å€ã‹ï¼‰
 
-#define HUMAN_PICKUPWEAPON_L -2.0f			//!< •Ší‚ğE‚¤‚‚³i‰ºj
-#define HUMAN_PICKUPWEAPON_H 16.0f			//!< •Ší‚ğE‚¤‚‚³iãj
-#define HUMAN_PICKUPWEAPON_R 3.8f			//!< •Ší‚ğE‚¤‹——£
+#define HUMAN_PICKUPWEAPON_L -2.0f			//!< æ­¦å™¨ã‚’æ‹¾ã†é«˜ã•ï¼ˆä¸‹ï¼‰
+#define HUMAN_PICKUPWEAPON_H 16.0f			//!< æ­¦å™¨ã‚’æ‹¾ã†é«˜ã•ï¼ˆä¸Šï¼‰
+#define HUMAN_PICKUPWEAPON_R 3.8f			//!< æ­¦å™¨ã‚’æ‹¾ã†è·é›¢
 
-#define HUMAN_HUMANCOLLISION_R 2.5f			//!< l“¯m‚Ì“–‚½‚è”»’è‚Ì”¼Œa
+#define HUMAN_HUMANCOLLISION_R 2.5f			//!< äººåŒå£«ã®å½“ãŸã‚Šåˆ¤å®šã®åŠå¾„
 
-#define HUMAN_BULLETCOLLISION_HEAD_H 2.9f	//!< “ª‚Ì“–‚½‚è”»’è‚Ì‚‚³
-#define HUMAN_BULLETCOLLISION_HEAD_R 1.5f	//!< “ª‚Ì“–‚½‚è”»’è‚Ì”¼Œa
-#define HUMAN_BULLETCOLLISION_UP_H 7.0f		//!< ã”¼g‚Ì“–‚½‚è”»’è‚Ì‚‚³
-#define HUMAN_BULLETCOLLISION_UP_R 2.4f		//!< ã”¼g‚Ì“–‚½‚è”»’è‚Ì”¼Œa
-#define HUMAN_BULLETCOLLISION_LEG_H 10.5f	//!< ‘«‚Ì“–‚½‚è”»’è‚Ì‚‚³
-#define HUMAN_BULLETCOLLISION_LEG_R 2.6f	//!< ‘«‚Ì“–‚½‚è”»’è‚Ì”¼Œa
+#define HUMAN_BULLETCOLLISION_HEAD_H 2.9f	//!< é ­ã®å½“ãŸã‚Šåˆ¤å®šã®é«˜ã•
+#define HUMAN_BULLETCOLLISION_HEAD_R 1.5f	//!< é ­ã®å½“ãŸã‚Šåˆ¤å®šã®åŠå¾„
+#define HUMAN_BULLETCOLLISION_UP_H 7.0f		//!< ä¸ŠåŠèº«ã®å½“ãŸã‚Šåˆ¤å®šã®é«˜ã•
+#define HUMAN_BULLETCOLLISION_UP_R 2.4f		//!< ä¸ŠåŠèº«ã®å½“ãŸã‚Šåˆ¤å®šã®åŠå¾„
+#define HUMAN_BULLETCOLLISION_LEG_H 10.5f	//!< è¶³ã®å½“ãŸã‚Šåˆ¤å®šã®é«˜ã•
+#define HUMAN_BULLETCOLLISION_LEG_R 2.6f	//!< è¶³ã®å½“ãŸã‚Šåˆ¤å®šã®åŠå¾„
 
-#define SMALLOBJECT_COLLISIONSCALE 0.13f	//!< ¬•¨“–‚½‚è”»’è‚Ì”{—¦
+#define SMALLOBJECT_COLLISIONSCALE 0.13f	//!< å°ç‰©å½“ãŸã‚Šåˆ¤å®šã®å€ç‡
 
-#define MAX_OBJECTMANAGER_LOGLEN 3						//!< ƒIƒuƒWƒFƒNƒgƒƒO‚ÌÅ‘ås”
-#define MAX_OBJECTMANAGER_LOGLINES 64					//!< ƒIƒuƒWƒFƒNƒgƒƒO‚ÌÅ‘å•¶š”
-#define MAX_OBJECTMANAGER_LOGCNT (int)(5.0f*GAMEFPS)	//!< ƒIƒuƒWƒFƒNƒgƒƒO‚Ì•\¦ƒJƒEƒ“ƒg”
+#define MAX_OBJECTMANAGER_LOGLEN 3						//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®æœ€å¤§è¡Œæ•°
+#define MAX_OBJECTMANAGER_LOGLINES 64					//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®æœ€å¤§æ–‡å­—æ•°
+#define MAX_OBJECTMANAGER_LOGCNT (int)(5.0f*GAMEFPS)	//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã®è¡¨ç¤ºã‚«ã‚¦ãƒ³ãƒˆæ•°
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 3		//!< Select include file.
 #endif
 #include "main.h"
 
-//! ƒGƒtƒFƒNƒg•`‰æŒvZ—p\‘¢‘Ì
+//! ã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»è¨ˆç®—ç”¨æ§‹é€ ä½“
 typedef struct
 {
-	int id;		//!< ƒf[ƒ^”Ô†
-	float dist;	//!< ‹——£
+	int id;		//!< ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	float dist;	//!< è·é›¢
 } effectdata;
 
-//! @brief ƒIƒuƒWƒFƒNƒgŠÇ—ƒNƒ‰ƒX
-//! @details ŠeƒIƒuƒWƒFƒNƒg‚Ì‰Šú‰»EŒvZE•`‰æ‚È‚Ç‚ğs‚¢ŠÇ—‚µ‚Ü‚·B
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details å„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®åˆæœŸåŒ–ãƒ»è¨ˆç®—ãƒ»æç”»ãªã©ã‚’è¡Œã„ç®¡ç†ã—ã¾ã™ã€‚
 class ObjectManager
 {
-	class human *HumanIndex;					//!< lƒIƒuƒWƒFƒNƒg
-	class weapon *WeaponIndex;					//!< •ŠíƒIƒuƒWƒFƒNƒg
-	class smallobject *SmallObjectIndex;		//!< ¬•¨ƒIƒuƒWƒFƒNƒg
-	class bullet *BulletIndex;					//!< ’eƒIƒuƒWƒFƒNƒg
-	class grenade *GrenadeIndex;				//!< èÖ’eƒIƒuƒWƒFƒNƒg
-	class effect *EffectIndex;					//!< ƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg
+	class human *HumanIndex;					//!< äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	class weapon *WeaponIndex;					//!< æ­¦å™¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	class smallobject *SmallObjectIndex;		//!< å°ç‰©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	class bullet *BulletIndex;					//!< å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	class grenade *GrenadeIndex;				//!< æ‰‹æ¦´å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+	class effect *EffectIndex;					//!< ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	unsigned int framecnt;		//!< ƒtƒŒ[ƒ€”‚ÌƒJƒEƒ“ƒg
+	unsigned int framecnt;		//!< ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã®ã‚«ã‚¦ãƒ³ãƒˆ
 
-	float *Human_ontarget;	//!< –½’†”
-	int *Human_kill;		//!< “|‚µ‚½“G‚Ì”
-	int *Human_headshot;	//!< “G‚Ì“ª•”‚É–½’†‚µ‚½”
-	bool *Human_ShotFlag;	//!< ”­–Cƒtƒ‰ƒOiƒ}ƒYƒ‹ƒtƒ‰ƒbƒVƒ…—pj
-	int *Human_YakkyouCnt;	//!< ”­–C‚Ì–òä°ƒJƒEƒ“ƒg
-	class BulletObjectHumanIndex *BulletObj_HumanIndex;		//!< ’e‘Îl”»’è—pƒIƒuƒWƒFƒNƒg
+	float *Human_ontarget;	//!< å‘½ä¸­æ•°
+	int *Human_kill;		//!< å€’ã—ãŸæ•µã®æ•°
+	int *Human_headshot;	//!< æ•µã®é ­éƒ¨ã«å‘½ä¸­ã—ãŸæ•°
+	bool *Human_ShotFlag;	//!< ç™ºç ²ãƒ•ãƒ©ã‚°ï¼ˆãƒã‚ºãƒ«ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ç”¨ï¼‰
+	int *Human_YakkyouCnt;	//!< ç™ºç ²æ™‚ã®è–¬è¢ã‚«ã‚¦ãƒ³ãƒˆ
+	class BulletObjectHumanIndex *BulletObj_HumanIndex;		//!< å¼¾å¯¾äººåˆ¤å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	bool AddCollisionFlag;	//!< ’Ç‰Á‚Ì“–‚½‚è”»’è
-	bool *FriendlyFire;		//!< FFi“¯m“¢‚¿j—LŒø‰»
+	bool AddCollisionFlag;	//!< è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®š
+	bool *FriendlyFire;		//!< FFï¼ˆåŒå£«è¨ã¡ï¼‰æœ‰åŠ¹åŒ–
 
-	int Player_HumanID;		//!< ƒvƒŒƒCƒ„[‚ª‘€ì‚·‚élƒIƒuƒWƒFƒNƒg‚ÌID
+	int Player_HumanID;		//!< ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã™ã‚‹äººã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ID
 
-	bool *Human_FrameTextureRefresh;	//!< l‚ÌƒeƒNƒXƒ`ƒƒƒŠƒtƒŒƒbƒVƒ…ƒtƒ‰ƒOiƒeƒNƒXƒ`ƒƒ‹U‘¢lŠÔi“älŠÔj—pj
+	bool *Human_FrameTextureRefresh;	//!< äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒªãƒ•ãƒ¬ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ï¼ˆãƒ†ã‚¯ã‚¹ãƒãƒ£å½é€ äººé–“ï¼ˆè¬äººé–“ï¼‰ç”¨ï¼‰
 
-	ParameterInfo *GameParamInfo;		//!< ƒQ[ƒ€‚Ìİ’è’l
-	D3DGraphics *d3dg;					//!< •`‰æƒNƒ‰ƒX
-	ResourceManager *Resource;			//!< ƒŠƒ\[ƒXŠÇ—
-	BlockDataInterface *BlockData;		//!< ƒuƒƒbƒNƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-	PointDataInterface *PointData;		//!< ƒ|ƒCƒ“ƒgƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-	Collision *CollD;					//!< “–‚½‚è”»’èŠÇ—ƒNƒ‰ƒX
-	SoundManager *GameSound;			//!< ƒQ[ƒ€Œø‰Ê‰¹ŠÇ—ƒNƒ‰ƒX
-	MIFInterface *MIFdata;				//!< MIFƒRƒ“ƒgƒ[ƒ‹ƒNƒ‰ƒX
+	ParameterInfo *GameParamInfo;		//!< ã‚²ãƒ¼ãƒ ã®è¨­å®šå€¤
+	D3DGraphics *d3dg;					//!< æç”»ã‚¯ãƒ©ã‚¹
+	ResourceManager *Resource;			//!< ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
+	BlockDataInterface *BlockData;		//!< ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+	PointDataInterface *PointData;		//!< ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+	Collision *CollD;					//!< å½“ãŸã‚Šåˆ¤å®šç®¡ç†ã‚¯ãƒ©ã‚¹
+	SoundManager *GameSound;			//!< ã‚²ãƒ¼ãƒ åŠ¹æœéŸ³ç®¡ç†ã‚¯ãƒ©ã‚¹
+	MIFInterface *MIFdata;				//!< MIFã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã‚¯ãƒ©ã‚¹
 
-	class ObjectManagerLog *ObjectLog;	//!< ƒIƒuƒWƒFƒNƒgƒƒOƒNƒ‰ƒX
+	class ObjectManagerLog *ObjectLog;	//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã‚¯ãƒ©ã‚¹
 
 	int AddHumanIndex(pointdata data, pointdata infodata, bool RandomFlag);
 	int AddWeaponIndex(pointdata data);
@@ -185,11 +185,11 @@ public:
 	void Cleanup();
 };
 
-//! @brief ’e‘Îl”»’è—pƒNƒ‰ƒX
-//! @details ’e‚Æl‚Ì“–‚½‚è”»’è‚Ì—L–³‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·BObjectManagerƒNƒ‰ƒX“à‚Åg—p‚µ‚Ü‚·B
+//! @brief å¼¾å¯¾äººåˆ¤å®šç”¨ã‚¯ãƒ©ã‚¹
+//! @details å¼¾ã¨äººã®å½“ãŸã‚Šåˆ¤å®šã®æœ‰ç„¡ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚ObjectManagerã‚¯ãƒ©ã‚¹å†…ã§ä½¿ç”¨ã—ã¾ã™ã€‚
 class BulletObjectHumanIndex
 {
-	bool *HumanIndex;		//!< ƒŠƒXƒg
+	bool *HumanIndex;		//!< ãƒªã‚¹ãƒˆ
 
 public:
 	BulletObjectHumanIndex();
@@ -199,15 +199,15 @@ public:
 	void SetIndexFlag(int id);
 };
 
-//! @brief ƒIƒuƒWƒFƒNƒgƒƒOƒNƒ‰ƒX
-//! @details ƒIƒuƒWƒFƒNƒgŠÇ—ƒNƒ‰ƒX ObjectManager ‚ÌƒƒO‚ğ‹L˜^E•\¦‚µ‚Ü‚·B
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ­ã‚°ã‚¯ãƒ©ã‚¹
+//! @details ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹ ObjectManager ã®ãƒ­ã‚°ã‚’è¨˜éŒ²ãƒ»è¡¨ç¤ºã—ã¾ã™ã€‚
 class ObjectManagerLog
 {
-	D3DGraphics *d3dg;							//!< •`‰æƒNƒ‰ƒX
+	D3DGraphics *d3dg;							//!< æç”»ã‚¯ãƒ©ã‚¹
 
-	int TextCnt[MAX_OBJECTMANAGER_LOGLEN];		//!< ƒtƒŒ[ƒ€”
-	char *TextStr[MAX_OBJECTMANAGER_LOGLEN];	//!< •¶š—ñ
-	int TextColor[MAX_OBJECTMANAGER_LOGLEN];	//!< •¶š—ñ‚ÌF
+	int TextCnt[MAX_OBJECTMANAGER_LOGLEN];		//!< ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+	char *TextStr[MAX_OBJECTMANAGER_LOGLEN];	//!< æ–‡å­—åˆ—
+	int TextColor[MAX_OBJECTMANAGER_LOGLEN];	//!< æ–‡å­—åˆ—ã®è‰²
 
 	bool AddTextLog(int cnt, const char *str, int color);
 

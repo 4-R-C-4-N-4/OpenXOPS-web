@@ -1,5 +1,5 @@
 //! @file window.h
-//! @brief window.cppŠÖŒW‚Ìƒwƒbƒ_[ƒtƒ@ƒCƒ‹
+//! @brief window.cppé–¢ä¿‚ã®ãƒ˜ãƒƒãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,36 +32,53 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-class WindowControl;	//ƒvƒƒgƒ^ƒCƒvéŒ¾
+class WindowControl;	//ãƒ—ãƒ­ãƒˆã‚¿ã‚¤ãƒ—å®£è¨€
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 1		//!< Select include file.
 #endif
 #include "main.h"
 
-#include <windows.h>
-#include <mmsystem.h>
+#ifdef _WIN32
+ #include <windows.h>
+ #include <mmsystem.h>
+#endif
 #include <time.h>
 
-#pragma comment(lib, "winmm.lib")
+#ifdef _WIN32
+ #pragma comment(lib, "winmm.lib")
+#endif
 
-//! @brief ƒEƒBƒ“ƒhƒE§ŒäƒNƒ‰ƒX
-//! @details ƒQ[ƒ€‰æ–Ê‚ğ•\¦‚·‚éƒEƒBƒ“ƒhƒE‚ğ§Œä‚µŠÇ—‚µ‚Ü‚·B
+//! @brief ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
+//! @details ã‚²ãƒ¼ãƒ ç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’åˆ¶å¾¡ã—ç®¡ç†ã—ã¾ã™ã€‚
 class WindowControl
 {
-	HINSTANCE hInstance;	//!< ƒCƒ“ƒXƒ^ƒ“ƒX ƒnƒ“ƒhƒ‹
-	int nCmdShow;			//!< ƒEƒBƒ“ƒhƒE‚Ì•\¦ó‘Ô
-	HWND hWnd;				//!< ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+#ifdef _WIN32
+	HINSTANCE hInstance;	//!< ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ ãƒãƒ³ãƒ‰ãƒ«
+	int nCmdShow;			//!< ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºçŠ¶æ…‹
+	HWND hWnd;				//!< ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
 
 	static LRESULT WINAPI WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+#else
+	//[OpenXOPS-web] platform-neutral state (src/platform/*/window-*.cpp)
+	int width;				//!< ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®å¹…
+	int height;				//!< ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®é«˜ã•
+	bool fullscreenflag;	//!< ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è¡¨ç¤º
+	bool closeflag;			//!< CloseWindow() ãŒè¦æ±‚ã•ã‚ŒãŸ
+	unsigned int frames;	//!< CheckMainLoop() ãŒã€Œ1ã€ã‚’è¿”ã—ãŸå›æ•°
+#endif
 
 public:
 	WindowControl();
 	~WindowControl();
+#ifdef _WIN32
 	void SetParam(HINSTANCE in_hInstance, int in_nCmdShow);
+#endif
 	bool InitWindow(const char* title, int width, int height, bool fullscreen);
 	bool ChangeWindowMode(bool fullscreen);
+#ifdef _WIN32
 	HWND GethWnd();
+#endif
 	int CheckMainLoop();
 	void ErrorInfo(const char *str);
 	void CloseWindow();
@@ -80,7 +97,7 @@ int GetRand(int num);
 float Round(float r);
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
- char* ChangePathDelimiter(char *str);
+ char* ChangePathDelimiter(const char *str);	//[OpenXOPS-web] was (char *str); every caller passes const char*
 #endif
 
 #endif

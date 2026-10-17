@@ -1,5 +1,5 @@
 //! @file input.h
-//! @brief InputControlƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief InputControlã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -37,57 +37,80 @@
 #endif
 #include "main.h"
 
-#include <windows.h>
+#ifdef _WIN32
+ #include <windows.h>
+#endif
 
-#define INPUT_INTERFACE 0	//!< @brief “ü—Í‚ğæ“¾‚·‚éƒCƒ“ƒ^[ƒtƒF[ƒX‚Ì‘I‘ğ @details WindowsInputF0@RawInputF1@DirectInputF2
+//! @brief å…¥åŠ›ã‚’å–å¾—ã™ã‚‹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã®é¸æŠ @details WindowsInputï¼š0ã€€RawInputï¼š1ã€€DirectInputï¼š2ã€€SDLï¼ˆOpenXOPS-webï¼‰ï¼š3
+//! @note [OpenXOPS-web] 0ï½2 are Windows-only. Non-Windows targets default to 3.
+#ifndef INPUT_INTERFACE
+ #ifdef _WIN32
+  #define INPUT_INTERFACE 0
+ #else
+  #define INPUT_INTERFACE 3
+ #endif
+#endif
+
+#if (INPUT_INTERFACE <= 2) && !defined(_WIN32)
+ #error "INPUT_INTERFACE 0-2 require Windows; use 3 (SDL) on this platform"
+#endif
 
 #if INPUT_INTERFACE == 0
- #define INPUT_CORE "WindowsInput"					//!< ƒo[ƒWƒ‡ƒ“•\¦—pî•ñ
+ #define INPUT_CORE "WindowsInput"					//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºç”¨æƒ…å ±
 #elif INPUT_INTERFACE == 1
  #include <commctrl.h>
  #pragma comment (lib, "comctl32.lib")
 
- #define INPUT_CORE "RawInput"						//!< ƒo[ƒWƒ‡ƒ“•\¦—pî•ñ
+ #define INPUT_CORE "RawInput"						//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºç”¨æƒ…å ±
 #elif INPUT_INTERFACE == 2
- #define DIRECTINPUT_VERSION 0x0800	//!< ŒxuDIRECTINPUT_VERSION undefined. Defaulting to version 0x0800v‚ğ–h~
+ #define DIRECTINPUT_VERSION 0x0800	//!< è­¦å‘Šã€ŒDIRECTINPUT_VERSION undefined. Defaulting to version 0x0800ã€ã‚’é˜²æ­¢
  #include <dinput.h>
 
  #pragma comment(lib, "dinput8.lib")
  #pragma comment(lib, "dxguid.lib")
 
- #define INPUT_CORE "DirectInput"					//!< ƒo[ƒWƒ‡ƒ“•\¦—pî•ñ
+ #define INPUT_CORE "DirectInput"					//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºç”¨æƒ…å ±
+#elif INPUT_INTERFACE == 3
+ #include "platform/vkcodes.h"	//[OpenXOPS-web] key ids stay Windows VK codes
+ #ifdef OPENXOPS_PLATFORM_STUB
+  #define INPUT_CORE "none (stub)"					//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºç”¨æƒ…å ±
+ #else
+  #define INPUT_CORE "SDL"							//!< ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¡¨ç¤ºç”¨æƒ…å ±
+ #endif
 #endif
 
-//! @brief “ü—ÍƒfƒoƒCƒX‚ğŠÇ—‚·‚éƒNƒ‰ƒX
-//! @details ƒ}ƒEƒX‚âƒL[ƒ{[ƒh‚È‚Ç‚Ì“ü—ÍƒfƒoƒCƒX‚ğŠÇ—‚µ‚Ä‚¢‚Ü‚·B
+//! @brief å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
+//! @details ãƒã‚¦ã‚¹ã‚„ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãªã©ã®å…¥åŠ›ãƒ‡ãƒã‚¤ã‚¹ã‚’ç®¡ç†ã—ã¦ã„ã¾ã™ã€‚
 class InputControl
 {
-	HWND hWnd;				//!< ƒEƒBƒ“ƒhƒEƒnƒ“ƒhƒ‹
+#ifdef _WIN32
+	HWND hWnd;				//!< ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒãƒ³ãƒ‰ãƒ«
+#endif
 #if INPUT_INTERFACE == 2
-	LPDIRECTINPUT8 pDI;					//!< DIRECTINPUT8‚Ìƒ|ƒCƒ“ƒ^
-	LPDIRECTINPUTDEVICE8 pDIDevice;		//!< DIRECTINPUTDEVICE8‚Ìƒ|ƒCƒ“ƒ^EƒL[ƒ{[ƒh—p
-	LPDIRECTINPUTDEVICE8 pMouse;		//!< DIRECTINPUTDEVICE8‚Ìƒ|ƒCƒ“ƒ^Eƒ}ƒEƒX—p
+	LPDIRECTINPUT8 pDI;					//!< DIRECTINPUT8ã®ãƒã‚¤ãƒ³ã‚¿
+	LPDIRECTINPUTDEVICE8 pDIDevice;		//!< DIRECTINPUTDEVICE8ã®ãƒã‚¤ãƒ³ã‚¿ãƒ»ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ç”¨
+	LPDIRECTINPUTDEVICE8 pMouse;		//!< DIRECTINPUTDEVICE8ã®ãƒã‚¤ãƒ³ã‚¿ãƒ»ãƒã‚¦ã‚¹ç”¨
 #else
-	bool InitFlag;			//!< ‰Šú‰»ƒtƒ‰ƒO
+	bool InitFlag;			//!< åˆæœŸåŒ–ãƒ•ãƒ©ã‚°
 #endif
-	bool MouseLimitFlag;	//!< ƒ}ƒEƒXˆÚ“®—Ê‚ğ§ŒÀ‚·‚éƒtƒ‰ƒO
-	char keys[256];			//!< ƒL[î•ñ‚ğŠi”[‚·‚é”z—ñ
-	char keys_lt[256];		//!< i‘O‰ñ‚ÌjƒL[î•ñ‚ğŠi”[‚·‚é”z—ñ
-	int mx;					//!< ƒ}ƒEƒX‚ÌXÀ•W
-	int my;					//!< ƒ}ƒEƒX‚ÌYÀ•W
+	bool MouseLimitFlag;	//!< ãƒã‚¦ã‚¹ç§»å‹•é‡ã‚’åˆ¶é™ã™ã‚‹ãƒ•ãƒ©ã‚°
+	char keys[256];			//!< ã‚­ãƒ¼æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+	char keys_lt[256];		//!< ï¼ˆå‰å›ã®ï¼‰ã‚­ãƒ¼æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+	int mx;					//!< ãƒã‚¦ã‚¹ã®Xåº§æ¨™
+	int my;					//!< ãƒã‚¦ã‚¹ã®Yåº§æ¨™
 #if INPUT_INTERFACE == 0
-	POINT point_lt;			//!< i‘O‰ñ‚Ìjƒ}ƒEƒXÀ•W
+	POINT point_lt;			//!< ï¼ˆå‰å›ã®ï¼‰ãƒã‚¦ã‚¹åº§æ¨™
 #endif
-	bool mbl;				//!< ƒ}ƒEƒX‚Ì¶ƒ{ƒ^ƒ“
-	bool mbr;				//!< ƒ}ƒEƒX‚Ì‰Eƒ{ƒ^ƒ“
-	bool mbl_lt;			//!< i‘O‰ñ‚Ìjƒ}ƒEƒX‚Ì¶ƒ{ƒ^ƒ“
-	bool mbr_lt;			//!< i‘O‰ñ‚Ìjƒ}ƒEƒX‚Ì‰Eƒ{ƒ^ƒ“
+	bool mbl;				//!< ãƒã‚¦ã‚¹ã®å·¦ãƒœã‚¿ãƒ³
+	bool mbr;				//!< ãƒã‚¦ã‚¹ã®å³ãƒœã‚¿ãƒ³
+	bool mbl_lt;			//!< ï¼ˆå‰å›ã®ï¼‰ãƒã‚¦ã‚¹ã®å·¦ãƒœã‚¿ãƒ³
+	bool mbr_lt;			//!< ï¼ˆå‰å›ã®ï¼‰ãƒã‚¦ã‚¹ã®å³ãƒœã‚¿ãƒ³
 #if INPUT_INTERFACE == 1
-	char keys_proc[256];	//!< ƒL[î•ñ‚ğŠi”[‚·‚é”z—ñiƒvƒƒV[ƒWƒƒj
-	int mx_proc;			//!< ƒ}ƒEƒX‚ÌXÀ•WiƒvƒƒV[ƒWƒƒj
-	int my_proc;			//!< ƒ}ƒEƒX‚ÌYÀ•WiƒvƒƒV[ƒWƒƒj
-	bool mbl_proc;			//!< ƒ}ƒEƒX‚Ì¶ƒ{ƒ^ƒ“iƒvƒƒV[ƒWƒƒj
-	bool mbr_proc;			//!< ƒ}ƒEƒX‚Ì‰Eƒ{ƒ^ƒ“iƒvƒƒV[ƒWƒƒj
+	char keys_proc[256];	//!< ã‚­ãƒ¼æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹é…åˆ—ï¼ˆãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ï¼‰
+	int mx_proc;			//!< ãƒã‚¦ã‚¹ã®Xåº§æ¨™ï¼ˆãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ï¼‰
+	int my_proc;			//!< ãƒã‚¦ã‚¹ã®Yåº§æ¨™ï¼ˆãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ï¼‰
+	bool mbl_proc;			//!< ãƒã‚¦ã‚¹ã®å·¦ãƒœã‚¿ãƒ³ï¼ˆãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ï¼‰
+	bool mbr_proc;			//!< ãƒã‚¦ã‚¹ã®å³ãƒœã‚¿ãƒ³ï¼ˆãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ï¼‰
 
 	static LRESULT CALLBACK SubClassProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, UINT_PTR uIdSubclass, DWORD_PTR dwRefData);
 	void GetRowInput(WPARAM wParam, LPARAM lParam);

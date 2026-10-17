@@ -1,5 +1,5 @@
 //! @file sound.h
-//! @brief SoundControlÉNÉâÉXÇÃêÈåæ
+//! @brief SoundControl„ÇØ„É©„Çπ„ÅÆÂÆ£Ë®Ä
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,25 +32,45 @@
 #ifndef SOUND2_H
 #define SOUND2_H
 
-#define MAX_LOADSOUND 24		//!< ÉTÉEÉìÉhÇì«Ç›çûÇﬂÇÈç≈ëÂêî
-#define MAX_SOUNDLISTS 100		//!< ÉTÉEÉìÉhÇçƒê∂Ç∑ÇÈç≈ëÂêîÅiDirectSoundÅj
-#define MAX_SOUNDDIST 335		//!< ÉTÉEÉìÉhÇçƒê∂Ç∑ÇÈç≈ëÂãóó£
+#define MAX_LOADSOUND 24		//!< „Çµ„Ç¶„É≥„Éâ„ÇíË™≠„ÅøËæº„ÇÅ„ÇãÊúÄÂ§ßÊï∞
+#define MAX_SOUNDLISTS 100		//!< „Çµ„Ç¶„É≥„Éâ„ÇíÂÜçÁîü„Åô„ÇãÊúÄÂ§ßÊï∞ÔºàDirectSoundÔºâ
+#define MAX_SOUNDDIST 335		//!< „Çµ„Ç¶„É≥„Éâ„ÇíÂÜçÁîü„Åô„ÇãÊúÄÂ§ßË∑ùÈõ¢
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 1		//!< Select include file.
 #endif
 #include "main.h"
-#include <windows.h>
+#ifdef _WIN32
+ #include <windows.h>
+#endif
 
-#define SOUND_ENGINE 0		//!< @brief ÉTÉEÉìÉhÇÃçƒê∂ÉâÉCÉuÉâÉäÇëIë @details ezds.dllÅF0Å@DirectSoundÅi2Dçƒê∂ÅjÅF1Å@DirectSoundÅi3Dçƒê∂ÅjÅF2
+//! @brief „Çµ„Ç¶„É≥„Éâ„ÅÆÂÜçÁîü„É©„Ç§„Éñ„É©„É™„ÇíÈÅ∏Êäû @details ezds.dllÔºö0„ÄÄDirectSoundÔºà2DÂÜçÁîüÔºâÔºö1„ÄÄDirectSoundÔºà3DÂÜçÁîüÔºâÔºö2„ÄÄOpenALÔºàOpenXOPS-webÔºâÔºö3
+//! @note [OpenXOPS-web] 0ÔΩû2 are Windows-only. Non-Windows targets default to 3.
+#ifndef SOUND_ENGINE
+ #ifdef _WIN32
+  #define SOUND_ENGINE 0
+ #else
+  #define SOUND_ENGINE 3
+ #endif
+#endif
 
-#if SOUND_ENGINE == 0
+#if (SOUND_ENGINE <= 2) && !defined(_WIN32)
+ #error "SOUND_ENGINE 0-2 require Windows; use 3 (OpenAL) on this platform"
+#endif
+
+#if SOUND_ENGINE == 3
+ #ifdef OPENXOPS_PLATFORM_STUB
+  #define SOUND_CORE "none (stub)"			//!< „Éê„Éº„Ç∏„Éß„É≥Ë°®Á§∫Áî®ÊÉÖÂ†±
+ #else
+  #define SOUND_CORE "OpenAL"				//!< „Éê„Éº„Ç∏„Éß„É≥Ë°®Á§∫Áî®ÊÉÖÂ†±
+ #endif
+#elif SOUND_ENGINE == 0
  typedef int (*FARPROCH)(HWND);					//!< DLL Parameter
  typedef int (*FARPROCCI)(const char*, int);	//!< DLL Parameter
  typedef int (*FARPROCIII)(int, int, int);		//!< DLL Parameter
  typedef int (*FARPROCI)(int);					//!< DLL Parameter
 
- #define SOUND_CORE "ezds"					//!< ÉoÅ[ÉWÉáÉìï\é¶ópèÓïÒ
+ #define SOUND_CORE "ezds"					//!< „Éê„Éº„Ç∏„Éß„É≥Ë°®Á§∫Áî®ÊÉÖÂ†±
 #else	//#if SOUND_ENGINE
  #include <dsound.h>
  #include <mmsystem.h>
@@ -62,43 +82,51 @@
  #endif
 
  #if SOUND_ENGINE == 1
-  #define SOUND_CORE "DirectSound(Monaural)"	//!< ÉoÅ[ÉWÉáÉìï\é¶ópèÓïÒ
+  #define SOUND_CORE "DirectSound(Monaural)"	//!< „Éê„Éº„Ç∏„Éß„É≥Ë°®Á§∫Áî®ÊÉÖÂ†±
  #else
-  #define SOUND_CORE "DirectSound(Stereo)"	//!< ÉoÅ[ÉWÉáÉìï\é¶ópèÓïÒ
+  #define SOUND_CORE "DirectSound(Stereo)"	//!< „Éê„Éº„Ç∏„Éß„É≥Ë°®Á§∫Áî®ÊÉÖÂ†±
  #endif
 #endif	//#if SOUND_ENGINE
 
-//! @brief ÉTÉEÉìÉhÇçƒê∂Ç∑ÇÈÉNÉâÉX
-//! @details ÉTÉEÉìÉhÇÃì«Ç›çûÇ›Ç©ÇÁçƒê∂Ç‹Ç≈Çä«óùÇµÇ‹Ç∑ÅB
-//! @details éQçléëóøÅFezds.dllÉtÉ@ÉCÉã(ver:0.4)âêÕèÓïÒÅ@http://openxops.net/filesystem-ezds04.php
+//! @brief „Çµ„Ç¶„É≥„Éâ„ÇíÂÜçÁîü„Åô„Çã„ÇØ„É©„Çπ
+//! @details „Çµ„Ç¶„É≥„Éâ„ÅÆË™≠„ÅøËæº„Åø„Åã„ÇâÂÜçÁîü„Åæ„Åß„ÇíÁÆ°ÁêÜ„Åó„Åæ„Åô„ÄÇ
+//! @details ÂèÇËÄÉË≥áÊñôÔºöezds.dll„Éï„Ç°„Ç§„É´(ver:0.4)Ëß£ÊûêÊÉÖÂ†±„ÄÄhttp://openxops.net/filesystem-ezds04.php
 class SoundControl
 {
-#if SOUND_ENGINE == 0
-	HINSTANCE lib;		//!< DLLÉtÉ@ÉCÉãÇÃÉCÉìÉXÉ^ÉìÉX
+#if SOUND_ENGINE == 3
+	//[OpenXOPS-web] platform-neutral state (src/platform/*/sound-*.cpp)
+	bool useflag[MAX_LOADSOUND];	//!< ‰ΩøÁî®‰∏≠„ÅÆ„Çµ„Ç¶„É≥„ÉâÁï™Âè∑„ÇíÁÆ°ÁêÜ„Åô„ÇãÈÖçÂàó
+	float camera_x;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_y;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_z;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_rx;		//!< „Ç´„É°„É©XËª∏ËßíÂ∫¶
+	float mastervolume;		//!< Èü≥Èáè(„Éë„Éº„Çª„É≥„Éà)
+#elif SOUND_ENGINE == 0
+	HINSTANCE lib;		//!< DLL„Éï„Ç°„Ç§„É´„ÅÆ„Ç§„É≥„Çπ„Çø„É≥„Çπ
 	FARPROC DSver;		//!< DSver()
 	FARPROCH DSinit;	//!< DSinit()
 	FARPROC DSend;		//!< DSend()
 	FARPROCCI DSload;	//!< DSload()
 	FARPROCIII DSplay;	//!< DSplay()
 	FARPROCI DSrelease;	//!< DSrelease()
-	bool useflag[MAX_LOADSOUND];	//!< égópíÜÇÃÉTÉEÉìÉhî‘çÜÇä«óùÇ∑ÇÈîzóÒ
+	bool useflag[MAX_LOADSOUND];	//!< ‰ΩøÁî®‰∏≠„ÅÆ„Çµ„Ç¶„É≥„ÉâÁï™Âè∑„ÇíÁÆ°ÁêÜ„Åô„ÇãÈÖçÂàó
 
-	float camera_x;			//!< ÉJÉÅÉâç¿ïW
-	float camera_y;			//!< ÉJÉÅÉâç¿ïW
-	float camera_z;			//!< ÉJÉÅÉâç¿ïW
-	float camera_rx;		//!< ÉJÉÅÉâXé≤äpìx
-	float mastervolume;		//!< âπó (ÉpÅ[ÉZÉìÉg)
-	int volume_max;			//!< ç≈ëÂâπó 
+	float camera_x;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_y;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_z;			//!< „Ç´„É°„É©Â∫ßÊ®ô
+	float camera_rx;		//!< „Ç´„É°„É©XËª∏ËßíÂ∫¶
+	float mastervolume;		//!< Èü≥Èáè(„Éë„Éº„Çª„É≥„Éà)
+	int volume_max;			//!< ÊúÄÂ§ßÈü≥Èáè
 
 
 	bool CheckSourceDist(float x, float y, float z, bool near, float *out_dist);
 	int CalculationVolume(int MaxVolume, float dist, bool near);
 #else	//#if SOUND_ENGINE
-	LPDIRECTSOUND8 pDSound;					//!< DIRECTSOUND8ÇÃÉ|ÉCÉìÉ^
-	LPDIRECTSOUNDBUFFER pDSBuffer[MAX_LOADSOUND][MAX_SOUNDLISTS];	//!< ÉZÉJÉìÉ_ÉäÅ[ÉoÉbÉtÉ@Å[
-	LPDIRECTSOUND3DLISTENER8 p3DListener;	//!< ÉäÉXÉiÅ[
-	float mastervolume;						//!< âπó (ÉpÅ[ÉZÉìÉg)
-	float volume_dBper;						//!< ç≈ëÂâπó 
+	LPDIRECTSOUND8 pDSound;					//!< DIRECTSOUND8„ÅÆ„Éù„Ç§„É≥„Çø
+	LPDIRECTSOUNDBUFFER pDSBuffer[MAX_LOADSOUND][MAX_SOUNDLISTS];	//!< „Çª„Ç´„É≥„ÉÄ„É™„Éº„Éê„ÉÉ„Éï„Ç°„Éº
+	LPDIRECTSOUND3DLISTENER8 p3DListener;	//!< „É™„Çπ„Éä„Éº
+	float mastervolume;						//!< Èü≥Èáè(„Éë„Éº„Çª„É≥„Éà)
+	float volume_dBper;						//!< ÊúÄÂ§ßÈü≥Èáè
 
 	bool CheckSoundFile(const char* filename, int *filesize, int *fileoffset, WAVEFORMATEX** pwfex);
 	int GetDSVolume(int volume);

@@ -1,5 +1,5 @@
 //! @file gamemain.cpp
-//! @brief ƒQ[ƒ€ƒƒCƒ“ˆ—
+//! @brief ã‚²ãƒ¼ãƒ ãƒ¡ã‚¤ãƒ³å‡¦ç†
 
 //--------------------------------------------------------------------------------
 // 
@@ -28,67 +28,67 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------------
-// ¦ƒƒjƒ…[“à‚Ìƒ‰ƒCƒZƒ“ƒX•¶Í‚Í mainmenu::CreateOptions() “à‚Å’è‹`‚³‚ê‚Ä‚¢‚éB
+// â€»ãƒ¡ãƒ‹ãƒ¥ãƒ¼å†…ã®ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ç« ã¯ mainmenu::CreateOptions() å†…ã§å®šç¾©ã•ã‚Œã¦ã„ã‚‹ã€‚
 
 #include "gamemain.h"
 
-D3DGraphics d3dg;			//!< •`‰æƒNƒ‰ƒX
-InputControl inputCtrl;		//!< “ü—Íæ“¾ƒNƒ‰ƒX
-SoundControl SoundCtrl;		//!< ƒTƒEƒ“ƒhÄ¶ƒNƒ‰ƒX
+D3DGraphics d3dg;			//!< æç”»ã‚¯ãƒ©ã‚¹
+InputControl inputCtrl;		//!< å…¥åŠ›å–å¾—ã‚¯ãƒ©ã‚¹
+SoundControl SoundCtrl;		//!< ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿã‚¯ãƒ©ã‚¹
 
-//! ƒQ[ƒ€‚Ìİ’è’l
+//! ã‚²ãƒ¼ãƒ ã®è¨­å®šå€¤
 ParameterInfo GameParamInfo;
 
-//! ƒŠƒ\[ƒXŠÇ—
+//! ãƒªã‚½ãƒ¼ã‚¹ç®¡ç†
 ResourceManager Resource;
 
-SoundManager GameSound;		//!< ƒQ[ƒ€Œø‰Ê‰¹Ä¶ƒNƒ‰ƒX
+SoundManager GameSound;		//!< ã‚²ãƒ¼ãƒ åŠ¹æœéŸ³å†ç”Ÿã‚¯ãƒ©ã‚¹
 
-BlockDataInterface BlockData;		//!< ƒuƒƒbƒNƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-PointDataInterface PointData;		//!< ƒ|ƒCƒ“ƒgƒf[ƒ^ŠÇ—ƒNƒ‰ƒX
-MIFInterface MIFdata;				//!< MIFƒRƒ“ƒgƒ[ƒ‹
-AddonList GameAddon;				//!< addon‚ÌƒŠƒXƒg
-Collision CollD;					//!< “–‚½‚è”»’èŠÇ—ƒNƒ‰ƒX
-ObjectManager ObjMgr;				//!< ƒIƒuƒWƒFƒNƒgŠÇ—ƒNƒ‰ƒX
-AIcontrol HumanAI[MAX_HUMAN];		//!< AIŠÇ—ƒNƒ‰ƒX
+BlockDataInterface BlockData;		//!< ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+PointDataInterface PointData;		//!< ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹
+MIFInterface MIFdata;				//!< MIFã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«
+AddonList GameAddon;				//!< addonã®ãƒªã‚¹ãƒˆ
+Collision CollD;					//!< å½“ãŸã‚Šåˆ¤å®šç®¡ç†ã‚¯ãƒ©ã‚¹
+ObjectManager ObjMgr;				//!< ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹
+AIcontrol HumanAI[MAX_HUMAN];		//!< AIç®¡ç†ã‚¯ãƒ©ã‚¹
 
-GameInfo GameInfoData;				//!< ƒQ[ƒ€‚Ìó‘Ô
+GameInfo GameInfoData;				//!< ã‚²ãƒ¼ãƒ ã®çŠ¶æ…‹
 
-EventControl Event[TOTAL_EVENTLINE];	//!< ƒCƒxƒ“ƒg§ŒäƒNƒ‰ƒX
+EventControl Event[TOTAL_EVENTLINE];	//!< ã‚¤ãƒ™ãƒ³ãƒˆåˆ¶å¾¡ã‚¯ãƒ©ã‚¹
 
 
-//! @brief Šî–{“I‚È‰Šú‰»ˆ—
+//! @brief åŸºæœ¬çš„ãªåˆæœŸåŒ–å‡¦ç†
 int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath)
 {
 	if( WindowCtrl == NULL ){ return 1; }
 
-	//D3DGraphicsƒNƒ‰ƒX‰Šú‰»
+	//D3DGraphicsã‚¯ãƒ©ã‚¹åˆæœŸåŒ–
 	if( d3dg.InitD3D(WindowCtrl, "data\\char.dds", GameConfig.GetFullscreenFlag(), GameConfig.GetLanguage()) ){
-		WindowCtrl->ErrorInfo("Direct3D‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½");
+		WindowCtrl->ErrorInfo("Direct3Dã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ");
 		return 1;
 	}
 
-	//InputControlƒNƒ‰ƒX‰Šú‰»
+	//InputControlã‚¯ãƒ©ã‚¹åˆæœŸåŒ–
 	if( inputCtrl.InitInput(WindowCtrl) ){
 		WindowCtrl->ErrorInfo("Input initialization error");
 		return 1;
 	}
 
-	//SoundControlƒNƒ‰ƒX‰Šú‰»
+	//SoundControlã‚¯ãƒ©ã‚¹åˆæœŸåŒ–
 	if( SoundCtrl.InitSound(WindowCtrl) ){
 		WindowCtrl->ErrorInfo("dll open failed");
 		return 1;
 	}
 
-	//İ’è’l‚ğ‰Šú‰»
+	//è¨­å®šå€¤ã‚’åˆæœŸåŒ–
 	GameParamInfo.InitInfo();
 
-	//ƒŠƒ\[ƒX‚Ì‰Šúİ’è
+	//ãƒªã‚½ãƒ¼ã‚¹ã®åˆæœŸè¨­å®š
 	Resource.SetParameterInfo(&GameParamInfo);
 	Resource.SetD3DGraphics(&d3dg);
 	Resource.SetSoundControl(&SoundCtrl);
 
-	//ƒŠƒ\[ƒX‚ğ‰Šú‰»
+	//ãƒªã‚½ãƒ¼ã‚¹ã‚’åˆæœŸåŒ–
 	Resource.LoadHumanModel();
 	Resource.LoadWeaponModelTexture();
 	Resource.LoadWeaponSound();
@@ -99,10 +99,10 @@ int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath)
 	Resource.LoadBulletSound();
 	Resource.LoadEffectTexture();
 
-	//“ü—Íˆ—İ’è
+	//å…¥åŠ›å‡¦ç†è¨­å®š
 	inputCtrl.SetMouseLimitFlag( GameConfig.GetMouseLimitFlag() );
 
-	//Œø‰Ê‰¹‰Šú‰»
+	//åŠ¹æœéŸ³åˆæœŸåŒ–
 	float volume;
 	if( GameConfig.GetSoundFlag() == false ){
 		volume = 0.0f;
@@ -117,18 +117,18 @@ int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath)
 	GameSound.SetClass(&SoundCtrl, &Resource, &GameParamInfo);
 	SoundCtrl.SetVolume(volume);
 
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‰Šú‰»
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼åˆæœŸåŒ–
 	ObjMgr.SetClass(&GameParamInfo, &d3dg, &Resource, &BlockData, &PointData, &CollD, &GameSound, &MIFdata);
 
 	if( (mode != 0)&&(MIFpath != NULL) ){
-		//¦ƒ~ƒbƒVƒ‡ƒ“‚ğ’¼Ú‹N“®‚·‚é‚È‚ç‚ÎAaddonƒŠƒXƒg‚Í•s—v‚Å‚ ‚é‚½‚ßì¬‚µ‚È‚¢B
+		//â€»ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’ç›´æ¥èµ·å‹•ã™ã‚‹ãªã‚‰ã°ã€addonãƒªã‚¹ãƒˆã¯ä¸è¦ã§ã‚ã‚‹ãŸã‚ä½œæˆã—ãªã„ã€‚
 
-		//‹N“®‚·‚éƒ~ƒbƒVƒ‡ƒ“İ’è
+		//èµ·å‹•ã™ã‚‹ãƒŸãƒƒã‚·ãƒ§ãƒ³è¨­å®š
 		GameInfoData.selectmission_id = -1;
 		strcpy(GameInfoData.mifpath, MIFpath);
 		GameState.SetStateMode(mode);
 		if( mode == 2 ){
-			//mifƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
+			//mifãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
 			if( MIFdata.LoadFiledata(MIFpath, true) != 0 ){
 				WindowCtrl->ErrorInfo("briefing data open failed");
 				return 1;
@@ -136,7 +136,7 @@ int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath)
 		}
 	}
 	else{
-		//addonƒŠƒXƒgì¬
+		//addonãƒªã‚¹ãƒˆä½œæˆ
 		char str[16];
 		sprintf(str, "%s\\", ADDONDIR);
 		GameAddon.LoadFiledata(str);
@@ -148,20 +148,20 @@ int InitGame(WindowControl *WindowCtrl, int mode, char *MIFpath)
 	return 0;
 }
 
-//! @brief ƒŠƒ\[ƒX‚ğƒŠƒZƒbƒg‚·‚é
-//! @return ¬Œ÷F0@¸”sF-1@‘Ò‹@F1
-//! @attention ’Êí‚ÍA•`‰æˆ—‚É¸”s‚µ‚½ê‡‚ÉŒÀ‚èŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ãƒªã‚½ãƒ¼ã‚¹ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š-1ã€€å¾…æ©Ÿï¼š1
+//! @attention é€šå¸¸ã¯ã€æç”»å‡¦ç†ã«å¤±æ•—ã—ãŸå ´åˆã«é™ã‚Šå‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
 int ResetGame(WindowControl *WindowCtrl)
 {
 	if( WindowCtrl == NULL ){ return -1; }
 
-	//ƒŠƒXƒg‚ğ³‚µ‚­‰ğ•ú‚·‚é‚½‚ßA—\‚ßŒÄ‚ÔB
+	//ãƒªã‚¹ãƒˆã‚’æ­£ã—ãè§£æ”¾ã™ã‚‹ãŸã‚ã€äºˆã‚å‘¼ã¶ã€‚
 	Resource.CleanupHumanTexture();
 
 	int ReturnCode = d3dg.ResetD3D(WindowCtrl);
 
 	if( ReturnCode == 0 ){
-		//ƒŠƒ\[ƒX‚ğ‰Šú‰»
+		//ãƒªã‚½ãƒ¼ã‚¹ã‚’åˆæœŸåŒ–
 		Resource.LoadHumanModel();
 		Resource.LoadWeaponModelTexture();
 		Resource.LoadSmallObjectModelTexture();
@@ -176,33 +176,33 @@ int ResetGame(WindowControl *WindowCtrl)
 		return 1;
 	}
 	//if( ReturnCode == 2 ){
-		//WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+		//WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 		//WindowCtrl->CloseWindow();
 		return -1;
 	//}
 }
 
-//! @brief Šî–{“I‚È‰ğ•úˆ—
+//! @brief åŸºæœ¬çš„ãªè§£æ”¾å‡¦ç†
 void CleanupGame()
 {
-	//ƒŠƒ\[ƒX‚ğ‰ğ•ú
+	//ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾
 	Resource.DestroyResource();
 
-	//İ’è’l‚ğ‰ğ•ú
+	//è¨­å®šå€¤ã‚’è§£æ”¾
 	GameParamInfo.DestroyInfo();
 
 
-	//SoundControlƒNƒ‰ƒX‰ğ•ú
+	//SoundControlã‚¯ãƒ©ã‚¹è§£æ”¾
 	SoundCtrl.DestroySound();
 
-	//InputControlƒNƒ‰ƒX‰ğ•ú
+	//InputControlã‚¯ãƒ©ã‚¹è§£æ”¾
 	inputCtrl.DestroyInput();
 
-	//D3DGraphicsƒNƒ‰ƒX‰ğ•ú
+	//D3DGraphicsã‚¯ãƒ©ã‚¹è§£æ”¾
 	d3dg.DestroyD3D();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 opening::opening()
 {
 	add_camera_x = 0.0f;
@@ -212,7 +212,7 @@ opening::opening()
 	add_camera_ry = 0.0f;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 opening::~opening()
 {}
 
@@ -220,46 +220,46 @@ int opening::Create()
 {
 	int blockflag, pointflag;
 
-	//ƒuƒƒbƒNƒf[ƒ^“Ç‚İ‚İ
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	blockflag = BlockData.LoadFiledata("data\\map10\\temp.bd1");
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^“Ç‚İ‚İ
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	pointflag = PointData.LoadFiledata("data\\map10\\op.pd1");
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÅƒGƒ‰[‚ª‚ ‚Á‚½‚ç’†’f
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã§ã‚¨ãƒ©ãƒ¼ãŒã‚ã£ãŸã‚‰ä¸­æ–­
 	if( (blockflag != 0)||(pointflag != 0) ){
 		//2bit : point data open failed
 		//1bit : block data open failed
 		return pointflag*2 + blockflag;
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	BlockData.CalculationBlockdata(false);
 	d3dg->LoadMapdata(&BlockData, "data\\map10\\");
 	CollD.InitCollision(&BlockData);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.LoadPointData();
-	ObjMgr.SetPlayerID(MAX_HUMAN-1);	//Àİ‚µ‚È‚¢l‚ğƒvƒŒƒCƒ„[‚Éieº‚ÌƒTƒEƒ“ƒhÄ¶‘Îôj
+	ObjMgr.SetPlayerID(MAX_HUMAN-1);	//å®Ÿåœ¨ã—ãªã„äººã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ï¼ˆéŠƒå£°ã®ã‚µã‚¦ãƒ³ãƒ‰å†ç”Ÿå¯¾ç­–ï¼‰
 
-	//’Ç‰Á‚Ì“–‚½‚è”»’èİ’è
+	//è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šè¨­å®š
 	ObjMgr.SetAddCollisionFlag(false);
 
-	//AIİ’è
+	//AIè¨­å®š
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanAI[i].SetClass(&ObjMgr, i, &BlockData, &PointData, &GameParamInfo, &CollD, GameSound);
 		HumanAI[i].Init();
 	}
 
-	//”wŒi‹ó“Ç‚İ‚İ
+	//èƒŒæ™¯ç©ºèª­ã¿è¾¼ã¿
 	Resource.LoadSkyModelTexture(1);
 
 	//opening_banner = d3dg->LoadTexture("banner.png", true, false);
 
-	//ƒTƒEƒ“ƒh‰Šú‰»
+	//ã‚µã‚¦ãƒ³ãƒ‰åˆæœŸåŒ–
 	GameSound->InitWorldSound();
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ’†‰›‚ÖˆÚ“®
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ä¸­å¤®ã¸ç§»å‹•
 	inputCtrl->MoveMouseCenter();
 	framecnt = 0;
 
@@ -280,13 +280,13 @@ int opening::Create()
 
 int opening::Recovery()
 {
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	d3dg->LoadMapdata(&BlockData, "data\\map10\\");
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.Recovery();
 
-	//”wŒi‹ó‰Šú‰»
+	//èƒŒæ™¯ç©ºåˆæœŸåŒ–
 	Resource.CleanupSkyModelTexture();
 	Resource.LoadSkyModelTexture(1);
 
@@ -306,23 +306,23 @@ void opening::Input()
 		GameState->PushMouseButton();
 	}
 	else if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x0F)) ){		// [ENTER]
-		//[ENTER]‚ğ‰Ÿ‚µ‚Ä‚àAƒ}ƒEƒX‚ğƒNƒŠƒbƒN‚µ‚½‚±‚Æ‚É‚·‚éB
+		//[ENTER]ã‚’æŠ¼ã—ã¦ã‚‚ã€ãƒã‚¦ã‚¹ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ãŸã“ã¨ã«ã™ã‚‹ã€‚
 		GameState->PushMouseButton();
 	}
 }
 
-//! @todo ƒJƒƒ‰‚ÌˆÚ“®‚ğŠŠ‚ç‚©‚É‚·‚é
+//! @todo ã‚«ãƒ¡ãƒ©ã®ç§»å‹•ã‚’æ»‘ã‚‰ã‹ã«ã™ã‚‹
 void opening::Process()
 {
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ğÀs
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å®Ÿè¡Œ
 	ObjMgr.Process(-1, false, false);
 
-	//AI‚ğÀs
+	//AIã‚’å®Ÿè¡Œ
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanAI[i].Process();
 	}
 
-	//ƒJƒƒ‰ƒ[ƒN‚ğ‹‚ß‚éiÀ•Wj
+	//ã‚«ãƒ¡ãƒ©ãƒ¯ãƒ¼ã‚¯ã‚’æ±‚ã‚ã‚‹ï¼ˆåº§æ¨™ï¼‰
 	if( framecnt < (int)(4.0f*GAMEFPS) ){
 		add_camera_z = 0.0f;
 		add_camera_y = 0.0f;
@@ -339,7 +339,7 @@ void opening::Process()
 	camera_y += add_camera_y;
 	camera_z += add_camera_z;
 
-	//ƒJƒƒ‰ƒ[ƒN‚ğ‹‚ß‚éi‰ñ“]j
+	//ã‚«ãƒ¡ãƒ©ãƒ¯ãƒ¼ã‚¯ã‚’æ±‚ã‚ã‚‹ï¼ˆå›è»¢ï¼‰
 	if( framecnt < (int)(2.6f*GAMEFPS) ){
 		add_camera_rx = 0.0f;
 		add_camera_ry = 0.0f;
@@ -359,7 +359,7 @@ void opening::Process()
 	camera_rx += add_camera_rx;
 	camera_ry += add_camera_ry;
 
-	//16•bŒo‚Á‚½‚çI—¹
+	//16ç§’çµŒã£ãŸã‚‰çµ‚äº†
 	if( framecnt >= 16*((int)GAMEFPS) ){
 		GameState->PushMouseButton();
 	}
@@ -371,23 +371,23 @@ void opening::Render3D()
 {
 	int skymodel, skytexture;
 
-	//ƒtƒHƒO‚ÆƒJƒƒ‰‚ğİ’è
+	//ãƒ•ã‚©ã‚°ã¨ã‚«ãƒ¡ãƒ©ã‚’è¨­å®š
 	d3dg->SetFog(true, 1);
 	d3dg->SetCamera(camera_x, camera_y, camera_z, camera_rx, camera_ry, VIEWANGLE_NORMAL);
 
-	//ƒJƒƒ‰À•W‚É”wŒi‹ó‚ğ•`‰æ
+	//ã‚«ãƒ¡ãƒ©åº§æ¨™ã«èƒŒæ™¯ç©ºã‚’æç”»
 	d3dg->SetWorldTransform(camera_x, camera_y, camera_z, 0.0f, 0.0f, 2.0f);
 	Resource.GetSkyModelTexture(&skymodel, &skytexture);
 	d3dg->RenderModel(skymodel, skytexture, false, false, false);
 
-	//Zƒoƒbƒtƒ@‚ğ‰Šú‰»
+	//Zãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–
 	d3dg->ResetZbuffer();
 
-	//ƒ}ƒbƒv‚ğ•`‰æ
+	//ãƒãƒƒãƒ—ã‚’æç”»
 	d3dg->ResetWorldTransform();
 	d3dg->RenderMapdata(false);
 
-	//ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
 	ObjMgr.Render(camera_x, camera_y, camera_z, camera_rx, camera_ry, 0, false);
 }
 
@@ -399,7 +399,7 @@ void opening::Render2D()
 	float scaling_y = (float)GameConfig.GetScreenHeight() / 480;
 	int swidth = (int)((float)GameConfig.GetScreenWidth() / GameConfig.GetScreenHeight() * 480);
 
-	//ƒuƒ‰ƒbƒNƒAƒEƒgİ’è
+	//ãƒ–ãƒ©ãƒƒã‚¯ã‚¢ã‚¦ãƒˆè¨­å®š
 	if( framecnt < (int)(2.0f*GAMEFPS) ){
 		effect = GetEffectAlpha(framecnt, 1.0f, 2.0f, 0.0f, true);
 	}
@@ -414,11 +414,11 @@ void opening::Render2D()
 	}
 	d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,effect));
 
-	//ã‰º‚Ì•‰•`‰æ
+	//ä¸Šä¸‹ã®é»’ç¸æç”»
 	d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), (int)(scaling_y * 40), d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 	d3dg->Draw2DBox(0, GameConfig.GetScreenHeight() - (int)(scaling_y * 40), GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 
-	//ƒvƒƒWƒFƒNƒg–¼
+	//ãƒ—ãƒ­ã‚¸ã‚§ã‚¯ãƒˆå
 	if( ((int)(0.5f*GAMEFPS) < framecnt)&&(framecnt < (int)(4.0f*GAMEFPS)) ){
 		char str[32];
 		float effectA = 1.0f;
@@ -428,7 +428,7 @@ void opening::Render2D()
 		d3dg->Draw2DTextureFontTextCenterScaling(0, 340, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,effectA), 22, 22);
 	}
 
-	//ƒXƒ^ƒbƒt–¼E‚»‚Ì‚P
+	//ã‚¹ã‚¿ãƒƒãƒ•åãƒ»ãã®ï¼‘
 	if( ((int)(4.5f*GAMEFPS) < framecnt)&&(framecnt < (int)(8.5f*GAMEFPS)) ){
 		float effectA = 1.0f;
 		if( framecnt < (int)(5.5f*GAMEFPS) ){ effectA = GetEffectAlpha(framecnt, 1.0f, 1.0f, 4.5f, false); }
@@ -443,7 +443,7 @@ void opening::Render2D()
 		d3dg->Draw2DTextureFontTextScaling(100, 210, "TENNKUU", d3dg->GetColorCode(1.0f,1.0f,1.0f,effectA), 20, 20);
 	}
 
-	//ƒXƒ^ƒbƒt–¼E‚»‚Ì‚Q
+	//ã‚¹ã‚¿ãƒƒãƒ•åãƒ»ãã®ï¼’
 	if( ((int)(7.0f*GAMEFPS) < framecnt)&&(framecnt < (int)(11.0f*GAMEFPS)) ){
 		float effectA = 1.0f;
 		if( framecnt < (int)(8.0f*GAMEFPS) ){ effectA = GetEffectAlpha(framecnt, 1.0f, 1.0f, 7.0f, false); }
@@ -458,7 +458,7 @@ void opening::Render2D()
 		//d3dg->Draw2DTextureScaling(swidth - 230, 360, opening_banner, 200, 40, effectA);
 	}
 
-	//ƒQ[ƒ€–¼
+	//ã‚²ãƒ¼ãƒ å
 	if( (int)(12.0f*GAMEFPS) <= framecnt ){	//framecnt < (int)(16.0f*GAMEFPS)
 		char str[32];
 		float effectA = 1.0f;
@@ -472,13 +472,13 @@ void opening::Render2D()
 
 void opening::Destroy()
 {
-	//ƒuƒƒbƒNƒf[ƒ^‰ğ•ú
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿è§£æ”¾
 	d3dg->CleanupMapdata();
 
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‰ğ•ú
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼è§£æ”¾
 	ObjMgr.Cleanup();
 
-	//”wŒi‹ó‰ğ•ú
+	//èƒŒæ™¯ç©ºè§£æ”¾
 	Resource.CleanupSkyModelTexture();
 
 	//d3dg->CleanupTexture(opening_banner);
@@ -486,7 +486,7 @@ void opening::Destroy()
 	GameState->NextState();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 mainmenu::mainmenu()
 {
 	demopath[0] = '\0';
@@ -518,7 +518,7 @@ mainmenu::mainmenu()
 #endif
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 mainmenu::~mainmenu()
 {
 #ifdef ENABLE_MENUOPTIONS
@@ -535,7 +535,7 @@ int mainmenu::Create()
 	char pdata[MAX_PATH];
 	int blockflag, pointflag;
 
-	//ƒfƒ‚‚ğŒˆ’è‚µ“Ç‚İ‚Ş
+	//ãƒ‡ãƒ¢ã‚’æ±ºå®šã—èª­ã¿è¾¼ã‚€
 	switch( GetRand(6) ){
 		case 0:
 			strcpy(demopath, "data\\map2\\");
@@ -561,31 +561,31 @@ int mainmenu::Create()
 	strcpy(pdata, demopath);
 	strcat(pdata, "demo.pd1");
 
-	//ƒuƒƒbƒNƒf[ƒ^“Ç‚İ‚İ
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	blockflag = BlockData.LoadFiledata(bdata);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^“Ç‚İ‚İ
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	pointflag = PointData.LoadFiledata(pdata);
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÅƒGƒ‰[‚ª‚ ‚Á‚½‚ç’†’f
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã§ã‚¨ãƒ©ãƒ¼ãŒã‚ã£ãŸã‚‰ä¸­æ–­
 	if( (blockflag != 0)||(pointflag != 0) ){
 		//2bit : point data open failed
 		//1bit : block data open failed
 		return pointflag*2 + blockflag;
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	BlockData.CalculationBlockdata(false);
 	d3dg->LoadMapdata(&BlockData, demopath);
 	CollD.InitCollision(&BlockData);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.LoadPointData();
 
-	//’Ç‰Á‚Ì“–‚½‚è”»’èİ’è
+	//è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šè¨­å®š
 	ObjMgr.SetAddCollisionFlag(false);
 
-	//AIİ’è
+	//AIè¨­å®š
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanAI[i].SetClass(&ObjMgr, i, &BlockData, &PointData, &GameParamInfo, &CollD, GameSound);
 		HumanAI[i].Init();
@@ -595,14 +595,14 @@ int mainmenu::Create()
 
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
 
-	//ƒTƒEƒ“ƒh‰Šú‰»
+	//ã‚µã‚¦ãƒ³ãƒ‰åˆæœŸåŒ–
 	GameSound->InitWorldSound();
 
 	mainmenu_mouseX = GameConfig.GetScreenWidth()/2;
 	mainmenu_mouseY = GameConfig.GetScreenHeight()/2;
 	mainmenu_mouseY_old = mainmenu_mouseY;
 
-	//ƒ~ƒbƒVƒ‡ƒ“‚ÌƒXƒNƒ[ƒ‹ƒo[‚Ìİ’è
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®è¨­å®š
 	scrollbar_official.Create(MAINMENU_X+341, MAINMENU_Y+1, 19, MAINMENU_H-1-24, TOTAL_OFFICIALMISSION, TOTAL_MENUITEMS, scrollbar_official.GetScrollItem());
 	scrollbar_official.SetColor(d3dg->GetColorCode(0.5f,0.5f,0.5f,0.5f), d3dg->GetColorCode(0.6f,0.6f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.8f,0.25f,1.0f),
 		d3dg->GetColorCode(0.4f,0.67f,0.57f,1.0f), d3dg->GetColorCode(0.38f,0.77f,0.64f,1.0f), d3dg->GetColorCode(0.6f,0.3f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.3f,0.25f,1.0f));
@@ -623,10 +623,10 @@ int mainmenu::Create()
 
 int mainmenu::Recovery()
 {
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	d3dg->LoadMapdata(&BlockData, demopath);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.Recovery();
 
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
@@ -638,7 +638,7 @@ void mainmenu::Input()
 {
 	inputCtrl->GetInputState(false);
 
-	//ƒ}ƒEƒXÀ•W‚ğæ“¾
+	//ãƒã‚¦ã‚¹åº§æ¨™ã‚’å–å¾—
 	inputCtrl->GetMouseMovement(&mainmenu_mouseX, &mainmenu_mouseY);
 	//if( mainmenu_mouseX < 0 ){ mainmenu_mouseX = 0; }
 	//if( mainmenu_mouseX > GameConfig.GetScreenWidth()-1 ){ mainmenu_mouseX = GameConfig.GetScreenWidth()-1; }
@@ -646,7 +646,7 @@ void mainmenu::Input()
 	//if( mainmenu_mouseY > GameConfig.GetScreenHeight()-1 ){ mainmenu_mouseY = GameConfig.GetScreenHeight()-1; }
 
 	if( modescreen == 0 ){
-		//ƒXƒNƒ[ƒ‹ƒo[‚ğˆ—‚µî•ñæ“¾
+		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã‚’å‡¦ç†ã—æƒ…å ±å–å¾—
 		int scrollitems;
 		int totalmission;
 		if( GameInfoData.selectmission_id >= 0 ){
@@ -660,7 +660,7 @@ void mainmenu::Input()
 			totalmission = GameAddon.GetTotaldatas();
 		}
 
-		//ƒ~ƒbƒVƒ‡ƒ“‘I‘ğ
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³é¸æŠ
 		if( inputCtrl->CheckMouseButtonUpL() ){
 			for(int i=0; i<TOTAL_MENUITEMS; i++){
 				char name[32];
@@ -710,7 +710,7 @@ void mainmenu::Input()
 			}
 		}
 
-		//•W€ƒ~ƒbƒVƒ‡ƒ“‚ÆƒAƒhƒIƒ“ƒŠƒXƒg‚ÌØ‚è‘Ö‚¦
+		//æ¨™æº–ãƒŸãƒƒã‚·ãƒ§ãƒ³ã¨ã‚¢ãƒ‰ã‚ªãƒ³ãƒªã‚¹ãƒˆã®åˆ‡ã‚Šæ›¿ãˆ
 		if( inputCtrl->CheckMouseButtonUpL() ){
 			if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+340))&&((MAINMENU_Y+MAINMENU_H-25) < mainmenu_mouseY)&&(mainmenu_mouseY < (MAINMENU_Y+MAINMENU_H-2)) ){
 				if( GameInfoData.selectmission_id >= 0 ){
@@ -725,7 +725,7 @@ void mainmenu::Input()
 		}
 
 #ifdef ENABLE_MENUOPTIONS
-		//ƒIƒvƒVƒ‡ƒ“‰æ–ÊØ‚è‘Ö‚¦
+		//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢åˆ‡ã‚Šæ›¿ãˆ
 		if( inputCtrl->CheckMouseButtonUpL() ){
 			if( (MAINMENU_OPTION_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_OPTION_X+120))&&(MAINMENU_OPTION_Y < mainmenu_mouseY)&&(mainmenu_mouseY < MAINMENU_OPTION_Y+16) ){
 				modescreen = 1;
@@ -733,7 +733,7 @@ void mainmenu::Input()
 		}
 #endif
 
-		//ESCƒL[‚ğˆ—
+		//ESCã‚­ãƒ¼ã‚’å‡¦ç†
 		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){
 			GameState->PushBackSpaceKey();
 		}
@@ -749,15 +749,15 @@ void mainmenu::Input()
 
 void mainmenu::Process()
 {
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ğÀs
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å®Ÿè¡Œ
 	ObjMgr.Process(-1, true, false);
 
-	//AI‚ğÀs
+	//AIã‚’å®Ÿè¡Œ
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanAI[i].Process();
 	}
 
-	//ƒJƒƒ‰ˆÊ’u‚ğŒvZ
+	//ã‚«ãƒ¡ãƒ©ä½ç½®ã‚’è¨ˆç®—
 	human *myHuman = ObjMgr.GetPlayerHumanObject();
 	myHuman->GetPosData(&camera_x, &camera_y, &camera_z, NULL);
 	camera_x -= 4.0f;
@@ -777,18 +777,18 @@ void mainmenu::Process()
 
 void mainmenu::Render3D()
 {
-	//ƒtƒHƒO‚ÆƒJƒƒ‰‚ğİ’è
+	//ãƒ•ã‚©ã‚°ã¨ã‚«ãƒ¡ãƒ©ã‚’è¨­å®š
 	d3dg->SetFog(true, 0);
 	d3dg->SetCamera(camera_x, camera_y, camera_z, camera_rx, camera_ry, VIEWANGLE_NORMAL);
 
-	//Zƒoƒbƒtƒ@‚ğ‰Šú‰»
+	//Zãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–
 	d3dg->ResetZbuffer();
 
-	//ƒ}ƒbƒv‚ğ•`‰æ
+	//ãƒãƒƒãƒ—ã‚’æç”»
 	d3dg->ResetWorldTransform();
 	d3dg->RenderMapdata(false);
 
-	//ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
 	ObjMgr.Render(camera_x, camera_y, camera_z, camera_rx, camera_ry, 0, false);
 }
 
@@ -799,12 +799,12 @@ void mainmenu::Render2D()
 
 	int swidth = (int)((float)GameConfig.GetScreenWidth() / GameConfig.GetScreenHeight() * 480);
 
-	//ƒQ[ƒ€‚Ìƒo[ƒWƒ‡ƒ“î•ñ•\¦
+	//ã‚²ãƒ¼ãƒ ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±è¡¨ç¤º
 	d3dg->Draw2DTextureFontTextScaling(swidth - 118+1, 75+1, GAMEVERSION, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 18, 22);
 	d3dg->Draw2DTextureFontTextScaling(swidth - 118, 75, GAMEVERSION, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 18, 22);
 
 	if( modescreen == 0 ){
-		//ƒXƒNƒ[ƒ‹ƒo[‚Ìî•ñ‚ğæ“¾
+		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®æƒ…å ±ã‚’å–å¾—
 		int scrollitems;
 		int totalmission;
 		bool scrolling;
@@ -819,15 +819,15 @@ void mainmenu::Render2D()
 			scrolling = scrollbar_addon.CheckScrolling();
 		}
 
-		//ƒƒjƒ…[ƒGƒŠƒA•`‰æ
-		if( GameAddon.GetTotaldatas() > 0 ){	//addon‚ª‚ ‚ê‚Î
+		//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã‚¨ãƒªã‚¢æç”»
+		if( GameAddon.GetTotaldatas() > 0 ){	//addonãŒã‚ã‚Œã°
 			d3dg->Draw2DBox(MAINMENU_X-1, MAINMENU_Y, MAINMENU_X+360, MAINMENU_Y+MAINMENU_H+1, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 		}
 		else{
 			d3dg->Draw2DBox(MAINMENU_X-1, MAINMENU_Y, MAINMENU_X+360, MAINMENU_Y+MAINMENU_H-24, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 		}
 
-		//ƒXƒNƒ[ƒ‹ƒo[•`‰æ
+		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æç”»
 		if( GameInfoData.selectmission_id >= 0 ){
 			scrollbar_official.Draw(d3dg);
 		}
@@ -835,11 +835,11 @@ void mainmenu::Render2D()
 			scrollbar_addon.Draw(d3dg);
 		}
 
-		//'< UP >'•\¦
+		//'< UP >'è¡¨ç¤º
 		if( scrollitems > 0 ){
 			d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+1, "<  UP  >", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 25, 26);
 
-			//•¶š‚ÌF‚ğİ’è
+			//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 			if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+340))&&(MAINMENU_Y < mainmenu_mouseY)&&(mainmenu_mouseY < MAINMENU_Y+30)&&(scrolling == false) ){
 				color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f);
 			}
@@ -847,18 +847,18 @@ void mainmenu::Render2D()
 				color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
 			}
 
-			//•¶š‚ğ•\¦
+			//æ–‡å­—ã‚’è¡¨ç¤º
 			d3dg->Draw2DTextureFontText(MAINMENU_X, MAINMENU_Y, "<  UP  >", color, 25, 26);
 		}
 		else{
 			d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+1, "<  UP  >", d3dg->GetColorCode(0.6f,0.6f,0.6f,1.0f), 25, 26);
 		}
 
-		//'< DOWN >'•\¦
+		//'< DOWN >'è¡¨ç¤º
 		if( scrollitems < (totalmission - TOTAL_MENUITEMS) ){
 			d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+MAINMENU_H-55+1, "< DOWN >", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 25, 26);
 
-			//•¶š‚ÌF‚ğİ’è
+			//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 			if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+340))&&((MAINMENU_Y+MAINMENU_H-55) < mainmenu_mouseY)&&(mainmenu_mouseY < (MAINMENU_Y+MAINMENU_H-55+30))&&(scrolling == false) ){
 				color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f);
 			}
@@ -866,18 +866,18 @@ void mainmenu::Render2D()
 				color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
 			}
 
-			//•¶š‚ğ•\¦
+			//æ–‡å­—ã‚’è¡¨ç¤º
 			d3dg->Draw2DTextureFontText(MAINMENU_X, MAINMENU_Y+MAINMENU_H-55, "< DOWN >", color, 25, 26);
 		}
 		else{
 			d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+MAINMENU_H-55+1, "< DOWN >", d3dg->GetColorCode(0.6f,0.6f,0.6f,1.0f), 25, 26);
 		}
 
-		//•W€ƒ~ƒbƒVƒ‡ƒ“‚ÆaddonØ‚è‘Ö‚¦
+		//æ¨™æº–ãƒŸãƒƒã‚·ãƒ§ãƒ³ã¨addonåˆ‡ã‚Šæ›¿ãˆ
 		if( GameInfoData.selectmission_id >= 0 ){
-			//addon‚ª‚ ‚ê‚Î
+			//addonãŒã‚ã‚Œã°
 			if( GameAddon.GetTotaldatas() > 0 ){
-				//•¶š‚ÌF‚ğİ’è
+				//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 				if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+340))&&((MAINMENU_Y+MAINMENU_H-25) < mainmenu_mouseY)&&(mainmenu_mouseY < (MAINMENU_Y+MAINMENU_H-2))&&(scrolling == false) ){
 					color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f);
 				}
@@ -885,15 +885,15 @@ void mainmenu::Render2D()
 					color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
 				}
 
-				//•¶š‚ğ•\¦
+				//æ–‡å­—ã‚’è¡¨ç¤º
 				d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+MAINMENU_H-25+1, "ADD-ON MISSIONS >>", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 17, 22);
 				d3dg->Draw2DTextureFontText(MAINMENU_X, MAINMENU_Y+MAINMENU_H-25, "ADD-ON MISSIONS >>", color, 17, 22);
 			}
 		}
 		else{
-			//addon‚ª‚ ‚ê‚Î
+			//addonãŒã‚ã‚Œã°
 			//if( GameAddon.GetTotaldatas() > 0 ){
-				//•¶š‚ÌF‚ğİ’è
+				//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 				if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+340))&&((MAINMENU_Y+MAINMENU_H-25) < mainmenu_mouseY)&&(mainmenu_mouseY < (MAINMENU_Y+MAINMENU_H-2))&&(scrolling == false) ){
 					color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f);
 				}
@@ -901,18 +901,18 @@ void mainmenu::Render2D()
 					color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
 				}
 
-				//•¶š‚ğ•\¦
+				//æ–‡å­—ã‚’è¡¨ç¤º
 				d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+MAINMENU_H-25+1, "<< STANDARD MISSIONS", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 17, 22);
 				d3dg->Draw2DTextureFontText(MAINMENU_X, MAINMENU_Y+MAINMENU_H-25, "<< STANDARD MISSIONS", color, 17, 22);
 			//}
 		}
 
-		//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğ•\¦
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’è¡¨ç¤º
 		for(int i=0; i<TOTAL_MENUITEMS; i++){
 			char name[32];
 			strcpy(name, "");
 
-			//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾
+			//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—
 			if( GameInfoData.selectmission_id >= 0 ){
 				GameParamInfo.GetOfficialMission(scrollitems + i, name, NULL, NULL, NULL, NULL, NULL);
 			}
@@ -920,7 +920,7 @@ void mainmenu::Render2D()
 				strcpy(name, GameAddon.GetMissionName(scrollitems + i));
 			}
 
-			//•¶š‚ÌF‚ğİ’è
+			//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 			if( (MAINMENU_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_X+(signed)strlen(name)*20))&&(MAINMENU_Y+30 + i*30 < mainmenu_mouseY)&&(mainmenu_mouseY < MAINMENU_Y+30 + i*30 + 26)&&(scrolling == false) ){
 				color = d3dg->GetColorCode(1.0f,0.6f,0.6f,1.0f);
 			}
@@ -928,16 +928,16 @@ void mainmenu::Render2D()
 				color = d3dg->GetColorCode(0.6f,0.6f,1.0f,1.0f);
 			}
 
-			//•¶š‚ğ•\¦
+			//æ–‡å­—ã‚’è¡¨ç¤º
 			d3dg->Draw2DTextureFontText(MAINMENU_X+1, MAINMENU_Y+30+1 + i*30, name, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 20, 26);
 			d3dg->Draw2DTextureFontText(MAINMENU_X, MAINMENU_Y+30 + i*30, name, color, 20, 26);
 		}
 
 #ifdef ENABLE_MENUOPTIONS
-		//ƒIƒvƒVƒ‡ƒ“€–ÚƒŠƒ“ƒN
+		//ã‚ªãƒ—ã‚·ãƒ§ãƒ³é …ç›®ãƒªãƒ³ã‚¯
 		d3dg->Draw2DBox(MAINMENU_OPTION_X, MAINMENU_OPTION_Y, MAINMENU_OPTION_X+132+2, MAINMENU_OPTION_Y+16+2, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 
-		//•¶š‚ÌF‚ğİ’è
+		//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 		if( (MAINMENU_OPTION_X < mainmenu_mouseX)&&(mainmenu_mouseX < (MAINMENU_OPTION_X+132+2))&&(MAINMENU_OPTION_Y < mainmenu_mouseY)&&(mainmenu_mouseY < MAINMENU_OPTION_Y+16)&&(scrolling == false) ){
 			color = d3dg->GetColorCode(0.0f,1.0f,1.0f,1.0f);
 		}
@@ -945,7 +945,7 @@ void mainmenu::Render2D()
 			color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
 		}
 
-		//•¶š‚ğ•\¦
+		//æ–‡å­—ã‚’è¡¨ç¤º
 		d3dg->Draw2DTextureFontText(MAINMENU_OPTION_X+1, MAINMENU_OPTION_Y+1, "< OPTIONS >", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(MAINMENU_OPTION_X, MAINMENU_OPTION_Y, "< OPTIONS >", color, 12, 16);
 #endif	//ENABLE_MENUOPTIONS
@@ -956,16 +956,16 @@ void mainmenu::Render2D()
 #endif
 	}
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹•\¦iÔüj
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«è¡¨ç¤ºï¼ˆèµ¤ç·šï¼‰
 	d3dg->Draw2DBox(0, mainmenu_mouseY-1, GameConfig.GetScreenWidth(), mainmenu_mouseY+1, d3dg->GetColorCode(1.0f,0.0f,0.0f,0.5f));
 	d3dg->Draw2DBox(mainmenu_mouseX-1, 0, mainmenu_mouseX+1, GameConfig.GetScreenHeight(), d3dg->GetColorCode(1.0f,0.0f,0.0f,0.5f));
 	d3dg->Draw2DLine(0, mainmenu_mouseY, GameConfig.GetScreenWidth(), mainmenu_mouseY, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 	d3dg->Draw2DLine(mainmenu_mouseX, 0, mainmenu_mouseX, GameConfig.GetScreenHeight(), d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 
-	//ƒQ[ƒ€‚ÌƒƒSƒ}[ƒN•`‰æ
+	//ã‚²ãƒ¼ãƒ ã®ãƒ­ã‚´ãƒãƒ¼ã‚¯æç”»
 	d3dg->Draw2DTextureScaling(20, 25, gametitle, 480, 80, 1.0f);
 
-	//ƒuƒ‰ƒbƒNƒAƒEƒgİ’è
+	//ãƒ–ãƒ©ãƒƒã‚¯ã‚¢ã‚¦ãƒˆè¨­å®š
 	if( framecnt < (int)(2.0f*GAMEFPS) ){
 		effect = GetEffectAlpha(framecnt, 1.0f, 2.0f, 0.0f, true);
 	}
@@ -976,16 +976,16 @@ void mainmenu::Render2D()
 }
 
 #ifdef ENABLE_MENUOPTIONS
-//! @brief ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚Ì‰Šú‰»ˆ—
+//! @brief ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ã®åˆæœŸåŒ–å‡¦ç†
 void mainmenu::CreateOptions()
 {
-	//•Ï”‰Šú‰»
+	//å¤‰æ•°åˆæœŸåŒ–
 	Options_FullscreenFlag_old = GameConfig.GetFullscreenFlag();
 	Options_KeyConfigID = -1;
 	Options_KeyConfigCnt = 0;
 
 
-	//No.1‰æ–Ê@ƒŠƒ“ƒNƒeƒLƒXƒg
+	//No.1ç”»é¢ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆ
 	Options_p1LinkTextData[0].enable = true;
 	Options_p1LinkTextData[0].pos_x = 0;
 	Options_p1LinkTextData[0].pos_y = 30;
@@ -1012,7 +1012,7 @@ void mainmenu::CreateOptions()
 	strcpy(Options_p1LinkTextData[2].text, "< EXIT >");
 
 
-	//No.2‰æ–Ê@ƒŠƒ“ƒNƒeƒLƒXƒg
+	//No.2ç”»é¢ã€€ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆ
 	strcpy(Options_p2LinkTextData[0].text, "< DEFAULT >");
 	strcpy(Options_p2LinkTextData[1].text, "< SAVE >");
 	strcpy(Options_p2LinkTextData[2].text, "< CANCEL >");
@@ -1097,7 +1097,7 @@ void mainmenu::CreateOptions()
 
 	int maxline = 18;
 
-	//ŠØ‘Œê‚Å‚ ‚ê‚Î•\¦s”‚ğŒ¸‚ç‚·
+	//éŸ“å›½èªã§ã‚ã‚Œã°è¡¨ç¤ºè¡Œæ•°ã‚’æ¸›ã‚‰ã™
 	if( GameConfig.GetLanguage() == 1 ){
 		maxline = 14;
 	}
@@ -1106,8 +1106,8 @@ void mainmenu::CreateOptions()
 	scrollbar_license.SetColor(d3dg->GetColorCode(0.5f,0.5f,0.5f,0.5f), d3dg->GetColorCode(0.6f,0.6f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.8f,0.25f,1.0f),
 		d3dg->GetColorCode(0.4f,0.67f,0.57f,1.0f), d3dg->GetColorCode(0.38f,0.77f,0.64f,1.0f), d3dg->GetColorCode(0.6f,0.3f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.3f,0.25f,1.0f));
 
-#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
-	//ƒ‰ƒCƒZƒ“ƒX•¶Í
+#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)||(GRAPHIC_ENGINE == 9)	//[OpenXOPS-web] GLES: full licence text (the short list is an OpenGL 1.1 flicker workaround)
+	//ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ç« 
 	licenseinfo[0] = "";
 	licenseinfo[1] = "OpenXOPS";
 	licenseinfo[2] = "Copyright (c) 2014-2023, OpenXOPS Project / [-_-;](mikan) All rights reserved.";
@@ -1134,7 +1134,7 @@ void mainmenu::CreateOptions()
 	licenseinfo[23] = "(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS";
 	licenseinfo[24] = "SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.";
 	licenseinfo[25] = "";
-	//s”’Ç‰Á "OPTIONS_LICENSELINE"’è” —v•ÏX
+	//è¡Œæ•°è¿½åŠ æ™‚ "OPTIONS_LICENSELINE"å®šæ•° è¦å¤‰æ›´
 #elif GRAPHIC_ENGINE == 8
 	licenseinfo[0] = "";
 	licenseinfo[1] = "OpenXOPS";
@@ -1142,17 +1142,17 @@ void mainmenu::CreateOptions()
 	licenseinfo[3] = "";
 	licenseinfo[4] = " -- See the document.";
 	licenseinfo[5] = "";
-	//¦OpenGL‚Ìê‡AƒXƒNƒ[ƒ‹•K—v‚È•ª—Ê‚ğo‚·‚Æƒ`ƒ‰‚Â‚­‚Ì‚Å’ˆÓB
+	//â€»OpenGLã®å ´åˆã€ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«å¿…è¦ãªåˆ†é‡ã‚’å‡ºã™ã¨ãƒãƒ©ã¤ãã®ã§æ³¨æ„ã€‚
 #endif	//GRAPHIC_ENGINE
 }
 
-//! @brief ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚Ì“ü—Íˆ—
+//! @brief ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ã®å…¥åŠ›å‡¦ç†
 void mainmenu::InputOptions()
 {
 	Options_p2LinkTextID = -1;
 
 	if( modescreen == 1 ){
-		//ƒŠƒ“ƒNƒeƒLƒXƒg”»’èˆ—
+		//ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆåˆ¤å®šå‡¦ç†
 		int ButtonID = -1;
 		for(int i=0; i<OPTIONS_P1_DATAS; i++){
 			if( Options_p1LinkTextData[i].enable == true ){
@@ -1171,7 +1171,7 @@ void mainmenu::InputOptions()
 		if( ButtonID == 1 ){
 			modescreen = 3;
 
-			//ƒ‰ƒCƒZƒ“ƒX•¶‚ÌƒXƒNƒ[ƒ‹ƒo[‚ğˆê”Ôã‚ÉƒZƒbƒg
+			//ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã‚’ä¸€ç•ªä¸Šã«ã‚»ãƒƒãƒˆ
 			scrollbar_license.SetScrollItem(0);
 			scrollbar_license.Input(0, 0, false, 0);
 		}
@@ -1179,13 +1179,13 @@ void mainmenu::InputOptions()
 			modescreen = 0;
 		}
 
-		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCƒL[‚ğˆ—
+		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCã‚­ãƒ¼ã‚’å‡¦ç†
 			modescreen = 0;
 		}
 	}
 
 	else if( modescreen == 2 ){
-		//ƒL[İ’è—p‚Ì“ü—ÍƒL[”»’èˆ—
+		//ã‚­ãƒ¼è¨­å®šç”¨ã®å…¥åŠ›ã‚­ãƒ¼åˆ¤å®šå‡¦ç†
 		if( (Options_KeyConfigID != -1)&&(Options_KeyConfigCnt > 0) ){
 			int keycode = inputCtrl->CheckInputAll();
 			if( keycode != -1 ){
@@ -1194,11 +1194,11 @@ void mainmenu::InputOptions()
 				Options_KeyConfigID = -1;
 				Options_KeyConfigCnt = 0;
 
-				return;		//ƒNƒŠƒbƒN‚É‘¼‚ÌƒŠƒ“ƒNƒeƒLƒXƒg‚ğ”½‰‚³‚¹‚È‚¢‚æ‚¤ˆ—I—¹
+				return;		//ã‚¯ãƒªãƒƒã‚¯æ™‚ã«ä»–ã®ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆã‚’åå¿œã•ã›ãªã„ã‚ˆã†å‡¦ç†çµ‚äº†
 			}
 		}
 
-		//ƒŠƒ“ƒNƒeƒLƒXƒg”»’èˆ—
+		//ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆåˆ¤å®šå‡¦ç†
 		for(int i=0; i<OPTIONS_P2_DATAS; i++){
 			if( Options_p2LinkTextData[i].enable == true ){
 				if( inputCtrl->CheckMouseButtonUpL() ){
@@ -1211,7 +1211,7 @@ void mainmenu::InputOptions()
 			}
 		}
 
-		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCƒL[‚ğˆ—
+		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCã‚­ãƒ¼ã‚’å‡¦ç†
 			//modescreen = 1;
 			Options_p2LinkTextID = 2;
 		}
@@ -1220,7 +1220,7 @@ void mainmenu::InputOptions()
 	else if( modescreen == 3 ){
 		scrollbar_license.Input(mainmenu_mouseX, mainmenu_mouseY, inputCtrl->CheckMouseButtonNowL(), mainmenu_mouseY - mainmenu_mouseY_old);
 
-		//ƒŠƒ“ƒNƒeƒLƒXƒg”»’èˆ—
+		//ãƒªãƒ³ã‚¯ãƒ†ã‚­ã‚¹ãƒˆåˆ¤å®šå‡¦ç†
 		int ButtonID = -1;
 		for(int i=0; i<OPTIONS_P3_DATAS; i++){
 			if( Options_p3LinkTextData[i].enable == true ){
@@ -1237,38 +1237,38 @@ void mainmenu::InputOptions()
 			modescreen = 1;
 		}
 
-		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCƒL[‚ğˆ—
+		if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){		//ESCã‚­ãƒ¼ã‚’å‡¦ç†
 			modescreen = 1;
 		}
 	}
 }
 
-//! @brief ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚ÌƒƒCƒ“ˆ—
+//! @brief ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 void mainmenu::ProcessOptions()
 {
 	if( modescreen == 2 ){
 
 		//Default
 		if( Options_p2LinkTextID == 0 ){
-			//ƒfƒtƒHƒ‹ƒg‚Ì’l“Ç‚İ‚İ
+			//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®å€¤èª­ã¿è¾¼ã¿
 			GameConfig.SetDefaultConfig();
 		}
 
 		//Save
 		if( Options_p2LinkTextID == 1 ){
-			//ƒEƒBƒ“ƒhƒEEƒtƒ‹ƒXƒNƒŠ[ƒ“Ø‚è‘Ö‚¦
+			//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ»ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
 			if( Options_FullscreenFlag_old != GameConfig.GetFullscreenFlag() ){
 				if( ChangeWindowMode(WindowCtrl, d3dg, inputCtrl, this, GameConfig.GetFullscreenFlag()) != 0 ){
-					//¸”s‚µ‚½‚çİ’è‚ğ–ß‚·
+					//å¤±æ•—ã—ãŸã‚‰è¨­å®šã‚’æˆ»ã™
 					GameConfig.SetFullscreenFlag(Options_FullscreenFlag_old);
 				}
 				else{
-					//¬Œ÷‚µ‚½‚çİ’è‚ğ”½‰f‚·‚é
+					//æˆåŠŸã—ãŸã‚‰è¨­å®šã‚’åæ˜ ã™ã‚‹
 					Options_FullscreenFlag_old = GameConfig.GetFullscreenFlag();
 				}
 			}
 
-			//Œø‰Ê‰¹Äİ’è
+			//åŠ¹æœéŸ³å†è¨­å®š
 			float volume;
 			if( GameConfig.GetSoundFlag() == false ){
 				volume = 0.0f;
@@ -1278,7 +1278,7 @@ void mainmenu::ProcessOptions()
 			}
 			SoundCtrl.SetVolume(volume);
 
-			//İ’èƒtƒ@ƒCƒ‹‘‚«‚İ
+			//è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«æ›¸ãè¾¼ã¿
 			if( GameConfig.SaveFile("config.dat") == 1 ){
 				//MainWindow.ErrorInfo("config data save failed");
 				//return 1;
@@ -1292,7 +1292,7 @@ void mainmenu::ProcessOptions()
 
 		//Cancel
 		if( Options_p2LinkTextID == 2 ){
-			//İ’èƒtƒ@ƒCƒ‹“Ç‚İ’¼‚·
+			//è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿ç›´ã™
 			if( GameConfig.LoadFile("config.dat") == 1 ){
 				//MainWindow.ErrorInfo("config data open failed");
 				//return 1;
@@ -1357,7 +1357,7 @@ void mainmenu::ProcessOptions()
 			else { GameConfig.SetAnotherGunsightFlag(true); }
 		}
 
-		//ƒL[İ’è—p@ƒJƒEƒ“ƒgƒZƒbƒg
+		//ã‚­ãƒ¼è¨­å®šç”¨ã€€ã‚«ã‚¦ãƒ³ãƒˆã‚»ãƒƒãƒˆ
 		for(int i=0; i<18; i++){
 			if( Options_p2LinkTextID == (14 + i) ){
 				Options_KeyConfigID = i;
@@ -1365,7 +1365,7 @@ void mainmenu::ProcessOptions()
 			}
 		}
 
-		//ƒL[İ’è—p@ƒJƒEƒ“ƒgƒ_ƒEƒ“
+		//ã‚­ãƒ¼è¨­å®šç”¨ã€€ã‚«ã‚¦ãƒ³ãƒˆãƒ€ã‚¦ãƒ³
 		if( (Options_KeyConfigID != -1)&&(Options_KeyConfigCnt > 0) ){
 			Options_KeyConfigCnt -= 1;
 		}
@@ -1376,18 +1376,18 @@ void mainmenu::ProcessOptions()
 	}
 }
 
-//! @brief ƒIƒvƒVƒ‡ƒ“‰æ–Ê‚Ì•`‰æˆ—
+//! @brief ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç”»é¢ã®æç”»å‡¦ç†
 void mainmenu::RenderOptions()
 {
 	if( modescreen == 1 ){
 		int color;
 
-		//ƒGƒŠƒA•`‰æ
+		//ã‚¨ãƒªã‚¢æç”»
 		d3dg->Draw2DBox(OPTIONS_P1_X, OPTIONS_P1_Y, OPTIONS_P1_X + OPTIONS_P1_W, OPTIONS_P1_Y + OPTIONS_P1_H, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 
 		for(int i=0; i<OPTIONS_P1_DATAS; i++){
 			if( Options_p1LinkTextData[i].enable == true ){
-				//•¶š‚ÌF‚ğİ’è
+				//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 				if( ((OPTIONS_P1_X + Options_p1LinkTextData[i].pos_x) < mainmenu_mouseX)&&(mainmenu_mouseX < (OPTIONS_P1_X + Options_p1LinkTextData[i].pos_x + (signed)strlen(Options_p1LinkTextData[i].text)*Options_p1LinkTextData[i].text_w))
 					&&((OPTIONS_P1_Y + Options_p1LinkTextData[i].pos_y) < mainmenu_mouseY)&&(mainmenu_mouseY < (OPTIONS_P1_Y + Options_p1LinkTextData[i].pos_y + Options_p1LinkTextData[i].text_h))
 				){
@@ -1397,7 +1397,7 @@ void mainmenu::RenderOptions()
 					color = Options_p1LinkTextData[i].text_defaultcolor;
 				}
 
-				//•¶š‚ğ•\¦
+				//æ–‡å­—ã‚’è¡¨ç¤º
 				d3dg->Draw2DTextureFontText(OPTIONS_P1_X + Options_p1LinkTextData[i].pos_x +1, OPTIONS_P1_Y + Options_p1LinkTextData[i].pos_y +1, Options_p1LinkTextData[i].text,
 					d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), Options_p1LinkTextData[i].text_w, Options_p1LinkTextData[i].text_h);
 				d3dg->Draw2DTextureFontText(OPTIONS_P1_X + Options_p1LinkTextData[i].pos_x, OPTIONS_P1_Y + Options_p1LinkTextData[i].pos_y, Options_p1LinkTextData[i].text,
@@ -1414,24 +1414,24 @@ void mainmenu::RenderOptions()
 		int color;
 		char str[32];
 
-		//ƒGƒŠƒA•`‰æ
+		//ã‚¨ãƒªã‚¢æç”»
 		d3dg->Draw2DBox(OPTIONS_P2_X, OPTIONS_P2_Y, OPTIONS_P2_X + OPTIONS_P2_W, OPTIONS_P2_Y + OPTIONS_P2_H, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 
-		//ƒ}ƒEƒXŠ´“x
+		//ãƒã‚¦ã‚¹æ„Ÿåº¦
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 +1, OPTIONS_P2_Y + 0 +1, "MOUSE SENSITIVITY", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350, OPTIONS_P2_Y + 0, "MOUSE SENSITIVITY", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 12, 16);
 		sprintf(str, "%02d", GameConfig.GetMouseSensitivity());
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 + 85 +1, OPTIONS_P2_Y + 20 +1, str, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 + 85, OPTIONS_P2_Y + 20, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 12, 16);
 
-		//‰æ–Ê–¾‚é‚³
+		//ç”»é¢æ˜ã‚‹ã•
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 +1, OPTIONS_P2_Y + 50 +1, "BRIGHTNESS", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350, OPTIONS_P2_Y + 50, "BRIGHTNESS", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 12, 16);
 		sprintf(str, "%02d", GameConfig.GetBrightness());
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 + 85 +1, OPTIONS_P2_Y + 70 +1, str, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 350 + 85, OPTIONS_P2_Y + 70, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 12, 16);
 
-		//‘€ìƒL[ˆê——
+		//æ“ä½œã‚­ãƒ¼ä¸€è¦§
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 0 +1, OPTIONS_P2_Y + 0 +1, "TURN UP", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 0, OPTIONS_P2_Y + 0, "TURN UP", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 12, 16);
 		d3dg->Draw2DTextureFontText(OPTIONS_P2_X + 0 +1, OPTIONS_P2_Y + 20 +1, "TURN DOWN", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 12, 16);
@@ -1477,7 +1477,7 @@ void mainmenu::RenderOptions()
 			}
 		}
 
-		//€–Ú–¼İ’è
+		//é …ç›®åè¨­å®š
 		if( GameConfig.GetFullscreenFlag() == true ){
 			Options_p2LinkTextData[7].text[1] = '+';
 			Options_p2LinkTextData[8].text[1] = ' ';
@@ -1499,7 +1499,7 @@ void mainmenu::RenderOptions()
 
 		for(int i=0; i<OPTIONS_P2_DATAS; i++){
 			if( Options_p2LinkTextData[i].enable == true ){
-				//•¶š‚ÌF‚ğİ’è
+				//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 				if( ((OPTIONS_P2_X + Options_p2LinkTextData[i].pos_x) < mainmenu_mouseX)&&(mainmenu_mouseX < (OPTIONS_P2_X + Options_p2LinkTextData[i].pos_x + (signed)strlen(Options_p2LinkTextData[i].text)*Options_p2LinkTextData[i].text_w))
 					&&((OPTIONS_P2_Y + Options_p2LinkTextData[i].pos_y) < mainmenu_mouseY)&&(mainmenu_mouseY < (OPTIONS_P2_Y + Options_p2LinkTextData[i].pos_y + Options_p2LinkTextData[i].text_h))
 				){
@@ -1509,7 +1509,7 @@ void mainmenu::RenderOptions()
 					color = Options_p2LinkTextData[i].text_defaultcolor;
 				}
 
-				//•¶š‚ğ•\¦
+				//æ–‡å­—ã‚’è¡¨ç¤º
 				d3dg->Draw2DTextureFontText(OPTIONS_P2_X + Options_p2LinkTextData[i].pos_x +1, OPTIONS_P2_Y + Options_p2LinkTextData[i].pos_y +1, Options_p2LinkTextData[i].text,
 					d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), Options_p2LinkTextData[i].text_w, Options_p2LinkTextData[i].text_h);
 				d3dg->Draw2DTextureFontText(OPTIONS_P2_X + Options_p2LinkTextData[i].pos_x, OPTIONS_P2_Y + Options_p2LinkTextData[i].pos_y, Options_p2LinkTextData[i].text,
@@ -1526,12 +1526,12 @@ void mainmenu::RenderOptions()
 		int color;
 		int maxline = 18;
 
-		//ŠØ‘Œê‚Å‚ ‚ê‚Î•\¦s”‚ğŒ¸‚ç‚·
+		//éŸ“å›½èªã§ã‚ã‚Œã°è¡¨ç¤ºè¡Œæ•°ã‚’æ¸›ã‚‰ã™
 		if( GameConfig.GetLanguage() == 1 ){
 			maxline = 14;
 		}
 
-		//ƒGƒŠƒA•`‰æ
+		//ã‚¨ãƒªã‚¢æç”»
 		d3dg->Draw2DBox(OPTIONS_P3_X, OPTIONS_P3_Y, OPTIONS_P3_X + OPTIONS_P3_W, OPTIONS_P3_Y + OPTIONS_P3_H, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.5f));
 
 		d3dg->Draw2DTextureFontText(OPTIONS_P3_X + 0 +1, OPTIONS_P3_Y + 15 +1, "SOFTWARE LICENSE", d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 18, 24);
@@ -1539,7 +1539,7 @@ void mainmenu::RenderOptions()
 
 		d3dg->Draw2DBox(OPTIONS_P3_X + 0, OPTIONS_P3_Y + 55, OPTIONS_P3_X + OPTIONS_P3_W-20, OPTIONS_P3_Y + 55 + 18*12, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.7f));
 
-		//ƒ‰ƒCƒZƒ“ƒX•¶•`‰æ
+		//ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æ–‡æç”»
 		int scrollline = scrollbar_license.GetScrollItem();
 		strcpy(licenseinfobuf, "");
 #if OPTIONS_LICENSELINE > maxline
@@ -1552,12 +1552,12 @@ void mainmenu::RenderOptions()
 		}
 		d3dg->Draw2DMSSmallFontText(OPTIONS_P3_X + 5, OPTIONS_P3_Y+55, licenseinfobuf, d3dg->GetColorCode(0.8f,0.8f,0.8f,1.0f));
 
-		//ƒXƒNƒ[ƒ‹ƒo[•`‰æ
+		//ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼æç”»
 		scrollbar_license.Draw(d3dg);
 
 		for(int i=0; i<OPTIONS_P3_DATAS; i++){
 			if( Options_p3LinkTextData[i].enable == true ){
-				//•¶š‚ÌF‚ğİ’è
+				//æ–‡å­—ã®è‰²ã‚’è¨­å®š
 				if( ((OPTIONS_P3_X + Options_p3LinkTextData[i].pos_x) < mainmenu_mouseX)&&(mainmenu_mouseX < (OPTIONS_P3_X + Options_p3LinkTextData[i].pos_x + (signed)strlen(Options_p3LinkTextData[i].text)*Options_p3LinkTextData[i].text_w))
 					&&((OPTIONS_P3_Y + Options_p3LinkTextData[i].pos_y) < mainmenu_mouseY)&&(mainmenu_mouseY < (OPTIONS_P3_Y + Options_p3LinkTextData[i].pos_y + Options_p3LinkTextData[i].text_h))
 				){
@@ -1567,7 +1567,7 @@ void mainmenu::RenderOptions()
 					color = Options_p3LinkTextData[i].text_defaultcolor;
 				}
 
-				//•¶š‚ğ•\¦
+				//æ–‡å­—ã‚’è¡¨ç¤º
 				d3dg->Draw2DTextureFontText(OPTIONS_P3_X + Options_p3LinkTextData[i].pos_x +1, OPTIONS_P3_Y + Options_p3LinkTextData[i].pos_y +1, Options_p3LinkTextData[i].text,
 					d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), Options_p3LinkTextData[i].text_w, Options_p3LinkTextData[i].text_h);
 				d3dg->Draw2DTextureFontText(OPTIONS_P3_X + Options_p3LinkTextData[i].pos_x, OPTIONS_P3_Y + Options_p3LinkTextData[i].pos_y, Options_p3LinkTextData[i].text,
@@ -1584,13 +1584,13 @@ void mainmenu::RenderOptions()
 
 void mainmenu::Destroy()
 {
-	//ƒuƒƒbƒNƒf[ƒ^‰ğ•ú
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿è§£æ”¾
 	d3dg->CleanupMapdata();
 
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‰ğ•ú
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼è§£æ”¾
 	ObjMgr.Cleanup();
 
-	//”wŒi‹ó‰ğ•ú
+	//èƒŒæ™¯ç©ºè§£æ”¾
 	Resource.CleanupSkyModelTexture();
 
 	d3dg->CleanupTexture(gametitle);
@@ -1598,7 +1598,7 @@ void mainmenu::Destroy()
 	GameState->NextState();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 briefing::briefing()
 {
 	TwoTexture = false;
@@ -1606,7 +1606,7 @@ briefing::briefing()
 	TextureB = -1;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 briefing::~briefing()
 {}
 
@@ -1617,10 +1617,10 @@ int briefing::Create()
 	char PictureA[MAX_PATH];
 	char PictureB[MAX_PATH];
 
-	//”wŒi‰æ‘œ‚ğæ“¾
+	//èƒŒæ™¯ç”»åƒã‚’å–å¾—
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
 
-	//mifƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒpƒXæ“¾
+	//mifãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹å–å¾—
 	if( GameInfoData.selectmission_id >= 0 ){
 		GameParamInfo.GetOfficialMission(GameInfoData.selectmission_id, NULL, NULL, path, pdata, NULL, NULL);
 		strcat(path, pdata);
@@ -1630,16 +1630,16 @@ int briefing::Create()
 		strcpy(path, GameInfoData.mifpath);
 	}
 
-	//mifƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
+	//mifãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
 	if( MIFdata.LoadFiledata(path, true) != 0 ){
 		//briefing data open failed
 		return 1;
 	}
 
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ‚Ìƒtƒ@ƒCƒ‹ƒpƒXæ“¾
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹å–å¾—
 	MIFdata.GetPicturefilePath(PictureA, PictureB);
 
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ“Ç‚İ‚İ
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒèª­ã¿è¾¼ã¿
 	if( strcmp(PictureB, "!") == 0 ){
 		TwoTexture = false;
 		TextureA = d3dg->LoadTexture(PictureA, true, false);
@@ -1651,7 +1651,7 @@ int briefing::Create()
 		TextureB = d3dg->LoadTexture(PictureB, true, false);
 	}
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ’†‰›‚ÖˆÚ“®
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ä¸­å¤®ã¸ç§»å‹•
 	inputCtrl->MoveMouseCenter();
 	framecnt = 0;
 
@@ -1664,13 +1664,13 @@ int briefing::Recovery()
 	char PictureA[MAX_PATH];
 	char PictureB[MAX_PATH];
 
-	//”wŒi‰æ‘œ‚ğæ“¾
+	//èƒŒæ™¯ç”»åƒã‚’å–å¾—
 	gametitle = d3dg->LoadTexture("data\\title.dds", false, false);
 
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ‚Ìƒtƒ@ƒCƒ‹ƒpƒXæ“¾
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹å–å¾—
 	MIFdata.GetPicturefilePath(PictureA, PictureB);
 
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ“Ç‚İ‚İ
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒèª­ã¿è¾¼ã¿
 	if( strcmp(PictureB, "!") == 0 ){
 		TwoTexture = false;
 		TextureA = d3dg->LoadTexture(PictureA, true, false);
@@ -1692,15 +1692,15 @@ void briefing::Render2D()
 	int effectB_sizeW = (int)( (float)(framecnt%((int)(GAMEFPS*1.0f))) * 0.2f + 18 );
 	int effectB_sizeH = (int)( (float)(framecnt%((int)(GAMEFPS*1.0f))) * 1.0f + 26 );
 
-	//ƒƒ‚F”wŒi‰æ‘œ‚Ì•`‰æ‚ÍA©“®“I‚És‚í‚ê‚éB
+	//ãƒ¡ãƒ¢ï¼šèƒŒæ™¯ç”»åƒã®æç”»ã¯ã€è‡ªå‹•çš„ã«è¡Œã‚ã‚Œã‚‹ã€‚
 
-	//ŒÅ’è•¶š•\¦
+	//å›ºå®šæ–‡å­—è¡¨ç¤º
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 30, "BRIEFING", d3dg->GetColorCode(1.0f,1.0f,0.0f,effectA), 60, 42);
 	d3dg->Draw2DTextureFontText(GameConfig.GetScreenWidth() - 210 - effectB_sizeW*20/2, GameConfig.GetScreenHeight() - 37 - effectB_sizeH/2,
 								"LEFT CLICK TO BEGIN", d3dg->GetColorCode(1.0f,1.0f,1.0f,effectB), effectB_sizeW, effectB_sizeH);
 	d3dg->Draw2DTextureFontText(GameConfig.GetScreenWidth() - 210 - 18*20/2, GameConfig.GetScreenHeight() - 37 - 26/2, "LEFT CLICK TO BEGIN", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 18, 26);
 
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ•`‰æ
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒæç”»
 	if( TwoTexture == false ){
 		if( TextureA == -1 ){ d3dg->Draw2DBoxScaling(40, 180, 40+160, 180+150, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f)); }
 		else{ d3dg->Draw2DTextureScaling(40, 180, TextureA, 160, 150, 1.0f); }
@@ -1713,7 +1713,7 @@ void briefing::Render2D()
 		else{ d3dg->Draw2DTextureScaling(40, 300, TextureB, 160, 150, 1.0f); }
 	}
 
-	//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾E•\¦
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—ãƒ»è¡¨ç¤º
 	char mname[64];
 	if( MIFdata.GetFiletype() == false ){
 		GameParamInfo.GetOfficialMission(GameInfoData.selectmission_id, NULL, mname, NULL, NULL, NULL, NULL);
@@ -1723,23 +1723,23 @@ void briefing::Render2D()
 	}
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 90, mname, d3dg->GetColorCode(1.0f,0.5f,0.0f,1.0f), 18, 25);
 
-	//ƒ~ƒbƒVƒ‡ƒ“à–¾‚ğ•\¦
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³èª¬æ˜ã‚’è¡¨ç¤º
 	d3dg->Draw2DMSFontTextScaling(230, 180, MIFdata.GetBriefingText(), d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f));
 }
 
 void briefing::Destroy()
 {
-	//ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œ‚ğ‰ğ•ú
+	//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒã‚’è§£æ”¾
 	d3dg->CleanupTexture(TextureA);
 	d3dg->CleanupTexture(TextureB);
 
-	//”wŒi‰æ‘œ‚ğ‰ğ•ú
+	//èƒŒæ™¯ç”»åƒã‚’è§£æ”¾
 	d3dg->CleanupTexture(gametitle);
 
 	GameState->NextState();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 maingame::maingame()
 {
 	SkyNumber = 0;
@@ -1793,17 +1793,17 @@ maingame::maingame()
 #endif
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 maingame::~maingame()
 {}
 
-//! @brief À•W‚È‚Ç‚ğ•\¦‚·‚éƒfƒoƒbƒNƒ‚[ƒh‚Ìƒtƒ‰ƒOİ’è
+//! @brief åº§æ¨™ãªã©ã‚’è¡¨ç¤ºã™ã‚‹ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰ã®ãƒ•ãƒ©ã‚°è¨­å®š
 void maingame::SetShowInfoFlag(bool flag)
 {
 	ShowInfo_Debugmode = flag;
 }
 
-//! @brief ƒQ[ƒ€‚ÌÀs‘¬“x‚ğæ“¾
+//! @brief ã‚²ãƒ¼ãƒ ã®å®Ÿè¡Œé€Ÿåº¦ã‚’å–å¾—
 int maingame::GetGameSpeed()
 {
 	return GameSpeed;
@@ -1819,7 +1819,7 @@ int maingame::Create()
 	int blockflag, pointflag;
 	bool collisionflag;
 
-	//.bd1‚Æ.pd1‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğ‹‚ß‚é
+	//.bd1ã¨.pd1ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æ±‚ã‚ã‚‹
 	if( MIFdata.GetFiletype() == false ){
 		GameParamInfo.GetOfficialMission(MainGameInfo.selectmission_id, NULL, NULL, path, pdata2, &collisionflag, &DarkScreenFlag);
 
@@ -1837,50 +1837,50 @@ int maingame::Create()
 		GetFileDirectory(bdata, path);
 	}
 
-	//’Ç‰Á¬•¨‚ğ“Ç‚İ‚Ş
+	//è¿½åŠ å°ç‰©ã‚’èª­ã¿è¾¼ã‚€
 	for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 		Resource.LoadAddSmallObject(i, MIFdata.GetAddSmallobjectModelPath(i), MIFdata.GetAddSmallobjectTexturePath(i), MIFdata.GetAddSmallobjectSoundPath(i));
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^“Ç‚İ‚İ
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	blockflag = BlockData.LoadFiledata(bdata);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^“Ç‚İ‚İ
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿èª­ã¿è¾¼ã¿
 	pointflag = PointData.LoadFiledata(pdata);
 
-	//ƒtƒ@ƒCƒ‹“Ç‚İ‚İ‚ÅƒGƒ‰[‚ª‚ ‚Á‚½‚ç’†’f
+	//ãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ã§ã‚¨ãƒ©ãƒ¼ãŒã‚ã£ãŸã‚‰ä¸­æ–­
 	if( (blockflag != 0)||(pointflag != 0) ){
 		//2bit : point data open failed
 		//1bit : block data open failed
 		return pointflag*2 + blockflag;
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	BlockData.CalculationBlockdata(DarkScreenFlag);
 	d3dg->LoadMapdata(&BlockData, path);
 	CollD.InitCollision(&BlockData);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.LoadPointData();
 
-	//’Ç‰Á‚Ì“–‚½‚è”»’èİ’è
+	//è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šè¨­å®š
 	ObjMgr.SetAddCollisionFlag(collisionflag);
 
-	//AIİ’è
+	//AIè¨­å®š
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanAI[i].SetClass(&ObjMgr, i, &BlockData, &PointData, &GameParamInfo, &CollD, GameSound);
 		HumanAI[i].Init();
 	}
 
 
-	//”wŒi‹ó“Ç‚İ‚İ
+	//èƒŒæ™¯ç©ºèª­ã¿è¾¼ã¿
 	SkyNumber = MIFdata.GetSkynumber();
 	Resource.LoadSkyModelTexture(SkyNumber);
 
-	//ƒTƒEƒ“ƒh‰Šú‰»
+	//ã‚µã‚¦ãƒ³ãƒ‰åˆæœŸåŒ–
 	GameSound->InitWorldSound();
 
-	//ƒCƒxƒ“ƒg‰Šú‰»
+	//ã‚¤ãƒ™ãƒ³ãƒˆåˆæœŸåŒ–
 	for(int i=0; i<TOTAL_EVENTLINE; i++){
 		Event[i].SetClass(&PointData, &ObjMgr);
 	}
@@ -1888,7 +1888,7 @@ int maingame::Create()
 	Event[1].Reset(TOTAL_EVENTENTRYPOINT_1);
 	Event[2].Reset(TOTAL_EVENTENTRYPOINT_2);
 
-	//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 	ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 
 	FogFlag = true;
@@ -1928,7 +1928,7 @@ int maingame::Create()
 	Show_Console = false;
 	ScreenShot = 0;
 
-	//ƒRƒ“ƒ\[ƒ‹—p‰Šú‰»
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ç”¨åˆæœŸåŒ–
 	InfoConsoleData = new ConsoleData [MAX_CONSOLELINES];
 	for(int i=0; i<MAX_CONSOLELINES; i++){
 		InfoConsoleData[i].color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
@@ -1939,7 +1939,7 @@ int maingame::Create()
 	ConsoleTextBoxControl.InitTextBox("", MAX_CONSOLELEN - (int)strlen(CONSOLE_PROMPT), 0x01|0x04|0x20);
 #endif
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ’†‰›‚ÖˆÚ“®
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ä¸­å¤®ã¸ç§»å‹•
 	inputCtrl->MoveMouseCenter();
 
 	GameState->NextState();
@@ -1949,10 +1949,10 @@ int maingame::Create()
 int maingame::Recovery()
 {
 	char path[MAX_PATH];
-	char bdata[MAX_PATH];	//ƒ_ƒ~[
-	char pdata[MAX_PATH];	//ƒ_ƒ~[
+	char bdata[MAX_PATH];	//ãƒ€ãƒŸãƒ¼
+	char pdata[MAX_PATH];	//ãƒ€ãƒŸãƒ¼
 
-	//.bd1‚Æ.pd1‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğ‹‚ß‚é
+	//.bd1ã¨.pd1ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æ±‚ã‚ã‚‹
 	if( MIFdata.GetFiletype() == false ){
 		GameParamInfo.GetOfficialMission(MainGameInfo.selectmission_id, NULL, NULL, path, NULL, NULL, NULL);
 	}
@@ -1961,26 +1961,26 @@ int maingame::Recovery()
 		GetFileDirectory(bdata, path);
 	}
 
-	//’Ç‰Á¬•¨‚ğ‰ğ•úË“Ç‚İ‚Ş
+	//è¿½åŠ å°ç‰©ã‚’è§£æ”¾â‡’èª­ã¿è¾¼ã‚€
 	for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 		Resource.CleanupAddSmallObject(i);
 		Resource.LoadAddSmallObject(i, MIFdata.GetAddSmallobjectModelPath(i), MIFdata.GetAddSmallobjectTexturePath(i), MIFdata.GetAddSmallobjectSoundPath(i));
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	d3dg->LoadMapdata(&BlockData, path);
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‰Šú‰»
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 	ObjMgr.Recovery();
 
-	//”wŒi‹ó‰Šú‰»
+	//èƒŒæ™¯ç©ºåˆæœŸåŒ–
 	Resource.CleanupSkyModelTexture();
 	Resource.LoadSkyModelTexture(SkyNumber);
 
 	return 0;
 }
 
-//! @brief “Á’è‘€ì‚Ì“ü—Í‚ğƒ`ƒFƒbƒN
+//! @brief ç‰¹å®šæ“ä½œã®å…¥åŠ›ã‚’ãƒã‚§ãƒƒã‚¯
 bool maingame::CheckInputControl(int CheckKey, int mode)
 {
 	int KeyCode = OriginalkeycodeToDinputdef(GameConfig.GetKeycode(CheckKey));
@@ -2066,38 +2066,38 @@ void maingame::Input()
 {
 	time = GetTimeMS();
 
-	//ƒvƒŒƒCƒ„[‚ÌƒNƒ‰ƒX‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
 	human *myHuman = ObjMgr.GetPlayerHumanObject();
 
-	//ƒL[“ü—Í‚ğæ“¾
+	//ã‚­ãƒ¼å…¥åŠ›ã‚’å–å¾—
 	inputCtrl->GetInputState(true);
 	inputCtrl->MoveMouseCenter();
 
-	//ƒ}ƒEƒX‚ÌˆÚ“®—Êæ“¾
+	//ãƒã‚¦ã‚¹ã®ç§»å‹•é‡å–å¾—
 	int x, y;
 	float MouseSensitivity;
 	inputCtrl->GetMouseMovement(&x, &y);
 
-	//‹“_‚ÌˆÚ“®—ÊŒvZ
+	//è¦–ç‚¹ã®ç§»å‹•é‡è¨ˆç®—
 	ScopeParameter sparam;
 	GameParamInfo.GetScopeParam(myHuman->GetScopeMode(), &sparam);
 	MouseSensitivity = DegreeToRadian(1) * sparam.MouseRange * GameConfig.GetMouseSensitivity();
 
-	//ƒ}ƒEƒX”½“]iƒIƒvƒVƒ‡ƒ“İ’èj‚ª—LŒø‚È‚ç‚ÎA”½“]‚·‚éB
+	//ãƒã‚¦ã‚¹åè»¢ï¼ˆã‚ªãƒ—ã‚·ãƒ§ãƒ³è¨­å®šï¼‰ãŒæœ‰åŠ¹ãªã‚‰ã°ã€åè»¢ã™ã‚‹ã€‚
 	if( GameConfig.GetInvertMouseFlag() == true ){
 		y *= -1;
 	}
 
-	if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){					//ƒQ[ƒ€I—¹‘€ì‚©ƒ`ƒFƒbƒN
+	if( inputCtrl->CheckKeyDown(GetEscKeycode()) ){					//ã‚²ãƒ¼ãƒ çµ‚äº†æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		GameState->PushBackSpaceKey();
 		GameSpeed = 1;
 	}
-	else if( inputCtrl->CheckKeyDown( GetFunctionKeycode(12) ) ){	//ƒŠƒZƒbƒg‘€ì‚©ƒ`ƒFƒbƒN
+	else if( inputCtrl->CheckKeyDown( GetFunctionKeycode(12) ) ){	//ãƒªã‚»ãƒƒãƒˆæ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		GameState->PushF12Key();
 		GameSpeed = 1;
 	}
 
-	//‰æ–Ê‚ÌUI•ÏX‘€ì‚©ƒ`ƒFƒbƒN
+	//ç”»é¢ã®UIå¤‰æ›´æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyDown( GetFunctionKeycode(2) ) ){
 		if( Camera_F2mode == 2 ){
 			Camera_F2mode = 0;
@@ -2111,19 +2111,19 @@ void maingame::Input()
 	if( Show_Console == false ){
 #endif
 
-		if( Camera_Debugmode == false ){	//’Êíƒ‚[ƒh‚È‚ç‚Î
+		if( Camera_Debugmode == false ){	//é€šå¸¸ãƒ¢ãƒ¼ãƒ‰ãªã‚‰ã°
 			if( PlayerAI == false ){
 				InputPlayer(myHuman, x, y, MouseSensitivity);
 			}
 		}
-		else{								//ƒfƒoƒbƒNƒ‚[ƒh‚È‚ç‚Î
+		else{								//ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰ãªã‚‰ã°
 			InputViewCamera(x, y, MouseSensitivity);
 		}
 
 #ifdef ENABLE_DEBUGCONSOLE
 	}
 
-	//ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ì•\¦‘€ì‚©ƒ`ƒFƒbƒN
+	//ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®è¡¨ç¤ºæ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyDown( GetFunctionKeycode(11) ) ){
 		if( Show_Console == false ){
 			Show_Console = true;
@@ -2143,11 +2143,11 @@ void maingame::Input()
 	time_input = GetTimeMS() - time;
 }
 
-//! @brief ƒvƒŒƒCƒ„[‘€ìŒn‚Ì“ü—Íˆ—
-//! @param myHuman ƒvƒŒƒCƒ„[‚ÌƒNƒ‰ƒX
-//! @param mouse_x ƒ}ƒEƒX‚ÌXÀ•W
-//! @param mouse_y ƒ}ƒEƒX‚ÌYÀ•W 
-//! @param MouseSensitivity ‹“_‚ÌˆÚ“®—ÊŒvZ
+//! @brief ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œç³»ã®å…¥åŠ›å‡¦ç†
+//! @param myHuman ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¯ãƒ©ã‚¹
+//! @param mouse_x ãƒã‚¦ã‚¹ã®Xåº§æ¨™
+//! @param mouse_y ãƒã‚¦ã‚¹ã®Yåº§æ¨™ 
+//! @param MouseSensitivity è¦–ç‚¹ã®ç§»å‹•é‡è¨ˆç®—
 void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float MouseSensitivity)
 {
 	if( myHuman == NULL ){ return; }
@@ -2156,16 +2156,16 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 
 	if( myHuman->GetHP() > 0 ){
 
-		//ƒ}ƒEƒX‚É‚æ‚éŒü‚«‚ğŒvZ
+		//ãƒã‚¦ã‚¹ã«ã‚ˆã‚‹å‘ãã‚’è¨ˆç®—
 		mouse_rx += mouse_x * MouseSensitivity;
 		mouse_ry -= mouse_y * MouseSensitivity;
 
-		//ƒL[‘€ì‚É‚æ‚éŒü‚«‚ğŒvZ
-		if(      (CheckInputControl(KEY_TURNUP, 0) == true)&&(CheckInputControl(KEY_TURNDOWN, 0) == false) ){ add_camera_ry += (INPUT_ARROWKEYS_ANGLE - add_camera_ry)*0.2f; }			// •W€F[ª]
-		else if( (CheckInputControl(KEY_TURNDOWN, 0) == true)&&(CheckInputControl(KEY_TURNUP, 0) == false) ){ add_camera_ry += (INPUT_ARROWKEYS_ANGLE*-1 - add_camera_ry)*0.2f; }		// •W€F[«]
+		//ã‚­ãƒ¼æ“ä½œã«ã‚ˆã‚‹å‘ãã‚’è¨ˆç®—
+		if(      (CheckInputControl(KEY_TURNUP, 0) == true)&&(CheckInputControl(KEY_TURNDOWN, 0) == false) ){ add_camera_ry += (INPUT_ARROWKEYS_ANGLE - add_camera_ry)*0.2f; }			// æ¨™æº–ï¼š[â†‘]
+		else if( (CheckInputControl(KEY_TURNDOWN, 0) == true)&&(CheckInputControl(KEY_TURNUP, 0) == false) ){ add_camera_ry += (INPUT_ARROWKEYS_ANGLE*-1 - add_camera_ry)*0.2f; }		// æ¨™æº–ï¼š[â†“]
 		else { add_camera_ry = 0.0f; }
-		if(      (CheckInputControl(KEY_TURNLEFT, 0) == true)&&(CheckInputControl(KEY_TURNRIGHT, 0) == false) ){ add_camera_rx += (INPUT_ARROWKEYS_ANGLE*-1 - add_camera_rx)*0.2f; }	// •W€F[©]
-		else if( (CheckInputControl(KEY_TURNRIGHT, 0) == true)&&(CheckInputControl(KEY_TURNLEFT, 0) == false) ){ add_camera_rx += (INPUT_ARROWKEYS_ANGLE - add_camera_rx)*0.2f; }		// •W€F[¨]
+		if(      (CheckInputControl(KEY_TURNLEFT, 0) == true)&&(CheckInputControl(KEY_TURNRIGHT, 0) == false) ){ add_camera_rx += (INPUT_ARROWKEYS_ANGLE*-1 - add_camera_rx)*0.2f; }	// æ¨™æº–ï¼š[â†]
+		else if( (CheckInputControl(KEY_TURNRIGHT, 0) == true)&&(CheckInputControl(KEY_TURNLEFT, 0) == false) ){ add_camera_rx += (INPUT_ARROWKEYS_ANGLE - add_camera_rx)*0.2f; }		// æ¨™æº–ï¼š[â†’]
 		else { add_camera_rx = 0.0f; }
 		mouse_rx += add_camera_rx;
 		mouse_ry += add_camera_ry;
@@ -2174,11 +2174,11 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 		if( mouse_ry < DegreeToRadian(-70) ) mouse_ry = DegreeToRadian(-70);
 
 
-		//ƒvƒŒƒCƒ„[iƒIƒuƒWƒFƒNƒgj‚ÌŒü‚«‚ğİ’è
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ï¼ˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰ã®å‘ãã‚’è¨­å®š
 		myHuman->SetRxRy(mouse_rx, mouse_ry);
 
 
-		//‘OŒã¶‰E‚ÌˆÚ“®i‘–‚èj‘€ì‚©ƒ`ƒFƒbƒN
+		//å‰å¾Œå·¦å³ã®ç§»å‹•ï¼ˆèµ°ã‚Šï¼‰æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_MOVEFORWARD, 0) ){
 			ObjMgr.MoveForward(PlayerID);
 		}
@@ -2196,12 +2196,12 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 			}
 		}
 
-		//•à‚«‘€ì‚©ƒ`ƒFƒbƒN
+		//æ­©ãæ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_WALK, 0) ){
 			ObjMgr.MoveWalk(PlayerID);
 		}
 
-		//ƒWƒƒƒ“ƒv‘€ì‚©ƒ`ƒFƒbƒN
+		//ã‚¸ãƒ£ãƒ³ãƒ—æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_JUMP, 1) ){
 			ObjMgr.MoveJump(PlayerID);
 		}
@@ -2211,7 +2211,7 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 		bool zombie;
 		int keymode;
 
-		//ƒ]ƒ“ƒr‚©‚Ç‚¤‚©”»’è
+		//ã‚¾ãƒ³ãƒ“ã‹ã©ã†ã‹åˆ¤å®š
 		myHuman->GetParamData(&id_param, NULL, NULL, NULL);
 		GameParamInfo.GetHuman(id_param, &humandata);
 		if( humandata.type == 2 ){
@@ -2221,7 +2221,7 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 			zombie = false;
 		}
 
-		//˜AËƒ‚[ƒh‚ğæ“¾
+		//é€£å°„ãƒ¢ãƒ¼ãƒ‰ã‚’å–å¾—
 		if( zombie == true ){
 			keymode = 1;
 		}
@@ -2232,16 +2232,16 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 			keymode = 0;
 		}
 
-		//”­–C‘€ì‚©ƒ`ƒFƒbƒN
+		//ç™ºç ²æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_SHOT, keymode) ){
 
 			if( zombie == false ){
-				//’e‚Ì”­Ë‚É¬Œ÷‚·‚ê‚Î
+				//å¼¾ã®ç™ºå°„ã«æˆåŠŸã™ã‚Œã°
 				if( ObjMgr.ShotWeapon(PlayerID) == 1 ){
-					//ƒXƒRƒA‚É‰ÁZ
+					//ã‚¹ã‚³ã‚¢ã«åŠ ç®—
 					MainGameInfo.fire += 1;
 
-					//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+					//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 					ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 				}
 			}
@@ -2256,12 +2256,12 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 
 		}
 
-		//ƒŠƒ[ƒh‘€ì‚©ƒ`ƒFƒbƒN
+		//ãƒªãƒ­ãƒ¼ãƒ‰æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_RELOAD, 1) ){
 			ObjMgr.ReloadWeapon(PlayerID);
 		}
 
-		//•Ší‚ÌØ‚è‘Ö‚¦‘€ì‚©ƒ`ƒFƒbƒN
+		//æ­¦å™¨ã®åˆ‡ã‚Šæ›¿ãˆæ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_SWITCHWEAPON, 1) ){
 			ObjMgr.ChangeHaveWeapon(PlayerID, -1);
 		}
@@ -2272,24 +2272,24 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 			ObjMgr.ChangeHaveWeapon(PlayerID, 1);
 		}
 
-		//˜AËƒ‚[ƒh•ÏX‘€ì‚©ƒ`ƒFƒbƒN
+		//é€£å°„ãƒ¢ãƒ¼ãƒ‰å¤‰æ›´æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_SHOTMODE, 1) ){
 			ObjMgr.ChangeWeaponID(PlayerID);
 		}
 
-		//•Ší‚Ì”pŠü‘€ì‚©ƒ`ƒFƒbƒN
+		//æ­¦å™¨ã®å»ƒæ£„æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_DROPWEAPON, 1) ){
 			ObjMgr.DumpWeapon(PlayerID);
 		}
 
-		//ƒXƒR[ƒv‘€ì‚©ƒ`ƒFƒbƒN
+		//ã‚¹ã‚³ãƒ¼ãƒ—æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( CheckInputControl(KEY_ZOOMSCOPE, 1) ){
 			ObjMgr.ChangeScopeMode(PlayerID);
 		}
 
 	}
 
-	//ƒJƒƒ‰•\¦ƒ‚[ƒh•ÏX‘€ì‚©ƒ`ƒFƒbƒN
+	//ã‚«ãƒ¡ãƒ©è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰å¤‰æ›´æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyDown( GetFunctionKeycode(1) ) ){
 		if( Camera_F1mode == false ){
 			Camera_F1mode = true;
@@ -2303,7 +2303,7 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 		}
 	}
 
-	//ƒJƒƒ‰‘€ì
+	//ã‚«ãƒ¡ãƒ©æ“ä½œ
 	if( Camera_F1mode == true ){
 		if( inputCtrl->CheckKeyNow( OriginalkeycodeToDinputdef(0x0C) ) ){	//NUM8
 			view_ry -= INPUT_F1NUMKEYS_ANGLE;
@@ -2319,11 +2319,11 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 		}
 	}
 
-	//@‚±‚±‚Ü‚Å’Êí‘€ìŒn
+	//ã€€ã“ã“ã¾ã§é€šå¸¸æ“ä½œç³»
 	//
-	//@‚±‚±‚©‚ç— ‹ZŒn
+	//ã€€ã“ã“ã‹ã‚‰è£æŠ€ç³»
 
-	//— ‹ZEã¸‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+	//è£æŠ€ãƒ»ä¸Šæ˜‡ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( (inputCtrl->CheckKeyNow( GetFunctionKeycode(5) ))&&(inputCtrl->CheckKeyNow(OriginalkeycodeToDinputdef(0x0F))) ){	// F5 + [ENTER]
 		Cmd_F5 = true;
 	}
@@ -2333,28 +2333,28 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 
 	if( myHuman->GetHP() > 0 ){
 
-		//— ‹ZE’e’Ç‰Á‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+		//è£æŠ€ãƒ»å¼¾è¿½åŠ ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( inputCtrl->CheckKeyNow( GetFunctionKeycode(6) ) ){
 			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x0F)) ){		// [ENTER]
 				ObjMgr.CheatAddBullet(PlayerID);
 			}
 		}
 
-		//— ‹ZE•Ší•ÏX‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+		//è£æŠ€ãƒ»æ­¦å™¨å¤‰æ›´ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 		if( inputCtrl->CheckKeyNow( GetFunctionKeycode(7) ) ){
-			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x02)) ){		// [©]
+			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x02)) ){		// [â†]
 				int id_param = myHuman->GetMainWeaponTypeNO();
 
-				//Ÿ‚Ì•Ší”Ô†‚ğŒvZ
+				//æ¬¡ã®æ­¦å™¨ç•ªå·ã‚’è¨ˆç®—
 				if( id_param >= TOTAL_PARAMETERINFO_WEAPON-1 ){ id_param = 0; }
 				else{ id_param += 1; }
 
 				ObjMgr.CheatNewWeapon(PlayerID, id_param);
 			}
-			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x03)) ){		// [¨]
+			if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x03)) ){		// [â†’]
 				int id_param = myHuman->GetMainWeaponTypeNO();
 
-				//Ÿ‚Ì•Ší”Ô†‚ğŒvZ
+				//æ¬¡ã®æ­¦å™¨ç•ªå·ã‚’è¨ˆç®—
 				if( id_param <= 0 ){ id_param = TOTAL_PARAMETERINFO_WEAPON-1; }
 				else{ id_param -= 1; }
 
@@ -2364,53 +2364,53 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 
 	}
 
-	//— ‹ZEl•ÏX‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+	//è£æŠ€ãƒ»äººå¤‰æ›´ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyNow( GetFunctionKeycode(8) ) ){
 		int Player_HumanID;
 
-		if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x02)) ){		// [©]
-			//Œ»İ‚ÌƒvƒŒƒCƒ„[”Ô†‚ğæ“¾
+		if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x02)) ){		// [â†]
+			//ç¾åœ¨ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’å–å¾—
 			Player_HumanID = ObjMgr.GetPlayerID();
 
-			//Ÿ‚Ìl‚ğŒvZ
+			//æ¬¡ã®äººã‚’è¨ˆç®—
 			Player_HumanID += 1;
 			if( Player_HumanID >= MAX_HUMAN ){ Player_HumanID = 0; }
 
-			//‘ÎÛƒvƒŒƒCƒ„[”Ô†‚ğ“K—p
+			//å¯¾è±¡ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’é©ç”¨
 			ObjMgr.SetPlayerID(Player_HumanID);
 
-			//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 			ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 
-			//F1ƒ‚[ƒh‚ÉƒJƒƒ‰‚ÌŒü‚«‚ğÄİ’è
+			//F1ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å†è¨­å®š
 			if( Camera_F1mode == true ){
 				camera_rx = DegreeToRadian(90);
 			}
 		}
-		if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x03)) ){		// [¨]
-			//Œ»İ‚ÌƒvƒŒƒCƒ„[”Ô†‚ğæ“¾
+		if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x03)) ){		// [â†’]
+			//ç¾åœ¨ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’å–å¾—
 			Player_HumanID = ObjMgr.GetPlayerID();
 
-			//Ÿ‚Ìl‚ğŒvZ
+			//æ¬¡ã®äººã‚’è¨ˆç®—
 			Player_HumanID -= 1;
 			if( Player_HumanID < 0 ){ Player_HumanID = MAX_HUMAN-1; }
 
-			//‘ÎÛƒvƒŒƒCƒ„[”Ô†‚ğ“K—p
+			//å¯¾è±¡ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’é©ç”¨
 			ObjMgr.SetPlayerID(Player_HumanID);
 
-			//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 			ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 
-			//F1ƒ‚[ƒh‚ÉƒJƒƒ‰‚ÌŒü‚«‚ğÄİ’è
+			//F1ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å†è¨­å®š
 			if( Camera_F1mode == true ){
 				camera_rx = DegreeToRadian(90);
 			}
 		}
 	}
 
-	//— ‹ZEl’Ç‰Á‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+	//è£æŠ€ãƒ»äººè¿½åŠ ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyNow( GetFunctionKeycode(9) ) ){
-		if( (inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x00)))||(inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x01))) ){		// [ª]E[«]
+		if( (inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x00)))||(inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x01))) ){		// [â†‘]ãƒ»[â†“]
 			float x, y, z, r;
 			int param, dataid, team; 
 			int selectweapon;
@@ -2422,7 +2422,7 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 			}
 			int id;
 
-			//ƒvƒŒƒCƒ„[‚ÌÀ•W‚â•Ší‚ğæ“¾
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚„æ­¦å™¨ã‚’å–å¾—
 			myHuman->GetPosData(&x, &y, &z, &r);
 			myHuman->GetParamData(&param, &dataid, NULL, &team);
 			myHuman->GetWeapon(&selectweapon, weapon, NULL, NULL);
@@ -2432,29 +2432,29 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 				}
 			}
 
-			//ƒvƒŒƒCƒ„[‚Ì–Ú‚Ì‘O‚ÌÀ•W‚ğæ“¾
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç›®ã®å‰ã®åº§æ¨™ã‚’å–å¾—
 			x += cosf(r*-1 + (float)M_PI/2)*10.0f;
 			y += 5.0f;
 			z += sinf(r*-1 + (float)M_PI/2)*10.0f;
 
-			//l‚ğ’Ç‰Á
+			//äººã‚’è¿½åŠ 
 			id = ObjMgr.AddHumanIndex(x, y, z, r, param, team, weapon_paramid, 0, false);
 			if( id >= 0 ){
 				ObjMgr.ChangeHaveWeapon(id, selectweapon);
 
-				//AI‚ğİ’è
+				//AIã‚’è¨­å®š
 				HumanAI[id].Init();
-				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x00)) ){		// [ª]
+				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x00)) ){		// [â†‘]
 					HumanAI[id].SetHoldTracking(PlayerID);
 				}
-				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x01)) ){		// [«]
+				if( inputCtrl->CheckKeyDown(OriginalkeycodeToDinputdef(0x01)) ){		// [â†“]
 					HumanAI[id].SetHoldWait(x, z, r);
 				}
 			}
 		}
 	}
 
-	//— ‹ZE˜r•`‰æ‚Ì‘€ì‚©ƒ`ƒFƒbƒN
+	//è£æŠ€ãƒ»è…•æç”»ã®æ“ä½œã‹ãƒã‚§ãƒƒã‚¯
 	if( inputCtrl->CheckKeyDown( GetHomeKeycode() ) ){
 		if( Camera_HOMEmode == false ){
 			Camera_HOMEmode = true;
@@ -2465,32 +2465,32 @@ void maingame::InputPlayer(human *myHuman, int mouse_x, int mouse_y, float Mouse
 	}
 }
 
-//! @brief ƒtƒŠ[ƒJƒƒ‰‘€ìŒn‚Ì“ü—Íˆ—
-//! @param mouse_x ƒ}ƒEƒX‚ÌXÀ•W
-//! @param mouse_y ƒ}ƒEƒX‚ÌYÀ•W 
-//! @param MouseSensitivity ‹“_‚ÌˆÚ“®—ÊŒvZ
+//! @brief ãƒ•ãƒªãƒ¼ã‚«ãƒ¡ãƒ©æ“ä½œç³»ã®å…¥åŠ›å‡¦ç†
+//! @param mouse_x ãƒã‚¦ã‚¹ã®Xåº§æ¨™
+//! @param mouse_y ãƒã‚¦ã‚¹ã®Yåº§æ¨™ 
+//! @param MouseSensitivity è¦–ç‚¹ã®ç§»å‹•é‡è¨ˆç®—
 void maingame::InputViewCamera(int mouse_x, int mouse_y, float MouseSensitivity)
 {
-	//ƒ}ƒEƒXˆÚ“®‚ğƒJƒƒ‰‚ÌŒü‚«‚Æ‚µ‚Ä“K—p
+	//ãƒã‚¦ã‚¹ç§»å‹•ã‚’ã‚«ãƒ¡ãƒ©ã®å‘ãã¨ã—ã¦é©ç”¨
 	camera_rx -= mouse_x * MouseSensitivity;
 	camera_ry -= mouse_y * MouseSensitivity;
 
-	//ƒL[‘€ì‚É‚æ‚éŒü‚«‚ğŒvZ
-	if( CheckInputControl(KEY_TURNUP, 0) ){ camera_ry += INPUT_ARROWKEYS_ANGLE; }			// •W€F[ª]
-	if( CheckInputControl(KEY_TURNDOWN, 0) ){ camera_ry -= INPUT_ARROWKEYS_ANGLE; }			// •W€F[«]
-	if( CheckInputControl(KEY_TURNLEFT, 0) ){ camera_rx += INPUT_ARROWKEYS_ANGLE; }			// •W€F[©]
-	if( CheckInputControl(KEY_TURNRIGHT, 0) ){ camera_rx -= INPUT_ARROWKEYS_ANGLE; }		// •W€F[¨]
+	//ã‚­ãƒ¼æ“ä½œã«ã‚ˆã‚‹å‘ãã‚’è¨ˆç®—
+	if( CheckInputControl(KEY_TURNUP, 0) ){ camera_ry += INPUT_ARROWKEYS_ANGLE; }			// æ¨™æº–ï¼š[â†‘]
+	if( CheckInputControl(KEY_TURNDOWN, 0) ){ camera_ry -= INPUT_ARROWKEYS_ANGLE; }			// æ¨™æº–ï¼š[â†“]
+	if( CheckInputControl(KEY_TURNLEFT, 0) ){ camera_rx += INPUT_ARROWKEYS_ANGLE; }			// æ¨™æº–ï¼š[â†]
+	if( CheckInputControl(KEY_TURNRIGHT, 0) ){ camera_rx -= INPUT_ARROWKEYS_ANGLE; }		// æ¨™æº–ï¼š[â†’]
 
 	if( camera_ry > DegreeToRadian(70) ) camera_ry = DegreeToRadian(70);
 	if( camera_ry < DegreeToRadian(-70) ) camera_ry = DegreeToRadian(-70);
 
-	//ˆÚ“®—ÊŒˆ’è
+	//ç§»å‹•é‡æ±ºå®š
 	float dist = VIEW_FREECAMERA_SCALE;
 	if( CheckInputControl(KEY_SHOT, 0) ){
 		dist *= 2;
 	}
 
-	//ƒL[‘€ì‚É‚æ‚èƒJƒƒ‰À•W‚ğŒvZ
+	//ã‚­ãƒ¼æ“ä½œã«ã‚ˆã‚Šã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’è¨ˆç®—
 	if( CheckInputControl(KEY_MOVEFORWARD, 0) ){
 		camera_x += cosf(camera_rx)*cosf(camera_ry)*dist;
 		camera_y += sinf(camera_ry)*dist;
@@ -2513,7 +2513,7 @@ void maingame::InputViewCamera(int mouse_x, int mouse_y, float MouseSensitivity)
 
 void maingame::Process()
 {
-	//ƒvƒŒƒCƒ„[‚ÌƒNƒ‰ƒX‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¯ãƒ©ã‚¹ã‚’å–å¾—
 	human *myHuman = ObjMgr.GetPlayerHumanObject();
 
 	float ontarget;
@@ -2523,7 +2523,7 @@ void maingame::Process()
 
 	time = GetTimeMS();
 
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‚ğÀs
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’å®Ÿè¡Œ
 	int cmdF5id;
 	if( Cmd_F5 == true ){
 		cmdF5id = ObjMgr.GetPlayerID();
@@ -2533,7 +2533,7 @@ void maingame::Process()
 	}
 	ObjMgr.Process(cmdF5id, false, DarkScreenFlag);
 
-	//ƒvƒŒƒCƒ„[‚Ìí—ğ‚ğ‰ÁZ
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æˆ¦æ­´ã‚’åŠ ç®—
 	ObjMgr.GetHumanShotInfo( ObjMgr.GetPlayerID(), &ontarget, &kill, &headshot);
 	MainGameInfo.ontarget += ontarget;
 	MainGameInfo.kill += kill;
@@ -2548,7 +2548,7 @@ void maingame::Process()
 		int PlayerID = ObjMgr.GetPlayerID();
 		for(int i=0; i<MAX_HUMAN; i++){
 			if( (PlayerAI == false)&&(i == PlayerID) ){ continue; }
-			//AI‚ğÀs
+			//AIã‚’å®Ÿè¡Œ
 			HumanAI[i].Process();
 		}
 	}
@@ -2556,17 +2556,17 @@ void maingame::Process()
 
 	//-----------------------------------
 
-	//ƒ~ƒbƒVƒ‡ƒ“‚ªI—¹‚µ‚Ä‚¢‚È‚¯‚ê‚ÎA
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³ãŒçµ‚äº†ã—ã¦ã„ãªã‘ã‚Œã°ã€
 	if( end_framecnt == 0 ){
 		int check = ObjMgr.CheckGameOverorComplete();
 
-		//ƒQ[ƒ€ƒNƒŠƒA[”»’è
+		//ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ¼åˆ¤å®š
 		if( check == 1 ){
 			end_framecnt += 1;
 			MainGameInfo.missioncomplete = true;
 		}
 
-		//ƒQ[ƒ€ƒI[ƒo[”»’è
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼åˆ¤å®š
 		if( check == 2 ){
 			end_framecnt += 1;
 			MainGameInfo.missioncomplete = false;
@@ -2577,29 +2577,29 @@ void maingame::Process()
 
 	time = GetTimeMS();
 	if( EventStop == false ){
-		//ƒCƒxƒ“ƒgÀs
+		//ã‚¤ãƒ™ãƒ³ãƒˆå®Ÿè¡Œ
 		for(int i=0; i<TOTAL_EVENTLINE; i++){
 			if( end_framecnt == 0 ){
 				EventParameter EventParam;
 
-				//ƒCƒxƒ“ƒg‚ÌÀsó‹µ‚ğ\‘¢‘Ì‚ÉŠi”[
+				//ã‚¤ãƒ™ãƒ³ãƒˆã®å®Ÿè¡ŒçŠ¶æ³ã‚’æ§‹é€ ä½“ã«æ ¼ç´
 				EventParam.endcnt				 = end_framecnt;
 				EventParam.complete				 = MainGameInfo.missioncomplete;
 				EventParam.MessageID			 = message_id;
 				EventParam.SetMessageID			 = false;
 
-				//ƒCƒxƒ“ƒgƒ|ƒCƒ“ƒg‚ğÀs
+				//ã‚¤ãƒ™ãƒ³ãƒˆãƒã‚¤ãƒ³ãƒˆã‚’å®Ÿè¡Œ
 				Event[i].ProcessEventPoint(EventSkip[i], &EventParam);
 
-				//\‘¢‘Ì‚©‚çŠe•Ï”‚É–ß‚·
+				//æ§‹é€ ä½“ã‹ã‚‰å„å¤‰æ•°ã«æˆ»ã™
 				end_framecnt						 = EventParam.endcnt;
 				MainGameInfo.missioncomplete		 = EventParam.complete;
 				message_id							 = EventParam.MessageID;
 
-				//ƒCƒxƒ“ƒgƒXƒLƒbƒvƒtƒ‰ƒO‚ğ–ß‚·
+				//ã‚¤ãƒ™ãƒ³ãƒˆã‚¹ã‚­ãƒƒãƒ—ãƒ•ãƒ©ã‚°ã‚’æˆ»ã™
 				EventSkip[i] = false;
 
-				//ƒCƒxƒ“ƒgƒƒbƒZ[ƒW‚ªÄƒZƒbƒg‚³‚ê‚Ä‚¢‚½‚çAƒJƒEƒ“ƒg‚ğ–ß‚·B
+				//ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒå†ã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ãŸã‚‰ã€ã‚«ã‚¦ãƒ³ãƒˆã‚’æˆ»ã™ã€‚
 				if( EventParam.SetMessageID == true ){
 					message_cnt = 0;
 				}
@@ -2622,18 +2622,18 @@ void maingame::Process()
 	myHuman->GetPosData(&x, &y, &z, NULL);
 
 	if( PlayerAI == true ){
-		//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 		ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 	}
 
-	//ƒJƒƒ‰ƒ[ƒN‚ğ‹‚ß‚é
+	//ã‚«ãƒ¡ãƒ©ãƒ¯ãƒ¼ã‚¯ã‚’æ±‚ã‚ã‚‹
 	if( Camera_Debugmode == true ){
 		//
 	}
 	else if( myHuman->GetDeadFlag() == true ){
 		float camera_ry2 = camera_ry;
 
-		//camera_ry2‚ğ -PI`PI ‚ÌŠÔ‚É³‹K‰»
+		//camera_ry2ã‚’ -PIï½PI ã®é–“ã«æ­£è¦åŒ–
 		camera_ry2 = AngleNormalization(camera_ry2);
 
 		float ry = camera_ry2*0.95f + DegreeToRadian(-89.0f)*0.05f;						// 19/20 + 1/20
@@ -2646,20 +2646,20 @@ void maingame::Process()
 		camera_z = z + sinf(camera_rx)*r;
 	}
 	else if( myHuman->GetDeadMotionFlag() == true ){	//myHuman->GetDeadFlag() == false
-		//€–Sƒ‚[ƒVƒ‡ƒ“’†‚ÍƒJƒƒ‰À•W‚ğ•ÏX‚µ‚È‚¢
+		//æ­»äº¡ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ä¸­ã¯ã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’å¤‰æ›´ã—ãªã„
 	}
 	else if( Camera_F1mode == true ){
 		float crx, cry;
 		float ccx, ccy, ccz;
 
-		//ƒJƒƒ‰‚Ì’‹“_‚ğŒvZ
+		//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã‚’è¨ˆç®—
 		crx = camera_rx*0.8f + (view_rx + mouse_rx*-1 + (float)M_PI/2)*0.2f;	// 8 : 2
 		cry = camera_ry*0.8f + (view_ry + mouse_ry)*0.2f - (float)M_PI/2;		// 8 : 2
 		ccx = x - cosf(crx)*cosf(cry)*3.0f;
 		ccy = y + HUMAN_HEIGHT-0.5f + sinf(cry*-1)*2.5f;
 		ccz = z - sinf(crx)*cosf(cry)*3.0f;
 
-		//’‹“_‚©‚çƒJƒƒ‰‚Ü‚Å‚Ì“–‚½‚è”»’è
+		//æ³¨è¦–ç‚¹ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã¾ã§ã®å½“ãŸã‚Šåˆ¤å®š
 		cry += (float)M_PI/2;
 		float dist;
 		if( CollD.CheckALLBlockIntersectRay(ccx, ccy, ccz, cosf(crx)*cosf(cry)*-1, sinf(cry*-1), sinf(crx)*cosf(cry)*-1, NULL, NULL, &dist, VIEW_F1MODE_DIST) == true ){
@@ -2669,7 +2669,7 @@ void maingame::Process()
 			dist = VIEW_F1MODE_DIST;
 		}
 
-		//ƒJƒƒ‰À•W‚ğÄŒvZ
+		//ã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’å†è¨ˆç®—
 		camera_x = ccx - cosf(crx)*cosf(cry)*(dist);
 		camera_y = ccy + sinf(cry*-1)*dist;
 		camera_z = ccz - sinf(crx)*cosf(cry)*(dist);
@@ -2687,15 +2687,15 @@ void maingame::Process()
 		camera_ry = cry;
 	}
 
-	//ƒ_ƒ[ƒW‚ğó‚¯‚Ä‚¢‚ê‚ÎAƒŒƒbƒhƒtƒ‰ƒbƒVƒ…‚ğ•`‰æ‚·‚é
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã¦ã„ã‚Œã°ã€ãƒ¬ãƒƒãƒ‰ãƒ•ãƒ©ãƒƒã‚·ãƒ¥ã‚’æç”»ã™ã‚‹
 	redflash_flag = myHuman->CheckHit(NULL);
 
 	//-----------------------------------
 
 #ifdef ENABLE_DEBUGCONSOLE
-	//ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚ğ•\¦‚µ‚Ä‚¨‚èA‚©‚Âƒ~ƒbƒVƒ‡ƒ“I—¹‚ÌƒJƒEƒ“ƒg‚ªn‚Ü‚Á‚Ä‚¢‚È‚¯‚ê‚Î`
+	//ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’è¡¨ç¤ºã—ã¦ãŠã‚Šã€ã‹ã¤ãƒŸãƒƒã‚·ãƒ§ãƒ³çµ‚äº†ã®ã‚«ã‚¦ãƒ³ãƒˆãŒå§‹ã¾ã£ã¦ã„ãªã‘ã‚Œã°ï½
 	if( (Show_Console == true)&&(end_framecnt == 0) ){
-		//ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚ÌƒƒCƒ“ˆ—
+		//ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 		ProcessConsole();
 	}
 #endif
@@ -2703,23 +2703,23 @@ void maingame::Process()
 	//-----------------------------------
 
 	framecnt += 1;
-	if( start_framecnt < (int)(2.0f*GAMEFPS) ){	//ƒ~ƒbƒVƒ‡ƒ“ŠJn’†‚È‚ç
+	if( start_framecnt < (int)(2.0f*GAMEFPS) ){	//ãƒŸãƒƒã‚·ãƒ§ãƒ³é–‹å§‹ä¸­ãªã‚‰
 		start_framecnt += 1;
 	}
-	if( end_framecnt == 1 ){					//ƒ~ƒbƒVƒ‡ƒ“I—¹’¼Œã‚È‚ç‚Î
+	if( end_framecnt == 1 ){					//ãƒŸãƒƒã‚·ãƒ§ãƒ³çµ‚äº†ç›´å¾Œãªã‚‰ã°
 		MainGameInfo.framecnt = framecnt;
-		memcpy(&GameInfoData, &MainGameInfo, sizeof(GameInfo));		//‘S‚ÄƒRƒs[
+		memcpy(&GameInfoData, &MainGameInfo, sizeof(GameInfo));		//å…¨ã¦ã‚³ãƒ”ãƒ¼
 		end_framecnt += 1;
 	}
-	else if( end_framecnt > 0 ){				//ƒ~ƒbƒVƒ‡ƒ“I—¹’†‚È‚ç‚Î
+	else if( end_framecnt > 0 ){				//ãƒŸãƒƒã‚·ãƒ§ãƒ³çµ‚äº†ä¸­ãªã‚‰ã°
 		if( end_framecnt < (int)(4.0f*GAMEFPS) ){
 			end_framecnt += 1;
 		}
 		else{
-			GameInfoData.fire = MainGameInfo.fire;			//ËŒ‚‰ñ”
-			GameInfoData.ontarget = MainGameInfo.ontarget;	//–½’†”
-			GameInfoData.kill = MainGameInfo.kill;			//“|‚µ‚½“G‚Ì”
-			GameInfoData.headshot = MainGameInfo.headshot;	//“G‚Ì“ª•”‚É–½’†‚µ‚½”
+			GameInfoData.fire = MainGameInfo.fire;			//å°„æ’ƒå›æ•°
+			GameInfoData.ontarget = MainGameInfo.ontarget;	//å‘½ä¸­æ•°
+			GameInfoData.kill = MainGameInfo.kill;			//å€’ã—ãŸæ•µã®æ•°
+			GameInfoData.headshot = MainGameInfo.headshot;	//æ•µã®é ­éƒ¨ã«å‘½ä¸­ã—ãŸæ•°
 
 			GameState->PushMouseButton();
 			GameSpeed = 1;
@@ -2731,12 +2731,12 @@ void maingame::Sound()
 {
 	time = GetTimeMS();
 
-	//ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†æ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·å–å¾—
 	int teamid;
 	human *myHuman = ObjMgr.GetPlayerHumanObject();
 	myHuman->GetParamData(NULL, NULL, NULL, &teamid);
 
-	//ƒTƒEƒ“ƒh‚ğÄ¶
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿ
 	GameSound->PlayWorldSound(camera_x, camera_y, camera_z, camera_rx, teamid);
 
 	time_sound = GetTimeMS() - time;
@@ -2750,7 +2750,7 @@ void maingame::Render3D()
 	int skymodel, skytexture;
 	human *myHuman = ObjMgr.GetPlayerHumanObject();
 
-	//ƒtƒHƒO‚ÆƒJƒƒ‰‚ğİ’è
+	//ãƒ•ã‚©ã‚°ã¨ã‚«ãƒ¡ãƒ©ã‚’è¨­å®š
 	d3dg->SetFog(FogFlag, SkyNumber);
 	if( (Camera_F1mode == false)&&(Camera_Debugmode == false) ){
 		ScopeParameter sparam;
@@ -2766,24 +2766,24 @@ void maingame::Render3D()
 		d3dg->SetCamera(camera_x, camera_y, camera_z, camera_rx, camera_ry, sparam.ViewAngle);
 	}
 
-	//ƒJƒƒ‰À•W‚É”wŒi‹ó‚ğ•`‰æ
+	//ã‚«ãƒ¡ãƒ©åº§æ¨™ã«èƒŒæ™¯ç©ºã‚’æç”»
 	d3dg->SetWorldTransform(camera_x, camera_y, camera_z, 0.0f, 0.0f, 2.0f);
 	Resource.GetSkyModelTexture(&skymodel, &skytexture);
 	d3dg->RenderModel(skymodel, skytexture, DarkScreenFlag, false, false);
 
-	//Zƒoƒbƒtƒ@‚ğ‰Šú‰»
+	//Zãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–
 	d3dg->ResetZbuffer();
 
 	if( CenterLine == true ){
-		//’†Sü•\¦iƒfƒoƒbƒN—pj
+		//ä¸­å¿ƒç·šè¡¨ç¤ºï¼ˆãƒ‡ãƒãƒƒã‚¯ç”¨ï¼‰
 		d3dg->RenderCenterline();
 	}
 
-	//ƒ}ƒbƒv‚ğ•`‰æ
+	//ãƒãƒƒãƒ—ã‚’æç”»
 	d3dg->ResetWorldTransform();
 	d3dg->RenderMapdata(wireframe);
 
-	//ƒvƒŒƒCƒ„[‚Ì•`‰æ—L–³‚ÌŒˆ’è
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æç”»æœ‰ç„¡ã®æ±ºå®š
 	int DrawPlayer = 0;
 	if( (Camera_F1mode == false)&&(Camera_Debugmode == false)&&(myHuman->GetHP() > 0) ){
 		if( Camera_HOMEmode == false ){
@@ -2793,10 +2793,10 @@ void maingame::Render3D()
 			DrawPlayer = 2;
 		}
 	}
-	//ƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
 	ObjMgr.Render(camera_x, camera_y, camera_z, camera_rx, camera_ry, DrawPlayer, nomodel);
 
-	//AIƒfƒoƒbƒNî•ñ•\¦
+	//AIãƒ‡ãƒãƒƒã‚¯æƒ…å ±è¡¨ç¤º
 	if( AIdebuginfoID != -1 ){
 		if( (0 <= AIdebuginfoID)&&(AIdebuginfoID < MAX_HUMAN) ){
 			float posx, posy, posz, rx;
@@ -2809,12 +2809,12 @@ void maingame::Render3D()
 
 			d3dg->ResetWorldTransform();
 
-			//–{l
+			//æœ¬äºº
 			d3dg->Renderline(posx+10.0f, posy, posz, posx-10.0f, posy, posz, d3dg->GetColorCode(0.0f,0.0f,1.0f,1.0f));
 			d3dg->Renderline(posx, posy+10.0f, posz, posx, posy-10.0f, posz, d3dg->GetColorCode(0.0f,0.0f,1.0f,1.0f));
 			d3dg->Renderline(posx, posy, posz+10.0f, posx, posy, posz-10.0f, d3dg->GetColorCode(0.0f,0.0f,1.0f,1.0f));
 
-			//ˆÚ“®æ
+			//ç§»å‹•å…ˆ
 			d3dg->Renderline(mposx+10.0f, posy, mposz, mposx-10.0f, posy, mposz, d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f));
 			d3dg->Renderline(mposx, 5000.0f, mposz, mposx, -500.0f,mposz, d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f));
 			d3dg->Renderline(mposx, posy, mposz+10.0f, mposx, posy, mposz-10.0f, d3dg->GetColorCode(1.0f,1.0f,0.0f,1.0f));
@@ -2822,7 +2822,7 @@ void maingame::Render3D()
 			if( EnemyID != -1 ){
 				ObjMgr.GetHumanObject(EnemyID)->GetPosData(&posx, &posy, &posz, &rx);
 
-				//UŒ‚‘ÎÛ
+				//æ”»æ’ƒå¯¾è±¡
 				d3dg->Renderline(posx+3.0f, posy, posz+3.0f, posx+3.0f, posy, posz-3.0f, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 				d3dg->Renderline(posx+3.0f, posy, posz-3.0f, posx-3.0f, posy, posz-3.0f, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 				d3dg->Renderline(posx-3.0f, posy, posz-3.0f, posx-3.0f, posy, posz+3.0f, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
@@ -2873,12 +2873,12 @@ void maingame::Render2D()
 	int param_pellet;
 	int ErrorRange;
 
-	//Šeíİ’è‚âƒQ[ƒ€î•ñ‚ğæ“¾
+	//å„ç¨®è¨­å®šã‚„ã‚²ãƒ¼ãƒ æƒ…å ±ã‚’å–å¾—
 	myHuman->GetWeapon(&selectweapon, weapon, lnbslist, nbslist);
 	for(int i=0; i<TOTAL_HAVEWEAPON; i++){
 		if( selectweapon == i ){
-			//ƒƒCƒ“•Ší
-			//•Ší‚ğ‚Á‚Ä‚¢‚é‚È‚ç‚»‚Ì’e”A–¢Š‚È‚ç‚Î–¢Š‚Ì’e”‚ğæ“¾
+			//ãƒ¡ã‚¤ãƒ³æ­¦å™¨
+			//æ­¦å™¨ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ãã®å¼¾æ•°ã€æœªæ‰€æŒãªã‚‰ã°æœªæ‰€æŒæ™‚ã®å¼¾æ•°ã‚’å–å¾—
 			if( weapon[i] != NULL ){
 				weapon[i]->GetParamData(&weapon_paramid[i], &lnbs, &nbs);
 			}
@@ -2888,7 +2888,7 @@ void maingame::Render2D()
 			}
 		}
 		else{
-			//ƒTƒu•Ší@ƒTƒu•Ší‚Í•Ší‚Ìí—Ş‚Ì‚İ
+			//ã‚µãƒ–æ­¦å™¨ã€€ã‚µãƒ–æ­¦å™¨ã¯æ­¦å™¨ã®ç¨®é¡ã®ã¿
 			if( weapon[i] != NULL ){
 				weapon[i]->GetParamData(&weapon_paramid[i], NULL, NULL);
 			}
@@ -2910,7 +2910,7 @@ void maingame::Render2D()
 	float human_x, human_y, human_z, human_rx;
 	myHuman->GetPosData(&human_x, &human_y, &human_z, &human_rx);
 
-	//HP‚É‚æ‚éF‚ÌŒˆ’è
+	//HPã«ã‚ˆã‚‹è‰²ã®æ±ºå®š
 	int statecolor;
 	if( hp >= 100 ){
 		statecolor = d3dg->GetColorCode(0.0f,1.0f,0.0f,1.0f);
@@ -2925,13 +2925,13 @@ void maingame::Render2D()
 		statecolor = d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f);
 	}
 
-	//ƒŒƒbƒhƒtƒ‰ƒbƒVƒ…•`‰æ
+	//ãƒ¬ãƒƒãƒ‰ãƒ•ãƒ©ãƒƒã‚·ãƒ¥æç”»
 	if( (redflash_flag == true)&&(Camera_Debugmode == false) ){
 		d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(1.0f,0.0f,0.0f,0.5f));
 		redflash_flag = false;
 	}
 
-	//ƒXƒR[ƒv•`‰æ
+	//ã‚¹ã‚³ãƒ¼ãƒ—æç”»
 	if( (Camera_F1mode == false)&&(Camera_Debugmode == false)&&(myHuman->GetScopeMode() != 0) ){
 		ScopeParameter sparam;
 		GameParamInfo.GetScopeParam(myHuman->GetScopeMode(), &sparam);
@@ -2970,40 +2970,40 @@ void maingame::Render2D()
 		}
 	}
 
-	//–Ú‰B‚µ•`‰æ
+	//ç›®éš ã—æç”»
 	if( (Camera_Blind == true)&&(Camera_Debugmode == false)&&(hp > 0) ){
 
 		int scopemode = myHuman->GetScopeMode();
 		float adddist = 1.2f;
 		ScopeParameter sparam;
 
-		//ƒXƒR[ƒv‚É‚æ‚é‹–ìŠp‚ğŒˆ’è
+		//ã‚¹ã‚³ãƒ¼ãƒ—ã«ã‚ˆã‚‹è¦–é‡è§’ã‚’æ±ºå®š
 		GameParamInfo.GetScopeParam(scopemode, &sparam);
 		float addang = sparam.ViewAngle / 4;
 
-		//ã
+		//ä¸Š
 		if( CollD.CheckALLBlockInside(camera_x + cosf(camera_rx)*cosf(camera_ry + addang) * adddist, camera_y + sinf(camera_ry + addang) * adddist, camera_z + sinf(camera_rx)*cosf(camera_ry + addang) * adddist) == true ){
 			d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight()/2, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 		}
 
-		//‰º
+		//ä¸‹
 		if( CollD.CheckALLBlockInside(camera_x + cosf(camera_rx)*cosf(camera_ry - addang) * adddist, camera_y + sinf(camera_ry - addang) * adddist, camera_z + sinf(camera_rx)*cosf(camera_ry - addang) * adddist) == true ){
 			d3dg->Draw2DBox(0, GameConfig.GetScreenHeight()/2, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 		}
 
-		//¶
+		//å·¦
 		if( CollD.CheckALLBlockInside(camera_x + cosf(camera_rx + addang)*cosf(camera_ry) * adddist, camera_y + sinf(camera_ry) * adddist, camera_z + sinf(camera_rx + addang)*cosf(camera_ry) * adddist) == true ){
 			d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth()/2, GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 		}
 
-		//‰E
+		//å³
 		if( CollD.CheckALLBlockInside(camera_x + cosf(camera_rx - addang)*cosf(camera_ry) * adddist, camera_y + sinf(camera_ry) * adddist, camera_z + sinf(camera_rx - addang)*cosf(camera_ry) * adddist) == true ){
 			d3dg->Draw2DBox(GameConfig.GetScreenWidth()/2, 0, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
 		}
 	}
 
 #ifdef ENABLE_DEBUGCONSOLE
-	//ƒfƒoƒbƒN—pEƒQ[ƒ€î•ñ‚Ì•\¦
+	//ãƒ‡ãƒãƒƒã‚¯ç”¨ãƒ»ã‚²ãƒ¼ãƒ æƒ…å ±ã®è¡¨ç¤º
 	if( ShowInfo_Debugmode == true ){
 		float move_x, move_y, move_z;
 		int keyflag;
@@ -3012,7 +3012,7 @@ void maingame::Render2D()
 		keyflag = myHuman->GetMoveFlag(false);
 		myHuman->GetUnderBlock(&block_id, NULL);
 
-		//ƒeƒNƒXƒ`ƒƒƒtƒHƒ“ƒg‚É‚æ‚é•\¦i”¼Šp‰p”š‚Æ‹L†‚Ì‚İj
+		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚©ãƒ³ãƒˆã«ã‚ˆã‚‹è¡¨ç¤ºï¼ˆåŠè§’è‹±æ•°å­—ã¨è¨˜å·ã®ã¿ï¼‰
 		sprintf(str, "frame:%d   time %02d:%02d", framecnt, framecnt/(int)GAMEFPS/60, framecnt/(int)GAMEFPS%60);
 		d3dg->Draw2DTextureDebugFontText(10+1, 10+1, str, d3dg->GetColorCode(0.1f,0.1f,0.1f,1.0f));
 		d3dg->Draw2DTextureDebugFontText(10, 10, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f));
@@ -3031,40 +3031,40 @@ void maingame::Render2D()
 	}
 #endif
 
-	//ƒQ[ƒ€Às‘¬“x‚Ì•\¦
+	//ã‚²ãƒ¼ãƒ å®Ÿè¡Œé€Ÿåº¦ã®è¡¨ç¤º
 	//int speed = (int)(fps / (1000.0f/GAMEFRAMEMS) * 100);
 	//sprintf(str, "PROCESSING SPEED %d%%", speed);
 	sprintf(str, "fps:%.2f", fps);
 	d3dg->Draw2DTextureFontText(GameConfig.GetScreenWidth() - strlen(str)*10 - 5 +1, 5+1, str, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f), 10, 14);
 	d3dg->Draw2DTextureFontText(GameConfig.GetScreenWidth() - strlen(str)*10 - 5, 5, str, d3dg->GetColorCode(1.0f,0.5f,0.0f,1.0f), 10, 14);
 
-	//HUD•\¦Eƒ‚[ƒhA
+	//HUDè¡¨ç¤ºãƒ»ãƒ¢ãƒ¼ãƒ‰A
 	if( Camera_F2mode == 0 ){
-		//¶‰ºƒGƒŠƒA•`‰æ
-		//"³´´´´´´µ"
+		//å·¦ä¸‹ã‚¨ãƒªã‚¢æç”»
+		//"ï½³ï½´ï½´ï½´ï½´ï½´ï½´ï½µ"
 		stru[0] = 0xB3;		stru[1] = 0xB4;		stru[2] = 0xB4;		stru[3] = 0xB4;		stru[4] = 0xB4;
 		stru[5] = 0xB4;		stru[6] = 0xB4;		stru[7] = 0xB5;		stru[8] = '\0';
 		d3dg->Draw2DTextureFontText(15, GameConfig.GetScreenHeight() - 105, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
-		//"ÃÄÄÄÄÄÄÅ"
+		//"ï¾ƒï¾„ï¾„ï¾„ï¾„ï¾„ï¾„ï¾…"
 		for(int i=0; stru[i] != 0x00; i++){ stru[i] += 0x10; }
 		d3dg->Draw2DTextureFontText(15, GameConfig.GetScreenHeight() - 105 +32, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
-		//"³´´¶···¸¹"
+		//"ï½³ï½´ï½´ï½¶ï½·ï½·ï½·ï½¸ï½¹"
 		stru[0] = 0xB3;		stru[1] = 0xB4;		stru[2] = 0xB4;		stru[3] = 0xB6;		stru[4] = 0xB7;
 		stru[5] = 0xB7;		stru[6] = 0xB7;		stru[7] = 0xB8;		stru[8] = 0xB9;		stru[9] = '\0';
 		d3dg->Draw2DTextureFontText(15, GameConfig.GetScreenHeight() - 55, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
-		//"ÃÄÄÆÇÇÇÈÉ"
+		//"ï¾ƒï¾„ï¾„ï¾†ï¾‡ï¾‡ï¾‡ï¾ˆï¾‰"
 		for(int i=0; stru[i] != 0x00; i++){ stru[i] += 0x10; }
 		d3dg->Draw2DTextureFontText(15, GameConfig.GetScreenHeight() - 55 +32, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
 
-		//‰E‰ºƒGƒŠƒA—p•¶šƒR[ƒhİ’è
-		stru[0] = 0xB0;//'°';
+		//å³ä¸‹ã‚¨ãƒªã‚¢ç”¨æ–‡å­—ã‚³ãƒ¼ãƒ‰è¨­å®š
+		stru[0] = 0xB0;//'ï½°';
 		for(int i=1; i<HUDA_WEAPON_SIZEW-1; i++){
-			stru[i] = 0xB1;//'±';
+			stru[i] = 0xB1;//'ï½±';
 		}
-		stru[HUDA_WEAPON_SIZEW-1] = 0xB2;//'²';
+		stru[HUDA_WEAPON_SIZEW-1] = 0xB2;//'ï½²';
 		stru[HUDA_WEAPON_SIZEW] = '\0';
 
-		//‰E‰ºƒGƒŠƒA•`‰æ
+		//å³ä¸‹ã‚¨ãƒªã‚¢æç”»
 		d3dg->Draw2DTextureFontText(HUDA_WEAPON_POSX, HUDA_WEAPON_POSY, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
 		for(int i=0; i<HUDA_WEAPON_SIZEW; i++){ stru[i] += 0x10; }
 		for(int i=1; i<HUDA_WEAPON_SIZEH-1; i++){
@@ -3073,15 +3073,15 @@ void maingame::Render2D()
 		for(int i=0; i<HUDA_WEAPON_SIZEW; i++){ stru[i] += 0x10; }
 		d3dg->Draw2DTextureFontText(HUDA_WEAPON_POSX, HUDA_WEAPON_POSY + 32*(HUDA_WEAPON_SIZEH-1), (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
 
-		//•Ší‚Ì’e”•\¦
+		//æ­¦å™¨ã®å¼¾æ•°è¡¨ç¤º
 		sprintf((char*)stru, "A%d B%d", lnbs, (nbs - lnbs));
 		for(int i=0; i<(int)strlen((char*)stru); i++){
-			if( stru[i] == 'A' ){ stru[i] = 0xBB; }	//'»'
-			if( stru[i] == 'B' ){ stru[i] = 0xBA; }	//'º'
+			if( stru[i] == 'A' ){ stru[i] = 0xBB; }	//'ï½»'
+			if( stru[i] == 'B' ){ stru[i] = 0xBA; }	//'ï½º'
 		}
 		d3dg->Draw2DTextureFontText(25, GameConfig.GetScreenHeight() - 96, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 23, 24);
 
-		//HP•\¦
+		//HPè¡¨ç¤º
 		if( hp >= 80 ){
 			d3dg->Draw2DTextureFontText(23, GameConfig.GetScreenHeight() - 45, "STATE", statecolor, 18, 24);
 			d3dg->Draw2DTextureFontText(155, GameConfig.GetScreenHeight() - 45, "FINE", statecolor, 18, 24);
@@ -3099,7 +3099,7 @@ void maingame::Render2D()
 			d3dg->Draw2DTextureFontText(155, GameConfig.GetScreenHeight() - 45, "DEAD", statecolor, 18, 24);
 		}
 
-		//•Ší–¼•\¦
+		//æ­¦å™¨åè¡¨ç¤º
 #ifdef ENABLE_WEAPONNAME_SCALING
 		int w, h;
 		d3dg->GetFontTextSize(weaponname, 16, 20, 14, &w, &h);
@@ -3109,15 +3109,15 @@ void maingame::Render2D()
 #endif
 	}
 
-	//HUD•\¦Eƒ‚[ƒhB
+	//HUDè¡¨ç¤ºãƒ»ãƒ¢ãƒ¼ãƒ‰B
 	if( Camera_F2mode == 1 ){
-		//‰æ–Êü‚è‚Ìü
+		//ç”»é¢å‘¨ã‚Šã®ç·š
 		d3dg->Draw2DLine(0, 0, GameConfig.GetScreenWidth()-1, 0, statecolor);
 		d3dg->Draw2DLine(GameConfig.GetScreenWidth()-1, 0, GameConfig.GetScreenWidth()-1, GameConfig.GetScreenHeight()-1, statecolor);
 		d3dg->Draw2DLine(0, 0, 0, GameConfig.GetScreenHeight()-1, statecolor);
 		d3dg->Draw2DLine(0, GameConfig.GetScreenHeight()-1, GameConfig.GetScreenWidth()-1, GameConfig.GetScreenHeight()-1, statecolor);
 
-		//•Ší–¼•\¦
+		//æ­¦å™¨åè¡¨ç¤º
 #ifdef ENABLE_WEAPONNAME_SCALING
 		int w, h;
 		d3dg->GetFontTextSize(weaponname, 16, 20, 14, &w, &h);
@@ -3130,12 +3130,12 @@ void maingame::Render2D()
 #endif
 	}
 
-	//ƒŒ[ƒ_[•`‰æ
+	//ãƒ¬ãƒ¼ãƒ€ãƒ¼æç”»
 	if( radar == true ){
 		RenderRadar();
 	}
 
-	//ƒCƒxƒ“ƒgƒƒbƒZ[ƒW•\¦
+	//ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¡¨ç¤º
 	if( (message_id != -1)&&(message_cnt < (int)(TOTAL_EVENTENT_SHOWMESSEC*GAMEFPS)) ){
 		char messtr[MAX_POINTMESSAGEBYTE];
 		PointData.GetMessageText(messtr, message_id);
@@ -3147,25 +3147,25 @@ void maingame::Render2D()
 	}
 
 #ifdef ENABLE_DEBUGCONSOLE
-	//ƒfƒoƒbƒN—pEƒQ[ƒ€î•ñ‚Ì•\¦
+	//ãƒ‡ãƒãƒƒã‚¯ç”¨ãƒ»ã‚²ãƒ¼ãƒ æƒ…å ±ã®è¡¨ç¤º
 	if( ShowInfo_Debugmode == true ){
 		ObjMgr.RenderLog(HUDA_WEAPON_POSX, HUDA_WEAPON_POSY-60);
 	}
 #endif
 
-	//ƒŠƒ[ƒh•\¦
+	//ãƒªãƒ­ãƒ¼ãƒ‰è¡¨ç¤º
 	if( reloadcnt > 0 ){
 		d3dg->Draw2DTextureFontTextCenterScaling(3, 300+3, "RELOADING", d3dg->GetColorCode(0.2f,0.2f,0.2f,1.0f), 32, 34);
 		d3dg->Draw2DTextureFontTextCenterScaling(0, 300, "RELOADING", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 32, 34);
 	}
 
-	//•ŠíØ‚è‘Ö‚¦•\¦
+	//æ­¦å™¨åˆ‡ã‚Šæ›¿ãˆè¡¨ç¤º
 	if( selectweaponcnt > 0 ){
 		d3dg->Draw2DTextureFontTextCenterScaling(3, 300+3, "CHANGING", d3dg->GetColorCode(0.2f,0.2f,0.2f,1.0f), 32, 34);
 		d3dg->Draw2DTextureFontTextCenterScaling(0, 300, "CHANGING", d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 32, 34);
 	}
 
-	//Æ€•\¦
+	//ç…§æº–è¡¨ç¤º
 	if( (Camera_F1mode == false)&&(param_WeaponP != 2)&&(param_pellet > 0) ){
 		if( (weapon[selectweapon] != NULL) ){
 			int scopemode = myHuman->GetScopeMode();
@@ -3173,8 +3173,8 @@ void maingame::Render2D()
 			GameParamInfo.GetScopeParam(param_scopemode, &sparam);
 
 			if( ( (scopemode == 0)&&(sparam.NoScopeGunsight == true) )||( (scopemode != 0)&&(sparam.ScopeGunsight == 0) ) ){
-				if( GameConfig.GetAnotherGunsightFlag() ){	//ƒIƒvƒVƒ‡ƒ“Œ^
-					//Æ€‚Ì“§–¾“x
+				if( GameConfig.GetAnotherGunsightFlag() ){	//ã‚ªãƒ—ã‚·ãƒ§ãƒ³å‹
+					//ç…§æº–ã®é€æ˜åº¦
 					float alpha = 1.0f - (float)ErrorRange/40.0f;
 					if( alpha < 0.0f ){ alpha = 0.0f; }
 
@@ -3186,15 +3186,15 @@ void maingame::Render2D()
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2-4 - ErrorRange, GameConfig.GetScreenHeight()/2-4 - ErrorRange/2, GameConfig.GetScreenWidth()/2-4 - ErrorRange, GameConfig.GetScreenHeight()/2+4 + ErrorRange/2, d3dg->GetColorCode(1.0f,0.0f,0.0f,alpha));
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2+4 + ErrorRange, GameConfig.GetScreenHeight()/2-4 - ErrorRange/2, GameConfig.GetScreenWidth()/2+4 + ErrorRange, GameConfig.GetScreenHeight()/2+4 + ErrorRange/2, d3dg->GetColorCode(1.0f,0.0f,0.0f,alpha));
 				}
-				else{										//•W€Œ^
+				else{										//æ¨™æº–å‹
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2-13, GameConfig.GetScreenHeight()/2, GameConfig.GetScreenWidth()/2-3, GameConfig.GetScreenHeight()/2, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2+13, GameConfig.GetScreenHeight()/2, GameConfig.GetScreenWidth()/2+3, GameConfig.GetScreenHeight()/2, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2, GameConfig.GetScreenHeight()/2-13, GameConfig.GetScreenWidth()/2, GameConfig.GetScreenHeight()/2-3, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 					d3dg->Draw2DLine(GameConfig.GetScreenWidth()/2, GameConfig.GetScreenHeight()/2+13, GameConfig.GetScreenWidth()/2, GameConfig.GetScreenHeight()/2+3, d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f));
 
-					stru[0] = 0xBD;		stru[1] = '\0';	//"½"
+					stru[0] = 0xBD;		stru[1] = '\0';	//"ï½½"
 					d3dg->Draw2DTextureFontTextCenter(ErrorRange * -1, GameConfig.GetScreenHeight()/2 - 16, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32);
-					stru[0] = 0xBE;		stru[1] = '\0';	//"¾"
+					stru[0] = 0xBE;		stru[1] = '\0';	//"ï½¾"
 					d3dg->Draw2DTextureFontTextCenter(ErrorRange, GameConfig.GetScreenHeight()/2 - 16, (char*)stru, d3dg->GetColorCode(1.0f,1.0f,1.0f,0.5f), 32, 32); 
 				}
 			}
@@ -3210,7 +3210,7 @@ void maingame::Render2D()
 	}
 
 #ifdef ENABLE_DEBUGCONSOLE
-	//AIƒfƒoƒbƒNî•ñ•\¦
+	//AIãƒ‡ãƒãƒƒã‚¯æƒ…å ±è¡¨ç¤º
 	if( AIdebuginfoID != -1 ){
 		if( (0 <= AIdebuginfoID)&&(AIdebuginfoID < MAX_HUMAN) ){
 			float posx, posy, posz, rx;
@@ -3251,27 +3251,27 @@ void maingame::Render2D()
 
 	//-----------------------------------
 
-	//Zƒoƒbƒtƒ@‚ğ‰Šú‰»
+	//Zãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–
 	d3dg->ResetZbuffer();
 
 
-	//HUD•\¦Eƒ‚[ƒhA
+	//HUDè¡¨ç¤ºãƒ»ãƒ¢ãƒ¼ãƒ‰A
 	if( Camera_F2mode == 0 ){
 		int notselectweapon = selectweapon + 1;
 		if( notselectweapon == TOTAL_HAVEWEAPON ){ notselectweapon = 0; }
 
-		//i3D•`‰æjƒJƒƒ‰À•W‚ğb’èİ’è
+		//ï¼ˆ3Dæç”»ï¼‰ã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’æš«å®šè¨­å®š
 		ScopeParameter sparam;
 		GameParamInfo.GetScopeParam(0, &sparam);
 		d3dg->SetCamera(camera_x, camera_y, camera_z, camera_rx, camera_ry, sparam.ViewAngle);
 
-		//i3D•`‰æjŠ‚µ‚Ä‚¢‚é•Šíƒ‚ƒfƒ‹‚Ì•`‰æEƒƒCƒ“•Ší
+		//ï¼ˆ3Dæç”»ï¼‰æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ãƒ¢ãƒ‡ãƒ«ã®æç”»ãƒ»ãƒ¡ã‚¤ãƒ³æ­¦å™¨
 		GameParamInfo.GetWeapon(weapon_paramid[selectweapon], &weapon_paramdata);
 		Resource.GetWeaponModelTexture(weapon_paramid[selectweapon], &weaponmodel, &weapontexture);
 		d3dg->SetWorldTransformPlayerWeapon(true, camera_rx, camera_ry, DegreeToRadian(framecnt*2), weapon_paramdata.size);
 		d3dg->RenderModel(weaponmodel, weapontexture, false, true, nomodel);
 
-		//i3D•`‰æjŠ‚µ‚Ä‚¢‚é•Šíƒ‚ƒfƒ‹‚Ì•`‰æEƒTƒu•Ší
+		//ï¼ˆ3Dæç”»ï¼‰æ‰€æŒã—ã¦ã„ã‚‹æ­¦å™¨ãƒ¢ãƒ‡ãƒ«ã®æç”»ãƒ»ã‚µãƒ–æ­¦å™¨
 		GameParamInfo.GetWeapon(weapon_paramid[notselectweapon], &weapon_paramdata);
 		Resource.GetWeaponModelTexture(weapon_paramid[notselectweapon], &weaponmodel, &weapontexture);
 		d3dg->SetWorldTransformPlayerWeapon(false, camera_rx, camera_ry, 0.0f, weapon_paramdata.size);
@@ -3294,7 +3294,7 @@ void maingame::Render2D()
 	//-----------------------------------
 
 
-	//ƒXƒ^[ƒg‚ÆI—¹‚Ìƒuƒ‰ƒbƒNƒAƒEƒgİ’è
+	//ã‚¹ã‚¿ãƒ¼ãƒˆæ™‚ã¨çµ‚äº†æ™‚ã®ãƒ–ãƒ©ãƒƒã‚¯ã‚¢ã‚¦ãƒˆè¨­å®š
 	if( start_framecnt < (int)(2.0f*GAMEFPS) ){
 		effect = GetEffectAlpha(start_framecnt, 1.0f, 2.0f, 0.0f, true);
 	}
@@ -3306,7 +3306,7 @@ void maingame::Render2D()
 	}
 	d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), d3dg->GetColorCode(0.0f,0.0f,0.0f,effect));
 
-	//I—¹‚Ì•¶š•\¦
+	//çµ‚äº†æ™‚ã®æ–‡å­—è¡¨ç¤º
 	if( end_framecnt > 0 ){
 		if( end_framecnt < (int)(1.0f*GAMEFPS) ){
 			effect = GetEffectAlpha(end_framecnt, 1.0f, 1.0f, 0.0f, false);
@@ -3330,45 +3330,45 @@ void maingame::Render2D()
 	time_render = GetTimeMS() - time;
 }
 
-//! @brief ƒŒ[ƒ_[‚É•`‰æ‚·‚éÀ•W‚É•ÏŠ·
-//! @param in_x ‹óŠÔ XÀ•W
-//! @param in_y ‹óŠÔ YÀ•W
-//! @param in_z ‹óŠÔ ZÀ•W
-//! @param RadarPosX ƒŒ[ƒ_[‚Ì•`‰æ XÀ•Wi¶ãŠî€j
-//! @param RadarPosY ƒŒ[ƒ_[‚Ì•`‰æ YÀ•Wi¶ãŠî€j
-//! @param RadarSize ƒŒ[ƒ_[‚Ì•`‰æƒTƒCƒY
-//! @param RadarWorldR ƒŒ[ƒ_[‚Éƒ|ƒCƒ“ƒg‚·‚é‹——£
-//! @param out_x 2D XÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param out_y 2D XÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param local_y ƒ[ƒJƒ‹ YÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param check ŒvZ‚ÌÈ—ª
-//! @return ¬Œ÷Ftrue@¸”sFfalse
-//! @attention checkƒtƒ‰ƒO‚ğ—LŒø‚É‚·‚é‚ÆAƒŒ[ƒ_[‚©‚çŠO‚ê‚é‚±‚Æ‚ª–¾‚ç‚©‚É‚È‚Á‚½“_‚ÅŒvZ‚ğI—¹‚µAfalse‚ğ•Ô‚µ‚Ü‚·B
+//! @brief ãƒ¬ãƒ¼ãƒ€ãƒ¼ã«æç”»ã™ã‚‹åº§æ¨™ã«å¤‰æ›
+//! @param in_x ç©ºé–“ Xåº§æ¨™
+//! @param in_y ç©ºé–“ Yåº§æ¨™
+//! @param in_z ç©ºé–“ Zåº§æ¨™
+//! @param RadarPosX ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”» Xåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+//! @param RadarPosY ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”» Yåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+//! @param RadarSize ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”»ã‚µã‚¤ã‚º
+//! @param RadarWorldR ãƒ¬ãƒ¼ãƒ€ãƒ¼ã«ãƒã‚¤ãƒ³ãƒˆã™ã‚‹è·é›¢
+//! @param out_x 2D Xåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param out_y 2D Xåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param local_y ãƒ­ãƒ¼ã‚«ãƒ« Yåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param check è¨ˆç®—ã®çœç•¥
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
+//! @attention checkãƒ•ãƒ©ã‚°ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã¨ã€ãƒ¬ãƒ¼ãƒ€ãƒ¼ã‹ã‚‰å¤–ã‚Œã‚‹ã“ã¨ãŒæ˜ã‚‰ã‹ã«ãªã£ãŸæ™‚ç‚¹ã§è¨ˆç®—ã‚’çµ‚äº†ã—ã€falseã‚’è¿”ã—ã¾ã™ã€‚
 bool maingame::GetRadarPos(float in_x, float in_y, float in_z, int RadarPosX, int RadarPosY, int RadarSize, float RadarWorldR, int *out_x, int *out_y, float *local_y, bool check)
 {
 	bool outf = false;
 	float x, y, z, r, rx;
 	float x2, z2, r2, rx2;
 
-	//ƒJƒƒ‰‚Æ‚Ì‹——£‚ğŒvZ
+	//ã‚«ãƒ¡ãƒ©ã¨ã®è·é›¢ã‚’è¨ˆç®—
 	x = in_x - camera_x;
 	y = in_y - camera_y;
 	z = in_z - camera_z;
 
-	//‹ß‚¯‚ê‚Îˆ—‚·‚é
+	//è¿‘ã‘ã‚Œã°å‡¦ç†ã™ã‚‹
 	if( (check == false) || ((fabsf(x) < RadarWorldR*2)&&(fabsf(z) < RadarWorldR*2)&&(fabsf(y) < 80.0f)) ){
-		//Šp“x‚ğ‹——£‚ğŒvZ
+		//è§’åº¦ã‚’è·é›¢ã‚’è¨ˆç®—
 		rx = atan2f(z, x);
 		r = sqrtf(x*x + z*z);
 
-		//ƒJƒƒ‰Šî€‚ÌÀ•W‚ğÄŒvZ
+		//ã‚«ãƒ¡ãƒ©åŸºæº–ã®åº§æ¨™ã‚’å†è¨ˆç®—
 		rx2 = (rx - camera_rx)*-1 - (float)M_PI/2;
 		x2 = cosf(rx2) * r;
 		z2 = sinf(rx2) * r;
 
-		//û‚Ü‚é‚©”»’è
+		//åã¾ã‚‹ã‹åˆ¤å®š
 		if( (check == false) || ((fabsf(x2) < RadarWorldR)&&(fabsf(z2) < RadarWorldR)) ){
-			//•`‰æÀ•W‚ğŒvZ
+			//æç”»åº§æ¨™ã‚’è¨ˆç®—
 			r2 = r / RadarWorldR * (RadarSize/2);
 			*out_x = (int)(RadarPosX+RadarSize/2 + cosf(rx2) * r2);
 			*out_y = (int)(RadarPosY+RadarSize/2 + sinf(rx2) * r2);
@@ -3380,53 +3380,53 @@ bool maingame::GetRadarPos(float in_x, float in_y, float in_z, int RadarPosX, in
 	return outf;
 }
 
-//! @brief ŠÈˆÕƒŒ[ƒ_[•\¦
+//! @brief ç°¡æ˜“ãƒ¬ãƒ¼ãƒ€ãƒ¼è¡¨ç¤º
 void maingame::RenderRadar()
 {
-	int RadarSize = 200;							//ƒŒ[ƒ_[‚Ì•`‰æƒTƒCƒY
-	int RadarPosX = GameConfig.GetScreenWidth() - RadarSize - 10;	//ƒŒ[ƒ_[‚Ì•`‰æ XÀ•Wi¶ãŠî€j
-	int RadarPosY = 110;							//ƒŒ[ƒ_[‚Ì•`‰æ YÀ•Wi¶ãŠî€j
-	float RadarWorldR = 300.0f;						//ƒŒ[ƒ_[‚Éƒ|ƒCƒ“ƒg‚·‚é‹——£
+	int RadarSize = 200;							//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”»ã‚µã‚¤ã‚º
+	int RadarPosX = GameConfig.GetScreenWidth() - RadarSize - 10;	//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”» Xåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+	int RadarPosY = 110;							//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®æç”» Yåº§æ¨™ï¼ˆå·¦ä¸ŠåŸºæº–ï¼‰
+	float RadarWorldR = 300.0f;						//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã«ãƒã‚¤ãƒ³ãƒˆã™ã‚‹è·é›¢
 
 	float ecr = DISTANCE_CHECKPOINT / RadarWorldR * (RadarSize/2);
 
-	//‰º’n‚ÆˆÍ‚¢
+	//ä¸‹åœ°ã¨å›²ã„
 	d3dg->Draw2DBox(RadarPosX, RadarPosY, RadarPosX+RadarSize, RadarPosY+RadarSize, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.6f));
 	d3dg->Draw2DLine(RadarPosX, RadarPosY, RadarPosX+RadarSize, RadarPosY, d3dg->GetColorCode(0.0f,0.8f,0.0f,1.0f));
 	d3dg->Draw2DLine(RadarPosX+RadarSize, RadarPosY, RadarPosX+RadarSize, RadarPosY+RadarSize, d3dg->GetColorCode(0.0f,0.8f,0.0f,1.0f));
 	d3dg->Draw2DLine(RadarPosX+RadarSize, RadarPosY+RadarSize, RadarPosX, RadarPosY+RadarSize, d3dg->GetColorCode(0.0f,0.8f,0.0f,1.0f));
 	d3dg->Draw2DLine(RadarPosX, RadarPosY+RadarSize, RadarPosX, RadarPosY, d3dg->GetColorCode(0.0f,0.8f,0.0f,1.0f));
 
-	//ƒ}ƒbƒv‚ğ•`‰æ
+	//ãƒãƒƒãƒ—ã‚’æç”»
 	int bs = BlockData.GetTotaldatas();
 	for(int i=0; i< bs; i++){
 		blockdata bdata;
 		int vid[4];
 		int bvx[4], bvy[4];
 
-		//ƒuƒƒbƒN‚Ìƒf[ƒ^‚ğæ“¾
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 		BlockData.Getdata(&bdata, i);
 
-		//•`‰æŒó•â‚ÌƒuƒƒbƒN‚ğŒŸoi‘eí‚èj
+		//æç”»å€™è£œã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¤œå‡ºï¼ˆç²—å‰Šã‚Šï¼‰
 		if( CollD.CheckBlockAABB(i, camera_x-RadarWorldR*2, camera_y-1.0f, camera_z-RadarWorldR*2, camera_x+RadarWorldR*2, camera_y+1.0f, camera_z+RadarWorldR*2) == true ){
 
-			//Še–Ê‚²‚Æ‚Éˆ—‚·‚é
+			//å„é¢ã”ã¨ã«å‡¦ç†ã™ã‚‹
 			for(int j=0; j<6; j++){
-				//“o‚ê‚È‚¢Î–Ê‚©”»’è@¦’n–Ê‚âŠK’i‚È‚Ç‚ÌŒXÎ‚ğœŠO‚·‚é
+				//ç™»ã‚Œãªã„æ–œé¢ã‹åˆ¤å®šã€€â€»åœ°é¢ã‚„éšæ®µãªã©ã®å‚¾æ–œã‚’é™¤å¤–ã™ã‚‹
 				float angle = acosf(bdata.material[j].vy);
 				if( (HUMAN_MAPCOLLISION_SLOPEANGLE < angle)&&(angle < DegreeToRadian(120)) ){
 
-					//ƒuƒƒbƒN’¸“_ƒf[ƒ^‚ÌŠÖ˜A•t‚¯‚ğæ“¾
+					//ãƒ–ãƒ­ãƒƒã‚¯é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é–¢é€£ä»˜ã‘ã‚’å–å¾—
 					blockdataface(j, &(vid[0]), NULL);
 					
-					//4’¸“_‚ğŒvZ
+					//4é ‚ç‚¹ã‚’è¨ˆç®—
 					for(int k=0; k<4; k++){
 						GetRadarPos(bdata.x[ vid[k] ], bdata.y[ vid[k] ], bdata.z[ vid[k] ], RadarPosX, RadarPosY, RadarSize, RadarWorldR, &(bvx[k]), &(bvy[k]), NULL, false);
 					}
 
 					int line_x1, line_y1, line_x2, line_y2;
 
-					//ƒŒ[ƒ_[‚ÌlŠpŒ`‚Éû‚Ü‚é‚æ‚¤‚É•`‰æ‚·‚é
+					//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®å››è§’å½¢ã«åã¾ã‚‹ã‚ˆã†ã«æç”»ã™ã‚‹
 					if( Get2DLineInBox(bvx[0], bvy[0], bvx[1], bvy[1], RadarPosX, RadarPosY, RadarPosX+RadarSize, RadarPosY+RadarSize, &line_x1, &line_y1, &line_x2, &line_y2) == true ){
 						d3dg->Draw2DLine(line_x1, line_y1, line_x2, line_y2, d3dg->GetColorCode(0.8f,0.8f,0.8f,1.0f));
 					}
@@ -3444,7 +3444,7 @@ void maingame::RenderRadar()
 		}
 	}
 
-	//ƒCƒxƒ“ƒg‚Ì“’…ƒ|ƒCƒ“ƒg‚ğ•\¦
+	//ã‚¤ãƒ™ãƒ³ãƒˆã®åˆ°ç€ãƒã‚¤ãƒ³ãƒˆã‚’è¡¨ç¤º
 	if( EventStop == false ){
 		for(int i=0; i<TOTAL_EVENTLINE; i++){
 			signed short int p4 = Event[i].GetNextP4();
@@ -3458,7 +3458,7 @@ void maingame::RenderRadar()
 					data.y += VIEW_HEIGHT;
 
 					if( GetRadarPos(data.x, data.y, data.z, RadarPosX, RadarPosY, RadarSize, RadarWorldR, &x_2d, &y_2d, &y, true) == true ){
-						//‚‚³‚É‚æ‚é“§–¾“x
+						//é«˜ã•ã«ã‚ˆã‚‹é€æ˜åº¦
 						if( (fabsf(y) < 40.0f) ){
 							alpha = 1.0f;
 						}
@@ -3466,7 +3466,7 @@ void maingame::RenderRadar()
 							alpha = 0.5f;
 						}
 
-						//ƒ}[ƒJ[•`‰æ
+						//ãƒãƒ¼ã‚«ãƒ¼æç”»
 						d3dg->Draw2DCycle(x_2d, y_2d, (int)ecr, d3dg->GetColorCode(1.0f,0.5f,0.0f,alpha));
 					}
 				}
@@ -3474,12 +3474,12 @@ void maingame::RenderRadar()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[‚Ìî•ñ‚ğæ“¾
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æƒ…å ±ã‚’å–å¾—
 	int PlayerID = ObjMgr.GetPlayerID();
 	int myteamid;
 	ObjMgr.GetHumanObject(PlayerID)->GetParamData(NULL, NULL, NULL, &myteamid);
 
-	//l‚ğ•`‰æ
+	//äººã‚’æç”»
 	for(int i=0; i<MAX_HUMAN; i++){
 		human* thuman;
 		float tx, ty, tz;
@@ -3489,20 +3489,20 @@ void maingame::RenderRadar()
 		float alpha;
 		int color;
 
-		//l‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾
+		//äººã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—
 		thuman = ObjMgr.GetHumanObject(i);
 
-		//g‚í‚ê‚Ä‚¢‚È‚¢l‚â€‘Ì‚Í–³‹‚·‚é
+		//ä½¿ã‚ã‚Œã¦ã„ãªã„äººã‚„æ­»ä½“ã¯ç„¡è¦–ã™ã‚‹
 		if( thuman->GetEnableFlag() == false ){ continue; }
 		if( thuman->GetDeadFlag() == true ){ continue; }
 
-		//l‚Ìî•ñ‚ğæ“¾
+		//äººã®æƒ…å ±ã‚’å–å¾—
 		thuman->GetPosData(&tx, &ty, &tz, NULL);
 		thuman->GetParamData(NULL, NULL, NULL, &tteamid);
 		ty += VIEW_HEIGHT;
 
 		if( GetRadarPos(tx, ty, tz, RadarPosX, RadarPosY, RadarSize, RadarWorldR, &x_2d, &y_2d, &y, true) == true ){
-			//‚‚³‚É‚æ‚é“§–¾“x
+			//é«˜ã•ã«ã‚ˆã‚‹é€æ˜åº¦
 			if( (fabsf(y) < 40.0f) ){
 				alpha = 1.0f;
 			}
@@ -3510,12 +3510,12 @@ void maingame::RenderRadar()
 				alpha = 0.5f;
 			}
 
-			//ƒ}[ƒJ[‚ÌF‚ğŒˆ’è
-			if( PlayerID == i ){ color = d3dg->GetColorCode(1.0f,1.0f,0.0f,alpha); }				//ƒvƒŒƒCƒ„[©g
-			else if( tteamid == myteamid ){ color = d3dg->GetColorCode(0.0f,0.5f,1.0f,alpha); }	//–¡•û
-			else{ color = d3dg->GetColorCode(1.0f,0.0f,0.5f,alpha); }								//“G
+			//ãƒãƒ¼ã‚«ãƒ¼ã®è‰²ã‚’æ±ºå®š
+			if( PlayerID == i ){ color = d3dg->GetColorCode(1.0f,1.0f,0.0f,alpha); }				//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«
+			else if( tteamid == myteamid ){ color = d3dg->GetColorCode(0.0f,0.5f,1.0f,alpha); }	//å‘³æ–¹
+			else{ color = d3dg->GetColorCode(1.0f,0.0f,0.5f,alpha); }								//æ•µ
 
-			//ƒ}[ƒJ[•`‰æ
+			//ãƒãƒ¼ã‚«ãƒ¼æç”»
 			d3dg->Draw2DBox(x_2d-3, y_2d-3, x_2d+3, y_2d+3, color);
 		}
 	}
@@ -3523,11 +3523,11 @@ void maingame::RenderRadar()
 
 #ifdef ENABLE_DEBUGCONSOLE
 
-//! @brief ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚ÉV‚½‚È•¶š—ñ‚ğ’Ç‰Á
-//! @param color •¶š‚ÌF
-//! @param str ’Ç‰Á‚·‚é•¶š—ñ‚Ìƒ|ƒCƒ“ƒ^
-//! @attention V‚µ‚¢•¶š—ñ‚Íí‚É‰º‚©‚ç’Ç‰Á‚³‚ê‚Ü‚·B
-//! @attention •\¦‰Â”\s”i’è”FMAX_CONSOLELINESj‚ğã‰ñ‚éê‡AÅ‰‚Ìsi1s–Új‚ğíœ‚µ1s‚¸‚Â‚¸‚ç‚µ‚½ã‚ÅAˆê”Ô‰º‚Ìs‚É’Ç‰Á‚µ‚Ü‚·B
+//! @brief ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«æ–°ãŸãªæ–‡å­—åˆ—ã‚’è¿½åŠ 
+//! @param color æ–‡å­—ã®è‰²
+//! @param str è¿½åŠ ã™ã‚‹æ–‡å­—åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+//! @attention æ–°ã—ã„æ–‡å­—åˆ—ã¯å¸¸ã«ä¸‹ã‹ã‚‰è¿½åŠ ã•ã‚Œã¾ã™ã€‚
+//! @attention è¡¨ç¤ºå¯èƒ½è¡Œæ•°ï¼ˆå®šæ•°ï¼šMAX_CONSOLELINESï¼‰ã‚’ä¸Šå›ã‚‹å ´åˆã€æœ€åˆã®è¡Œï¼ˆ1è¡Œç›®ï¼‰ã‚’å‰Šé™¤ã—1è¡Œãšã¤ãšã‚‰ã—ãŸä¸Šã§ã€ä¸€ç•ªä¸‹ã®è¡Œã«è¿½åŠ ã—ã¾ã™ã€‚
 void maingame::AddInfoConsole(int color, const char *str)
 {
 	for(int i=0; i<MAX_CONSOLELINES; i++){
@@ -3545,33 +3545,33 @@ void maingame::AddInfoConsole(int color, const char *str)
 	strcpy(InfoConsoleData[MAX_CONSOLELINES-1].textdata, str);
 }
 
-//! @brief ƒRƒ}ƒ“ƒh‚Ì”»’è‚¨‚æ‚Ñˆø”i®”’lj‚ğæ“¾
-//! @param cmd ”»’è‚·‚éƒRƒ}ƒ“ƒh•¶š‚Ìƒ|ƒCƒ“ƒ^
-//! @param num —^‚¦‚ç‚ê‚½ˆø”‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return æ“¾Ftrue@”»’èŠOFfalse
+//! @brief ã‚³ãƒãƒ³ãƒ‰ã®åˆ¤å®šãŠã‚ˆã³å¼•æ•°ï¼ˆæ•´æ•°å€¤ï¼‰ã‚’å–å¾—
+//! @param cmd åˆ¤å®šã™ã‚‹ã‚³ãƒãƒ³ãƒ‰æ–‡å­—ã®ãƒã‚¤ãƒ³ã‚¿
+//! @param num ä¸ãˆã‚‰ã‚ŒãŸå¼•æ•°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return å–å¾—ï¼štrueã€€åˆ¤å®šå¤–ï¼šfalse
 bool maingame::GetCommandNum(const char *cmd, int *num)
 {
 	if( cmd == NULL ){ return false; }
 	if( num == NULL ){ return false; }
 
-	//ƒRƒ}ƒ“ƒh–¼‚ğ’²‚×‚é
+	//ã‚³ãƒãƒ³ãƒ‰åã‚’èª¿ã¹ã‚‹
 	if( memcmp(NewCommand, cmd, strlen(cmd)) != 0 ){ return false; }
 	if( NewCommand[strlen(cmd)] != ' ' ){ return false; }
 
-	//uƒRƒ}ƒ“ƒh–¼_Xv•ª‚Ì•¶š”‚É’B‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	//ã€Œã‚³ãƒãƒ³ãƒ‰å_Xã€åˆ†ã®æ–‡å­—æ•°ã«é”ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹
 	if( strlen(cmd)+2 > strlen(NewCommand) ){ return false; }
 
-	//”š‚ª—^‚¦‚ç‚ê‚Ä‚¢‚é‚©
+	//æ•°å­—ãŒä¸ãˆã‚‰ã‚Œã¦ã„ã‚‹ã‹
 	for(int i=(int)strlen(cmd)+1; NewCommand[i] != '\0'; i++){
 		if( ((NewCommand[i] < '0')||('9' < NewCommand[i]))&&(NewCommand[i] != '+')&&(NewCommand[i] != '-') ){ return false; }
 	}
 
-	//—^‚¦‚ç‚ê‚½”š‚ğ’²‚×‚é
+	//ä¸ãˆã‚‰ã‚ŒãŸæ•°å­—ã‚’èª¿ã¹ã‚‹
 	*num = atoi(&(NewCommand[ strlen(cmd)+1 ]));
 	return true;
 }
 
-//! @brief ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ì“ü—Íˆ—
+//! @brief ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®å…¥åŠ›å‡¦ç†
 void maingame::InputConsole()
 {
 	char str[MAX_CONSOLELEN];
@@ -3579,7 +3579,7 @@ void maingame::InputConsole()
 
 	if( ConsoleTextBoxControl.ProcessTextBox(inputCtrl) == true ){
 		//[ENTER]
-		//ƒRƒ“ƒ\[ƒ‹‚É’Ç‰Á‚µA–¢ˆ—ƒRƒ}ƒ“ƒh‚Æ‚µ‚Ä“o˜^
+		//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«è¿½åŠ ã—ã€æœªå‡¦ç†ã‚³ãƒãƒ³ãƒ‰ã¨ã—ã¦ç™»éŒ²
 		strcpy(str, CONSOLE_PROMPT);
 		strcat(str, ConsoleTextBoxControl.GetTextBoxStr());
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -3590,13 +3590,13 @@ void maingame::InputConsole()
 	}
 }
 
-//! @brief ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚ÌƒƒCƒ“ˆ—
+//! @brief ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®ãƒ¡ã‚¤ãƒ³å‡¦ç†
 void maingame::ProcessConsole()
 {
 	char str[MAX_CONSOLELEN];
 	int id;
 
-	//ƒRƒ}ƒ“ƒhƒŠƒXƒg
+	//ã‚³ãƒãƒ³ãƒ‰ãƒªã‚¹ãƒˆ
 	if( strcmp(NewCommand, "help") == 0 ){
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "help          human        result          event            skip <NUM>");
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "config        mif          bd1    pd1      resinfo          info");
@@ -3608,7 +3608,7 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "speed         window       ss              clear            ver       exit");
 	}
 
-	//l‚Ì“Œvî•ñ
+	//äººã®çµ±è¨ˆæƒ…å ±
 	if( strcmp(NewCommand, "human") == 0 ){
 		int alivemyfriend = 0;
 		int myfriend = 0;
@@ -3616,7 +3616,7 @@ void maingame::ProcessConsole()
 		int enemy = 0;
 		int myteamid;
 
-		//ƒvƒŒƒCƒ„[‚Ìƒ`[ƒ€”Ô†‚ğæ“¾
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 		ObjMgr.GetPlayerHumanObject()->GetParamData(NULL, NULL, NULL, &myteamid);
 
 		for(int i=0; i<MAX_HUMAN; i++){
@@ -3624,11 +3624,11 @@ void maingame::ProcessConsole()
 			bool deadflag;
 			human *thuman = ObjMgr.GetHumanObject(i);
 			if( thuman->GetEnableFlag() == true ){
-				//€–Só‘Ô‚Æƒ`[ƒ€”Ô†‚ğæ“¾
+				//æ­»äº¡çŠ¶æ…‹ã¨ãƒãƒ¼ãƒ ç•ªå·ã‚’å–å¾—
 				deadflag = thuman->GetDeadFlag();
 				thuman->GetParamData(NULL, NULL, NULL, &teamid);
 
-				//ƒJƒEƒ“ƒg
+				//ã‚«ã‚¦ãƒ³ãƒˆ
 				if( teamid == myteamid ){
 					myfriend += 1;
 					if( deadflag == false ){ alivemyfriend += 1; }
@@ -3645,12 +3645,12 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//b’èƒŠƒUƒ‹ƒg•\¦
+	//æš«å®šãƒªã‚¶ãƒ«ãƒˆè¡¨ç¤º
 	if( strcmp(NewCommand, "result") == 0 ){
 		int intontarget;
 		float rate;
 
-		//–½’†—¦ŒvZ
+		//å‘½ä¸­ç‡è¨ˆç®—
 		intontarget = (int)floor(MainGameInfo.ontarget);
 		if( MainGameInfo.fire == 0 ){
 			rate = 0.0f;
@@ -3665,7 +3665,7 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//ƒCƒxƒ“ƒgƒ^ƒXƒN•\¦
+	//ã‚¤ãƒ™ãƒ³ãƒˆã‚¿ã‚¹ã‚¯è¡¨ç¤º
 	if( strcmp(NewCommand, "event") == 0 ){
 		for(int i=0; i<TOTAL_EVENTLINE; i++){
 			signed short int p4 = Event[i].GetNextP4();
@@ -3680,7 +3680,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒCƒxƒ“ƒgƒ^ƒXƒNƒXƒLƒbƒv
+	//ã‚¤ãƒ™ãƒ³ãƒˆã‚¿ã‚¹ã‚¯ã‚¹ã‚­ãƒƒãƒ—
 	if( GetCommandNum("skip", &id) == true ){
 		if( (0 <= id)&&(id < TOTAL_EVENTLINE) ){
 			signed short int p4 = Event[id].GetNextP4();
@@ -3700,11 +3700,11 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//config‚Ìî•ñ
+	//configã®æƒ…å ±
 	if( strcmp(NewCommand, "config") == 0 ){
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "[Basic Config]");
 
-		//ƒL[ƒR[ƒh•\¦
+		//ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰è¡¨ç¤º
 		char str2[8];
 		char str3[MAX_CONSOLELEN];
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), " Keycode : ");
@@ -3720,11 +3720,11 @@ void maingame::ProcessConsole()
 
 		strcpy(str, " ");
 
-		//ƒ}ƒEƒXŠ´“x
+		//ãƒã‚¦ã‚¹æ„Ÿåº¦
 		sprintf(str3, "MouseSensitivity : %2d           ", GameConfig.GetMouseSensitivity());
 		strcat(str, str3);
 
-		//‰æ–Ê•\¦ƒ‚[ƒh
+		//ç”»é¢è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰
 		if( GameConfig.GetFullscreenFlag() == false ){
 			strcat(str, "FullscreenFlag : false (window)");
 		}
@@ -3732,12 +3732,12 @@ void maingame::ProcessConsole()
 			strcat(str, "FullscreenFlag : true (fullscreen)");
 		}
 
-		//•\¦
+		//è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
 		strcpy(str, " ");
 
-		//Œø‰Ê‰¹İ’è
+		//åŠ¹æœéŸ³è¨­å®š
 		if( GameConfig.GetSoundFlag() == false ){
 			strcat(str, "SoundFlag : false (OFF)         ");
 		}
@@ -3745,7 +3745,7 @@ void maingame::ProcessConsole()
 			strcat(str, "SoundFlag : true (ON)           ");
 		}
 
-		//oŒŒİ’è
+		//å‡ºè¡€è¨­å®š
 		if( GameConfig.GetBloodFlag() == false ){
 			strcat(str, "BloodFlag : false (OFF)");
 		}
@@ -3753,16 +3753,16 @@ void maingame::ProcessConsole()
 			strcat(str, "BloodFlag : true (ON)");
 		}
 
-		//•\¦
+		//è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
 		strcpy(str, " ");
 
-		//‰æ–Ê‚Ì–¾‚é‚³İ’è
+		//ç”»é¢ã®æ˜ã‚‹ã•è¨­å®š
 		sprintf(str3, "Brightness : %2d                 ", GameConfig.GetBrightness());
 		strcat(str, str3);
 
-		//ƒ}ƒEƒX”½“]İ’è
+		//ãƒã‚¦ã‚¹åè»¢è¨­å®š
 		if( GameConfig.GetInvertMouseFlag() == false ){
 			strcat(str, "InvertMouseFlag : false (OFF)");
 		}
@@ -3770,12 +3770,12 @@ void maingame::ProcessConsole()
 			strcat(str, "InvertMouseFlag : true (ON)");
 		}
 
-		//•\¦
+		//è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
 		strcpy(str, " ");
 
-		//ƒtƒŒ[ƒ€ƒXƒLƒbƒvİ’è
+		//ãƒ•ãƒ¬ãƒ¼ãƒ ã‚¹ã‚­ãƒƒãƒ—è¨­å®š
 		if( GameConfig.GetFrameskipFlag() == false ){
 			strcat(str, "FrameskipFlag : false (OFF)     ");
 		}
@@ -3783,7 +3783,7 @@ void maingame::ProcessConsole()
 			strcat(str, "FrameskipFlag : true (ON)       ");
 		}
 
-		//•Ê‚ÌÆ€‚ğg—pİ’è
+		//åˆ¥ã®ç…§æº–ã‚’ä½¿ç”¨è¨­å®š
 		if( GameConfig.GetAnotherGunsightFlag() == false ){
 			strcat(str, "AnotherGunsightFlag : false (OFF)");
 		}
@@ -3791,12 +3791,12 @@ void maingame::ProcessConsole()
 			strcat(str, "AnotherGunsightFlag : true (ON)");
 		}
 
-		//•\¦
+		//è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
 		strcpy(str, " ");
 
-		//ƒvƒŒƒCƒ„[–¼•\¦
+		//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åè¡¨ç¤º
 		char namestr[MAX_PLAYERNAME+1];
 		GameConfig.GetPlayerName(namestr);
 		strcat(str, "PlayerName : ");
@@ -3807,23 +3807,23 @@ void maingame::ProcessConsole()
 
 		strcpy(str, " ");
 
-		//Œ¾Œêİ’è
+		//è¨€èªè¨­å®š
 		sprintf(str3, "Language : %d     ", GameConfig.GetLanguage());
 		strcat(str, str3);
 
-		//‰æ–Ê‰ğ‘œ“x
+		//ç”»é¢è§£åƒåº¦
 		sprintf(str3, "ScreenSize : %dx%d     ", GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight());
 		strcat(str, str3);
 
-		//‰¹—Êİ’è
+		//éŸ³é‡è¨­å®š
 		sprintf(str3, "MasterVolume : %d%%", (int)(GameConfig.GetVolume()*100));
 		strcat(str, str3);
 
-		//•\¦
+		//è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//MIF‚Ìî•ñ•\¦
+	//MIFã®æƒ…å ±è¡¨ç¤º
 	if( strcmp(NewCommand, "mif") == 0 ){
 		bool AddonFlag;
 		int MissionID = GameInfoData.selectmission_id;
@@ -3834,19 +3834,19 @@ void maingame::ProcessConsole()
 		if( GameInfoData.selectmission_id >= 0 ){ AddonFlag = false; }
 		else{ AddonFlag = true; }
 
-		//ƒwƒbƒ_[
+		//ãƒ˜ãƒƒãƒ€ãƒ¼
 		if( AddonFlag == true ){ sprintf(str, "[Addon Mission]   (MissionID:%d)", MissionID); }
 		else{ sprintf(str, "[Standard Mission]   (MissionID:%d)", MissionID); }
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//MIFƒtƒ@ƒCƒ‹ƒpƒX
+		//MIFãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 		strcpy(str, "MIFpath : ");
 		strcpy(str2, GameInfoData.mifpath);
 		str2[(MAX_CONSOLELEN - strlen(str) - 1)] = '\0';
 		strcat(str, str2);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒ~ƒbƒVƒ‡ƒ“¯•Ê–¼
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³è­˜åˆ¥å
 		strcpy(str, "Name : ");
 		if( AddonFlag == true ){ strcpy(str2, MIFdata.GetMissionName()); }
 		else{ GameParamInfo.GetOfficialMission(MissionID, str2, NULL, NULL, NULL, NULL, NULL); }
@@ -3854,7 +3854,7 @@ void maingame::ProcessConsole()
 		strcat(str, str2);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒ~ƒbƒVƒ‡ƒ“³®–¼Ì
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³æ­£å¼åç§°
 		strcpy(str, "FullName : ");
 		if( AddonFlag == true ){ strcpy(str2, MIFdata.GetMissionFullname()); }
 		else{ GameParamInfo.GetOfficialMission(MissionID, NULL, str2, NULL, NULL, NULL, NULL); }
@@ -3862,7 +3862,7 @@ void maingame::ProcessConsole()
 		strcat(str, str2);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒuƒƒbƒNƒf[ƒ^ƒtƒ@ƒCƒ‹
+		//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 		strcpy(str, "BD1file : ");
 		if( AddonFlag == true ){
 			MIFdata.GetDatafilePath(str2, str3);
@@ -3877,7 +3877,7 @@ void maingame::ProcessConsole()
 		}
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒ|ƒCƒ“ƒgƒf[ƒ^ƒtƒ@ƒCƒ‹
+		//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 		strcpy(str, "PD1file : ");
 		if( AddonFlag == true ){
 			MIFdata.GetDatafilePath(str3, str2);
@@ -3893,14 +3893,14 @@ void maingame::ProcessConsole()
 		}
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹
+		//è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«
 		strcpy(str, "AddOBJfile : ");
 		strcpy(str2, MIFdata.GetAddSmallobjectFile());
 		str2[(MAX_CONSOLELEN - strlen(str) - 1)] = '\0';
 		strcat(str, str2);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//Šeİ’è’l‚ÆFlag
+		//å„è¨­å®šå€¤ã¨Flag
 		if( AddonFlag == true ){
 			collisionflag = MIFdata.GetCollisionFlag();
 			screenflag = MIFdata.GetScreenFlag();
@@ -3912,7 +3912,7 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//ƒuƒƒbƒNƒf[ƒ^‚Ìî•ñ
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã®æƒ…å ±
 	if( strcmp(NewCommand, "bd1") == 0 ){
 		bool AddonFlag;
 		int MissionID = GameInfoData.selectmission_id;
@@ -3926,7 +3926,7 @@ void maingame::ProcessConsole()
 		if( GameInfoData.selectmission_id >= 0 ){ AddonFlag = false; }
 		else{ AddonFlag = true; }
 
-		//ƒtƒ@ƒCƒ‹–¼•\¦
+		//ãƒ•ã‚¡ã‚¤ãƒ«åè¡¨ç¤º
 		strcpy(str, "Filename : ");
 		if( AddonFlag == true ){
 			MIFdata.GetDatafilePath(str2, str3);
@@ -3941,30 +3941,30 @@ void maingame::ProcessConsole()
 		}
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//‡ŒvƒuƒƒbƒN”•\¦
+		//åˆè¨ˆãƒ–ãƒ­ãƒƒã‚¯æ•°è¡¨ç¤º
 		sprintf(str, "TotalBlocks : %d", BlockData.GetTotaldatas());
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒ}ƒbƒvƒeƒNƒXƒ`ƒƒ‚Ì“Ç‚İ‚İó‹µ•\¦
+		//ãƒãƒƒãƒ—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®èª­ã¿è¾¼ã¿çŠ¶æ³è¡¨ç¤º
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Texture : ");
 		for(int i=0; i<(TOTAL_BLOCKTEXTURE/2); i++){
-			//ƒeƒNƒXƒ`ƒƒID‚ğæ“¾
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£IDã‚’å–å¾—
 			BlockData.GetTexture(fname1, i);
 			BlockData.GetTexture(fname2, i + (TOTAL_BLOCKTEXTURE/2));
 			
-			//ƒeƒNƒXƒ`ƒƒ‚ª“Ç‚İ‚Ü‚ê‚Ä‚¢‚é‚©”»’è
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹ã‹åˆ¤å®š
 			if( d3dg->GetMapTextureID(i) == -1 ){ strcpy(flagstr1, "NG"); }
 			else{ strcpy(flagstr1, "OK"); }
 			if( d3dg->GetMapTextureID(i + (TOTAL_BLOCKTEXTURE/2)) == -1 ){ strcpy(flagstr2, "NG"); }
 			else{ strcpy(flagstr2, "OK"); }
 
-			//•\¦
+			//è¡¨ç¤º
 			sprintf(str, " %02d_%s %-31s %02d_%s %s", i, flagstr1, fname1, i + (TOTAL_BLOCKTEXTURE/2), flagstr2, fname2);
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 		}
 	}
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^‚Ìî•ñ
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã®æƒ…å ±
 	if( strcmp(NewCommand, "pd1") == 0 ){
 		bool AddonFlag;
 		int MissionID = GameInfoData.selectmission_id;
@@ -3990,7 +3990,7 @@ void maingame::ProcessConsole()
 		if( GameInfoData.selectmission_id >= 0 ){ AddonFlag = false; }
 		else{ AddonFlag = true; }
 
-		//ƒtƒ@ƒCƒ‹–¼•\¦
+		//ãƒ•ã‚¡ã‚¤ãƒ«åè¡¨ç¤º
 		strcpy(str, "Filename : ");
 		if( AddonFlag == true ){
 			MIFdata.GetDatafilePath(str3, str2);
@@ -4006,11 +4006,11 @@ void maingame::ProcessConsole()
 		}
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//‡Œvƒ|ƒCƒ“ƒg”•\¦
+		//åˆè¨ˆãƒã‚¤ãƒ³ãƒˆæ•°è¡¨ç¤º
 		sprintf(str, "TotalPoints : %d", TotalPoints);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//Šeíƒ|ƒCƒ“ƒg”‚ğ”‚¦‚Ä•\¦
+		//å„ç¨®ãƒã‚¤ãƒ³ãƒˆæ•°ã‚’æ•°ãˆã¦è¡¨ç¤º
 		for(int i=0; i<TotalPoints; i++){
 			if( PointData.Getdata(&pdata, i) != 0 ){ continue; }
 
@@ -4026,36 +4026,36 @@ void maingame::ProcessConsole()
 		sprintf(str, "HumaninfoPoints : %-3d   AIpathPoints : %-3d    EventPoints : %-3d", HumaninfoPoints, PathPoints, EventPoints);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//–³Œø‚Èƒ|ƒCƒ“ƒg”‚ğ‹tZ‚Å‹‚ß‚é
+		//ç„¡åŠ¹ãªãƒã‚¤ãƒ³ãƒˆæ•°ã‚’é€†ç®—ã§æ±‚ã‚ã‚‹
 		sprintf(str, "InvalidPoints : %d", TotalPoints - (HumanPoints + WeaponPoints + OjectPoints + HumaninfoPoints + PathPoints + EventPoints));
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//l‚ÌƒeƒNƒXƒ`ƒƒ”‚ğæ“¾
+		//äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£æ•°ã‚’å–å¾—
 		sprintf(str, "HumanTextures : %d/%d", Resource.GetHumanTextures(), MAX_LOADHUMANTEXTURE);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//lî•ñƒeƒNƒXƒ`ƒƒ[‚Ì“Ç‚İ‚İó‹µ•\¦
+		//äººæƒ…å ±ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®èª­ã¿è¾¼ã¿çŠ¶æ³è¡¨ç¤º
 		for(int i=0; i<(MAX_LOADHUMANTEXTURE/2); i++){
-			//ƒeƒNƒXƒ`ƒƒID‚ğæ“¾
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£IDã‚’å–å¾—
 			Resource.GetHumanTextureInfo(i, &info_paramid1, &info_textureid1);
 			Resource.GetHumanTextureInfo(i + (MAX_LOADHUMANTEXTURE/2), &info_paramid2, &info_textureid2);
 
 			if( GameParamInfo.GetHumanTexturePath(info_paramid1, fname1) == 1 ){ strcpy(fname1, ""); }
 			if( GameParamInfo.GetHumanTexturePath(info_paramid2, fname2) == 1 ){ strcpy(fname2, ""); }
 
-			//ƒeƒNƒXƒ`ƒƒ‚ª“Ç‚İ‚Ü‚ê‚Ä‚¢‚é‚©”»’è
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹ã‹åˆ¤å®š
 			if( info_textureid1 == -1 ){ strcpy(flagstr1, "NG"); }
 			else{ strcpy(flagstr1, "OK"); }
 			if( info_textureid2 == -1 ){ strcpy(flagstr2, "NG"); }
 			else{ strcpy(flagstr2, "OK"); }
 
-			//•\¦
+			//è¡¨ç¤º
 			sprintf(str, " %02d_%s %-31s %02d_%s %s", i, flagstr1, fname1, i + (MAX_LOADHUMANTEXTURE/2), flagstr2, fname2);
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 		}
 	}
 
-	//ƒŠƒ\[ƒXî•ñ•\¦
+	//ãƒªã‚½ãƒ¼ã‚¹æƒ…å ±è¡¨ç¤º
 	if( strcmp(NewCommand, "resinfo") == 0 ){
 		int human = 0;
 		int weapon = 0;
@@ -4064,22 +4064,22 @@ void maingame::ProcessConsole()
 		int grenade = 0;
 		int effect = 0;
 
-		//ƒOƒ‰ƒtƒBƒbƒN
+		//ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "[Graphics]");
 		sprintf(str, " model : %2d/%2d        texture : %2d/%2d", d3dg->GetTotalModels(), MAX_MODEL, d3dg->GetTotalTextures(), MAX_TEXTURE);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒTƒEƒ“ƒh
+		//ã‚µã‚¦ãƒ³ãƒ‰
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "[Sound]");
 		sprintf(str, " sound : %2d/%2d", SoundCtrl.GetTotalSounds(), MAX_LOADSOUND);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒf[ƒ^ƒtƒ@ƒCƒ‹
+		//ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "[Datafile]");
 		sprintf(str, " blocks : %3d/%3d     points : %3d/%3d", BlockData.GetTotaldatas(), MAX_BLOCKS, PointData.GetTotaldatas(), MAX_POINTS);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 
-		//ƒIƒuƒWƒFƒNƒg”
+		//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°
 		ObjMgr.GetTotalObjects(&human, &weapon, &smallobject, &bullet, &grenade, &effect);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "[Object]");
 		sprintf(str, " human : %3d/%3d      weapon : %3d/%3d      smallobject : %2d/%2d", human, MAX_HUMAN, weapon, MAX_WEAPON, smallobject, MAX_SMALLOBJECT);
@@ -4090,7 +4090,7 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//ƒfƒoƒbƒN—p•¶š‚Ì•\¦
+	//ãƒ‡ãƒãƒƒã‚¯ç”¨æ–‡å­—ã®è¡¨ç¤º
 	if( strcmp(NewCommand, "info") == 0 ){
 		if( ShowInfo_Debugmode == false ){
 			ShowInfo_Debugmode = true;
@@ -4102,7 +4102,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒtƒŠ[ƒJƒƒ‰Ø‚è‘Ö‚¦
+	//ãƒ•ãƒªãƒ¼ã‚«ãƒ¡ãƒ©åˆ‡ã‚Šæ›¿ãˆ
 	if( strcmp(NewCommand, "view") == 0 ){
 		if( Camera_Debugmode == false ){
 			Camera_Debugmode = true;
@@ -4113,7 +4113,7 @@ void maingame::ProcessConsole()
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Change PlayerView mode.");
 		}
 
-		//ƒfƒoƒbƒNƒ‚[ƒhŠJn‚ÌƒJƒƒ‰İ’è
+		//ãƒ‡ãƒãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰é–‹å§‹æ™‚ã®ã‚«ãƒ¡ãƒ©è¨­å®š
 		if( Camera_Debugmode == true ){
 			camera_x = 100.0f;
 			camera_y = 100.0f;
@@ -4123,7 +4123,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//3D‚Ì’†Sü•\¦
+	//3Dã®ä¸­å¿ƒç·šè¡¨ç¤º
 	if( strcmp(NewCommand, "center") == 0 ){
 		if( CenterLine == false ){
 			CenterLine = true;
@@ -4135,7 +4135,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒ}ƒbƒv‚ğƒƒCƒ„[ƒtƒŒ[ƒ€‰»
+	//ãƒãƒƒãƒ—ã‚’ãƒ¯ã‚¤ãƒ¤ãƒ¼ãƒ•ãƒ¬ãƒ¼ãƒ åŒ–
 	if( strcmp(NewCommand, "map") == 0 ){
 		if( wireframe == false ){
 			wireframe = true;
@@ -4147,7 +4147,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒ‚ƒfƒ‹•`‰æƒtƒ‰ƒOØ‚è‘Ö‚¦
+	//ãƒ¢ãƒ‡ãƒ«æç”»ãƒ•ãƒ©ã‚°åˆ‡ã‚Šæ›¿ãˆ
 	if( strcmp(NewCommand, "model") == 0 ){
 		if( nomodel == false ){
 			nomodel = true;
@@ -4159,16 +4159,16 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//AIî•ñ•\¦
+	//AIæƒ…å ±è¡¨ç¤º
 	if( GetCommandNum("aiinfo", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN) ){
 			if( AIdebuginfoID == id ){
-				//“¯‚¶”Ô†‚ªw’è‚³‚ê‚½‚ç‚È‚çA–³Œø‰»
+				//åŒã˜ç•ªå·ãŒæŒ‡å®šã•ã‚ŒãŸã‚‰ãªã‚‰ã€ç„¡åŠ¹åŒ–
 				AIdebuginfoID = -1;
 				AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Disable AI Debug information.");
 			}
 			else{
-				//V‚½‚Él‚ğw’è
+				//æ–°ãŸã«äººã‚’æŒ‡å®š
 				AIdebuginfoID = id;
 				sprintf(str, "Enable AI Debug information. Human[%d].", id);
 				AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -4177,13 +4177,13 @@ void maingame::ProcessConsole()
 	}
 	else if( strcmp(NewCommand, "aiinfo") == 0 ){
 		if( AIdebuginfoID != -1 ){
-			//l‚ªw’è‚³‚ê‚Ä‚¢‚½‚çA–³Œø‰»
+			//äººãŒæŒ‡å®šã•ã‚Œã¦ã„ãŸã‚‰ã€ç„¡åŠ¹åŒ–
 			AIdebuginfoID = -1;
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Disable AI Debug information.");
 		}
 	}
 
-	//ƒIƒuƒWƒFƒNƒg‚Ìƒ^ƒO‚ğ•\¦
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¿ã‚°ã‚’è¡¨ç¤º
 	if( strcmp(NewCommand, "tag") == 0 ){
 		if( tag == false ){
 			tag = true;
@@ -4195,7 +4195,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒŒ[ƒ_[‚ğ•`‰æ
+	//ãƒ¬ãƒ¼ãƒ€ãƒ¼ã‚’æç”»
 	if( strcmp(NewCommand, "radar") == 0 ){
 		if( radar == false ){
 			radar = true;
@@ -4207,7 +4207,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//–Ú‰B‚µ‚ğ•`‰æ
+	//ç›®éš ã—ã‚’æç”»
 	if( strcmp(NewCommand, "inmap") == 0 ){
 		if( Camera_Blind == false ){
 			Camera_Blind = true;
@@ -4219,12 +4219,12 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//”wŒi‹ó‚Ì•ÏX
+	//èƒŒæ™¯ç©ºã®å¤‰æ›´
 	if( GetCommandNum("sky", &id) == true ){
 		if( (0 <= id)&&(id <= 5) ){
 			SkyNumber = id;
 
-			//ƒŠƒ\[ƒXÄ\’z
+			//ãƒªã‚½ãƒ¼ã‚¹å†æ§‹ç¯‰
 			Resource.CleanupSkyModelTexture();
 			Resource.LoadSkyModelTexture(SkyNumber);
 
@@ -4233,13 +4233,13 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//‰æ–Ê‚ğˆÃ‚­
+	//ç”»é¢ã‚’æš—ã
 	if( strcmp(NewCommand, "dark") == 0 ){
 		char path[MAX_PATH];
 		char bdata[MAX_PATH];
 		char pdata[MAX_PATH];
 
-		//ƒtƒ‰ƒOØ‚è‘Ö‚¦
+		//ãƒ•ãƒ©ã‚°åˆ‡ã‚Šæ›¿ãˆ
 		if( DarkScreenFlag == false ){
 			DarkScreenFlag = true;
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Enable DarkScreen Flag.");
@@ -4249,7 +4249,7 @@ void maingame::ProcessConsole()
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Disable DarkScreen Flag.");
 		}
 
-		//.bd1‚Ìƒtƒ@ƒCƒ‹ƒpƒX‚ğ‹‚ß‚é
+		//.bd1ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’æ±‚ã‚ã‚‹
 		if( MIFdata.GetFiletype() == false ){
 			GameParamInfo.GetOfficialMission(MainGameInfo.selectmission_id, NULL, NULL, path, NULL, NULL, NULL);
 		}
@@ -4258,15 +4258,15 @@ void maingame::ProcessConsole()
 			GetFileDirectory(bdata, path);
 		}
 
-		//ƒuƒƒbƒNƒf[ƒ^‰Šú‰»
+		//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿åˆæœŸåŒ–
 		BlockData.CalculationBlockdata(DarkScreenFlag);
 		d3dg->CleanupMapdata();
 		d3dg->LoadMapdata(&BlockData, path);
 	}
 
-	//ƒtƒHƒOØ‚è‘Ö‚¦
+	//ãƒ•ã‚©ã‚°åˆ‡ã‚Šæ›¿ãˆ
 	if( strcmp(NewCommand, "fog") == 0 ){
-		//ƒtƒ‰ƒOØ‚è‘Ö‚¦
+		//ãƒ•ãƒ©ã‚°åˆ‡ã‚Šæ›¿ãˆ
 		if( FogFlag == false ){
 			FogFlag = true;
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Enable Fog Flag.");
@@ -4277,16 +4277,16 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[ˆÚ“®
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç§»å‹•
 	if( GetCommandNum("teleport", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN)&&(id != ObjMgr.GetPlayerID()) ){
 			float x, y, z, rx;
 			human *thuman = ObjMgr.GetHumanObject(id);
 
-			//ƒ^[ƒQƒbƒg‚ÌÀ•Wæ“¾
+			//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®åº§æ¨™å–å¾—
 			thuman->GetPosData(&x, &y, &z, NULL);
 
-			//ƒvƒŒƒCƒ„[ˆÚ“®
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç§»å‹•
 			ObjMgr.GetPlayerHumanObject()->GetPosData(NULL, NULL ,NULL, &rx);
 			ObjMgr.GetPlayerHumanObject()->SetPosData(x + 5.0f, y + 5.0f, z + 5.0f, rx);
 
@@ -4295,16 +4295,16 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[Ø‚è‘Ö‚¦
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼åˆ‡ã‚Šæ›¿ãˆ
 	if( GetCommandNum("player", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN)&&(id != ObjMgr.GetPlayerID()) ){
-			//‘ÎÛƒvƒŒƒCƒ„[”Ô†‚ğ“K—p
+			//å¯¾è±¡ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç•ªå·ã‚’é©ç”¨
 			ObjMgr.SetPlayerID(id);
 
-			//ƒvƒŒƒCƒ„[‚ÌŒü‚«‚ğæ“¾
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‘ãã‚’å–å¾—
 			ObjMgr.GetPlayerHumanObject()->GetRxRy(&mouse_rx, &mouse_ry);
 
-			//F1ƒ‚[ƒh‚ÉƒJƒƒ‰‚ÌŒü‚«‚ğÄİ’è
+			//F1ãƒ¢ãƒ¼ãƒ‰æ™‚ã«ã‚«ãƒ¡ãƒ©ã®å‘ãã‚’å†è¨­å®š
 			if( Camera_F1mode == true ){
 				camera_rx = DegreeToRadian(90);
 			}
@@ -4314,7 +4314,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//‘S‚Ä‚Ì€Ò‚ğ‘h¶‚·‚é
+	//å…¨ã¦ã®æ­»è€…ã‚’è˜‡ç”Ÿã™ã‚‹
 	if( strcmp(NewCommand, "revive") == 0 ){
 		for(int i=0; i<MAX_HUMAN; i++){
 			ObjMgr.HumanResuscitation(i);
@@ -4322,19 +4322,19 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "All human has resuscitation.");
 	}
 
-	//‰ñ•œ‚·‚é
+	//å›å¾©ã™ã‚‹
 	if( GetCommandNum("treat", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN) ){
 			int param, hp;
 			HumanParameter data;
 			human *thuman = ObjMgr.GetHumanObject(id);
 			
-			//‰Šú‚ÌHP‚ğæ“¾
+			//åˆæœŸæ™‚ã®HPã‚’å–å¾—
 			thuman->GetParamData(&param, NULL, NULL, NULL);
 			GameParamInfo.GetHuman(param, &data);
 			hp = data.hp;
 
-			//‰ñ•œ
+			//å›å¾©
 			if( thuman->SetHP(hp) == true ){
 				sprintf(str, "Set the HP:%d to Human[%d].", data.hp, id);
 				AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -4342,25 +4342,25 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//–³“G‰»
+	//ç„¡æ•µåŒ–
 	if( GetCommandNum("nodamage", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN) ){
 			if( InvincibleID == id ){
-				//“¯‚¶”Ô†‚ªw’è‚³‚ê‚½‚ç‚È‚çA–³Œø‰»
+				//åŒã˜ç•ªå·ãŒæŒ‡å®šã•ã‚ŒãŸã‚‰ãªã‚‰ã€ç„¡åŠ¹åŒ–
 				InvincibleID = -1;
 				ObjMgr.GetHumanObject(id)->SetInvincibleFlag(false);
 				sprintf(str, "Not invincible Human[%d].", id);
 				AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 			}
 			else{
-				//Šù‚É’N‚©‚ªw’è‚³‚ê‚Ä‚¢‚½‚çAŠù‚Éw’è‚³‚ê‚Ä‚¢‚él‚ğ–³Œø‰»
+				//æ—¢ã«èª°ã‹ãŒæŒ‡å®šã•ã‚Œã¦ã„ãŸã‚‰ã€æ—¢ã«æŒ‡å®šã•ã‚Œã¦ã„ã‚‹äººã‚’ç„¡åŠ¹åŒ–
 				if( InvincibleID != -1 ){
 					ObjMgr.GetHumanObject(InvincibleID)->SetInvincibleFlag(false);
 					sprintf(str, "Not invincible Human[%d].", InvincibleID);
 					AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 				}
 
-				//V‚½‚É–³“Gó‘Ô‚Ìl‚ğw’è
+				//æ–°ãŸã«ç„¡æ•µçŠ¶æ…‹ã®äººã‚’æŒ‡å®š
 				InvincibleID = id;
 				ObjMgr.GetHumanObject(id)->SetInvincibleFlag(true);
 				sprintf(str, "Invincible Human[%d].", id);
@@ -4370,7 +4370,7 @@ void maingame::ProcessConsole()
 	}
 	else if( strcmp(NewCommand, "nodamage") == 0 ){
 		if( InvincibleID != -1 ){
-			//l‚ªw’è‚³‚ê‚Ä‚¢‚½‚çA–³Œø‰»
+			//äººãŒæŒ‡å®šã•ã‚Œã¦ã„ãŸã‚‰ã€ç„¡åŠ¹åŒ–
 			ObjMgr.GetHumanObject(InvincibleID)->SetInvincibleFlag(false);
 			sprintf(str, "Not invincible Human[%d].", InvincibleID);
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -4378,7 +4378,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//EŠQ
+	//æ®ºå®³
 	if( GetCommandNum("kill", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN) ){
 			human *thuman = ObjMgr.GetHumanObject(id);
@@ -4391,7 +4391,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//¬•¨‚ğV‹K”z’u
+	//å°ç‰©ã‚’æ–°è¦é…ç½®
 	if( GetCommandNum("newobj", &id) == true ){
 		if( (0 <= id)&&(id < TOTAL_PARAMETERINFO_SMALLOBJECT) ){
 			int dataid = ObjMgr.AddSmallObjectIndex(camera_x + cosf(camera_rx)*20.0f, camera_y, camera_z + sinf(camera_rx)*20.0f, camera_rx*-1, id, true);
@@ -4402,7 +4402,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//¬•¨‚ğ”j‰ó
+	//å°ç‰©ã‚’ç ´å£Š
 	if( GetCommandNum("break", &id) == true ){
 		if( (0 <= id)&&(id < MAX_SMALLOBJECT) ){
 			smallobject *tsmallobject = ObjMgr.GetSmallObject(id);
@@ -4414,13 +4414,13 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//l‚ğíœ
+	//äººã‚’å‰Šé™¤
 	if( GetCommandNum("delhuman", &id) == true ){
 		if( (0 <= id)&&(id < MAX_HUMAN) ){
 			human *thuman = ObjMgr.GetHumanObject(id);
 			if( thuman->GetEnableFlag() == true ){
 
-				//l‚ª‚Á‚Ä‚¢‚é•Ší‚à‚·‚×‚Ä–³Œø‚É‚·‚é
+				//äººãŒæŒã£ã¦ã„ã‚‹æ­¦å™¨ã‚‚ã™ã¹ã¦ç„¡åŠ¹ã«ã™ã‚‹
 				int dummy;
 				class weapon *weaponlist[TOTAL_HAVEWEAPON];
 				int lnbs[TOTAL_HAVEWEAPON];
@@ -4443,13 +4443,13 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//•Ší‚ğíœ
+	//æ­¦å™¨ã‚’å‰Šé™¤
 	if( GetCommandNum("delweapon", &id) == true ){
 		if( (0 <= id)&&(id < MAX_WEAPON) ){
 			weapon *tweapon = ObjMgr.GetWeaponObject(id);
 			if( tweapon->GetEnableFlag() == true ){
 				
-				//l‚ª‚»‚Ì•Ší‚ğ‚Á‚Ä‚¢‚é‚È‚çAŠÖ˜A•t‚¯‚ğŠO‚·iÌ‚Ä‚³‚¹‚éj
+				//äººãŒãã®æ­¦å™¨ã‚’æŒã£ã¦ã„ã‚‹ãªã‚‰ã€é–¢é€£ä»˜ã‘ã‚’å¤–ã™ï¼ˆæ¨ã¦ã•ã›ã‚‹ï¼‰
 				int dummy;
 				class weapon *weaponlist[TOTAL_HAVEWEAPON];
 				int lnbs[TOTAL_HAVEWEAPON];
@@ -4474,7 +4474,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//¬•¨‚ğíœ
+	//å°ç‰©ã‚’å‰Šé™¤
 	if( GetCommandNum("delobj", &id) == true ){
 		if( (0 <= id)&&(id < MAX_SMALLOBJECT) ){
 			smallobject *tsmallobject = ObjMgr.GetSmallObject(id);
@@ -4486,9 +4486,9 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//FFi“¯m“¢‚¿j—LŒø‰»
+	//FFï¼ˆåŒå£«è¨ã¡ï¼‰æœ‰åŠ¹åŒ–
 	if( strcmp(NewCommand, "ff") == 0 ){
-		if( ObjMgr.GetFriendlyFireFlag(0) == false ){	//‚Æ‚è‚ ‚¦‚¸ No.0 ‚Å”»’è
+		if( ObjMgr.GetFriendlyFireFlag(0) == false ){	//ã¨ã‚Šã‚ãˆãš No.0 ã§åˆ¤å®š
 			for(int i=0; i<MAX_HUMAN; i++){
 				ObjMgr.SetFriendlyFireFlag(i, true);
 			}
@@ -4502,7 +4502,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒvƒŒƒCƒ„[‘€ì‚ğAI‰»
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œã‚’AIåŒ–
 	if( strcmp(NewCommand, "bot") == 0 ){
 		if( PlayerAI == false ){
 			PlayerAI = true;
@@ -4514,7 +4514,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//AI‚ğ”ñí“¬‰»‚³‚¹‚é
+	//AIã‚’éæˆ¦é—˜åŒ–ã•ã›ã‚‹
 	if( strcmp(NewCommand, "nofight") == 0 ){
 		if( AINoFight == false ){
 			AINoFight = true;
@@ -4532,7 +4532,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//AI‚ğŒx‰ú‚³‚¹‚é
+	//AIã‚’è­¦æˆ’ã•ã›ã‚‹
 	if( strcmp(NewCommand, "caution") == 0 ){
 		for(int i=0; i<MAX_HUMAN; i++){
 			HumanAI[i].SetCautionMode();
@@ -4540,17 +4540,17 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Set cautious AI.");
 	}
 
-	//AIƒŒƒxƒ‹İ’è
+	//AIãƒ¬ãƒ™ãƒ«è¨­å®š
 	if( GetCommandNum("ailevel", &id) == true ){
 		if( id == -1 ){
-			//AIƒŒƒxƒ‹‚ğƒfƒtƒHƒ‹ƒg’l‚Ö–ß‚·
+			//AIãƒ¬ãƒ™ãƒ«ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã¸æˆ»ã™
 			for(int i=0; i<MAX_HUMAN; i++){
 				HumanAI[i].SetAIlevel(-1);
 			}
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Set all human AI-level to default.");
 		}
 		if( (0 <= id)&&(id < TOTAL_PARAMETERINFO_AILEVEL) ){
-			//AIƒŒƒxƒ‹‚ğw’è’l‚Öã‘‚«
+			//AIãƒ¬ãƒ™ãƒ«ã‚’æŒ‡å®šå€¤ã¸ä¸Šæ›¸ã
 			for(int i=0; i<MAX_HUMAN; i++){
 				HumanAI[i].SetAIlevel(id);
 			}
@@ -4559,14 +4559,14 @@ void maingame::ProcessConsole()
 		}
 	}
 	else if( strcmp(NewCommand, "ailevel") == 0 ){
-		//AIƒŒƒxƒ‹‚ğƒfƒtƒHƒ‹ƒg’l‚Ö–ß‚·
+		//AIãƒ¬ãƒ™ãƒ«ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã¸æˆ»ã™
 		for(int i=0; i<MAX_HUMAN; i++){
 			HumanAI[i].SetAIlevel(-1);
 		}
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Set all human AI-level to default.");
 	}
 
-	//AI‚Ìˆ—‚ğ’â~
+	//AIã®å‡¦ç†ã‚’åœæ­¢
 	if( strcmp(NewCommand, "stop") == 0 ){
 		if( AIstop == false ){
 			AIstop = true;
@@ -4579,14 +4579,14 @@ void maingame::ProcessConsole()
 	}
 
 	/*
-	//ƒ~ƒbƒVƒ‡ƒ“’B¬
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³é”æˆ
 	if( strcmp(NewCommand, "comp") == 0 ){
 		end_framecnt += 1;
 		MainGameInfo.missioncomplete = true;
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Mission complete.");
 	}
 
-	//ƒ~ƒbƒVƒ‡ƒ“¸”s
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³å¤±æ•—
 	if( strcmp(NewCommand, "fail") == 0 ){
 		end_framecnt += 1;
 		MainGameInfo.missioncomplete = false;
@@ -4594,7 +4594,7 @@ void maingame::ProcessConsole()
 	}
 	*/
 
-	//ƒCƒxƒ“ƒgƒ|ƒCƒ“ƒg‚Ìˆ—‚ğ’â~
+	//ã‚¤ãƒ™ãƒ³ãƒˆãƒã‚¤ãƒ³ãƒˆã®å‡¦ç†ã‚’åœæ­¢
 	if( strcmp(NewCommand, "estop") == 0 ){
 		if( EventStop == false ){
 			EventStop = true;
@@ -4606,7 +4606,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒo[ƒWƒ‡ƒ“î•ñæ“¾
+	//ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±å–å¾—
 	if( strcmp(NewCommand, "ver") == 0 ){
 		sprintf(str, "%s   Version:%s", GAMENAME, GAMEVERSION);
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -4618,7 +4618,7 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//ƒQ[ƒ€‚ÌÀs‘¬“x
+	//ã‚²ãƒ¼ãƒ ã®å®Ÿè¡Œé€Ÿåº¦
 	if( strcmp(NewCommand, "speed") == 0 ){
 		if( GameSpeed == 1 ){ GameSpeed = 2; }
 		else if( GameSpeed == 2 ){ GameSpeed = 4; }
@@ -4628,9 +4628,9 @@ void maingame::ProcessConsole()
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
 	}
 
-	//ƒEƒBƒ“ƒhƒEEƒtƒ‹ƒXƒNƒŠ[ƒ“Ø‚è‘Ö‚¦
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ»ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
 	if( strcmp(NewCommand, "window") == 0 ){
-		//Œ»İ‚Ì•\¦ƒ‚[ƒhæ“¾
+		//ç¾åœ¨ã®è¡¨ç¤ºãƒ¢ãƒ¼ãƒ‰å–å¾—
 		bool flag = d3dg->GetFullScreenFlag();
 
 		if( flag == false ){ flag = true; }
@@ -4649,16 +4649,16 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg‚ğB‰e
-	//@¦ƒRƒ“ƒ\[ƒ‹‰æ–Ê‚ğíœ‚·‚é‚½‚ßAB‰e‚ğ2ƒtƒŒ[ƒ€’x‚ç‚¹‚éB
+	//ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’®å½±
+	//ã€€â€»ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ç”»é¢ã‚’å‰Šé™¤ã™ã‚‹ãŸã‚ã€æ’®å½±ã‚’2ãƒ•ãƒ¬ãƒ¼ãƒ é…ã‚‰ã›ã‚‹ã€‚
 	if( ScreenShot == 3 ){
 		char fname[256];
 
-		//ƒtƒ@ƒCƒ‹–¼‚ğŒˆ’è
+		//ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æ±ºå®š
 		GetTimeName(fname);
 		strcat(fname, ".bmp");
 
-		//B‰eE•Û‘¶
+		//æ’®å½±ãƒ»ä¿å­˜
 		if( d3dg->SaveScreenShot(fname) == true ){
 			sprintf(str, "Saved Screenshot  (File:%s)", fname);
 			AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), str);
@@ -4675,7 +4675,7 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒRƒ“ƒ\[ƒ‹‚ğƒNƒŠƒA
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’ã‚¯ãƒªã‚¢
 	if( strcmp(NewCommand, "clear") == 0 ){
 		for(int i=0; i<MAX_CONSOLELINES; i++){
 			InfoConsoleData[i].color = d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f);
@@ -4683,14 +4683,14 @@ void maingame::ProcessConsole()
 		}
 	}
 
-	//ƒRƒ“ƒ\[ƒ‹‚ğ•Â‚¶‚é
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’é–‰ã˜ã‚‹
 	if( strcmp(NewCommand, "exit") == 0 ){
 		AddInfoConsole(d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), "Closed debug console.");
 		Show_Console = false;
 	}
 
 #ifdef _DEBUG
-	//ƒŠƒZƒbƒg‘€ì
+	//ãƒªã‚»ãƒƒãƒˆæ“ä½œ
 	if( strcmp(NewCommand, "f12") == 0 ){
 		GameState->PushF12Key();
 		GameSpeed = 1;
@@ -4703,13 +4703,13 @@ void maingame::ProcessConsole()
 	}
 }
 
-//! @brief ƒfƒoƒbƒN—pƒRƒ“ƒ\[ƒ‹‚Ì•\¦ˆ—
+//! @brief ãƒ‡ãƒãƒƒã‚¯ç”¨ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã®è¡¨ç¤ºå‡¦ç†
 void maingame::RenderConsole()
 {
-	//‰º’n
+	//ä¸‹åœ°
 	d3dg->Draw2DBox(0, 0, GameConfig.GetScreenWidth(), (MAX_CONSOLELINES+1)*17 + 5 + 5, d3dg->GetColorCode(0.0f,0.0f,0.0f,0.75f));
 
-	//•\¦’†‚Ì•¶š
+	//è¡¨ç¤ºä¸­ã®æ–‡å­—
 	for(int i=0; i<MAX_CONSOLELINES; i++){
 		if( InfoConsoleData[i].textdata[0] != NULL ){
 			d3dg->Draw2DTextureDebugFontText(5+1, i*17+5+1, InfoConsoleData[i].textdata, d3dg->GetColorCode(0.0f,0.0f,0.0f,1.0f));
@@ -4717,7 +4717,7 @@ void maingame::RenderConsole()
 		}
 	}
 
-	//“ü—Í’†‚Ì•¶š
+	//å…¥åŠ›ä¸­ã®æ–‡å­—
 	int cnt;
 	char str[MAX_CONSOLELEN];
 	for(cnt=0; cnt<MAX_CONSOLELINES; cnt++){
@@ -4733,22 +4733,22 @@ void maingame::RenderConsole()
 
 void maingame::Destroy()
 {
-	//ƒuƒƒbƒNƒf[ƒ^‰ğ•ú
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿è§£æ”¾
 	d3dg->CleanupMapdata();
 
-	//ƒIƒuƒWƒFƒNƒgƒ}ƒl[ƒWƒƒ[‰ğ•ú
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼è§£æ”¾
 	ObjMgr.Cleanup();
 
-	//’Ç‰Á¬•¨‚ğ‰ğ•ú
+	//è¿½åŠ å°ç‰©ã‚’è§£æ”¾
 	for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 		Resource.CleanupAddSmallObject(i);
 	}
 
-	//”wŒi‹ó‰ğ•ú
+	//èƒŒæ™¯ç©ºè§£æ”¾
 	Resource.CleanupSkyModelTexture();
 
 #ifdef ENABLE_DEBUGCONSOLE
-	//ƒRƒ“ƒ\[ƒ‹—pƒf[ƒ^‚ğ‰ğ•ú
+	//ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ç”¨ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ”¾
 	if( InfoConsoleData != NULL ){ delete [] InfoConsoleData; }
 	ConsoleTextBoxControl.DestroyTextBox();
 #endif
@@ -4756,15 +4756,15 @@ void maingame::Destroy()
 	GameState->NextState();
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 result::result()
 {}
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 result::~result()
 {}
 
-//! @brief ƒŠƒUƒ‹ƒg‰æ–Ê‚Ì2D•`‰æ•”•ª
+//! @brief ãƒªã‚¶ãƒ«ãƒˆç”»é¢ã®2Dæç”»éƒ¨åˆ†
 void result::Render2D()
 {
 	char mname[64];
@@ -4773,7 +4773,7 @@ void result::Render2D()
 	int intontarget;
 	float rate;
 
-	//–½’†—¦ŒvZ
+	//å‘½ä¸­ç‡è¨ˆç®—
 	intontarget = (int)floor(GameInfoData.ontarget);
 	if( GameInfoData.fire == 0 ){
 		rate = 0.0f;
@@ -4782,12 +4782,12 @@ void result::Render2D()
 		rate = (float)intontarget / GameInfoData.fire * 100;
 	}
 
-	//ƒƒ‚F”wŒi‰æ‘œ‚Ì•`‰æ‚ÍA©“®“I‚És‚í‚ê‚éB
+	//ãƒ¡ãƒ¢ï¼šèƒŒæ™¯ç”»åƒã®æç”»ã¯ã€è‡ªå‹•çš„ã«è¡Œã‚ã‚Œã‚‹ã€‚
 
-	//ŒÅ’è•¶š•\¦
+	//å›ºå®šæ–‡å­—è¡¨ç¤º
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 40, "RESULT", d3dg->GetColorCode(1.0f,0.0f,1.0f,effectA), 50, 42);
 
-	//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾‚µ•\¦
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—ã—è¡¨ç¤º
 	if( MIFdata.GetFiletype() == false ){
 		GameParamInfo.GetOfficialMission(GameInfoData.selectmission_id, NULL, mname, NULL, NULL, NULL, NULL);
 	}
@@ -4796,7 +4796,7 @@ void result::Render2D()
 	}
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 100, mname, d3dg->GetColorCode(0.5f,0.5f,1.0f,1.0f), 18, 25);
 
-	//ƒ~ƒbƒVƒ‡ƒ“ƒNƒŠƒA[‚Ì—L–³
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚¯ãƒªã‚¢ãƒ¼ã®æœ‰ç„¡
 	if( GameInfoData.missioncomplete == true ){
 		d3dg->Draw2DTextureFontTextCenterScaling(0, 150, "mission successful", d3dg->GetColorCode(0.0f,1.0f,0.0f,1.0f), 24, 32);
 	}
@@ -4804,7 +4804,7 @@ void result::Render2D()
 		d3dg->Draw2DTextureFontTextCenterScaling(0, 150, "mission failure", d3dg->GetColorCode(1.0f,0.0f,0.0f,1.0f), 24, 32);
 	}
 
-	//Œ‹‰Ê•\¦
+	//çµæœè¡¨ç¤º
 	sprintf(str, "Time  %dmin %dsec", GameInfoData.framecnt/(int)GAMEFPS/60, GameInfoData.framecnt/(int)GAMEFPS%60);
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 210, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 20, 32);
 	sprintf(str, "Rounds fired  %d", GameInfoData.fire);
@@ -4817,7 +4817,7 @@ void result::Render2D()
 	d3dg->Draw2DTextureFontTextCenterScaling(0, 410, str, d3dg->GetColorCode(1.0f,1.0f,1.0f,1.0f), 20, 32);
 }
 
-//! @brief screen”h¶ƒNƒ‰ƒX‚Ì‰Šú‰»iƒNƒ‰ƒX‚Ìİ’èj
+//! @brief screenæ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã®åˆæœŸåŒ–ï¼ˆã‚¯ãƒ©ã‚¹ã®è¨­å®šï¼‰
 void InitScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMenu, briefing *Briefing, maingame *MainGame, result *Result)
 {
 	if( WindowCtrl == NULL ){ return; }
@@ -4834,7 +4834,7 @@ void InitScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMenu,
 	Result->SetClass(&GameState, WindowCtrl, &d3dg, &inputCtrl);
 }
 
-//! @brief screen”h¶ƒNƒ‰ƒX‚ÌÀs
+//! @brief screenæ´¾ç”Ÿã‚¯ãƒ©ã‚¹ã®å®Ÿè¡Œ
 void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMenu, briefing *Briefing, maingame *MainGame, result *Result, unsigned int framecnt)
 {
 	if( WindowCtrl == NULL ){ return; }
@@ -4847,7 +4847,7 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 	int error;
 
 	switch(GameState.GetState()){
-		//ƒI[ƒvƒjƒ“ƒO‰Šú‰»
+		//ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°åˆæœŸåŒ–
 		case STATE_CREATE_OPENING:
 			error = Opening->Create();
 			if( error != 0 ){
@@ -4862,7 +4862,7 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 			}
 			break;
 
-		//ƒI[ƒvƒjƒ“ƒOÀs
+		//ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å®Ÿè¡Œ
 		case STATE_NOW_OPENING:
 			Opening->Input();
 			Opening->Process();
@@ -4872,25 +4872,25 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 					int ReturnCode;
 					ReturnCode = ResetGame(WindowCtrl);
 					if( ReturnCode == 2 ){
-						WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+						WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 						WindowCtrl->CloseWindow();
 					}
 					else if( ReturnCode == 0 ){
 						Opening->Recovery();
 
-						//Œ»İ‚Ì‰æ–Ê‚ğÄƒXƒ^[ƒg‚³‚¹‚é
+						//ç¾åœ¨ã®ç”»é¢ã‚’å†ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 						//GameState.PushF12Key();
 					}
 				}
 			}
 			break;
 
-		//ƒI[ƒvƒjƒ“ƒO”pŠü
+		//ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°å»ƒæ£„
 		case STATE_DESTROY_OPENING:
 			Opening->Destroy();
 			break;
 
-		//ƒƒjƒ…[‰Šú‰»
+		//ãƒ¡ãƒ‹ãƒ¥ãƒ¼åˆæœŸåŒ–
 		case STATE_CREATE_MENU:
 			error = MainMenu->Create();
 			if( error != 0 ){
@@ -4904,7 +4904,7 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 			}
 			break;
 
-		//ƒƒjƒ…[Às
+		//ãƒ¡ãƒ‹ãƒ¥ãƒ¼å®Ÿè¡Œ
 		case STATE_NOW_MENU:
 			MainMenu->Input();
 			MainMenu->Process();
@@ -4914,25 +4914,25 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 					int ReturnCode;
 					ReturnCode = ResetGame(WindowCtrl);
 					if( ReturnCode == 2 ){
-						WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+						WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 						WindowCtrl->CloseWindow();
 					}
 					else if( ReturnCode == 0 ){
 						MainMenu->Recovery();
 
-						//Œ»İ‚Ì‰æ–Ê‚ğÄƒXƒ^[ƒg‚³‚¹‚é
+						//ç¾åœ¨ã®ç”»é¢ã‚’å†ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 						//GameState.PushF12Key();
 					}
 				}
 			}
 			break;
 
-		//ƒƒjƒ…[”pŠü
+		//ãƒ¡ãƒ‹ãƒ¥ãƒ¼å»ƒæ£„
 		case STATE_DESTROY_MENU:
 			MainMenu->Destroy();
 			break;
 
-		//ƒuƒŠ[ƒtƒBƒ“ƒO‰Šú‰»
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°åˆæœŸåŒ–
 		case STATE_CREATE_BRIEFING:
 			error = Briefing->Create();
 			if( error == 1 ){
@@ -4941,7 +4941,7 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 			}
 			break;
 
-		//ƒuƒŠ[ƒtƒBƒ“ƒOÀs
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°å®Ÿè¡Œ
 		case STATE_NOW_BRIEFING:
 			Briefing->Input();
 			Briefing->Process();
@@ -4950,25 +4950,25 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 					int ReturnCode;
 					ReturnCode = ResetGame(WindowCtrl);
 					if( ReturnCode == 2 ){
-						WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+						WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 						WindowCtrl->CloseWindow();
 					}
 					else if( ReturnCode == 0 ){
 						Briefing->Recovery();
 
-						//Œ»İ‚Ì‰æ–Ê‚ğÄƒXƒ^[ƒg‚³‚¹‚é
+						//ç¾åœ¨ã®ç”»é¢ã‚’å†ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 						//GameState.PushF12Key();
 					}
 				}
 			}
 			break;
 
-		//ƒuƒŠ[ƒtƒBƒ“ƒO”pŠü
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°å»ƒæ£„
 		case STATE_DESTROY_BRIEFING:
 			Briefing->Destroy();
 			break;
 
-		//ƒƒCƒ“ƒQ[ƒ€‰Šú‰»
+		//ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ åˆæœŸåŒ–
 		case STATE_CREATE_MAINGAME:
 			error = MainGame->Create();
 			if( error != 0 ){
@@ -4982,7 +4982,7 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 			}
 			break;
 
-		//ƒƒCƒ“ƒQ[ƒ€Às
+		//ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ å®Ÿè¡Œ
 		case STATE_NOW_MAINGAME:
 			for(int i=0; i<MainGame->GetGameSpeed(); i++){
 				MainGame->Input();
@@ -4994,30 +4994,30 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 					int ReturnCode;
 					ReturnCode = ResetGame(WindowCtrl);
 					if( ReturnCode == 2 ){
-						WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+						WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 						WindowCtrl->CloseWindow();
 					}
 					else if( ReturnCode == 0 ){
 						MainGame->Recovery();
 
-						//Œ»İ‚Ì‰æ–Ê‚ğÄƒXƒ^[ƒg‚³‚¹‚é
+						//ç¾åœ¨ã®ç”»é¢ã‚’å†ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 						//GameState.PushF12Key();
 					}
 				}
 			}
 			break;
 
-		//ƒƒCƒ“ƒQ[ƒ€”pŠü
+		//ãƒ¡ã‚¤ãƒ³ã‚²ãƒ¼ãƒ å»ƒæ£„
 		case STATE_DESTROY_MAINGAME:
 			MainGame->Destroy();
 			break;
 
-		//ƒŠƒUƒ‹ƒg‰Šú‰»
+		//ãƒªã‚¶ãƒ«ãƒˆåˆæœŸåŒ–
 		case STATE_CREATE_RESULT:
 			error = Result->Create();
 			break;
 
-		//ƒŠƒUƒ‹ƒgÀs
+		//ãƒªã‚¶ãƒ«ãƒˆå®Ÿè¡Œ
 		case STATE_NOW_RESULT:
 			Result->Input();
 			Result->Process();
@@ -5026,25 +5026,25 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 					int ReturnCode;
 					ReturnCode = ResetGame(WindowCtrl);
 					if( ReturnCode == 2 ){
-						WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+						WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 						WindowCtrl->CloseWindow();
 					}
 					else if( ReturnCode == 0 ){
 						Result->Recovery();
 
-						//Œ»İ‚Ì‰æ–Ê‚ğÄƒXƒ^[ƒg‚³‚¹‚é
+						//ç¾åœ¨ã®ç”»é¢ã‚’å†ã‚¹ã‚¿ãƒ¼ãƒˆã•ã›ã‚‹
 						//GameState.PushF12Key();
 					}
 				}
 			}
 			break;
 
-		//ƒŠƒUƒ‹ƒg”pŠü
+		//ãƒªã‚¶ãƒ«ãƒˆå»ƒæ£„
 		case STATE_DESTROY_RESULT:
 			Result->Destroy();
 			break;
 
-		//ƒQ[ƒ€I—¹
+		//ã‚²ãƒ¼ãƒ çµ‚äº†
 		case STATE_EXIT:
 			WindowCtrl->CloseWindow();
 			break;
@@ -5054,8 +5054,8 @@ void ProcessScreen(WindowControl *WindowCtrl, opening *Opening, mainmenu *MainMe
 	}
 }
 
-//! @brief ƒEƒBƒ“ƒhƒEEƒtƒ‹ƒXƒNƒŠ[ƒ“Ø‚è‘Ö‚¦
-//! @return ¬Œ÷F0@¸”siƒQ[ƒ€‘±sjF1@¸”siƒQ[ƒ€I—¹jF2
+//! @brief ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ»ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³åˆ‡ã‚Šæ›¿ãˆ
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼ˆã‚²ãƒ¼ãƒ ç¶šè¡Œï¼‰ï¼š1ã€€å¤±æ•—ï¼ˆã‚²ãƒ¼ãƒ çµ‚äº†ï¼‰ï¼š2
 int ChangeWindowMode(WindowControl *WindowCtrl, D3DGraphics *d3dg, InputControl *inputCtrl, scene *RecoveryScene, bool fullscreen)
 {
 	if( WindowCtrl == NULL ){ return 2; }
@@ -5066,27 +5066,27 @@ int ChangeWindowMode(WindowControl *WindowCtrl, D3DGraphics *d3dg, InputControl 
 	int returncode = 0;
 	bool ErrorFlag = false;
 
-	//Ø‚è‘Ö‚¦ˆ—i‰‰ñj
+	//åˆ‡ã‚Šæ›¿ãˆå‡¦ç†ï¼ˆåˆå›ï¼‰
 	WindowCtrl->ChangeWindowMode(fullscreen);
 	d3dg->SetFullScreenFlag(fullscreen);
 	if( ResetGame(WindowCtrl) != 0 ){
 		if( fullscreen == false ){
-			//ƒtƒ‹ƒXƒNƒŠ[ƒ“ËƒEƒBƒ“ƒhƒE‚ª¸”s‚µ‚½‚çAƒGƒ‰[‚Æ‚µ‚ÄI—¹B
-			WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+			//ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³â‡’ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒå¤±æ•—ã—ãŸã‚‰ã€ã‚¨ãƒ©ãƒ¼ã¨ã—ã¦çµ‚äº†ã€‚
+			WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 			WindowCtrl->CloseWindow();
 			ErrorFlag = true;
 			returncode = 2;
 		}
 		else{
-			//ƒEƒBƒ“ƒhƒEËƒtƒ‹ƒXƒNƒŠ[ƒ“‚ª¸”s‚µ‚½‚çAƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Ö–ß‚µ‚ÄƒQ[ƒ€‘±s‚ğ‚İ‚éB
-			//@iGPU‚ªw’è‰ğ‘œ“x‚Ìƒtƒ‹ƒXƒNƒŠ[ƒ“‚É‘Î‰‚µ‚Ä‚È‚¢‚Æ‚©EEHj
+			//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦â‡’ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ãŒå¤±æ•—ã—ãŸã‚‰ã€ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã¸æˆ»ã—ã¦ã‚²ãƒ¼ãƒ ç¶šè¡Œã‚’è©¦ã¿ã‚‹ã€‚
+			//ã€€ï¼ˆGPUãŒæŒ‡å®šè§£åƒåº¦ã®ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã«å¯¾å¿œã—ã¦ãªã„ã¨ã‹ãƒ»ãƒ»ï¼Ÿï¼‰
 			fullscreen = false;
 
 			WindowCtrl->ChangeWindowMode(fullscreen);
 			d3dg->SetFullScreenFlag(fullscreen);
 			if( ResetGame(WindowCtrl) != 0 ){
-				//–ß‚µ‚Ä‚à¸”s‚·‚é‚È‚çAƒGƒ‰[‚Æ‚µ‚ÄI—¹B
-				WindowCtrl->ErrorInfo("Reset‚É¸”s‚µ‚Ü‚µ‚½");
+				//æˆ»ã—ã¦ã‚‚å¤±æ•—ã™ã‚‹ãªã‚‰ã€ã‚¨ãƒ©ãƒ¼ã¨ã—ã¦çµ‚äº†ã€‚
+				WindowCtrl->ErrorInfo("Resetã«å¤±æ•—ã—ã¾ã—ãŸ");
 				WindowCtrl->CloseWindow();
 				ErrorFlag = true;
 				returncode = 2;
@@ -5097,12 +5097,12 @@ int ChangeWindowMode(WindowControl *WindowCtrl, D3DGraphics *d3dg, InputControl 
 		}
 	}
 
-	//Ø‚è‘Ö‚¦‚É¬Œ÷‚µ‚½‚çA‰ñ•œ‚È‚Ç‚ÌŒãˆ—B
+	//åˆ‡ã‚Šæ›¿ãˆã«æˆåŠŸã—ãŸã‚‰ã€å›å¾©ãªã©ã®å¾Œå‡¦ç†ã€‚
 	if( ErrorFlag == false ){
 		RecoveryScene->Recovery();
 
-		//ƒL[“ü—Í‚ğæ“¾
-		//@¦ƒfƒBƒXƒvƒŒƒC‰ğ‘œ“x‚Ì•Ï‰»‚É‚æ‚éƒ}ƒEƒX‚ÌˆÚ“®•ª‚ğÌ‚Ä‚é
+		//ã‚­ãƒ¼å…¥åŠ›ã‚’å–å¾—
+		//ã€€â€»ãƒ‡ã‚£ã‚¹ãƒ—ãƒ¬ã‚¤è§£åƒåº¦ã®å¤‰åŒ–ã«ã‚ˆã‚‹ãƒã‚¦ã‚¹ã®ç§»å‹•åˆ†ã‚’æ¨ã¦ã‚‹
 		inputCtrl->GetInputState(true);
 		inputCtrl->MoveMouseCenter();
 	}

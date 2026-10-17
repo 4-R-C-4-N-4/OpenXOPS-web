@@ -1,5 +1,5 @@
 //! @file gui-object.h
-//! @brief gui-objectŠÖ˜AƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief gui-objecté–¢é€£ã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -37,31 +37,31 @@
 #endif
 #include "main.h"
 
-#define MAX_INPUTBOXLEN 127				//!< “ü—Íƒ{ƒbƒNƒX•¶š—ñ‰Šú‰»‚ÌÅ‘å•¶š”
+#define MAX_INPUTBOXLEN 127				//!< å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹æ–‡å­—åˆ—åˆæœŸåŒ–æ™‚ã®æœ€å¤§æ–‡å­—æ•°
 
-//! @brief ƒXƒNƒ[ƒ‹ƒo[‚ÌŠÇ—•`‰æƒNƒ‰ƒX
-//! @details ƒXƒNƒ[ƒ‹ƒo[‚Ìˆ—‚â•`‰æ‚ğs‚¢‚Ü‚·B
-//! @attention c/Y²•ûŒü‚ÌƒXƒNƒ[ƒ‹‚µ‚©‘z’è‚µ‚Ä‚¢‚Ü‚¹‚ñB
+//! @brief ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®ç®¡ç†æç”»ã‚¯ãƒ©ã‚¹
+//! @details ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ãƒãƒ¼ã®å‡¦ç†ã‚„æç”»ã‚’è¡Œã„ã¾ã™ã€‚
+//! @attention ç¸¦/Yè»¸æ–¹å‘ã®ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ã‹æƒ³å®šã—ã¦ã„ã¾ã›ã‚“ã€‚
 class ScrollbarObject
 {
-	int pos_x;				//!< xÀ•W
-	int pos_y;				//!< yÀ•W
-	int width;				//!< •
-	int height;				//!< ‚‚³
-	int totalitems;			//!< ‡ŒvƒAƒCƒeƒ€”
-	int showtems;			//!< •\¦‚·‚éƒAƒCƒeƒ€”
-	int scrollitem;			//!< ƒXƒNƒ[ƒ‹‚µ‚½ƒAƒCƒeƒ€”
-	float knob_height;		//!< ƒmƒu‚Ì‚‚³
-	float knob_scale;		//!< ƒmƒu‚Ì–Ú·
-	int knob_y;				//!< ƒmƒu‚ÌYÀ•W
-	int mouse_mode;			//!< ƒ}ƒEƒX‚É‚æ‚é‘I‘ğó‹µ
-	int color_body;			//!< –{‘Ì‚ÌF
-	int color1_default;		//!< ’Êí‚ÌFiŠO‘¤j
-	int color2_default;		//!< ’Êí‚ÌFi“à‘¤j
-	int color1_cursor;		//!< ƒJ[ƒ\ƒ‹‘I‘ğ‚ÌFiŠO‘¤j
-	int color2_cursor;		//!< ƒJ[ƒ\ƒ‹‘I‘ğ‚ÌFi“à‘¤j
-	int color1_select;		//!< ƒNƒŠƒbƒN‚ÌFiŠO‘¤j
-	int color2_select;		//!< ƒNƒŠƒbƒN‚ÌFi“à‘¤j
+	int pos_x;				//!< xåº§æ¨™
+	int pos_y;				//!< yåº§æ¨™
+	int width;				//!< å¹…
+	int height;				//!< é«˜ã•
+	int totalitems;			//!< åˆè¨ˆã‚¢ã‚¤ãƒ†ãƒ æ•°
+	int showtems;			//!< è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ æ•°
+	int scrollitem;			//!< ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã—ãŸã‚¢ã‚¤ãƒ†ãƒ æ•°
+	float knob_height;		//!< ãƒãƒ–ã®é«˜ã•
+	float knob_scale;		//!< ãƒãƒ–ã®ç›®ç››
+	int knob_y;				//!< ãƒãƒ–ã®Yåº§æ¨™
+	int mouse_mode;			//!< ãƒã‚¦ã‚¹ã«ã‚ˆã‚‹é¸æŠçŠ¶æ³
+	int color_body;			//!< æœ¬ä½“ã®è‰²
+	int color1_default;		//!< é€šå¸¸æ™‚ã®è‰²ï¼ˆå¤–å´ï¼‰
+	int color2_default;		//!< é€šå¸¸æ™‚ã®è‰²ï¼ˆå†…å´ï¼‰
+	int color1_cursor;		//!< ã‚«ãƒ¼ã‚½ãƒ«é¸æŠæ™‚ã®è‰²ï¼ˆå¤–å´ï¼‰
+	int color2_cursor;		//!< ã‚«ãƒ¼ã‚½ãƒ«é¸æŠæ™‚ã®è‰²ï¼ˆå†…å´ï¼‰
+	int color1_select;		//!< ã‚¯ãƒªãƒƒã‚¯æ™‚ã®è‰²ï¼ˆå¤–å´ï¼‰
+	int color2_select;		//!< ã‚¯ãƒªãƒƒã‚¯æ™‚ã®è‰²ï¼ˆå†…å´ï¼‰
 
 public:
 	ScrollbarObject();
@@ -77,14 +77,14 @@ public:
 	void Draw(class D3DGraphics *d3dg);
 };
 
-//! @brief “ü—Íƒ{ƒbƒNƒX‚Ì•¶šŠÇ—ƒNƒ‰ƒX
-//! @details “ü—Íƒ{ƒbƒNƒX‚Ì•¶š“ü—Í‚ğŠÇ—‚µ‚Ü‚·B
-//! @attention •`‰æ‹@”\‚ÍŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñB
+//! @brief å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹ã®æ–‡å­—ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹ã®æ–‡å­—å…¥åŠ›ã‚’ç®¡ç†ã—ã¾ã™ã€‚
+//! @attention æç”»æ©Ÿèƒ½ã¯å«ã¾ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
 class TextBoxObject
 {
-	int mode;							//!< “ü—Íƒ‚[ƒh
-	char inputstr[MAX_INPUTBOXLEN+1];	//!< “ü—Íƒ{ƒbƒNƒX‚Ì•¶š—ñ
-	int maxlen;							//!< “ü—Íƒ{ƒbƒNƒX‚ÌÅ‘å•¶š”
+	int mode;							//!< å…¥åŠ›ãƒ¢ãƒ¼ãƒ‰
+	char inputstr[MAX_INPUTBOXLEN+1];	//!< å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹ã®æ–‡å­—åˆ—
+	int maxlen;							//!< å…¥åŠ›ãƒœãƒƒã‚¯ã‚¹ã®æœ€å¤§æ–‡å­—æ•°
 
 	void InputChar(char inchar);
 	void DeleteChar();

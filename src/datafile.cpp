@@ -1,5 +1,5 @@
 //! @file datafile.cpp
-//! @brief ƒf[ƒ^ŠÇ—ƒNƒ‰ƒX‚Ì’è‹`
+//! @brief ãƒ‡ãƒ¼ã‚¿ç®¡ç†ã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,22 +31,26 @@
 
 #include "datafile.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+#ifndef _WIN32
+ #include <dirent.h>	//[OpenXOPS-web] opendir()/readdir() for AddonList::GetMIFlist()
+#endif
+
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DataInterface::DataInterface()
 {
 	datas = 0;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 DataInterface::~DataInterface()
 {}
 
-//! @brief ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int DataInterface::LoadFiledata(const char *fname)
 {
-	//–¢g—pˆø”‘Îô
+	//æœªä½¿ç”¨å¼•æ•°å¯¾ç­–
 	UNREFERENCED_PARAMETER(fname);
 
 	if( fname == NULL ){ return 1; }
@@ -54,53 +58,53 @@ int DataInterface::LoadFiledata(const char *fname)
 	return 0;
 }
 
-//! @brief ‡Œvƒf[ƒ^”‚Ìæ“¾
-//! @return ‡Œvƒf[ƒ^”
+//! @brief åˆè¨ˆãƒ‡ãƒ¼ã‚¿æ•°ã®å–å¾—
+//! @return åˆè¨ˆãƒ‡ãƒ¼ã‚¿æ•°
 int DataInterface::GetTotaldatas()
 {
 	return datas;
 }
 
-//! @brief ƒf[ƒ^‚ğæ“¾
-//! @param out_data ó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param id ƒf[ƒ^”Ô†
-//! @return ¬Œ÷F0@¸”sF0ˆÈŠO
+//! @brief ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+//! @param out_data å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š0ä»¥å¤–
 int DataInterface::Getdata(void *out_data, int id)
 {
-	//–¢g—pˆø”‘Îô
+	//æœªä½¿ç”¨å¼•æ•°å¯¾ç­–
 	UNREFERENCED_PARAMETER(out_data);
 	UNREFERENCED_PARAMETER(id);
 
 	return 0;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 BlockDataInterface::BlockDataInterface()
 {
-	//blockdata\‘¢‘Ì‰Šú‰»
+	//blockdataæ§‹é€ ä½“åˆæœŸåŒ–
 	data = new blockdata[MAX_BLOCKS];
 
-	//ƒeƒNƒXƒ`ƒƒİ’è‰Šú‰»
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£è¨­å®šåˆæœŸåŒ–
 	for(int i=0; i<TOTAL_BLOCKTEXTURE; i++){
 		strcpy(texture[i], "");
 	}
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 BlockDataInterface::~BlockDataInterface()
 {
-	//blockdata\‘¢‘Ì‰ğ•ú
+	//blockdataæ§‹é€ ä½“è§£æ”¾
 	if( data != NULL ){ delete [] data; }
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	//OutputLog.WriteLog(LOG_CLEANUP, "BD1", "");
 #endif
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int BlockDataInterface::LoadFiledata(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -111,46 +115,46 @@ int BlockDataInterface::LoadFiledata(const char *fname)
 	char bdata_mainb[30];
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "BD1", fname);
 #endif
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 	fp = fopen(fname, "rb");
 	if( fp == NULL ){ return 1; }
 
-	//ƒeƒNƒXƒ`ƒƒ‚ğæ“¾
+	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–å¾—
 	for(int i=0; i<TOTAL_BLOCKTEXTURE; i++){
 		fread(texture[i], 1, 31, fp );
 	}
 
-	//ƒf[ƒ^”‚ğæ“¾
+	//ãƒ‡ãƒ¼ã‚¿æ•°ã‚’å–å¾—
 	fread( bdata_header, 1, 2, fp );
 	datas = (int)Get2ByteLittleEndian(&(bdata_header[0]));
 	if( datas > MAX_BLOCKS ){ datas = MAX_BLOCKS; }
 
-	//ƒuƒƒbƒNƒf[ƒ^”•ªæ“¾
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿æ•°åˆ†å–å¾—
 	for(int i=0; i<datas; i++){
-		//ƒuƒƒbƒN‚Ì‚ğ’¸“_î•ñ‚Æ–Êî•ñ‚ğæ“¾
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚’é ‚ç‚¹æƒ…å ±ã¨é¢æƒ…å ±ã‚’å–å¾—
 		fread( bdata_main, 4, 24+48, fp );
 		fread( bdata_mainb, 1, 28, fp );
 
-		//ƒf[ƒ^”Ô†‚ğİ’è
+		//ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’è¨­å®š
 		data[i].id = i;
 
-		//ƒuƒƒbƒN‚Ì’¸“_î•ñ‚Éİ’è
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®é ‚ç‚¹æƒ…å ±ã«è¨­å®š
 		for(int j=0; j<8; j++){
 			data[i].x[j] = bdata_main[j];
 			data[i].y[j] = bdata_main[j+8];
 			data[i].z[j] = bdata_main[j+16];
 		}
 
-		//ƒuƒƒbƒN‚Ì–Êî•ñ‚ğİ’è
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®é¢æƒ…å ±ã‚’è¨­å®š
 		for(int j=0; j<6; j++){
 			data[i].material[j].textureID = (int)bdata_mainb[j*4];
 			data[i].material[j].u[0] = bdata_main[j*4+24];
@@ -164,20 +168,20 @@ int BlockDataInterface::LoadFiledata(const char *fname)
 		}
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ‰ğ•ú
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’è§£æ”¾
 	fclose( fp );
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 
 	return 0;
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^‚Ì–@üE‰e‚ğZo‚·‚é
-//! @param darkflag ƒuƒƒbƒN‚ğˆÃ‚­‚·‚é
-//! @attention LoadBlockdata()ŠÖ”‚Å“Ç‚İ‚±‚ñ‚¾ŒãAˆê“x‚¾‚¯ÀsB
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã®æ³•ç·šãƒ»å½±ã‚’ç®—å‡ºã™ã‚‹
+//! @param darkflag ãƒ–ãƒ­ãƒƒã‚¯ã‚’æš—ãã™ã‚‹
+//! @attention LoadBlockdata()é–¢æ•°ã§èª­ã¿ã“ã‚“ã å¾Œã€ä¸€åº¦ã ã‘å®Ÿè¡Œã€‚
 void BlockDataInterface::CalculationBlockdata(bool darkflag)
 {
 	int vID[4];
@@ -191,24 +195,24 @@ void BlockDataInterface::CalculationBlockdata(bool darkflag)
 	float lx, ly, lz;
 	float rx, ry, rz, a;
 
-	//ŒõŒ¹‚ÌŠp“x‚ğİ’è
+	//å…‰æºã®è§’åº¦ã‚’è¨­å®š
 	lx = cosf(LIGHT_RX);
 	ly = sinf(LIGHT_RY);
 	lz = sinf(LIGHT_RX);
 
-	//ŠeƒuƒƒbƒN‚Ì–Êî•ñ•ªˆ—‚·‚é
+	//å„ãƒ–ãƒ­ãƒƒã‚¯ã®é¢æƒ…å ±åˆ†å‡¦ç†ã™ã‚‹
 	for(int i=0; i<datas; i++){
 		for(int j=0; j<6; j++){
 
-			//ƒuƒƒbƒN’¸“_ƒf[ƒ^‚ÌŠÖ˜A•t‚¯‚ğæ“¾
+			//ãƒ–ãƒ­ãƒƒã‚¯é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é–¢é€£ä»˜ã‘ã‚’å–å¾—
 			blockdataface(j, vID, uvID);
 
-			//’†S“_‰Šú‰»
+			//ä¸­å¿ƒç‚¹åˆæœŸåŒ–
 			data[i].material[j].center_x = 0.0f;
 			data[i].material[j].center_y = 0.0f;
 			data[i].material[j].center_z = 0.0f;
 
-			//4’¸“_‚Ì’†S“_‚ğZo
+			//4é ‚ç‚¹ã®ä¸­å¿ƒç‚¹ã‚’ç®—å‡º
 			for(int k=0; k<4; k++){
 				data[i].material[j].center_x += data[i].x[ vID[k] ];
 				data[i].material[j].center_y += data[i].y[ vID[k] ];
@@ -218,19 +222,19 @@ void BlockDataInterface::CalculationBlockdata(bool darkflag)
 			data[i].material[j].center_y /= 4;
 			data[i].material[j].center_z /= 4;
 
-			//–Ê‚Ì–@üiƒxƒNƒgƒ‹j‚ÆA‚»‚Ì’·‚³‚ğ‹‚ß‚é
+			//é¢ã®æ³•ç·šï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã¨ã€ãã®é•·ã•ã‚’æ±‚ã‚ã‚‹
 			xs1 = ((data[i].y[ vID[3] ] - data[i].y[ vID[2] ]) * (data[i].z[ vID[0] ] - data[i].z[ vID[2] ])) - ((data[i].y[ vID[0] ] - data[i].y[ vID[2] ]) * (data[i].z[ vID[3] ] - data[i].z[ vID[2] ]));
 			ys1 = ((data[i].z[ vID[3] ] - data[i].z[ vID[2] ]) * (data[i].x[ vID[0] ] - data[i].x[ vID[2] ])) - ((data[i].z[ vID[0] ] - data[i].z[ vID[2] ]) * (data[i].x[ vID[3] ] - data[i].x[ vID[2] ]));
 			zs1 = ((data[i].x[ vID[3] ] - data[i].x[ vID[2] ]) * (data[i].y[ vID[0] ] - data[i].y[ vID[2] ])) - ((data[i].x[ vID[0] ] - data[i].x[ vID[2] ]) * (data[i].y[ vID[3] ] - data[i].y[ vID[2] ]));
 			g1 = sqrtf(xs1 * xs1 + ys1 * ys1 + zs1 * zs1);
 
-			//‚à‚¤ˆê•û‚ÌOŠpŒ`‚Å‚àŒvZ‚·‚é
+			//ã‚‚ã†ä¸€æ–¹ã®ä¸‰è§’å½¢ã§ã‚‚è¨ˆç®—ã™ã‚‹
 			xs2 = ((data[i].y[ vID[1] ] - data[i].y[ vID[0] ]) * (data[i].z[ vID[2] ] - data[i].z[ vID[0] ])) - ((data[i].y[ vID[2] ] - data[i].y[ vID[0] ]) * (data[i].z[ vID[1] ] - data[i].z[ vID[0] ]));
 			ys2 = ((data[i].z[ vID[1] ] - data[i].z[ vID[0] ]) * (data[i].x[ vID[2] ] - data[i].x[ vID[0] ])) - ((data[i].z[ vID[2] ] - data[i].z[ vID[0] ]) * (data[i].x[ vID[1] ] - data[i].x[ vID[0] ]));
 			zs2 = ((data[i].x[ vID[1] ] - data[i].x[ vID[0] ]) * (data[i].y[ vID[2] ] - data[i].y[ vID[0] ])) - ((data[i].x[ vID[2] ] - data[i].x[ vID[0] ]) * (data[i].y[ vID[1] ] - data[i].y[ vID[0] ]));
 			g2 = sqrtf(xs2 * xs2 + ys2 * ys2 + zs2 * zs2);
 
-			//³‚µ‚¢ŒvZŒ‹‰Ê‚ğÌ—p‚·‚é
+			//æ­£ã—ã„è¨ˆç®—çµæœã‚’æ¡ç”¨ã™ã‚‹
 			if( g1 > g2 ){
 				xs = xs1;
 				ys = ys1;
@@ -244,12 +248,12 @@ void BlockDataInterface::CalculationBlockdata(bool darkflag)
 				g = g2;
 			}
 
-			//–@üiƒxƒNƒgƒ‹j‚ğ³‹K‰»
+			//æ³•ç·šï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’æ­£è¦åŒ–
 			data[i].material[j].vx = xs / g;
 			data[i].material[j].vy = ys / g;
 			data[i].material[j].vz = zs / g;
 
-			//–Ê‚Ì–¾‚é‚³‚ğ‹‚ß‚é
+			//é¢ã®æ˜ã‚‹ã•ã‚’æ±‚ã‚ã‚‹
 			rx = data[i].material[j].vx + lx;
 			ry = data[i].material[j].vy + ly;
 			rz = data[i].material[j].vz + lz;
@@ -267,60 +271,60 @@ void BlockDataInterface::CalculationBlockdata(bool darkflag)
 	}
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^‚Éİ’è‚³‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Ìƒtƒ@ƒCƒ‹–¼‚ğæ“¾
-//! @param fname ƒtƒ@ƒCƒ‹–¼‚ğó‚¯æ‚é•¶š—ñŒ^ƒ|ƒCƒ“ƒ^
-//! @param id ƒeƒNƒXƒ`ƒƒ”Ô†
-//! @return ¬Œ÷F0@¸”sF0ˆÈŠO
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã«è¨­å®šã•ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å—ã‘å–ã‚‹æ–‡å­—åˆ—å‹ãƒã‚¤ãƒ³ã‚¿
+//! @param id ãƒ†ã‚¯ã‚¹ãƒãƒ£ç•ªå·
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š0ä»¥å¤–
 int BlockDataInterface::GetTexture(char *fname, int id)
 {
 	if( data == NULL ){ return 1; }
 	if( fname == NULL ){ return 2; }
 	if( (id < 0)||(TOTAL_BLOCKTEXTURE <= id) ){ return 2; }
 
-	//ƒ|ƒCƒ“ƒ^‚ÉƒeƒNƒXƒ`ƒƒ–¼‚ğƒRƒs[
+	//ãƒã‚¤ãƒ³ã‚¿ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£åã‚’ã‚³ãƒ”ãƒ¼
 	strcpy(fname, texture[id]);
 
 	return 0;
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^‚ğæ“¾
-//! @param out_data ó‚¯æ‚éblockdataŒ^ƒ|ƒCƒ“ƒ^
-//! @param id ƒf[ƒ^”Ô†
-//! @return ¬Œ÷F0@¸”sF0ˆÈŠO
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+//! @param out_data å—ã‘å–ã‚‹blockdataå‹ãƒã‚¤ãƒ³ã‚¿
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š0ä»¥å¤–
 int BlockDataInterface::Getdata(blockdata *out_data, int id)
 {
 	if( data == NULL ){ return 1; }
 	if( out_data == NULL ){ return 2; }
 	if( (id < 0)||(datas <= id) ){ return 2; }
 
-	//ƒuƒƒbƒNƒf[ƒ^‚ğæ“¾
+	//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	memcpy(out_data, &(data[id]), sizeof(blockdata));
 
 	return 0;
 }
 
-//! @brief ƒuƒƒbƒN’¸“_ƒf[ƒ^‚ÌŠÖ˜A•t‚¯‚ğæ“¾
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã®é–¢é€£ä»˜ã‘ã‚’å–å¾—
 //
-//	    3 E----E2
+//	    3 ãƒ»----ãƒ»2
 //	     /|    /|
 //	    / |   / |
-//	0 E----E1 |
-//	  |7 E-| --E6
+//	0 ãƒ»----ãƒ»1 |
+//	  |7 ãƒ»-| --ãƒ»6
 //	  |  /  |  /
 //	  | /   | /
-//	4 E----E5
+//	4 ãƒ»----ãƒ»5
 //
 //	C-----D
 //	|     |
 //	|     |
 //	B-----A
 //
-//	ã[0](ABCD) =  (1032)
-//	‰º[1]		=  (6745)
-//	‘O[2]		=  (5401)
-//	‰E[3]		=  (6512)
-//	‰œ[4]		=  (7623)
-//	¶[5]		=  (4730)
+//	ä¸Š[0](ABCD) =  (1032)
+//	ä¸‹[1]		=  (6745)
+//	å‰[2]		=  (5401)
+//	å³[3]		=  (6512)
+//	å¥¥[4]		=  (7623)
+//	å·¦[5]		=  (4730)
 bool blockdataface(int faceID, int* vID, int* uvID)
 {
 	if( faceID == 0 ){
@@ -380,39 +384,39 @@ bool blockdataface(int faceID, int* vID, int* uvID)
 	return false;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 PointDataInterface::PointDataInterface()
 {
-	//pointdata\‘¢‘Ì‰Šú‰»
+	//pointdataæ§‹é€ ä½“åˆæœŸåŒ–
 	data = new pointdata[MAX_POINTS];
 
-	//ƒCƒxƒ“ƒgƒƒbƒZ[ƒW‰Šú‰»
+	//ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸åˆæœŸåŒ–
 	for(int i=0; i<MAX_POINTMESSAGES; i++){
 		text[i] = new char[MAX_POINTMESSAGEBYTE];
 		text[i][0] = '\0';
 	}
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 PointDataInterface::~PointDataInterface()
 {
-	//pointdata\‘¢‘Ì‰ğ•ú
+	//pointdataæ§‹é€ ä½“è§£æ”¾
 	if( data != NULL ){ delete [] data; }
 
-	//ƒCƒxƒ“ƒgƒƒbƒZ[ƒW‰ğ•ú
+	//ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è§£æ”¾
 	for(int i=0; i<MAX_POINTMESSAGES; i++){
 		if( text[i] != NULL ){ delete [] text[i]; }
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	//OutputLog.WriteLog(LOG_CLEANUP, "PD1", "");
 #endif
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int PointDataInterface::LoadFiledata(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -424,37 +428,37 @@ int PointDataInterface::LoadFiledata(const char *fname)
 	char fname2[MAX_PATH];
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "PD1", fname);
 #endif
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 	fp = fopen( fname, "rb" );
 	if( fp == NULL ){ return 1; }
 
-	//ƒf[ƒ^”‚ğæ“¾
+	//ãƒ‡ãƒ¼ã‚¿æ•°ã‚’å–å¾—
 	fread( pdata_header, 1, 2, fp );
 	datas = (int)Get2ByteLittleEndian(&(pdata_header[0]));
 	if( datas > MAX_POINTS ){ datas = MAX_POINTS; }
 
-	//ƒ|ƒCƒ“ƒgƒf[ƒ^”•ªˆ—‚·‚é
+	//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿æ•°åˆ†å‡¦ç†ã™ã‚‹
 	for(int i=0; i<datas; i++){
-		//ƒf[ƒ^”Ô†İ’è
+		//ãƒ‡ãƒ¼ã‚¿ç•ªå·è¨­å®š
 		data[i].id = i;
 
-		//À•Wƒf[ƒ^æ“¾
+		//åº§æ¨™ãƒ‡ãƒ¼ã‚¿å–å¾—
 		fread( pdata_mainf, 4, 4, fp );
 		data[i].x = pdata_mainf[0];
 		data[i].y = pdata_mainf[1];
 		data[i].z = pdata_mainf[2];
 		data[i].r = pdata_mainf[3];
 
-		//ƒpƒ‰ƒ[ƒ^æ“¾
+		//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿å–å¾—
 		fread( pdata_mainc, 1, 4, fp );
 		data[i].p1 = (signed short int)pdata_mainc[0];
 		data[i].p2 = (signed short int)pdata_mainc[1];
@@ -462,20 +466,20 @@ int PointDataInterface::LoadFiledata(const char *fname)
 		data[i].p4 = (signed short int)pdata_mainc[3];
 	}
 
-	//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğ•Â‚¶‚é
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’é–‰ã˜ã‚‹
 	fclose( fp );
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 
-	//ƒCƒxƒ“ƒgƒƒbƒZ[ƒW‰Šú‰»
+	//ã‚¤ãƒ™ãƒ³ãƒˆãƒ¡ãƒƒã‚»ãƒ¼ã‚¸åˆæœŸåŒ–
 	for(int i=0; i<MAX_POINTMESSAGES; i++){
 		text[i][0] = '\0';
 	}
 
-	//u“¯ƒtƒ@ƒCƒ‹–¼.msgv‚ğ¶¬
+	//ã€ŒåŒãƒ•ã‚¡ã‚¤ãƒ«å.msgã€ã‚’ç”Ÿæˆ
 	strcpy(fname2, fname);
 	//PathRemoveExtension(fname2);
 	for(int i=(int)strlen(fname2)-1; i>0; i--){
@@ -491,9 +495,9 @@ int PointDataInterface::LoadFiledata(const char *fname)
 	return 0;
 }
 
-//! @brief ƒƒbƒZ[ƒWƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int PointDataInterface::LoadMSGFiledata(char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -501,75 +505,75 @@ int PointDataInterface::LoadMSGFiledata(char *fname)
 	FILE *fp;
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "MSG", fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚İ
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã¿
 	fp = fopen( fname, "r" );
 	if( fp != NULL ){
-		//ƒƒbƒZ[ƒWƒf[ƒ^‚ğæ“¾
+		//ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 		for(int i=0; i<MAX_POINTMESSAGES; i++){
 			if( fgets(text[i], MAX_POINTMESSAGEBYTE, fp) == NULL ){ break; }
 
-			//'\r'‚ª‚ ‚ê‚Î'\n'‚É’u‚«Š·‚¦‚é
+			//'\r'ãŒã‚ã‚Œã°'\n'ã«ç½®ãæ›ãˆã‚‹
 			for(int j=0; j<MAX_POINTMESSAGEBYTE; j++){
 				if( text[i][j] == '\r' ){ text[i][j] = '\n'; }
 			}
 		}
 
-		//ƒtƒ@ƒCƒ‹ƒ|ƒCƒ“ƒ^‚ğ‰ğ•ú
+		//ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’è§£æ”¾
 		fclose( fp );
 
 #ifdef ENABLE_DEBUGLOG
-		//ƒƒO‚Éo—Í
+		//ãƒ­ã‚°ã«å‡ºåŠ›
 		OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 		return 0;
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_ERROR, "", "");
 #endif
 	return 1;
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğæ“¾
-//! @param out_data ó‚¯æ‚épointdataŒ^ƒ|ƒCƒ“ƒ^
-//! @param id ƒf[ƒ^”Ô†
-//! @return ¬Œ÷F0@¸”sF0ˆÈŠO
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+//! @param out_data å—ã‘å–ã‚‹pointdataå‹ãƒã‚¤ãƒ³ã‚¿
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š0ä»¥å¤–
 int PointDataInterface::Getdata(pointdata *out_data, int id)
 {
 	if( data == NULL ){ return 1; }
 	if( out_data == NULL ){ return 2; }
 	if( (id < 0)||(datas <= id) ){ return 2; }
 
-	//ƒf[ƒ^‚ğƒ|ƒCƒ“ƒ^‚ÉƒRƒs[
+	//ãƒ‡ãƒ¼ã‚¿ã‚’ãƒã‚¤ãƒ³ã‚¿ã«ã‚³ãƒ”ãƒ¼
 	memcpy(out_data, &(data[id]), sizeof(pointdata));
 
 	return 0;
 }
 
-//! @brief ƒ|ƒCƒ“ƒg‚Ìƒpƒ‰ƒ[ƒ^[‚ğ‘‚«Š·‚¦
-//! @param id ƒf[ƒ^”Ô†
-//! @param p1 ‘æ1ƒpƒ‰ƒ[ƒ^
-//! @param p2 ‘æ2ƒpƒ‰ƒ[ƒ^
-//! @param p3 ‘æ3ƒpƒ‰ƒ[ƒ^
-//! @param p4 ‘æ4ƒpƒ‰ƒ[ƒ^
-//! @return ¬Œ÷F0@¸”sF0ˆÈŠO
-//! @warning AI‚ªg—p‚·‚éƒpƒXip1:3 or p1:8jˆÈŠO‚Ö‚Ìg—p‚ÍA•ÛØ‚³‚ê‚Ä‚¨‚ç‚¸„§‚µ‚Ü‚¹‚ñB
+//! @brief ãƒã‚¤ãƒ³ãƒˆã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’æ›¸ãæ›ãˆ
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param p1 ç¬¬1ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p2 ç¬¬2ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p3 ç¬¬3ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p4 ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š0ä»¥å¤–
+//! @warning AIãŒä½¿ç”¨ã™ã‚‹ãƒ‘ã‚¹ï¼ˆp1:3 or p1:8ï¼‰ä»¥å¤–ã¸ã®ä½¿ç”¨ã¯ã€ä¿è¨¼ã•ã‚Œã¦ãŠã‚‰ãšæ¨å¥¨ã—ã¾ã›ã‚“ã€‚
 int PointDataInterface::SetParam(int id, signed short int p1, signed short int p2, signed short int p3, signed short int p4)
 {
 	if( data == NULL ){ return 1; }
 	if( (id < 0)||(datas <= id) ){ return 2; }
 
-	//ƒpƒ‰ƒ[ƒ^‚ğã‘‚«
+	//ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ä¸Šæ›¸ã
 	data[id].p1 = p1;
 	data[id].p2 = p2;
 	data[id].p3 = p3;
@@ -578,37 +582,37 @@ int PointDataInterface::SetParam(int id, signed short int p1, signed short int p
 	return 0;
 }
 
-//! @brief ƒƒbƒZ[ƒWi1sj‚ğæ“¾
-//! @param str •¶š—ñ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param id ƒf[ƒ^”Ô†
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ï¼ˆ1è¡Œï¼‰ã‚’å–å¾—
+//! @param str æ–‡å­—åˆ—ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int PointDataInterface::GetMessageText(char *str, int id)
 {
 	if( str == NULL ){ return 1; }
 	if( (id < 0)||(MAX_POINTMESSAGES <= id) ){ return 1; }
 
-	//ƒ|ƒCƒ“ƒ^‚ÉƒƒbƒZ[ƒW‚ğƒRƒs[
+	//ãƒã‚¤ãƒ³ã‚¿ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’ã‚³ãƒ”ãƒ¼
 	strcpy(str, text[id]);
 	return 0;
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğŒŸõ
-//! @param id Å‰‚ÉŠY“–‚µ‚½ƒf[ƒ^”Ô†‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL ‰Âj
-//! @param pmask ƒpƒ‰ƒ[ƒ^‚Ìƒ}ƒXƒN
-//! @param p1 ‘æ1ƒpƒ‰ƒ[ƒ^
-//! @param p2 ‘æ2ƒpƒ‰ƒ[ƒ^
-//! @param p3 ‘æ3ƒpƒ‰ƒ[ƒ^
-//! @param p4 ‘æ4ƒpƒ‰ƒ[ƒ^
-//! @param offset ŒŸõ‚ğŠJn‚·‚éƒf[ƒ^
-//! @return ŠY“–ƒ|ƒCƒ“ƒg”
-//! @note ƒpƒ‰ƒ[ƒ^‚Ìƒ}ƒXƒN‚ÍAp1`p4‚ÌŒŸõ‘ÎÛ‚ğw’è‚µ‚Ü‚·B
-//! @note 1`4ƒrƒbƒg–Ú‚Ü‚Å‚ğg—p‚µAp1F1ƒrƒbƒg–ÚAp2F2ƒrƒbƒg–ÚAp3F3ƒrƒbƒg–ÚAp4F4ƒrƒbƒg–Ú@‚ğ‚»‚ê‚¼‚êˆÓ–¡‚µ‚Ü‚·B
-//! @note ŒŸõ‚Ì‘ÎÛƒrƒbƒgF1@‘ÎÛŠO‚ÌƒrƒbƒgF0@‚Éİ’è‚µ‚Ä‚­‚¾‚³‚¢B@‚È‚¨A7`5ƒrƒbƒg–Ú‚Í–³‹‚³‚ê‚Ü‚·B
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’æ¤œç´¢
+//! @param id æœ€åˆã«è©²å½“ã—ãŸãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULL å¯ï¼‰
+//! @param pmask ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ãƒã‚¹ã‚¯
+//! @param p1 ç¬¬1ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p2 ç¬¬2ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p3 ç¬¬3ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p4 ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param offset æ¤œç´¢ã‚’é–‹å§‹ã™ã‚‹ãƒ‡ãƒ¼ã‚¿
+//! @return è©²å½“ãƒã‚¤ãƒ³ãƒˆæ•°
+//! @note ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ãƒã‚¹ã‚¯ã¯ã€p1ï½p4ã®æ¤œç´¢å¯¾è±¡ã‚’æŒ‡å®šã—ã¾ã™ã€‚
+//! @note 1ï½4ãƒ“ãƒƒãƒˆç›®ã¾ã§ã‚’ä½¿ç”¨ã—ã€p1ï¼š1ãƒ“ãƒƒãƒˆç›®ã€p2ï¼š2ãƒ“ãƒƒãƒˆç›®ã€p3ï¼š3ãƒ“ãƒƒãƒˆç›®ã€p4ï¼š4ãƒ“ãƒƒãƒˆç›®ã€€ã‚’ãã‚Œãã‚Œæ„å‘³ã—ã¾ã™ã€‚
+//! @note æ¤œç´¢ã®å¯¾è±¡ãƒ“ãƒƒãƒˆï¼š1ã€€å¯¾è±¡å¤–ã®ãƒ“ãƒƒãƒˆï¼š0ã€€ã«è¨­å®šã—ã¦ãã ã•ã„ã€‚ã€€ãªãŠã€7ï½5ãƒ“ãƒƒãƒˆç›®ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚
 //! @code
-//! //16i”‚Å‹Lq‚Ìê‡\
-//! 0x02	// p2‚Ì‚İ‚ğŒŸõ‘ÎÛ‚É‚·‚é
-//! 0x05	// p1‚Æp3‚ğŒŸõ‘ÎÛ‚É‚·‚é
-//! 0xF1	// p1‚Ì‚İ‚ğŒŸõ‘ÎÛ‚É‚·‚é@i7`5ƒrƒbƒg–Ú‚Í–³‹j
+//! //16é€²æ•°ã§è¨˜è¿°ã®å ´åˆâ€•
+//! 0x02	// p2ã®ã¿ã‚’æ¤œç´¢å¯¾è±¡ã«ã™ã‚‹
+//! 0x05	// p1ã¨p3ã‚’æ¤œç´¢å¯¾è±¡ã«ã™ã‚‹
+//! 0xF1	// p1ã®ã¿ã‚’æ¤œç´¢å¯¾è±¡ã«ã™ã‚‹ã€€ï¼ˆ7ï½5ãƒ“ãƒƒãƒˆç›®ã¯ç„¡è¦–ï¼‰
 //! @endcode
 int PointDataInterface::SearchPointdata(int* id, unsigned char pmask, signed short int p1, signed short int p2, signed short int p3, signed short int p4, int offset)
 {
@@ -617,19 +621,19 @@ int PointDataInterface::SearchPointdata(int* id, unsigned char pmask, signed sho
 	if( offset < 0 ){ offset = 0; }
 	if( offset >= datas ){ offset = datas; }
 
-	//ƒIƒtƒZƒbƒg’l‚©‚çƒf[ƒ^”•ªˆ—
+	//ã‚ªãƒ•ã‚»ãƒƒãƒˆå€¤ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿æ•°åˆ†å‡¦ç†
 	for(int i=offset; i<datas; i++){
 
-		if( ((pmask&0x01) == 0)||(p1 == data[i].p1) ){		//ƒ}ƒXƒN‚Åw’è‚³‚ê‚Ä‚¢‚È‚¢‚©Ap1‚ªˆê’v
-			if( ((pmask&0x02) == 0)||(p2 == data[i].p2) ){		//ƒ}ƒXƒN‚Åw’è‚³‚ê‚Ä‚¢‚È‚¢‚©Ap2‚ªˆê’v
-				if( ((pmask&0x04) == 0)||(p3 == data[i].p3) ){		//ƒ}ƒXƒN‚Åw’è‚³‚ê‚Ä‚¢‚È‚¢‚©Ap3‚ªˆê’v
-					if( ((pmask&0x08) == 0)||(p4 == data[i].p4) ){		//ƒ}ƒXƒN‚Åw’è‚³‚ê‚Ä‚¢‚È‚¢‚©Ap4‚ªˆê’v
+		if( ((pmask&0x01) == 0)||(p1 == data[i].p1) ){		//ãƒã‚¹ã‚¯ã§æŒ‡å®šã•ã‚Œã¦ã„ãªã„ã‹ã€p1ãŒä¸€è‡´
+			if( ((pmask&0x02) == 0)||(p2 == data[i].p2) ){		//ãƒã‚¹ã‚¯ã§æŒ‡å®šã•ã‚Œã¦ã„ãªã„ã‹ã€p2ãŒä¸€è‡´
+				if( ((pmask&0x04) == 0)||(p3 == data[i].p3) ){		//ãƒã‚¹ã‚¯ã§æŒ‡å®šã•ã‚Œã¦ã„ãªã„ã‹ã€p3ãŒä¸€è‡´
+					if( ((pmask&0x08) == 0)||(p4 == data[i].p4) ){		//ãƒã‚¹ã‚¯ã§æŒ‡å®šã•ã‚Œã¦ã„ãªã„ã‹ã€p4ãŒä¸€è‡´
 
-						if( (cnt == 0)&&(id != NULL) ){			//Å‰‚ÉŠY“–‚µAid‚ªNULL‚Å‚È‚¢B
+						if( (cnt == 0)&&(id != NULL) ){			//æœ€åˆã«è©²å½“ã—ã€idãŒNULLã§ãªã„ã€‚
 							*id = i;
 						}
 
-						//ŒŸõŠY“–”‚ğ+1
+						//æ¤œç´¢è©²å½“æ•°ã‚’+1
 						cnt += 1;
 
 					}
@@ -639,37 +643,37 @@ int PointDataInterface::SearchPointdata(int* id, unsigned char pmask, signed sho
 
 	}
 
-	//ŒŸõŠY“–”‚ğ•Ô‚·
+	//æ¤œç´¢è©²å½“æ•°ã‚’è¿”ã™
 	return cnt;
 }
 
-//! @brief ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğŒŸõ
-//! @param out_data Å‰‚ÉŠY“–‚µ‚½ƒf[ƒ^‚ğó‚¯æ‚épointdataŒ^ƒ|ƒCƒ“ƒ^@iNULL ‰Âj
-//! @param pmask ƒpƒ‰ƒ[ƒ^‚Ìƒ}ƒXƒN
-//! @param p1 ‘æ1ƒpƒ‰ƒ[ƒ^
-//! @param p2 ‘æ2ƒpƒ‰ƒ[ƒ^
-//! @param p3 ‘æ3ƒpƒ‰ƒ[ƒ^
-//! @param p4 ‘æ4ƒpƒ‰ƒ[ƒ^
-//! @param offset ŒŸõ‚ğŠJn‚·‚éƒf[ƒ^
-//! @return ŠY“–ƒ|ƒCƒ“ƒg”
-//! @attention ‚±‚ÌŠÖ”‚ÌÚ‚µ‚¢à–¾‚ÍA“¯ƒI[ƒo[ƒ[ƒhŠÖ”‚ğ‚²——‚­‚¾‚³‚¢B
+//! @brief ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’æ¤œç´¢
+//! @param out_data æœ€åˆã«è©²å½“ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹pointdataå‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULL å¯ï¼‰
+//! @param pmask ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ãƒã‚¹ã‚¯
+//! @param p1 ç¬¬1ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p2 ç¬¬2ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p3 ç¬¬3ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param p4 ç¬¬4ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+//! @param offset æ¤œç´¢ã‚’é–‹å§‹ã™ã‚‹ãƒ‡ãƒ¼ã‚¿
+//! @return è©²å½“ãƒã‚¤ãƒ³ãƒˆæ•°
+//! @attention ã“ã®é–¢æ•°ã®è©³ã—ã„èª¬æ˜ã¯ã€åŒã‚ªãƒ¼ãƒãƒ¼ãƒ­ãƒ¼ãƒ‰é–¢æ•°ã‚’ã”è¦§ãã ã•ã„ã€‚
 int PointDataInterface::SearchPointdata(pointdata *out_data, unsigned char pmask, signed short int p1, signed short int p2, signed short int p3, signed short int p4, int offset)
 {
 	int id, total;
 
-	//“¯ğŒ‚Åƒ|ƒCƒ“ƒg‚ğŒŸõ
+	//åŒæ¡ä»¶ã§ãƒã‚¤ãƒ³ãƒˆã‚’æ¤œç´¢
 	total = SearchPointdata(&id, pmask, p1, p2, p3, p4, offset);
 	
-	//ŠY“–‚·‚ê‚Îƒf[ƒ^‚ğæ“¾
+	//è©²å½“ã™ã‚Œã°ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
 	if( total > 0 ){
 		Getdata(out_data, id);
 	}
 
-	//ŒŸõŠY“–”‚ğ•Ô‚·
+	//æ¤œç´¢è©²å½“æ•°ã‚’è¿”ã™
 	return total;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 MIFInterface::MIFInterface()
 {
 	datas = 0;
@@ -689,35 +693,35 @@ MIFInterface::MIFInterface()
 	AddSmallObjectData = new addsmallobject[MAX_ADDSMALLOBJECT];
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 MIFInterface::~MIFInterface()
 {
 	if( AddSmallObjectData != NULL ){ delete [] AddSmallObjectData; }
 }
 
-//! @brief ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @param addfile ’Ç‰Áƒtƒ@ƒCƒ‹‚à“Ç‚İ‚Ş
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @param addfile è¿½åŠ ãƒ•ã‚¡ã‚¤ãƒ«ã‚‚èª­ã¿è¾¼ã‚€
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 {
 	if( fname == NULL ){ return 1; }
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "MIF", fname);
 #endif
 
 	mif = true;
 
-	//Šg’£q‚ª.txt‚È‚ç‚Î
+	//æ‹¡å¼µå­ãŒ.txtãªã‚‰ã°
 	if( CheckFileExtension(fname, ".txt") == true ){
-		//MIFƒtƒ‰ƒO‚ğ–³Œø‚É
+		//MIFãƒ•ãƒ©ã‚°ã‚’ç„¡åŠ¹ã«
 		mif = false;
 	}
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
@@ -735,14 +739,14 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 	}
 
 #ifdef ENABLE_AUTOLOADMIF
-	//ƒhƒ‰ƒCƒuƒŒƒ^[‚©‚çw’è‚³‚ê‚Ä‚¢‚éiƒtƒ‹ƒpƒXj‚È‚ç‚Î
+	//ãƒ‰ãƒ©ã‚¤ãƒ–ãƒ¬ã‚¿ãƒ¼ã‹ã‚‰æŒ‡å®šã•ã‚Œã¦ã„ã‚‹ï¼ˆï¼ãƒ•ãƒ«ãƒ‘ã‚¹ï¼‰ãªã‚‰ã°
 	if( CheckFullPath(fname) == true ){
 		char path[MAX_PATH];
 
-		//mif‚ÌƒfƒBƒŒƒNƒgƒŠæ“¾
+		//mifã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå–å¾—
 		GetFileDirectory(fname, path);
 
-		//Šeƒtƒ@ƒCƒ‹ƒpƒX‚ğƒtƒ‹ƒpƒX‚É‘‚«Š·‚¦‚é
+		//å„ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ãƒ•ãƒ«ãƒ‘ã‚¹ã«æ›¸ãæ›ãˆã‚‹
 		ChangeExePathToFullPath(path, blockfile_path);
 		ChangeExePathToFullPath(path, pointfile_path);
 		ChangeExePathToFullPath(path, picturefileA_path);
@@ -752,12 +756,12 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 #endif
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 
 
-	//’Ç‰Á¬•¨î•ñ‚ğ‰Šú’l‚Ö
+	//è¿½åŠ å°ç‰©æƒ…å ±ã‚’åˆæœŸå€¤ã¸
 	for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 		strcpy(AddSmallObjectData[i].modelpath, "");
 		strcpy(AddSmallObjectData[i].texturepath, "");
@@ -767,26 +771,26 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 		AddSmallObjectData[i].jump = 0;
 	}
 
-	//‰½‚©‚µ‚ç‚Ì’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹‚ªw’è‚³‚ê‚Ä‚¢‚ê‚Î
+	//ä½•ã‹ã—ã‚‰ã®è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«ãŒæŒ‡å®šã•ã‚Œã¦ã„ã‚Œã°
 	if( (addfile == true)&&(strcmp(addsmallobject_path, "") != 0)&&(strcmp(addsmallobject_path, "!") != 0) ){
 		LoadAddSmallObjectFiledata(addsmallobject_path);
 	}
 #ifdef ENABLE_DEBUGLOG
 	else{
-		//ƒƒO‚Éo—Í
+		//ãƒ­ã‚°ã«å‡ºåŠ›
 		OutputLog.WriteLog(LOG_CHECK, "(Add SmallObject)", "File not found");
 	}
 #endif
 
 #ifdef ENABLE_AUTOLOADMIF
-	//ƒhƒ‰ƒCƒuƒŒƒ^[‚©‚çw’è‚³‚ê‚Ä‚¢‚éiƒtƒ‹ƒpƒXj‚È‚ç‚Î
+	//ãƒ‰ãƒ©ã‚¤ãƒ–ãƒ¬ã‚¿ãƒ¼ã‹ã‚‰æŒ‡å®šã•ã‚Œã¦ã„ã‚‹ï¼ˆï¼ãƒ•ãƒ«ãƒ‘ã‚¹ï¼‰ãªã‚‰ã°
 	if( CheckFullPath(fname) == true ){
 		char path[MAX_PATH];
 
-		//mif‚ÌƒfƒBƒŒƒNƒgƒŠæ“¾
+		//mifã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå–å¾—
 		GetFileDirectory(fname, path);
 
-		//Šeƒtƒ@ƒCƒ‹ƒpƒX‚ğƒtƒ‹ƒpƒX‚É‘‚«Š·‚¦‚é
+		//å„ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’ãƒ•ãƒ«ãƒ‘ã‚¹ã«æ›¸ãæ›ãˆã‚‹
 		for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
 			ChangeExePathToFullPath(path, AddSmallObjectData[i].modelpath);
 			ChangeExePathToFullPath(path, AddSmallObjectData[i].texturepath);
@@ -798,9 +802,9 @@ int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 	return 0;
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“ƒtƒ@ƒCƒ‹i.txtj‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ.txtï¼‰ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int MIFInterface::LoadDefaultTextFiledata(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -808,41 +812,41 @@ int MIFInterface::LoadDefaultTextFiledata(const char *fname)
 	FILE *fp;
 	char str[64];
 
-	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	fp = fopen( fname, "r" );
 	if( fp != NULL ){
-		//‰æ‘œA‚ğæ“¾
+		//ç”»åƒAã‚’å–å¾—
 		fgets(str, 64, fp);
 		DeleteLinefeed(str);
 		if( strcmp(str, "!") == 0 ){
 			strcpy(picturefileA_path, "!");
 		}
 		else{
-			//udata\\briefing\\@`@.bmpv‚ğ¶¬
+			//ã€Œdata\\briefing\\ã€€ï½ã€€.bmpã€ã‚’ç”Ÿæˆ
 			strcpy(picturefileA_path, "data\\briefing\\");
 			strcat(picturefileA_path, str);
 			strcat(picturefileA_path, ".bmp");
 		}
 
-		//‰æ‘œB‚ğæ“¾
+		//ç”»åƒBã‚’å–å¾—
 		fgets(str, 64, fp);
 		DeleteLinefeed(str);
 		if( strcmp(str, "!") == 0 ){
 			strcpy(picturefileB_path, "!");
 		}
 		else{
-			//udata\\briefing\\@`@.bmpv‚ğ¶¬
+			//ã€Œdata\\briefing\\ã€€ï½ã€€.bmpã€ã‚’ç”Ÿæˆ
 			strcpy(picturefileB_path, "data\\briefing\\");
 			strcat(picturefileB_path, str);
 			strcat(picturefileB_path, ".bmp");
 		}
 
-		//”wŒi‹ó‚Ì”Ô†
+		//èƒŒæ™¯ç©ºã®ç•ªå·
 		fgets(str, 16, fp);
 		DeleteLinefeed(str);
 		skynumber = atoi(str);
 
-		//ƒuƒŠ[ƒtƒBƒ“ƒOƒeƒLƒXƒg‚ğæ“¾
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ãƒ†ã‚­ã‚¹ãƒˆã‚’å–å¾—
 		strcpy(briefingtext, "");
 		for(int i=0; i<17; i++ ){
 			if( fgets(str, 50, fp) == NULL ){ break; }
@@ -850,10 +854,10 @@ int MIFInterface::LoadDefaultTextFiledata(const char *fname)
 			datas += 1;
 		}
 
-		//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ‰ğ•ú
+		//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’è§£æ”¾
 		fclose( fp );
 
-		//æ“¾‚Å‚«‚È‚¢’l‚Ì‰Šú‰»
+		//å–å¾—ã§ããªã„å€¤ã®åˆæœŸåŒ–
 		strcpy(mission_name, "");
 		strcpy(mission_fullname, "");
 		strcpy(blockfile_path, "");
@@ -868,9 +872,9 @@ int MIFInterface::LoadDefaultTextFiledata(const char *fname)
 	return 1;
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“ƒtƒ@ƒCƒ‹i.mifj‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ.mifï¼‰ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -878,31 +882,31 @@ int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 	FILE *fp;
 	char str[64];
 
-	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	fp = fopen( fname, "r" );
 	if( fp != NULL ){
-		//ƒ~ƒbƒVƒ‡ƒ“¯•Ê–¼
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³è­˜åˆ¥å
 		fgets(mission_name, 24, fp);
 		DeleteLinefeed(mission_name);
 
-		//ƒ~ƒbƒVƒ‡ƒ“³®–¼Ì
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³æ­£å¼åç§°
 		fgets(mission_fullname, 64, fp);
 		DeleteLinefeed(mission_fullname);
 
-		//ƒuƒƒbƒNƒf[ƒ^ƒtƒ@ƒCƒ‹
+		//ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 		fgets(blockfile_path, _MAX_PATH, fp);
 		DeleteLinefeed(blockfile_path);
 
-		//ƒ|ƒCƒ“ƒgƒf[ƒ^ƒtƒ@ƒCƒ‹
+		//ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 		fgets(pointfile_path, _MAX_PATH, fp);
 		DeleteLinefeed(pointfile_path);
 
-		//”wŒi‹ó‚Ì”Ô†
+		//èƒŒæ™¯ç©ºã®ç•ªå·
 		fgets(str, 16, fp);
 		DeleteLinefeed(str);
 		skynumber = atoi(str);
 
-		//“–‚½‚è”»’èE‰æ–Êİ’è‚Ìæ“¾
+		//å½“ãŸã‚Šåˆ¤å®šãƒ»ç”»é¢è¨­å®šã®å–å¾—
 		fgets(str, 16, fp);
 		DeleteLinefeed(str);
 		if( strcmp(str, "1") == 0 ){
@@ -922,19 +926,19 @@ int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 			screen = false;
 		}
 
-		//’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹æ“¾
+		//è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«å–å¾—
 		fgets(addsmallobject_path, _MAX_PATH, fp);
 		DeleteLinefeed(addsmallobject_path);
 
-		//‰æ‘œA‚ğæ“¾
+		//ç”»åƒAã‚’å–å¾—
 		fgets(picturefileA_path, _MAX_PATH, fp);
 		DeleteLinefeed(picturefileA_path);
 
-		//‰æ‘œB‚ğæ“¾
+		//ç”»åƒBã‚’å–å¾—
 		fgets(picturefileB_path, _MAX_PATH, fp);
 		DeleteLinefeed(picturefileB_path);
 
-		//ƒuƒŠ[ƒtƒBƒ“ƒOƒeƒLƒXƒg‚ğæ“¾
+		//ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ãƒ†ã‚­ã‚¹ãƒˆã‚’å–å¾—
 		strcpy(briefingtext, "");
 		for(int i=0; i<17; i++ ){
 			if( fgets(str, 50, fp) == NULL ){ break; }
@@ -942,7 +946,7 @@ int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 			datas += 1;
 		}
 
-		//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ‰ğ•ú
+		//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’è§£æ”¾
 		fclose( fp );
 
 		return 0;
@@ -951,9 +955,9 @@ int MIFInterface::LoadMissionInfoFiledata(const char *fname)
 	return 1;
 }
 
-//! @brief ’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚±‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿ã“ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 {
 	if( fname == NULL ){ return 1; }
@@ -969,21 +973,21 @@ int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 	char str[64];
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "(Add SmallObject)", fname);
 #endif
 
-	//ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+	//ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
 	fp = fopen( fname, "r" );
 	if( fp != NULL ){
 		for(int i=0; i<MAX_ADDSMALLOBJECT; i++){
-			//6sæ“¾
-			//6s‚·‚×‚Äæ“¾‚Å‚«‚È‚¯‚ê‚Î¸”s
+			//6è¡Œå–å¾—
+			//6è¡Œã™ã¹ã¦å–å¾—ã§ããªã‘ã‚Œã°å¤±æ•—
 			if( fgets(str1, _MAX_PATH, fp) == NULL ){ break; }
 			if( fgets(str2, _MAX_PATH, fp) == NULL ){ break; }
 			if( fgets(str3, 16, fp) == NULL ){ break; }
@@ -992,67 +996,67 @@ int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 			if( fgets(str6, 16, fp) == NULL ){ break; }
 
 
-			//ƒ‚ƒfƒ‹ƒf[ƒ^ƒpƒX
+			//ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹
 			DeleteLinefeed(str1);
 			strcpy(AddSmallObjectData[i].modelpath, str1);
 
-			//ƒeƒNƒXƒ`ƒƒƒpƒX
+			//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‘ã‚¹
 			DeleteLinefeed(str2);
 			strcpy(AddSmallObjectData[i].texturepath, str2);
 
-			//“–‚½‚è”»’è‚Ì‘å‚«‚³
+			//å½“ãŸã‚Šåˆ¤å®šã®å¤§ãã•
 			DeleteLinefeed(str3);
 			AddSmallObjectData[i].decide = atoi(str3);
 #ifdef ENABLE_ADDOBJ_PARAM8BIT
 			AddSmallObjectData[i].decide = AddSmallObjectData[i].decide & 0x0000007F;
 #endif
 
-			//‘Ï‹v—Í
+			//è€ä¹…åŠ›
 			DeleteLinefeed(str4);
 			AddSmallObjectData[i].hp = atoi(str4);
 #ifdef ENABLE_ADDOBJ_PARAM8BIT
 			AddSmallObjectData[i].hp = AddSmallObjectData[i].hp & 0x0000007F;
 #endif
 
-			//ƒTƒEƒ“ƒhƒf[ƒ^ƒpƒX
+			//ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹
 			DeleteLinefeed(str5);
 			strcpy(AddSmallObjectData[i].soundpath, str5);
 
-			//”ò‚Ñ‹ï‡
+			//é£›ã³å…·åˆ
 			DeleteLinefeed(str6);
 			AddSmallObjectData[i].jump = atoi(str6);
 #ifdef ENABLE_ADDOBJ_PARAM8BIT
 			AddSmallObjectData[i].jump = AddSmallObjectData[i].jump & 0x000000FF;
 #endif
 
-			//Ÿ‚Ì’Ç‰Á¬•¨î•ñ‚Ì‘O‚É‚ ‚éAƒ_ƒ~[ 1s‚ğ“Ç‚İo‚µ
+			//æ¬¡ã®è¿½åŠ å°ç‰©æƒ…å ±ã®å‰ã«ã‚ã‚‹ã€ãƒ€ãƒŸãƒ¼ 1è¡Œã‚’èª­ã¿å‡ºã—
 			if( i+1 < MAX_ADDSMALLOBJECT ){
 				if( fgets(str, 32, fp) == NULL ){ break; }
 			}
 		}
 
-		//ƒtƒ@ƒCƒ‹ƒnƒ“ƒhƒ‹‚ğ‰ğ•ú
+		//ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ³ãƒ‰ãƒ«ã‚’è§£æ”¾
 		fclose( fp );
 
 #ifdef ENABLE_DEBUGLOG
-		//ƒƒO‚Éo—Í
+		//ãƒ­ã‚°ã«å‡ºåŠ›
 		OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 		return 0;
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_ERROR, "", "");
 #endif
 	return 1;
 }
 
-//! @brief addonƒtƒHƒ‹ƒ_‚ğQÆ‚·‚é‘Š‘ÎƒpƒX‚ğ.exeŠî€¨.mifŠî€‚Ö•ÏX
-//! @param dir .mifƒtƒ@ƒCƒ‹‚Ü‚Å‚Ìƒtƒ‹ƒpƒX
-//! @param fname ˆ—‘ÎÛ‚Ìƒtƒ@ƒCƒ‹ƒpƒX
-//! @return •ÏŠ·Ï‚İFtrue@–¢•ÏŠ·Ffalse
-//! @attention fname‚Ìƒ|ƒCƒ“ƒ^‚ğ’¼Ú‘‚«Š·‚¦‚Ü‚·B
+//! @brief addonãƒ•ã‚©ãƒ«ãƒ€ã‚’å‚ç…§ã™ã‚‹ç›¸å¯¾ãƒ‘ã‚¹ã‚’.exeåŸºæº–â†’.mifåŸºæº–ã¸å¤‰æ›´
+//! @param dir .mifãƒ•ã‚¡ã‚¤ãƒ«ã¾ã§ã®ãƒ•ãƒ«ãƒ‘ã‚¹
+//! @param fname å‡¦ç†å¯¾è±¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+//! @return å¤‰æ›æ¸ˆã¿ï¼štrueã€€æœªå¤‰æ›ï¼šfalse
+//! @attention fnameã®ãƒã‚¤ãƒ³ã‚¿ã‚’ç›´æ¥æ›¸ãæ›ãˆã¾ã™ã€‚
 bool MIFInterface::ChangeExePathToFullPath(char *dir, char *fname)
 {
 	if( dir == NULL ){ return false; }
@@ -1061,11 +1065,11 @@ bool MIFInterface::ChangeExePathToFullPath(char *dir, char *fname)
 	char str[MAX_PATH];
 	int index = 0;
 
-	//–³Œø‚Èƒtƒ@ƒCƒ‹ƒpƒX‚È‚ç‚Îˆ—‚µ‚È‚¢
+	//ç„¡åŠ¹ãªãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ãªã‚‰ã°å‡¦ç†ã—ãªã„
 	if( strcmp(fname, "") == 0 ){ return false; }
 	if( strcmp(fname, "!") == 0 ){ return false; }
 
-	//addonƒtƒHƒ‹ƒ_“à‚ğQÆ‚µ‚Ä‚¢‚é‚©”»’è
+	//addonãƒ•ã‚©ãƒ«ãƒ€å†…ã‚’å‚ç…§ã—ã¦ã„ã‚‹ã‹åˆ¤å®š
 	sprintf(str, "%s", ADDONDIR);
 	if( memcmp(fname, str, strlen(str)) == 0 ){ index = (int)strlen(str); }
 	sprintf(str, "\\%s", ADDONDIR);
@@ -1077,16 +1081,16 @@ bool MIFInterface::ChangeExePathToFullPath(char *dir, char *fname)
 	sprintf(str, "./%s", ADDONDIR);
 	if( memcmp(fname, str, strlen(str)) == 0 ){ index = (int)strlen(str); }
 
-	//addonƒtƒHƒ‹ƒ_“à‚ğQÆ‚µ‚Ä‚¢‚é‚È‚ç‚Î
+	//addonãƒ•ã‚©ãƒ«ãƒ€å†…ã‚’å‚ç…§ã—ã¦ã„ã‚‹ãªã‚‰ã°
 	if( index != 0 ){
-		//‡¬Œã‚Ì•¶š”‚ªMAX_PATH‚ğ’´‚¦‚é‚æ‚¤‚È‚çˆ—’†’f
+		//åˆæˆå¾Œã®æ–‡å­—æ•°ãŒMAX_PATHã‚’è¶…ãˆã‚‹ã‚ˆã†ãªã‚‰å‡¦ç†ä¸­æ–­
 		if( strlen(dir)+strlen(fname)-index+1 >= MAX_PATH -1 ){ return false; }
 
-		//addon‚Ì•¶š‚ğœ‹
+		//addonã®æ–‡å­—ã‚’é™¤å»
 		strcpy(str, fname);
 		for(int i=0; i<(int)strlen(str)-index+1; i++){ str[i] = str[i+index]; }
 
-		//.mif‚Ü‚Å‚ÌƒpƒX{ˆ—‘ÎÛ‚Ìƒtƒ@ƒCƒ‹ƒpƒX
+		//.mifã¾ã§ã®ãƒ‘ã‚¹ï¼‹å‡¦ç†å¯¾è±¡ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
 		strcpy(fname, dir);
 		strcat(fname, str);
 		return true;
@@ -1094,31 +1098,31 @@ bool MIFInterface::ChangeExePathToFullPath(char *dir, char *fname)
 	return false;
 }
 
-//! @brief “Ç‚İ‚ñ‚¾ƒf[ƒ^ƒtƒ@ƒCƒ‹‚ÌŒ`®‚ğæ“¾
-//! @return •W€Œ`®Ffalse@MIFŒ`®Ftrue
-//! @attention ƒtƒ@ƒCƒ‹‚ğ³í‚É“Ç‚İ‚ñ‚¾Œã‚ÉÀs‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ã®å½¢å¼ã‚’å–å¾—
+//! @return æ¨™æº–å½¢å¼ï¼šfalseã€€MIFå½¢å¼ï¼štrue
+//! @attention ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ­£å¸¸ã«èª­ã¿è¾¼ã‚“ã å¾Œã«å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚
 bool MIFInterface::GetFiletype()
 {
 	return mif;
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“¯•Ê–¼‚ğæ“¾
-//! @return ¯•Ê–¼‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF24j
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³è­˜åˆ¥åã‚’å–å¾—
+//! @return è­˜åˆ¥åã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š24ï¼‰
 char* MIFInterface::GetMissionName()
 {
 	return mission_name;
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“³®–¼Ì‚ğæ“¾
-//! @return ³®–¼Ì‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF64j
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³æ­£å¼åç§°ã‚’å–å¾—
+//! @return æ­£å¼åç§°ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š64ï¼‰
 char* MIFInterface::GetMissionFullname()
 {
 	return mission_fullname;
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^‚Æƒ|ƒCƒ“ƒgƒf[ƒ^‚ÌƒpƒX‚ğæ“¾
-//! @param *blockfile ƒuƒƒbƒNƒf[ƒ^‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param *pointfile ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã¨ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param *blockfile ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param *pointfile ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
 void MIFInterface::GetDatafilePath(char *blockfile, char *pointfile)
 {
 	if( blockfile == NULL ){ return; }
@@ -1128,19 +1132,19 @@ void MIFInterface::GetDatafilePath(char *blockfile, char *pointfile)
 	strcpy(pointfile, pointfile_path);
 }
 
-//! @brief ”wŒi‹ó‚ğæ“¾
-//! @return ‹ó‚Ì”Ô†i0`5j
-//! @attention ”Ô† 0 ‚Íu”wŒi‚È‚µv‚ğˆÓ–¡‚µ‚Ü‚·B
+//! @brief èƒŒæ™¯ç©ºã‚’å–å¾—
+//! @return ç©ºã®ç•ªå·ï¼ˆ0ï½5ï¼‰
+//! @attention ç•ªå· 0 ã¯ã€ŒèƒŒæ™¯ãªã—ã€ã‚’æ„å‘³ã—ã¾ã™ã€‚
 int MIFInterface::GetSkynumber()
 {
 	return skynumber;
 }
 
-//! @brief ƒuƒŠ[ƒtƒBƒ“ƒO‰æ‘œƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğæ“¾
-//! @param *picturefileA ‰æ‘œƒtƒ@ƒCƒ‹A‚ÌƒpƒX‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param *picturefileB ‰æ‘œƒtƒ@ƒCƒ‹B‚ÌƒpƒX‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @attention İ’è‚³‚ê‚Ä‚¢‚È‚¢ê‡‚Íu!v‚ª•Ô‚³‚ê‚Ü‚·B
-//! @attention ‰æ‘œ‚ğ1–‡‚µ‚©g—p‚µ‚È‚¢ê‡A‰æ‘œƒtƒ@ƒCƒ‹B‚Íu!v‚ğ•Ô‚µ‚Ü‚·B
+//! @brief ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param *picturefileA ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«Aã®ãƒ‘ã‚¹ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param *picturefileB ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«Bã®ãƒ‘ã‚¹ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @attention è¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆã¯ã€Œ!ã€ãŒè¿”ã•ã‚Œã¾ã™ã€‚
+//! @attention ç”»åƒã‚’1æšã—ã‹ä½¿ç”¨ã—ãªã„å ´åˆã€ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«Bã¯ã€Œ!ã€ã‚’è¿”ã—ã¾ã™ã€‚
 void MIFInterface::GetPicturefilePath(char *picturefileA, char *picturefileB)
 {
 	if( picturefileA == NULL ){ return; }
@@ -1150,92 +1154,92 @@ void MIFInterface::GetPicturefilePath(char *picturefileA, char *picturefileB)
 	strcpy(picturefileB, picturefileB_path);
 }
 
-//! @brief ƒuƒŠ[ƒtƒBƒ“ƒO•¶Íi–{•¶j‚ğæ“¾
-//! @return •¶Í‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF816j
-//! @attention ‰üsƒR[ƒh‚àŠÜ‚ß‚ÄAÅ‘å17s•ª‚ªˆê“x‚É•Ô‚³‚ê‚Ü‚·B
-//! @attention s”‚Í GetTotaldatas() ‚Åæ“¾‚Å‚«‚Ü‚·B
+//! @brief ãƒ–ãƒªãƒ¼ãƒ•ã‚£ãƒ³ã‚°æ–‡ç« ï¼ˆæœ¬æ–‡ï¼‰ã‚’å–å¾—
+//! @return æ–‡ç« ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š816ï¼‰
+//! @attention æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã‚‚å«ã‚ã¦ã€æœ€å¤§17è¡Œåˆ†ãŒä¸€åº¦ã«è¿”ã•ã‚Œã¾ã™ã€‚
+//! @attention è¡Œæ•°ã¯ GetTotaldatas() ã§å–å¾—ã§ãã¾ã™ã€‚
 char* MIFInterface::GetBriefingText()
 {
 	return briefingtext;
 }
 
-//! @brief ’Ç‰Á‚Ì“–‚½‚è”»’è‚ğ¦‚·ƒtƒ‰ƒO‚ğæ“¾
-//! @return —LŒøFtrue@–³ŒøFfalse
+//! @brief è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç¤ºã™ãƒ•ãƒ©ã‚°ã‚’å–å¾—
+//! @return æœ‰åŠ¹ï¼štrueã€€ç„¡åŠ¹ï¼šfalse
 bool MIFInterface::GetCollisionFlag()
 {
 	return collision;
 }
 
-//! @brief ‰æ–Ê‚ğˆÃ‚­‚ğ¦‚·ƒtƒ‰ƒO‚ğæ“¾
-//! @return —LŒøFtrue@–³ŒøFfalse
+//! @brief ç”»é¢ã‚’æš—ãã‚’ç¤ºã™ãƒ•ãƒ©ã‚°ã‚’å–å¾—
+//! @return æœ‰åŠ¹ï¼štrueã€€ç„¡åŠ¹ï¼šfalse
 bool MIFInterface::GetScreenFlag()
 {
 	return screen;
 }
 
-//! @brief ’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹ƒpƒX‚ğæ“¾
-//! @return ’Ç‰Á¬•¨î•ñƒtƒ@ƒCƒ‹ƒpƒX‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF_MAX_PATHj
-//! @attention –{ŠÖ”‚Í’Êí•K—v‚ ‚è‚Ü‚¹‚ñBƒ‚ƒfƒ‹ƒf[ƒ^ƒpƒX‚È‚Ç‚Ìƒtƒ@ƒCƒ‹“à‚Ìî•ñ‚ÍA‘¼‚ÌŠÖ”‚Åæ“¾‚Å‚«‚Ü‚·B
+//! @brief è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‚’å–å¾—
+//! @return è¿½åŠ å°ç‰©æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š_MAX_PATHï¼‰
+//! @attention æœ¬é–¢æ•°ã¯é€šå¸¸å¿…è¦ã‚ã‚Šã¾ã›ã‚“ã€‚ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹ãªã©ã®ãƒ•ã‚¡ã‚¤ãƒ«å†…ã®æƒ…å ±ã¯ã€ä»–ã®é–¢æ•°ã§å–å¾—ã§ãã¾ã™ã€‚
 char* MIFInterface::GetAddSmallobjectFile()
 {
 	return addsmallobject_path;
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ìƒ‚ƒfƒ‹ƒf[ƒ^ƒpƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return ƒ‚ƒfƒ‹ƒf[ƒ^ƒpƒX‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF_MAX_PATHj
+//! @brief è¿½åŠ å°ç‰©ã®ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š_MAX_PATHï¼‰
 char* MIFInterface::GetAddSmallobjectModelPath(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return NULL; }
 	return AddSmallObjectData[id].modelpath;
 }
 
-//! @brief ’Ç‰Á¬•¨‚ÌƒeƒNƒXƒ`ƒƒƒpƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return ƒeƒNƒXƒ`ƒƒƒpƒX‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF_MAX_PATHj
+//! @brief è¿½åŠ å°ç‰©ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ‘ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š_MAX_PATHï¼‰
 char* MIFInterface::GetAddSmallobjectTexturePath(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return NULL; }
 	return AddSmallObjectData[id].texturepath;
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ì“–‚½‚è”»’è‚Ì‘å‚«‚³‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return “–‚½‚è”»’è‚Ì‘å‚«‚³
+//! @brief è¿½åŠ å°ç‰©ã®å½“ãŸã‚Šåˆ¤å®šã®å¤§ãã•ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return å½“ãŸã‚Šåˆ¤å®šã®å¤§ãã•
 int MIFInterface::GetAddSmallobjectDecide(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return 0; }
 	return AddSmallObjectData[id].decide;
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ì‘Ï‹v—Í‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return ‘Ï‹v—Í
+//! @brief è¿½åŠ å°ç‰©ã®è€ä¹…åŠ›ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return è€ä¹…åŠ›
 int MIFInterface::GetAddSmallobjectHP(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return 0; }
 	return AddSmallObjectData[id].hp;
 }
 
-//! @brief ’Ç‰Á¬•¨‚ÌƒTƒEƒ“ƒhƒf[ƒ^ƒpƒX‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return ƒTƒEƒ“ƒhƒf[ƒ^ƒpƒX‚Ìƒ|ƒCƒ“ƒ^iÅ‘åF_MAX_PATHj
+//! @brief è¿½åŠ å°ç‰©ã®ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ãƒ‘ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆæœ€å¤§ï¼š_MAX_PATHï¼‰
 char* MIFInterface::GetAddSmallobjectSoundPath(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return NULL; }
 	return AddSmallObjectData[id].soundpath;
 }
 
-//! @brief ’Ç‰Á¬•¨‚Ì”ò‚Ñ‹ï‡‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†i’Êí‚Í 0 ŒÅ’èj
-//! @return ”ò‚Ñ‹ï‡
+//! @brief è¿½åŠ å°ç‰©ã®é£›ã³å…·åˆã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·ï¼ˆé€šå¸¸ã¯ 0 å›ºå®šï¼‰
+//! @return é£›ã³å…·åˆ
 int MIFInterface::GetAddSmallobjectJump(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return 0; }
 	return AddSmallObjectData[id].jump;
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 AddonList::AddonList()
 {
 	datas = 0;
@@ -1246,24 +1250,25 @@ AddonList::AddonList()
 	}
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 AddonList::~AddonList()
 {}
 
-//! @brief .mifƒtƒ@ƒCƒ‹‚ğæ“¾
+//! @brief .mifãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–å¾—
 void AddonList::GetMIFlist(const char *dir)
 {
 	if( dir == NULL ){ return; }
 
+#ifdef _WIN32
 	char SearchDIR[_MAX_PATH];
 	HANDLE hFind;
 	WIN32_FIND_DATA FindFileData;
 
-	//.mif‚ÌŒŸõğŒ‚ğ¶¬
+	//.mifã®æ¤œç´¢æ¡ä»¶ã‚’ç”Ÿæˆ
 	strcpy(SearchDIR, dir);
 	strcat(SearchDIR, "\\*.mif");
 
-	//ŒŸõ
+	//æ¤œç´¢
 	hFind = FindFirstFile(SearchDIR, &FindFileData);
 	if( hFind != INVALID_HANDLE_VALUE ){
 		strcpy(filename[0], FindFileData.cFileName);
@@ -1275,9 +1280,35 @@ void AddonList::GetMIFlist(const char *dir)
 		}
 	}
 	FindClose(hFind);
+#else
+	//[OpenXOPS-web] POSIX version of the FindFirstFile("dir\\*.mif") scan above.
+	//  - extension match is case-insensitive, like FindFirstFile on Windows;
+	//  - names are sorted case-insensitively (readdir() order is arbitrary,
+	//    NTFS returns this order), so the addon list is deterministic;
+	//  - stops at MAX_ADDONLIST and skips names that do not fit filename[]
+	//    (the Win32 path above has no bound and overflows past 128 files).
+	DIR *pDir = opendir(dir);
+	if( pDir == NULL ){ return; }
+
+	struct dirent *entry;
+	while( (entry = readdir(pDir)) != NULL ){
+		if( datas >= MAX_ADDONLIST ){ break; }
+
+		size_t len = strlen(entry->d_name);
+		if( len < 4 ){ continue; }
+		if( len >= sizeof(filename[0]) ){ continue; }
+		if( strcasecmp(&(entry->d_name[len-4]), ".mif") != 0 ){ continue; }
+
+		strcpy(filename[datas], entry->d_name);
+		datas += 1;
+	}
+	closedir(pDir);
+
+	qsort(filename, datas, sizeof(filename[0]), [](const void *a, const void *b){ return strcasecmp((const char*)a, (const char*)b); });
+#endif
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—
 void AddonList::GetMissionName(const char *dir)
 {
 	if( dir == NULL ){ return; }
@@ -1286,20 +1317,20 @@ void AddonList::GetMissionName(const char *dir)
 		char str[_MAX_PATH];
 		MIFInterface mifdata;
 
-		//ƒtƒ@ƒCƒ‹–¼‚ğ¶¬
+		//ãƒ•ã‚¡ã‚¤ãƒ«åã‚’ç”Ÿæˆ
 		strcpy(str, dir);
 		strcat(str, "\\");
 		strcat(str, filename[i]);
 
-		//MIFInterface‚Å“Ç‚İ‚Ş
+		//MIFInterfaceã§èª­ã¿è¾¼ã‚€
 		mifdata.LoadFiledata(str, false);
 
-		//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾
+		//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—
 		strcpy(mission_name[i], mifdata.GetMissionName());
 	}
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“–¼‚ğƒ\[ƒg‚·‚é
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’ã‚½ãƒ¼ãƒˆã™ã‚‹
 void AddonList::Sort()
 {
 	if( datas <= 1 ){ return; }
@@ -1308,7 +1339,7 @@ void AddonList::Sort()
 	char temp[_MAX_PATH];
 	int cmp;
 
-	//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğˆê“x¬•¶š‚É•ÏŠ·‚·‚é
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’ä¸€åº¦å°æ–‡å­—ã«å¤‰æ›ã™ã‚‹
 	for(int i=0; i<datas; i++){
 		for(int j=0; j<(int)strlen(mission_name[i]); j++){
 			mission_name_c[i][j] = (char)tolower(mission_name[i][j]);
@@ -1316,7 +1347,7 @@ void AddonList::Sort()
 		mission_name_c[i][strlen(mission_name[i])] = '\0';
 	}
 
-	//’á‘¬‚Èƒoƒuƒ‹ƒ\[ƒg@iOOG
+	//ä½é€Ÿãªãƒãƒ–ãƒ«ã‚½ãƒ¼ãƒˆã€€ï¼ˆï¼¾ï¼¾ï¼›
 	for(int i=0; i<datas-1; i++){
 		for(int j=i+1; j<datas; j++){
 			cmp = strcmp(mission_name_c[i], mission_name_c[j]);
@@ -1338,76 +1369,76 @@ void AddonList::Sort()
 
 }
 
-//! @brief ADDONƒŠƒXƒg‚ğæ“¾‚·‚é
-//! @param dir ADDONi.mifj‚ª“ü‚Á‚½ƒfƒBƒŒƒNƒgƒŠ@i•W€F"addon\\"j
-//! @return addon‚Ì‘”
+//! @brief ADDONãƒªã‚¹ãƒˆã‚’å–å¾—ã™ã‚‹
+//! @param dir ADDONï¼ˆ.mifï¼‰ãŒå…¥ã£ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã€€ï¼ˆæ¨™æº–ï¼š"addon\\"ï¼‰
+//! @return addonã®ç·æ•°
 int AddonList::LoadFiledata(const char *dir)
 {
 	if( dir == NULL ){ return 0; }
 
 	datas = 0;
 
-	//.mifƒtƒ@ƒCƒ‹‚ğæ“¾
+	//.mifãƒ•ã‚¡ã‚¤ãƒ«ã‚’å–å¾—
 	GetMIFlist(dir);
 
-	//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—
 	GetMissionName(dir);
 
-	//ƒ~ƒbƒVƒ‡ƒ“–¼‚ğƒ\[ƒg‚·‚é
+	//ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’ã‚½ãƒ¼ãƒˆã™ã‚‹
 	Sort();
 
 #ifdef ENABLE_DEBUGLOG
 	char str[128];
 	sprintf(str, "Research addon directory (Directory name : [%s]  Total : %d )", dir, datas);
 
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CHECK, "Directory", str);
 #endif
 
 	return datas;
 }
 
-//! @brief ƒ~ƒbƒVƒ‡ƒ“–¼‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return ƒ~ƒbƒVƒ‡ƒ“–¼
+//! @brief ãƒŸãƒƒã‚·ãƒ§ãƒ³åã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return ãƒŸãƒƒã‚·ãƒ§ãƒ³å
 char* AddonList::GetMissionName(int id)
 {
 	if( (id < 0)||(MAX_ADDONLIST <= id ) ){ return NULL; }
 	return mission_name[id];
 }
 
-//! @brief ƒtƒ@ƒCƒ‹–¼‚ğæ“¾
-//! @param id ƒf[ƒ^”Ô†
-//! @return ƒtƒ@ƒCƒ‹–¼
+//! @brief ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @return ãƒ•ã‚¡ã‚¤ãƒ«å
 char* AddonList::GetFileName(int id)
 {
 	if( (id < 0)||(MAX_ADDONLIST <= id ) ){ return NULL; }
 	return filename[id];
 }
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 INIFileInterface::INIFileInterface()
 {
 	inifp = NULL;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 INIFileInterface::~INIFileInterface()
 {
 	ReleaseINIFile();
 }
 
-//! @brief INIƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
-//! @param fname ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷Ffalse@¸”sFtrue
-//! @attention Šù‚ÉINIƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚Å‚¢‚éê‡AReleaseINIFile()ŠÖ”‚ğg‚¤‚Ü‚Å–{ŠÖ”‚Í¸”s‚µ‚Ü‚·B
+//! @brief INIãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
+//! @param fname ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼šfalseã€€å¤±æ•—ï¼štrue
+//! @attention æ—¢ã«INIãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ã„ã‚‹å ´åˆã€ReleaseINIFile()é–¢æ•°ã‚’ä½¿ã†ã¾ã§æœ¬é–¢æ•°ã¯å¤±æ•—ã—ã¾ã™ã€‚
 bool INIFileInterface::LoadINIFile(const char *fname)
 {
 	if( fname == NULL ){ return true; }
 	if( inifp != NULL ){ return true; }
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-	//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+	//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 	fname = ChangePathDelimiter(fname);
 #endif
 
@@ -1417,16 +1448,16 @@ bool INIFileInterface::LoadINIFile(const char *fname)
 	return false;
 }
 
-//! @brief •¶š—ñ‚ğæ“¾
-//! @param sectionname ƒZƒNƒVƒ‡ƒ“–¼iNULL‰Âj
-//! @param keyname ƒL[–¼
-//! @param defaultvalue ƒfƒtƒHƒ‹ƒg’l
-//! @param valuestr ’l
-//! @param strbuflen Å‘å•¶š”i-1‚Å–³Œøj
-//! @return ƒGƒ‰[ƒR[ƒh
-//! @attention ƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢‚© ƒL[‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒfƒtƒHƒ‹ƒg’l‚ğ•Ô‚µ‚Ü‚·B
-//! @attention æ“¾‚µ‚½•¶š—ñ‚ªÅ‘å•¶š”‚ğ’´‚¦‚Ä‚¢‚éê‡AÅ‘å•¶š”‚Ü‚ÅØ‚èæ‚è‚Ü‚·B
-//! @note ƒGƒ‰[ƒR[ƒh@1Fˆø”ˆÙíA2Fƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢A3F’l‚ªŒ©‚Â‚©‚ç‚È‚¢
+//! @brief æ–‡å­—åˆ—ã‚’å–å¾—
+//! @param sectionname ã‚»ã‚¯ã‚·ãƒ§ãƒ³åï¼ˆNULLå¯ï¼‰
+//! @param keyname ã‚­ãƒ¼å
+//! @param defaultvalue ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
+//! @param valuestr å€¤
+//! @param strbuflen æœ€å¤§æ–‡å­—æ•°ï¼ˆ-1ã§ç„¡åŠ¹ï¼‰
+//! @return ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰
+//! @attention ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã‹ ã‚­ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’è¿”ã—ã¾ã™ã€‚
+//! @attention å–å¾—ã—ãŸæ–‡å­—åˆ—ãŒæœ€å¤§æ–‡å­—æ•°ã‚’è¶…ãˆã¦ã„ã‚‹å ´åˆã€æœ€å¤§æ–‡å­—æ•°ã¾ã§åˆ‡ã‚Šå–ã‚Šã¾ã™ã€‚
+//! @note ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã€€1ï¼šå¼•æ•°ç•°å¸¸ã€2ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã€3ï¼šå€¤ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyname, const char *defaultvalue, char *valuestr, int strbuflen)
 {
 	if( valuestr == NULL ){ return 1; }
@@ -1437,7 +1468,7 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 	char readline[512];
 	char buf[512];
 
-	//ƒtƒ@ƒCƒ‹‚ª“Ç‚İ‚Ü‚ê‚Ä‚¢‚È‚¯‚ê‚Î¸”s
+	//ãƒ•ã‚¡ã‚¤ãƒ«ãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã„ãªã‘ã‚Œã°å¤±æ•—
 	if( inifp == NULL ){
 		strcpy(valuestr, defaultvalue);
 		return 2;
@@ -1446,7 +1477,7 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 	fseek(inifp, 0, SEEK_SET);
 	strcpy(readline, "");
 
-	//ƒZƒNƒVƒ‡ƒ“–¼‚ª–¢w’è‚È‚ç‚ÎAƒZƒNƒVƒ‡ƒ“–¼”»’è‚ğ–³Œø‰»
+	//ã‚»ã‚¯ã‚·ãƒ§ãƒ³åãŒæœªæŒ‡å®šãªã‚‰ã°ã€ã‚»ã‚¯ã‚·ãƒ§ãƒ³ååˆ¤å®šã‚’ç„¡åŠ¹åŒ–
 	if( sectionname == NULL ){
 		state = 1;
 	}
@@ -1454,16 +1485,16 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 		state = 1;
 	}
 
-	//ƒf[ƒ^ƒTƒCƒY•Ï”ƒ`ƒFƒbƒN
+	//ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºå¤‰æ•°ãƒã‚§ãƒƒã‚¯
 	if( strbuflen <= -2 ){ strbuflen = 0; }
 	if( strbuflen == -1 ){ strbuflen = 512; }
 	if( strbuflen > 512 ){ strbuflen = 512; }
 
 	while( fgets(readline, 512, inifp) != NULL ){
-		//ƒRƒƒ“ƒgs‚È‚ç–³Œø
+		//ã‚³ãƒ¡ãƒ³ãƒˆè¡Œãªã‚‰ç„¡åŠ¹
 		if( readline[0] == ';' ){ continue; }
 
-		//ƒZƒNƒVƒ‡ƒ“–¼”»’è
+		//ã‚»ã‚¯ã‚·ãƒ§ãƒ³ååˆ¤å®š
 		if( state == 0 ){//if( sectionname != NULL ){
 			char str[64];
 			sprintf(str, "[%s]", sectionname);
@@ -1476,9 +1507,9 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 		}
 
 
-		//ƒL[–¼”»’è
+		//ã‚­ãƒ¼ååˆ¤å®š
 		if( state == 1 ){
-			//ˆê•¶š–Ú‚ª"["‚È‚ç–³Œø
+			//ä¸€æ–‡å­—ç›®ãŒ"["ãªã‚‰ç„¡åŠ¹
 			if( readline[0] == '[' ){ break; }
 
 			char readline2[512];
@@ -1486,7 +1517,7 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 			int quotationmode = 0;
 			char str[64];
 
-			//ƒXƒy[ƒX/ƒRƒƒ“ƒg/"" ‚È‚Ç‚ª‚È‚¢•¶š‚ğ¶¬
+			//ã‚¹ãƒšãƒ¼ã‚¹/ã‚³ãƒ¡ãƒ³ãƒˆ/"" ãªã©ãŒãªã„æ–‡å­—ã‚’ç”Ÿæˆ
 			strcpy(readline2, "");
 			for(int i=0; i<(int)strlen(readline); i++){
 				if( (readline[i] == '\r')||(readline[i] == '\n') ){ break; }
@@ -1518,37 +1549,37 @@ int INIFileInterface::GetINIFileString(const char *sectionname, const char *keyn
 				strcnt += 1;
 			}
 
-			//"="‚ÌŒã‚ë‚Ì•¶š‚ğæ“¾‚µ”»’è
+			//"="ã®å¾Œã‚ã®æ–‡å­—ã‚’å–å¾—ã—åˆ¤å®š
 			sprintf(str, "%s=", keyname);
 			strcpy(buf, readline2);
 			buf[ strlen(str) ] = '\0';
 			if( strcmp(buf, str) == 0 ){
 				state = 1;
 
-				//ƒf[ƒ^ƒTƒCƒY’²®
+				//ãƒ‡ãƒ¼ã‚¿ã‚µã‚¤ã‚ºèª¿æ•´
 				strcpy(buf, &(readline2[strlen(str)]));
 				buf[strbuflen-1] = '\0';
 
-				//’l‚ğ•Ô‚·
+				//å€¤ã‚’è¿”ã™
 				strcpy(valuestr, buf);
 				return 0;
 			}
 		}
 	}
 
-	//’l‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎƒGƒ‰[‚ğ•Ô‚·
+	//å€¤ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã‚¨ãƒ©ãƒ¼ã‚’è¿”ã™
 	strcpy(valuestr, defaultvalue);
 	return 3;
 }
 
-//! @brief int’l‚ğæ“¾
-//! @param sectionname ƒZƒNƒVƒ‡ƒ“–¼iNULL‰Âj
-//! @param keyname ƒL[–¼
-//! @param defaultvalue ƒfƒtƒHƒ‹ƒg’l
-//! @param errorcode ƒGƒ‰[ƒR[ƒh‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return ’l
-//! @attention ƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢‚© ƒL[‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒfƒtƒHƒ‹ƒg’l‚ğ•Ô‚µ‚Ü‚·B
-//! @note ƒGƒ‰[ƒR[ƒh@1Fˆø”ˆÙíA2Fƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢A3F’l‚ªŒ©‚Â‚©‚ç‚È‚¢
+//! @brief intå€¤ã‚’å–å¾—
+//! @param sectionname ã‚»ã‚¯ã‚·ãƒ§ãƒ³åï¼ˆNULLå¯ï¼‰
+//! @param keyname ã‚­ãƒ¼å
+//! @param defaultvalue ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
+//! @param errorcode ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return å€¤
+//! @attention ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã‹ ã‚­ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’è¿”ã—ã¾ã™ã€‚
+//! @note ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã€€1ï¼šå¼•æ•°ç•°å¸¸ã€2ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã€3ï¼šå€¤ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 int INIFileInterface::GetINIFileInt(const char *sectionname, const char *keyname, int defaultvalue, int *errorcode)
 {
 	if( keyname == NULL ){ return defaultvalue; }
@@ -1563,14 +1594,14 @@ int INIFileInterface::GetINIFileInt(const char *sectionname, const char *keyname
 	return atoi(buf);
 }
 
-//! @brief float’l‚ğæ“¾
-//! @param sectionname ƒZƒNƒVƒ‡ƒ“–¼iNULL‰Âj
-//! @param keyname ƒL[–¼
-//! @param defaultvalue ƒfƒtƒHƒ‹ƒg’l
-//! @param errorcode ƒGƒ‰[ƒR[ƒh‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return ’l
-//! @attention ƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢‚© ƒL[‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒfƒtƒHƒ‹ƒg’l‚ğ•Ô‚µ‚Ü‚·B
-//! @note ƒGƒ‰[ƒR[ƒh@1Fˆø”ˆÙíA2Fƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢A3F’l‚ªŒ©‚Â‚©‚ç‚È‚¢
+//! @brief floatå€¤ã‚’å–å¾—
+//! @param sectionname ã‚»ã‚¯ã‚·ãƒ§ãƒ³åï¼ˆNULLå¯ï¼‰
+//! @param keyname ã‚­ãƒ¼å
+//! @param defaultvalue ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
+//! @param errorcode ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return å€¤
+//! @attention ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã‹ ã‚­ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’è¿”ã—ã¾ã™ã€‚
+//! @note ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã€€1ï¼šå¼•æ•°ç•°å¸¸ã€2ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã€3ï¼šå€¤ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 float INIFileInterface::GetINIFileFloat(const char *sectionname, const char *keyname, float defaultvalue, int *errorcode)
 {
 	if( keyname == NULL ){ return defaultvalue; }
@@ -1589,14 +1620,14 @@ float INIFileInterface::GetINIFileFloat(const char *sectionname, const char *key
 	return (float)atof(buf);
 }
 
-//! @brief bool’l‚ğæ“¾
-//! @param sectionname ƒZƒNƒVƒ‡ƒ“–¼iNULL‰Âj
-//! @param keyname ƒL[–¼
-//! @param defaultvalue ƒfƒtƒHƒ‹ƒg’l
-//! @param errorcode ƒGƒ‰[ƒR[ƒh‚ğæ“¾‚·‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return ’l
-//! @attention ƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢‚© ƒL[‚ªŒ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒfƒtƒHƒ‹ƒg’l‚ğ•Ô‚µ‚Ü‚·B
-//! @note ƒGƒ‰[ƒR[ƒh@1Fˆø”ˆÙíA2Fƒtƒ@ƒCƒ‹‚ªŠJ‚©‚ê‚Ä‚¢‚È‚¢A3F’l‚ªŒ©‚Â‚©‚ç‚È‚¢
+//! @brief boolå€¤ã‚’å–å¾—
+//! @param sectionname ã‚»ã‚¯ã‚·ãƒ§ãƒ³åï¼ˆNULLå¯ï¼‰
+//! @param keyname ã‚­ãƒ¼å
+//! @param defaultvalue ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤
+//! @param errorcode ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return å€¤
+//! @attention ãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã‹ ã‚­ãƒ¼ãŒè¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆå€¤ã‚’è¿”ã—ã¾ã™ã€‚
+//! @note ã‚¨ãƒ©ãƒ¼ã‚³ãƒ¼ãƒ‰ã€€1ï¼šå¼•æ•°ç•°å¸¸ã€2ï¼šãƒ•ã‚¡ã‚¤ãƒ«ãŒé–‹ã‹ã‚Œã¦ã„ãªã„ã€3ï¼šå€¤ãŒè¦‹ã¤ã‹ã‚‰ãªã„
 bool INIFileInterface::GetINIFileBool(const char *sectionname, const char *keyname, bool defaultvalue, int *errorcode)
 {
 	if( keyname == NULL ){ return defaultvalue; }
@@ -1625,7 +1656,7 @@ bool INIFileInterface::GetINIFileBool(const char *sectionname, const char *keyna
 	//}
 }
 
-//! @brief INIƒtƒ@ƒCƒ‹‚ğ‰ğ•ú
+//! @brief INIãƒ•ã‚¡ã‚¤ãƒ«ã‚’è§£æ”¾
 void INIFileInterface::ReleaseINIFile()
 {
 	if( inifp == NULL ){ return; }
@@ -1635,9 +1666,9 @@ void INIFileInterface::ReleaseINIFile()
 }
 
 
-//! @brief fgets()—p@‰üsƒR[ƒh‚ğæ‚èœ‚­
-//! @param str •¶š—ñ
-//! @return ’u‚«Š·‚¦‚ ‚èF0@’u‚«Š·‚¦‚È‚µF1
+//! @brief fgets()ç”¨ã€€æ”¹è¡Œã‚³ãƒ¼ãƒ‰ã‚’å–ã‚Šé™¤ã
+//! @param str æ–‡å­—åˆ—
+//! @return ç½®ãæ›ãˆã‚ã‚Šï¼š0ã€€ç½®ãæ›ãˆãªã—ï¼š1
 int DeleteLinefeed(char *str)
 {
 	if( str == NULL ){ return 1; }
@@ -1663,10 +1694,10 @@ int DeleteLinefeed(char *str)
 	return 1;
 }
 
-//! @brief ƒtƒ@ƒCƒ‹ƒpƒX‚ªƒtƒ‹ƒpƒX‚©”»’è‚·‚é
-//! @param path ƒtƒ@ƒCƒ‹ƒpƒX
-//! @return ƒtƒ‹ƒpƒX‚Å‚ ‚éiâ‘ÎƒpƒXjFtrue@ƒtƒ‹ƒpƒX‚Å‚È‚¢i‘Š‘ÎƒpƒXjFfalse
-//! @warning WindowsŠÂ‹«‚µ‚©‘z’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
+//! @brief ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ãŒãƒ•ãƒ«ãƒ‘ã‚¹ã‹åˆ¤å®šã™ã‚‹
+//! @param path ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+//! @return ãƒ•ãƒ«ãƒ‘ã‚¹ã§ã‚ã‚‹ï¼ˆçµ¶å¯¾ãƒ‘ã‚¹ï¼‰ï¼štrueã€€ãƒ•ãƒ«ãƒ‘ã‚¹ã§ãªã„ï¼ˆç›¸å¯¾ãƒ‘ã‚¹ï¼‰ï¼šfalse
+//! @warning Windowsç’°å¢ƒã—ã‹æƒ³å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
 bool CheckFullPath(const char *path)
 {
 	if( path == NULL ){ return false; }
@@ -1676,9 +1707,9 @@ bool CheckFullPath(const char *path)
 	return false;
 }
 
-//! @brief ƒtƒ@ƒCƒ‹ƒpƒX‚©‚çƒtƒ@ƒCƒ‹–¼‚ğæ‚èœ‚­
-//! @param path ƒtƒ@ƒCƒ‹ƒpƒXiƒ|ƒCƒ“ƒ^j
-//! @param dir ƒfƒBƒŒƒNƒgƒŠ–¼‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
+//! @brief ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ã‹ã‚‰ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–ã‚Šé™¤ã
+//! @param path ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹ï¼ˆãƒã‚¤ãƒ³ã‚¿ï¼‰
+//! @param dir ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
 void GetFileDirectory(const char *path, char *dir)
 {
 	if( path == NULL ){ return; }
@@ -1686,18 +1717,18 @@ void GetFileDirectory(const char *path, char *dir)
 
 	strcpy(dir, path);
 
-	//I’[‚©‚ç'\\'‚©'/'‚ğ’T‚µA'\0'‚É’u‚«Š·‚¦‚é
+	//çµ‚ç«¯ã‹ã‚‰'\\'ã‹'/'ã‚’æ¢ã—ã€'\0'ã«ç½®ãæ›ãˆã‚‹
 	for(int i=(int)strlen(dir)-1; i>0; i--){
 		if( dir[i] == '\\' ){ dir[i+1] = '\0'; break; }
 		if( dir[i] == '/' ){ dir[i+1] = '\0'; break; }
 	}
 }
 
-//! @brief ƒtƒ@ƒCƒ‹Šg’£q‚ğ”»’è‚·‚é
-//! @param filepath ƒtƒ@ƒCƒ‹–¼
-//! @param checkstr Šg’£q–¼
-//! @return ŠY“–Ftrue@”ñŠY“–Ffalse
-//! @attention Šg’£q‚Í"."‚İ‚Åw’è‚µ‚Ä‚­‚¾‚³‚¢B‘å•¶šE¬•¶š‚Í‹æ•Ê‚µ‚Ü‚¹‚ñB
+//! @brief ãƒ•ã‚¡ã‚¤ãƒ«æ‹¡å¼µå­ã‚’åˆ¤å®šã™ã‚‹
+//! @param filepath ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @param checkstr æ‹¡å¼µå­å
+//! @return è©²å½“ï¼štrueã€€éè©²å½“ï¼šfalse
+//! @attention æ‹¡å¼µå­ã¯"."è¾¼ã¿ã§æŒ‡å®šã—ã¦ãã ã•ã„ã€‚å¤§æ–‡å­—ãƒ»å°æ–‡å­—ã¯åŒºåˆ¥ã—ã¾ã›ã‚“ã€‚
 bool CheckFileExtension(const char *filepath, const char *checkstr)
 {
 	if( filepath == NULL ){ return false; }
@@ -1709,19 +1740,19 @@ bool CheckFileExtension(const char *filepath, const char *checkstr)
 	char filepath2[MAX_PATH];
 	char checkstr2[16];
 
-	//ƒtƒ@ƒCƒ‹–¼‚ğ¬•¶š‚Ö•ÏŠ·
+	//ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å°æ–‡å­—ã¸å¤‰æ›
 	for(int i=0; i<(int)strlen(filepath); i++){
 		filepath2[i] = (char)tolower((int)filepath[i]);
 	}
 	filepath2[ strlen(filepath) ] = '\0';
 
-	//Šg’£q–¼‚ğ¬•¶š‚Ö•ÏŠ·
+	//æ‹¡å¼µå­åã‚’å°æ–‡å­—ã¸å¤‰æ›
 	for(int i=0; i<(int)strlen(checkstr); i++){
 		checkstr2[i] = (char)tolower((int)checkstr[i]);
 	}
 	checkstr2[ strlen(checkstr) ] = '\0';
 
-	//Šg’£q”»’è
+	//æ‹¡å¼µå­åˆ¤å®š
 	for(int i=(int)strlen(filepath2)-1; i>0; i--){
 		if( filepath2[i] == '.' ){
 			if( strcmp(&(filepath2[i]), checkstr2) == 0 ){ return true; }
@@ -1731,9 +1762,9 @@ bool CheckFileExtension(const char *filepath, const char *checkstr)
 	return false;
 }
 
-//! @brief ƒfƒBƒŒƒNƒgƒŠ‚Ì‘¶İ‚ğ”»’è
-//! @param dir ƒfƒBƒŒƒNƒgƒŠ–¼
-//! @return ‘¶İ‚·‚éFtrue@‘¶İ‚µ‚È‚¢Ffalse
+//! @brief ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å­˜åœ¨ã‚’åˆ¤å®š
+//! @param dir ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå
+//! @return å­˜åœ¨ã™ã‚‹ï¼štrueã€€å­˜åœ¨ã—ãªã„ï¼šfalse
 bool CheckDirectory(const char *dir)
 {
 	struct stat statBuf;

@@ -1,5 +1,5 @@
 //! @file sound-directsound.cpp
-//! @brief SoundControlƒNƒ‰ƒX‚Ì’è‹`iezds.dll”Åj
+//! @brief SoundControlã‚¯ãƒ©ã‚¹ã®å®šç¾©ï¼ˆezds.dllç‰ˆï¼‰
 
 //--------------------------------------------------------------------------------
 // 
@@ -33,7 +33,7 @@
 
 #if SOUND_ENGINE == 0
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 SoundControl::SoundControl()
 {
 	lib = NULL;
@@ -44,7 +44,7 @@ SoundControl::SoundControl()
 	DSplay = NULL;
 	DSrelease = NULL;
 
-	//g—pÏ‚İƒtƒ‰ƒO‚ğ‰Šú‰»
+	//ä½¿ç”¨æ¸ˆã¿ãƒ•ãƒ©ã‚°ã‚’åˆæœŸåŒ–
 	for(int i=0; i<MAX_LOADSOUND; i++){
 		useflag[i] = false;
 	}
@@ -57,22 +57,22 @@ SoundControl::SoundControl()
 	volume_max = 100;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 SoundControl::~SoundControl()
 {
 	DestroySound();
 }
 
-//! @brief ‰Šú‰»@n
-//! iDLL‚Ìƒ[ƒhA‰Šú‰»ŠÖ”‚ÌÀsj
-//! @param WindowCtrl WindowControlƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief åˆæœŸåŒ–@n
+//! ï¼ˆDLLã®ãƒ­ãƒ¼ãƒ‰ã€åˆæœŸåŒ–é–¢æ•°ã®å®Ÿè¡Œï¼‰
+//! @param WindowCtrl WindowControlã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int SoundControl::InitSound(WindowControl *WindowCtrl)
 {
 	if( WindowCtrl == NULL ){ return 1; }
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_INIT, "Sound", "ezds.dll");
 #endif
 
@@ -80,13 +80,13 @@ int SoundControl::InitSound(WindowControl *WindowCtrl)
 		return 1;
 	}
 
-	//DLL‚ğ“Ç‚İ‚Ş
+	//DLLã‚’èª­ã¿è¾¼ã‚€
 	lib = LoadLibrary("ezds.dll");
 	if( lib == NULL ){
 		return 1;
 	}
 
-	//ŠÖ”‚ğŠ„‚è“–‚Ä
+	//é–¢æ•°ã‚’å‰²ã‚Šå½“ã¦
 	DSver = GetProcAddress(lib, "DSver");
 	DSinit = (FARPROCH)GetProcAddress(lib, "DSinit");
 	DSend = GetProcAddress(lib, "DSend");
@@ -95,17 +95,17 @@ int SoundControl::InitSound(WindowControl *WindowCtrl)
 	DSrelease = (FARPROCI)GetProcAddress(lib, "DSrelease");
 
 	if( DSinit != NULL ){
-		//DLL‰Šú‰»‚ğÀs
+		//DLLåˆæœŸåŒ–ã‚’å®Ÿè¡Œ
 		if( DSinit(WindowCtrl->GethWnd()) != 0 ){
 #ifdef ENABLE_DEBUGLOG
-			//ƒƒO‚Éo—Í
+			//ãƒ­ã‚°ã«å‡ºåŠ›
 			OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 			return 0;
 		}
 	}
 
-	//DLL‚ğ‰ğ•ú
+	//DLLã‚’è§£æ”¾
 	FreeLibrary(lib);
 	lib = NULL;
 
@@ -113,13 +113,13 @@ int SoundControl::InitSound(WindowControl *WindowCtrl)
 	return 0;
 }
 
-//! @brief ‰ğ•ú
-//! @attention –{ŠÖ”‚Í©“®“I‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·‚ªA–¾¦“I‚ÉŒÄ‚Ño‚·‚±‚Æ‚à‰Â”\‚Å‚·B
+//! @brief è§£æ”¾
+//! @attention æœ¬é–¢æ•°ã¯è‡ªå‹•çš„ã«å‘¼ã³å‡ºã•ã‚Œã¾ã™ãŒã€æ˜ç¤ºçš„ã«å‘¼ã³å‡ºã™ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 void SoundControl::DestroySound()
 {
 	if( lib == NULL ){ return; }
 
-	//g—p’†‚ÌƒTƒEƒ“ƒhƒf[ƒ^‚ğ‰ğ•ú
+	//ä½¿ç”¨ä¸­ã®ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ”¾
 	for(int i=0; i<MAX_LOADSOUND; i++){
 		if( useflag[i] == true ){
 			if( DSrelease != NULL ){ DSrelease(i); }
@@ -127,40 +127,40 @@ void SoundControl::DestroySound()
 		}
 	}
 
-	//DLL‚ğI—¹
+	//DLLã‚’çµ‚äº†
 	if( DSend != NULL ){ DSend(); }
 
-	//DLL‚ğ‰ğ•ú
+	//DLLã‚’è§£æ”¾
 	FreeLibrary(lib);
 	lib = NULL;
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CLEANUP, "Sound", "ezds.dll");
 #endif
 }
 
-//! @brief Ä¶‰¹—Ê‚ğİ’è
-//! @param volume Ä¶‰¹—Ê@i0.0–³‰¹@1.0100“j
-//! @attention 0.01i1“j–¢–‚Í 0.00i0“j‚Æ‚µ‚Äˆ—‚³‚ê‚Ü‚·B
+//! @brief å†ç”ŸéŸ³é‡ã‚’è¨­å®š
+//! @param volume å†ç”ŸéŸ³é‡ã€€ï¼ˆ0.0ï¼ç„¡éŸ³ã€€1.0ï¼100ï¼…ï¼‰
+//! @attention 0.01ï¼ˆ1ï¼…ï¼‰æœªæº€ã¯ 0.00ï¼ˆ0ï¼…ï¼‰ã¨ã—ã¦å‡¦ç†ã•ã‚Œã¾ã™ã€‚
 void SoundControl::SetVolume(float volume)
 {
 	mastervolume = volume;
 	if( mastervolume < 0.01f ){ mastervolume = 0.0f; }
 	if( mastervolume > 1.00f ){ mastervolume = 1.0f; }
 
-	//dB‚ğl—¶‚µ‚ÄÅ‘å‰¹—Ê‚ğŒˆ’è
+	//dBã‚’è€ƒæ…®ã—ã¦æœ€å¤§éŸ³é‡ã‚’æ±ºå®š
 	if( mastervolume == 0.0f ){ volume_max = -100; return; }
 	if( mastervolume == 1.0f ){ volume_max = 100; return; }
 	volume_max = 100 - (int)(log10f(mastervolume)*-0.2f*200);
 }
 
-//! @brief ƒJƒƒ‰‚ÌÀ•W‚ÆŠp“x‚ğİ’è
-//! @param x ƒJƒƒ‰‚ÌXÀ•W
-//! @param y ƒJƒƒ‰‚ÌYÀ•W
-//! @param z ƒJƒƒ‰‚ÌZÀ•W
-//! @param rx ƒJƒƒ‰‚ÌX²Šp“x@i—\–ñj
-//! @warning –ˆƒtƒŒ[ƒ€ŒÄ‚Ño‚µ‚ÄAÅV‚ÌƒJƒƒ‰À•W‚ğİ’èi“K—pj‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief ã‚«ãƒ¡ãƒ©ã®åº§æ¨™ã¨è§’åº¦ã‚’è¨­å®š
+//! @param x ã‚«ãƒ¡ãƒ©ã®Xåº§æ¨™
+//! @param y ã‚«ãƒ¡ãƒ©ã®Yåº§æ¨™
+//! @param z ã‚«ãƒ¡ãƒ©ã®Zåº§æ¨™
+//! @param rx ã‚«ãƒ¡ãƒ©ã®Xè»¸è§’åº¦ã€€ï¼ˆäºˆç´„ï¼‰
+//! @warning æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å‘¼ã³å‡ºã—ã¦ã€æœ€æ–°ã®ã‚«ãƒ¡ãƒ©åº§æ¨™ã‚’è¨­å®šï¼ˆé©ç”¨ï¼‰ã—ã¦ãã ã•ã„ã€‚
 void SoundControl::SetCamera(float x, float y, float z, float rx)
 {
 	camera_x = x;
@@ -169,41 +169,41 @@ void SoundControl::SetCamera(float x, float y, float z, float rx)
 	camera_rx = rx;
 }
 
-//! @brief ƒTƒEƒ“ƒh‚ğ“Ç‚İ‚Ş
-//! @param filename ƒtƒ@ƒCƒ‹–¼
-//! @return ¬Œ÷F0ˆÈã‚Ìƒf[ƒ^”Ô†@¸”sF-1
+//! @brief ã‚µã‚¦ãƒ³ãƒ‰ã‚’èª­ã¿è¾¼ã‚€
+//! @param filename ãƒ•ã‚¡ã‚¤ãƒ«å
+//! @return æˆåŠŸï¼š0ä»¥ä¸Šã®ãƒ‡ãƒ¼ã‚¿ç•ªå·ã€€å¤±æ•—ï¼š-1
 int SoundControl::LoadSound(const char* filename)
 {
 	if( lib == NULL ){ return -1; }
 	if( filename == NULL ){ return -1; }
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_LOAD, "Sound", filename);
 #endif
 
-	//g—p‚µ‚Ä‚¢‚È‚¢ƒf[ƒ^”Ô†‚ğ’T‚·
+	//ä½¿ç”¨ã—ã¦ã„ãªã„ãƒ‡ãƒ¼ã‚¿ç•ªå·ã‚’æ¢ã™
 	for(int i=0; i<MAX_LOADSOUND; i++){
 		if( useflag[i] == false ){
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
-			//ƒpƒX‹æØ‚è•¶š‚ğ•ÏŠ·
+			//ãƒ‘ã‚¹åŒºåˆ‡ã‚Šæ–‡å­—ã‚’å¤‰æ›
 			filename = ChangePathDelimiter(filename);
 #endif
 
-			//“Ç‚İ‚İ‚ğ‚İ‚é
+			//èª­ã¿è¾¼ã¿ã‚’è©¦ã¿ã‚‹
 			if( DSload == NULL ){ return -1; }
 			if( DSload(filename, i) == 0 ){ return -1; }
 
-			//¬‚³‚¢‰¹—Ê‚Åˆê“xÄ¶‚µ‚Ä‚¨‚­
+			//å°ã•ã„éŸ³é‡ã§ä¸€åº¦å†ç”Ÿã—ã¦ãŠã
 			if( DSplay == NULL ){ return -1; }
 			DSplay(i, -100, 0);
 
-			//g—p’†‚ğ•\‚·ƒtƒ‰ƒO‚ğƒZƒbƒg
+			//ä½¿ç”¨ä¸­ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°ã‚’ã‚»ãƒƒãƒˆ
 			useflag[i] = true;
 
 #ifdef ENABLE_DEBUGLOG
-			//ƒƒO‚Éo—Í
+			//ãƒ­ã‚°ã«å‡ºåŠ›
 			OutputLog.WriteLog(LOG_COMPLETE, "", i);
 #endif
 			return i;
@@ -213,12 +213,12 @@ int SoundControl::LoadSound(const char* filename)
 	return -1;
 }
 
-//! @brief ƒTƒEƒ“ƒh‚ğÄ¶i”ñ3DÄ¶DLLŒÄ‚Ño‚µj
-//! @param id ƒf[ƒ^”Ô†
-//! @param volume Ä¶ƒ{ƒŠƒ…[ƒ€
-//! @param pan ƒpƒ“i¶‰Eƒoƒ‰ƒ“ƒXj
-//! @return ¬Œ÷F1`3@¸”sF0
-//! @note —p“rFƒvƒŒƒCƒ„[©g‚ª”­¶‚·‚é‰¹EƒQ[ƒ€‹óŠÔ‘S‘Ì‚Å‹Ïˆê‚É–Â‚ç‚·‰¹EBGM
+//! @brief ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿï¼ˆé3Då†ç”ŸDLLå‘¼ã³å‡ºã—ï¼‰
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param volume å†ç”Ÿãƒœãƒªãƒ¥ãƒ¼ãƒ 
+//! @param pan ãƒ‘ãƒ³ï¼ˆå·¦å³ãƒãƒ©ãƒ³ã‚¹ï¼‰
+//! @return æˆåŠŸï¼š1ï½3ã€€å¤±æ•—ï¼š0
+//! @note ç”¨é€”ï¼šãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è‡ªèº«ãŒç™ºç”Ÿã™ã‚‹éŸ³ãƒ»ã‚²ãƒ¼ãƒ ç©ºé–“å…¨ä½“ã§å‡ä¸€ã«é³´ã‚‰ã™éŸ³ãƒ»BGM
 int SoundControl::PlaySound(int id, int volume, int pan)
 {
 	if( lib == NULL ){ return 0; }
@@ -230,21 +230,21 @@ int SoundControl::PlaySound(int id, int volume, int pan)
 	if( pan < -100 ){ pan = -100; }
 	if( pan > 100 ){ pan = 100; }
 
-	//ƒTƒEƒ“ƒh‚ğÄ¶
+	//ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿ
 	if( DSplay == NULL ){ return 0; }
 	//return DSplay(id, volume, pan);
 	int volume2 = (int)(1.0f/200 * (volume + 100) * (volume_max + 100) - 100);
 	return DSplay(id, volume2, pan);
 }
 
-//! @brief ƒTƒEƒ“ƒh‚ğÄ¶i3DÄ¶j
-//! @param id ƒf[ƒ^”Ô†
-//! @param x ‰¹Œ¹‚ÌXÀ•W
-//! @param y ‰¹Œ¹‚ÌYÀ•W
-//! @param z ‰¹Œ¹‚ÌZÀ•W
-//! @param volume Ä¶ƒ{ƒŠƒ…[ƒ€
-//! @return ¬Œ÷F1`3@¸”sF0
-//! @note —p“rFâ‘Î“I‚ÈˆÊ’u‚ğ‚¿‹——£‚É‚æ‚èŒ¸Š‚·‚éAˆê”Ê“I‚ÈŒø‰Ê‰¹B
+//! @brief ã‚µã‚¦ãƒ³ãƒ‰ã‚’å†ç”Ÿï¼ˆ3Då†ç”Ÿï¼‰
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
+//! @param x éŸ³æºã®Xåº§æ¨™
+//! @param y éŸ³æºã®Yåº§æ¨™
+//! @param z éŸ³æºã®Zåº§æ¨™
+//! @param volume å†ç”Ÿãƒœãƒªãƒ¥ãƒ¼ãƒ 
+//! @return æˆåŠŸï¼š1ï½3ã€€å¤±æ•—ï¼š0
+//! @note ç”¨é€”ï¼šçµ¶å¯¾çš„ãªä½ç½®ã‚’æŒã¡è·é›¢ã«ã‚ˆã‚Šæ¸›è¡°ã™ã‚‹ã€ä¸€èˆ¬çš„ãªåŠ¹æœéŸ³ã€‚
 int SoundControl::Play3DSound(int id, float x, float y, float z, int volume)
 {
 	if( (id < 0)||(MAX_LOADSOUND <= id) ){ return 0; }
@@ -257,14 +257,14 @@ int SoundControl::Play3DSound(int id, float x, float y, float z, int volume)
 	int playvolume;
 	int pan = 0;
 	
-	//‹——£‚É‚æ‚éÄ¶‰¹—ÊŒˆ’è
+	//è·é›¢ã«ã‚ˆã‚‹å†ç”ŸéŸ³é‡æ±ºå®š
 	if( CheckSourceDist(x, y, z, false, &dist) == false ){
 		return 0;
 	}
 	playvolume = CalculationVolume(volume, dist, false);
 
 	/*
-	//¶‰E‚Ìƒpƒ“iÄ¶ƒoƒ‰ƒ“ƒXj‚ÌŒˆ’è
+	//å·¦å³ã®ãƒ‘ãƒ³ï¼ˆå†ç”Ÿãƒãƒ©ãƒ³ã‚¹ï¼‰ã®æ±ºå®š
 	float vx = x - camera_x;
 	float vz = z - camera_z;
 	float rx = (atan2f(vz, vx) - camera_rx) * -1;
@@ -272,17 +272,17 @@ int SoundControl::Play3DSound(int id, float x, float y, float z, int volume)
 	pan = (int)((float)10 / M_PI * rx);
 	*/
 
-	//DLLŒÄ‚Ño‚µ
+	//DLLå‘¼ã³å‡ºã—
 	return PlaySound(id, playvolume, pan);
 }
 
-//! @brief “Ç‚İ‚İÏ‚İ‚ÌƒTƒEƒ“ƒh”‚ğæ“¾
-//! @return ƒTƒEƒ“ƒh”
+//! @brief èª­ã¿è¾¼ã¿æ¸ˆã¿ã®ã‚µã‚¦ãƒ³ãƒ‰æ•°ã‚’å–å¾—
+//! @return ã‚µã‚¦ãƒ³ãƒ‰æ•°
 int SoundControl::GetTotalSounds()
 {
 	int cnt = 0;
 
-	//g—p’†‚Ì—v‘f‚ğ”‚¦‚é
+	//ä½¿ç”¨ä¸­ã®è¦ç´ ã‚’æ•°ãˆã‚‹
 	for(int i=0; i<MAX_LOADSOUND; i++){
 		if( useflag[i] == true ){ cnt += 1; }
 	}
@@ -290,33 +290,33 @@ int SoundControl::GetTotalSounds()
 	return cnt;
 }
 
-//! @brief ƒTƒEƒ“ƒh‚ğ‰ğ•ú
-//! @param id ƒf[ƒ^”Ô†
+//! @brief ã‚µã‚¦ãƒ³ãƒ‰ã‚’è§£æ”¾
+//! @param id ãƒ‡ãƒ¼ã‚¿ç•ªå·
 void SoundControl::CleanupSound(int id)
 {
 	if( lib == NULL ){ return; }
 	if( (id < 0)||(MAX_LOADSOUND <= id) ){ return; }
 	if( useflag[id] == false ){ return; }
 
-	//g—p’†‚ÌƒTƒEƒ“ƒhƒf[ƒ^‚ğ‰ğ•ú
+	//ä½¿ç”¨ä¸­ã®ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒ¼ã‚¿ã‚’è§£æ”¾
 	if( DSrelease != NULL ){ DSrelease(id); }
 
-	//g—p’†ƒtƒ‰ƒO‚ğ‰ğœ
+	//ä½¿ç”¨ä¸­ãƒ•ãƒ©ã‚°ã‚’è§£é™¤
 	useflag[id] = false;
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CLEANUP, "Sound", id);
 #endif
 }
 
-//! @brief ‰¹Œ¹‚Æ‚Ì‹——£‚ğ’²‚×‚é
-//! @param x ‰¹Œ¹‚ÌXÀ•W
-//! @param y ‰¹Œ¹‚ÌYÀ•W
-//! @param z ‰¹Œ¹‚ÌZÀ•W
-//! @param snear ‹ß‹——£‰¹Œ¹
-//! @param out_dist ‹——£
-//! @return —LŒøi“àjFtrue@–³ŒøiŠOjFfalse
+//! @brief éŸ³æºã¨ã®è·é›¢ã‚’èª¿ã¹ã‚‹
+//! @param x éŸ³æºã®Xåº§æ¨™
+//! @param y éŸ³æºã®Yåº§æ¨™
+//! @param z éŸ³æºã®Zåº§æ¨™
+//! @param snear è¿‘è·é›¢éŸ³æº
+//! @param out_dist è·é›¢
+//! @return æœ‰åŠ¹ï¼ˆå†…ï¼‰ï¼štrueã€€ç„¡åŠ¹ï¼ˆå¤–ï¼‰ï¼šfalse
 bool SoundControl::CheckSourceDist(float x, float y, float z, bool snear, float *out_dist)
 {
 	float dx, dy, dz, dist;
@@ -342,10 +342,10 @@ bool SoundControl::CheckSourceDist(float x, float y, float z, bool snear, float 
 	return true;
 }
 
-//! @brief ‰¹—Ê‚ğŒvZ
-//! @param MaxVolume ‰¹Œ¹‚ÌÅ‘å‰¹—Ê
-//! @param dist ‰¹Œ¹‚Æ‚Ì‹——£
-//! @param snear ‹ß‹——£‰¹Œ¹
+//! @brief éŸ³é‡ã‚’è¨ˆç®—
+//! @param MaxVolume éŸ³æºã®æœ€å¤§éŸ³é‡
+//! @param dist éŸ³æºã¨ã®è·é›¢
+//! @param snear è¿‘è·é›¢éŸ³æº
 int SoundControl::CalculationVolume(int MaxVolume, float dist, bool snear)
 {
 	int max_dist;

@@ -31,5 +31,5 @@
 
 MAINICON ICON "icon.ico"
 
-//��DirectX 9.0 �V�F�[�_�[�g�p���ɂ͗L�������邱�ƁB
+//※DirectX 9.0 シェーダー使用時には有効化すること。
 //HLSLFILE RCDATA DISCARDABLE "DirectX_Shader01.fx"

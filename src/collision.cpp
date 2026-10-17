@@ -1,5 +1,5 @@
 //! @file collision.cpp
-//! @brief CollisionƒNƒ‰ƒX‚Ì’è‹`
+//! @brief Collisionã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -31,7 +31,7 @@
 
 #include "collision.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Collision::Collision()
 {
 	BlockDataIF = NULL;
@@ -48,14 +48,14 @@ Collision::Collision()
 	}
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 Collision::~Collision()
 {
 	if( cbdata != NULL ){ delete [] cbdata; }
 }
 
-//! @brief ƒuƒƒbƒNƒf[ƒ^‚ğæ‚è‚Ş
-//! @param in_BlockDataIF ƒuƒƒbƒNƒf[ƒ^
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šè¾¼ã‚€
+//! @param in_BlockDataIF ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿
 int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 {
 	int bs;
@@ -79,7 +79,7 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 
 		BlockDataIF->Getdata(&data, i);
 
-		//’†S‚ğ‹‚ß‚é
+		//ä¸­å¿ƒã‚’æ±‚ã‚ã‚‹
 		for(int j=0; j<8; j++){
 			cx += data.x[j];
 			cy += data.y[j];
@@ -89,9 +89,9 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 		cy /= 8;
 		cz /= 8;
 
-		//Še’¸“_‚ÌÀ•W‚ğÄŒvZ
+		//å„é ‚ç‚¹ã®åº§æ¨™ã‚’å†è¨ˆç®—
 		for(int j=0; j<8; j++){
-			//’†S‚©‚ç‚ÌˆÊ’uŠÖŒW‚ğZo
+			//ä¸­å¿ƒã‹ã‚‰ã®ä½ç½®é–¢ä¿‚ã‚’ç®—å‡º
 			x = data.x[j] - cx;
 			y = data.y[j] - cy;
 			z = data.z[j] - cz;
@@ -99,17 +99,17 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 			ry = atan2f(y, sqrtf(x*x + z*z));
 			r = sqrtf(x*x + y*y + z*z);
 
-			//‘å‚«‚­‚·‚é
+			//å¤§ããã™ã‚‹
 			r += COLLISION_ADDSIZE;
 
-			//À•W‚ğÄŒvZ
+			//åº§æ¨™ã‚’å†è¨ˆç®—
 			cbdata[i].x[j] = cx + cosf(rx) * cosf(ry) * r;
 			cbdata[i].y[j] = cy + sinf(ry) * r;
 			cbdata[i].z[j] = cz + sinf(rx) * cosf(ry) * r;
 		}
 	}
 
-	//”»’è—p•½–Ê‚Ì’†S“_Zo
+	//åˆ¤å®šç”¨å¹³é¢ã®ä¸­å¿ƒç‚¹ç®—å‡º
 	for(int i=0; i<bs; i++){
 		for(int j=0; j<6; j++){
 			blockdataface(j, &vID[0], NULL);
@@ -118,7 +118,7 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 			cbdata[i].polygon_center_y[j] = 0.0f;
 			cbdata[i].polygon_center_z[j] = 0.0f;
 
-			//4’¸“_‚Ì’†S“_‚ğZo
+			//4é ‚ç‚¹ã®ä¸­å¿ƒç‚¹ã‚’ç®—å‡º
 			for(int k=0; k<4; k++){
 				cbdata[i].polygon_center_x[j] += cbdata[i].x[ vID[k] ];
 				cbdata[i].polygon_center_y[j] += cbdata[i].y[ vID[k] ];
@@ -130,13 +130,13 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 		}
 	}
 
-	//”Âó‚ÌƒuƒƒbƒN‚ğŒŸo
+	//æ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚’æ¤œå‡º
 	for(int i=0; i<bs; i++){
 		cbdata[i].BoardBlock = false;
 
 		for(int j=0; j<8; j++){
 			for(int k=j+1; k<8; k++){
-				//ˆêƒ•Š‚Å‚à’¸“_‚ª“¯‚¶‚È‚çA”Âó‚É‚È‚Á‚Ä‚¢‚é‚Æ”»’èB
+				//ä¸€ãƒµæ‰€ã§ã‚‚é ‚ç‚¹ãŒåŒã˜ãªã‚‰ã€æ¿çŠ¶ã«ãªã£ã¦ã„ã‚‹ã¨åˆ¤å®šã€‚
 				if( (cbdata[i].x[j] == cbdata[i].x[k])&&(cbdata[i].y[j] == cbdata[i].y[k])&&(cbdata[i].z[j] == cbdata[i].z[k]) ){
 					cbdata[i].BoardBlock = true;
 					j = 8; k = 8;	//break
@@ -144,7 +144,7 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 			}
 		}
 
-		//ƒuƒƒbƒN‚Ì’†S‚ğZo
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­å¿ƒã‚’ç®—å‡º
 		float mx = 0.0f;
 		float my = 0.0f;
 		float mz = 0.0f;
@@ -157,7 +157,7 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 		my /= 8;
 		mz /= 8;
 
-		//ƒuƒƒbƒN‚Ì’†S“_‚É‘Î‚µ‚Ä1–Ê‚Å‚à•\–Ê‚È‚ç‚ÎA”Âó‚É‚È‚Á‚Ä‚¢‚é‚Æ”»’èB
+		//ãƒ–ãƒ­ãƒƒã‚¯ã®ä¸­å¿ƒç‚¹ã«å¯¾ã—ã¦1é¢ã§ã‚‚è¡¨é¢ãªã‚‰ã°ã€æ¿çŠ¶ã«ãªã£ã¦ã„ã‚‹ã¨åˆ¤å®šã€‚
 		for(int j=0; j<6; j++){
 			if( CheckPolygonFront(i, j, mx, my, mz) == true ){
 				cbdata[i].BoardBlock = true;
@@ -167,12 +167,12 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 	}
 
 
-	//ƒuƒƒbƒNAABBì¬
+	//ãƒ–ãƒ­ãƒƒã‚¯AABBä½œæˆ
 	for(int i=0; i<bs; i++){
 		GetBlockPosMINMAX(i, &cbdata[i].min_x, &cbdata[i].min_y, &cbdata[i].min_z, &cbdata[i].max_x, &cbdata[i].max_y, &cbdata[i].max_z);
 	}
 
-	//ƒuƒƒbƒN‚Ì‹óŠÔ•ªŠ„ƒOƒ‹[ƒv‚ğŒvZ
+	//ãƒ–ãƒ­ãƒƒã‚¯ã®ç©ºé–“åˆ†å‰²ã‚°ãƒ«ãƒ¼ãƒ—ã‚’è¨ˆç®—
 	for(int i=0; i<bs; i++){
 		cbdata[i].worldgroup = GetWorldGroup(cbdata[i].min_x, cbdata[i].min_z);
 		if( GetWorldGroup(cbdata[i].max_x, cbdata[i].max_z) != cbdata[i].worldgroup ){
@@ -183,14 +183,14 @@ int Collision::InitCollision(BlockDataInterface* in_BlockDataIF)
 	return 0;
 }
 
-//! @brief ƒuƒƒbƒN‚ÌÀ•WÅ‘å’lEÅ¬’l‚ğ•Ô‚·
-//! @param id ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param *min_x Å¬ XÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *min_y Å¬ YÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *min_z Å¬ ZÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_x Å‘å XÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_y Å‘å YÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_z Å‘å ZÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã®åº§æ¨™æœ€å¤§å€¤ãƒ»æœ€å°å€¤ã‚’è¿”ã™
+//! @param id åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param *min_x æœ€å° Xåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *min_y æœ€å° Yåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *min_z æœ€å° Zåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_x æœ€å¤§ Xåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_y æœ€å¤§ Yåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_z æœ€å¤§ Zåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
 void Collision::GetBlockPosMINMAX(int id, float *min_x, float *min_y, float *min_z, float *max_x, float *max_y, float *max_z)
 {
 	*min_x = cbdata[id].x[0];
@@ -209,7 +209,7 @@ void Collision::GetBlockPosMINMAX(int id, float *min_x, float *min_y, float *min
 		if( *max_z < cbdata[id].z[i] ){ *max_z = cbdata[id].z[i]; }
 	}
 
-	//ŒvZŒë·‘Îô‚Ì‚½‚ßA‚í‚¸‚©‚É‘å‚«‚ß‚É‚·‚éB
+	//è¨ˆç®—èª¤å·®å¯¾ç­–ã®ãŸã‚ã€ã‚ãšã‹ã«å¤§ãã‚ã«ã™ã‚‹ã€‚
 	*min_x -= COLLISION_ADDSIZE;
 	*min_y -= COLLISION_ADDSIZE;
 	*min_z -= COLLISION_ADDSIZE;
@@ -218,11 +218,11 @@ void Collision::GetBlockPosMINMAX(int id, float *min_x, float *min_y, float *min
 	*max_z += COLLISION_ADDSIZE;
 }
 
-//! @brief ‹óŠÔ•ªŠ„‚ÌƒOƒ‹[ƒv‚ğZo
-//! @param x XÀ•W
-//! @param z ZÀ•W
-//! @return ƒOƒ‹[ƒv”Ô†
-//! @attention uƒOƒ‹[ƒv”Ô†v‚ÌŠT”O‚Í•Ê“rƒhƒLƒ…ƒƒ“ƒg‚ğQÆ
+//! @brief ç©ºé–“åˆ†å‰²ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’ç®—å‡º
+//! @param x Xåº§æ¨™
+//! @param z Zåº§æ¨™
+//! @return ã‚°ãƒ«ãƒ¼ãƒ—ç•ªå·
+//! @attention ã€Œã‚°ãƒ«ãƒ¼ãƒ—ç•ªå·ã€ã®æ¦‚å¿µã¯åˆ¥é€”ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’å‚ç…§
 int Collision::GetWorldGroup(float x, float z)
 {
 	if( (x > 0)&&(z > 0) ){ return 1; }
@@ -232,22 +232,22 @@ int Collision::GetWorldGroup(float x, float z)
 	return 0;
 }
 
-//! @brief AABB‚É‚æ‚éƒuƒƒbƒN‚Æ‚Ì“–‚½‚è”»’è
-//! @param id ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param min_x •¨‘Ì‚ÌÅ­ XÀ•W
-//! @param min_y •¨‘Ì‚ÌÅ­ YÀ•W
-//! @param min_z •¨‘Ì‚ÌÅ­ ZÀ•W
-//! @param max_x •¨‘Ì‚ÌÅ‘å XÀ•W
-//! @param max_y •¨‘Ì‚ÌÅ‘å YÀ•W
-//! @param max_z •¨‘Ì‚ÌÅ‘å ZÀ•W
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @attention ƒGƒ‰[‚ª‚ ‚éê‡u“–‚½‚Á‚Ä‚¢‚È‚¢Ffalsev‚ª•Ô‚³‚ê‚Ü‚·B
+//! @brief AABBã«ã‚ˆã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã¨ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param id åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param min_x ç‰©ä½“ã®æœ€å°‘ Xåº§æ¨™
+//! @param min_y ç‰©ä½“ã®æœ€å°‘ Yåº§æ¨™
+//! @param min_z ç‰©ä½“ã®æœ€å°‘ Zåº§æ¨™
+//! @param max_x ç‰©ä½“ã®æœ€å¤§ Xåº§æ¨™
+//! @param max_y ç‰©ä½“ã®æœ€å¤§ Yåº§æ¨™
+//! @param max_z ç‰©ä½“ã®æœ€å¤§ Zåº§æ¨™
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @attention ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã€Œå½“ãŸã£ã¦ã„ãªã„ï¼šfalseã€ãŒè¿”ã•ã‚Œã¾ã™ã€‚
 bool Collision::CheckBlockAABB(int id, float min_x, float min_y, float min_z, float max_x, float max_y, float max_z)
 {
 	if( BlockDataIF == NULL ){ return false; }
 	if( (id < 0)||(BlockDataIF->GetTotaldatas() <= id) ){ return false; }
 
-	//”Âó‚ÌƒuƒƒbƒN‚ÍŒvZŠO
+	//æ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯è¨ˆç®—å¤–
 	if( cbdata[id].BoardBlock == true ){
 		return false;
 	}
@@ -255,15 +255,15 @@ bool Collision::CheckBlockAABB(int id, float min_x, float min_y, float min_z, fl
 	return CollideBoxAABB(min_x, min_y, min_z, max_x, max_y, max_z, cbdata[id].min_x, cbdata[id].min_y, cbdata[id].min_z, cbdata[id].max_x, cbdata[id].max_y, cbdata[id].max_z);
 }
 
-//! @brief AABB‚É‚æ‚é‘S‚Ä‚ÌƒuƒƒbƒN‚Æ‚Ì“–‚½‚è”»’è
-//! @param min_x •¨‘Ì‚ÌÅ­ XÀ•W
-//! @param min_y •¨‘Ì‚ÌÅ­ YÀ•W
-//! @param min_z •¨‘Ì‚ÌÅ­ ZÀ•W
-//! @param max_x •¨‘Ì‚ÌÅ‘å XÀ•W
-//! @param max_y •¨‘Ì‚ÌÅ‘å YÀ•W
-//! @param max_z •¨‘Ì‚ÌÅ‘å ZÀ•W
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @attention ƒGƒ‰[‚ª‚ ‚éê‡u“–‚½‚Á‚Ä‚¢‚È‚¢Ffalsev‚ª•Ô‚³‚ê‚Ü‚·B
+//! @brief AABBã«ã‚ˆã‚‹å…¨ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã¨ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param min_x ç‰©ä½“ã®æœ€å°‘ Xåº§æ¨™
+//! @param min_y ç‰©ä½“ã®æœ€å°‘ Yåº§æ¨™
+//! @param min_z ç‰©ä½“ã®æœ€å°‘ Zåº§æ¨™
+//! @param max_x ç‰©ä½“ã®æœ€å¤§ Xåº§æ¨™
+//! @param max_y ç‰©ä½“ã®æœ€å¤§ Yåº§æ¨™
+//! @param max_z ç‰©ä½“ã®æœ€å¤§ Zåº§æ¨™
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @attention ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã€Œå½“ãŸã£ã¦ã„ãªã„ï¼šfalseã€ãŒè¿”ã•ã‚Œã¾ã™ã€‚
 bool Collision::CheckALLBlockAABB(float min_x, float min_y, float min_z, float max_x, float max_y, float max_z)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -277,15 +277,15 @@ bool Collision::CheckALLBlockAABB(float min_x, float min_y, float min_z, float m
 	return false;
 }
 
-//! @brief “Á’è‚ÌÀ•W‚ªAƒuƒƒbƒN‚Ì–Ê‚Ì•\‘¤‚©’²‚×‚é
-//! @param id ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param face ”»’è‚·‚é–Ê”Ô†
-//! @param x XÀ•W
-//! @param y YÀ•W
-//! @param z ZÀ•W
-//! @return •\Œü‚«Ftrue@— Œü‚«Ffalse
-//! @warning â‘ÎÀ•W‚ğw’è‚·‚é•K—v‚ª‚ ‚è‚Ü‚·BƒxƒNƒgƒ‹‚Å‚Í‚ ‚è‚Ü‚¹‚ñB
-//! @attention Še“–‚½‚è”»’è‚ÌŠÖ”‚©‚ç©“®“I‚ÉŒÄ‚Î‚ê‚Ü‚·B
+//! @brief ç‰¹å®šã®åº§æ¨™ãŒã€ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã®è¡¨å´ã‹èª¿ã¹ã‚‹
+//! @param id åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param face åˆ¤å®šã™ã‚‹é¢ç•ªå·
+//! @param x Xåº§æ¨™
+//! @param y Yåº§æ¨™
+//! @param z Zåº§æ¨™
+//! @return è¡¨å‘ãï¼štrueã€€è£å‘ãï¼šfalse
+//! @warning çµ¶å¯¾åº§æ¨™ã‚’æŒ‡å®šã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚ãƒ™ã‚¯ãƒˆãƒ«ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
+//! @attention å„å½“ãŸã‚Šåˆ¤å®šã®é–¢æ•°ã‹ã‚‰è‡ªå‹•çš„ã«å‘¼ã°ã‚Œã¾ã™ã€‚
 bool Collision::CheckPolygonFront(int id, int face, float x, float y, float z)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -298,12 +298,12 @@ bool Collision::CheckPolygonFront(int id, int face, float x, float y, float z)
 
 	BlockDataIF->Getdata(&bdata, id);
 
-	//–Ê‚Ì’†S‚ğŠî€“_‚ÉAÀ•W‚ÌƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+	//é¢ã®ä¸­å¿ƒã‚’åŸºæº–ç‚¹ã«ã€åº§æ¨™ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 	vx = cbdata[id].polygon_center_x[face] - x;
 	vy = cbdata[id].polygon_center_y[face] - y;
 	vz = cbdata[id].polygon_center_z[face] - z;
 
-	//“àÏ
+	//å†…ç©
 	d = bdata.material[face].vx*vx + bdata.material[face].vy*vy + bdata.material[face].vz*vz;
 
 	if( d <= 0.0f ){
@@ -312,11 +312,11 @@ bool Collision::CheckPolygonFront(int id, int face, float x, float y, float z)
 	return false;
 }
 
-//! @brief “Á’è‚Ì•ûŒü‚É‘Î‚µ‚ÄAƒuƒƒbƒN‚Ì–Ê‚Ì•\‘¤‚©’²‚×‚é
-//! @param id ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param face ”»’è‚·‚é–Ê”Ô†
-//! @param rx ‰¡•ûŒü‚ÌŠp“x
-//! @return •\Œü‚«Ftrue@— Œü‚«Ffalse
+//! @brief ç‰¹å®šã®æ–¹å‘ã«å¯¾ã—ã¦ã€ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã®è¡¨å´ã‹èª¿ã¹ã‚‹
+//! @param id åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param face åˆ¤å®šã™ã‚‹é¢ç•ªå·
+//! @param rx æ¨ªæ–¹å‘ã®è§’åº¦
+//! @return è¡¨å‘ãï¼štrueã€€è£å‘ãï¼šfalse
 bool Collision::CheckPolygonFrontRx(int id, int face, float rx)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -329,11 +329,11 @@ bool Collision::CheckPolygonFrontRx(int id, int face, float rx)
 
 	BlockDataIF->Getdata(&bdata, id);
 
-	//ƒxƒNƒgƒ‹Zo
+	//ãƒ™ã‚¯ãƒˆãƒ«ç®—å‡º
 	vx = cosf(rx);
 	vz = sinf(rx);
 
-	//“àÏ
+	//å†…ç©
 	d = bdata.material[face].vx*vx + bdata.material[face].vz*vz;
 
 	if( d <= 0.0f ){
@@ -342,19 +342,19 @@ bool Collision::CheckPolygonFrontRx(int id, int face, float rx)
 	return false;
 }
 
-//! @brief ƒuƒƒbƒN‚Ì–Ê‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param blockid ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param face ”»’è‚·‚é–Ê”Ô†
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param out_Dist “–‚½‚Á‚½ƒuƒƒbƒN‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @attention Še“–‚½‚è”»’è‚ÌŠÖ”‚©‚ç©“®“I‚ÉŒÄ‚Î‚ê‚Ü‚·B
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param blockid åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param face åˆ¤å®šã™ã‚‹é¢ç•ªå·
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param out_Dist å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @attention å„å½“ãŸã‚Šåˆ¤å®šã®é–¢æ•°ã‹ã‚‰è‡ªå‹•çš„ã«å‘¼ã°ã‚Œã¾ã™ã€‚
 bool Collision::CheckIntersectTri(int blockid, int face, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, float *out_Dist)
 {
 	blockdata data;
@@ -368,85 +368,85 @@ bool Collision::CheckIntersectTri(int blockid, int face, float RayPos_x, float R
 	BlockDataIF->Getdata(&data, blockid);
 	blockdataface(face, vID, NULL);
 
-	//“àÏ
+	//å†…ç©
 	d1 = data.material[face].vx*RayDir_x + data.material[face].vy*RayDir_y + data.material[face].vz*RayDir_z;
 
 	if( d1 >= 0.0f ){
-		return false;		//–Ê‚ÆƒŒƒC‚ª•½s‚©A–Ê‚É‘Î‚µ‚ÄƒŒƒC‚ª‹tŒü‚«
+		return false;		//é¢ã¨ãƒ¬ã‚¤ãŒå¹³è¡Œã‹ã€é¢ã«å¯¾ã—ã¦ãƒ¬ã‚¤ãŒé€†å‘ã
 	}
 
-	//–Ê‚Ì’†S‚ğŠî€“_‚ÉAÀ•W‚ÌƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+	//é¢ã®ä¸­å¿ƒã‚’åŸºæº–ç‚¹ã«ã€åº§æ¨™ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 	vx1 = RayPos_x - cbdata[blockid].polygon_center_x[face];
 	vy1 = RayPos_y - cbdata[blockid].polygon_center_y[face];
 	vz1 = RayPos_z - cbdata[blockid].polygon_center_z[face];
 
-	//“àÏ
-	d2 = data.material[face].vx*vx1 + data.material[face].vy*vy1 + data.material[face].vz*vz1;		//–Ê‚Ü‚Å‚ÌÅ’Z‹——£‚ª‹‚Ü‚é
+	//å†…ç©
+	d2 = data.material[face].vx*vx1 + data.material[face].vy*vy1 + data.material[face].vz*vz1;		//é¢ã¾ã§ã®æœ€çŸ­è·é›¢ãŒæ±‚ã¾ã‚‹
 
-	//Œğ“_‚Ü‚Å‚Ì‹——£‚ÆÀ•W
+	//äº¤ç‚¹ã¾ã§ã®è·é›¢ã¨åº§æ¨™
 	dist = 1.0f / (d1*-1) * d2;
 	x = RayPos_x + RayDir_x * dist;
 	y = RayPos_y + RayDir_y * dist;
 	z = RayPos_z + RayDir_z * dist;
 
 
-	//ƒuƒƒbƒN‘S‘Ì‚ÌAABB‚É“ü‚ç‚È‚¯‚ê‚ÎœŠO
+	//ãƒ–ãƒ­ãƒƒã‚¯å…¨ä½“ã®AABBã«å…¥ã‚‰ãªã‘ã‚Œã°é™¤å¤–
 	if( (x < cbdata[blockid].min_x)||(cbdata[blockid].max_x < x) ){ return false; }
 	if( (y < cbdata[blockid].min_y)||(cbdata[blockid].max_y < y) ){ return false; }
 	if( (z < cbdata[blockid].min_z)||(cbdata[blockid].max_z < z) ){ return false; }
 
 
-	//ˆÈ‰ºAƒuƒƒbƒN–Ê‚Ì“à‘¤‚ÉŒğ“_‚ª‚ ‚é‚©ƒ`ƒFƒbƒN
-	//@@–Ê‚ğŒ`¬‚·‚éŠe4•Ó‚Æ‚ÌˆÊ’uŠÖŒW‚ğZo‚µA–Ê‚Ì–@ü‚Æ”äŠr‚·‚éB
+	//ä»¥ä¸‹ã€ãƒ–ãƒ­ãƒƒã‚¯é¢ã®å†…å´ã«äº¤ç‚¹ãŒã‚ã‚‹ã‹ãƒã‚§ãƒƒã‚¯
+	//ã€€ã€€é¢ã‚’å½¢æˆã™ã‚‹å„4è¾ºã¨ã®ä½ç½®é–¢ä¿‚ã‚’ç®—å‡ºã—ã€é¢ã®æ³•ç·šã¨æ¯”è¼ƒã™ã‚‹ã€‚
 
-	//ŠOÏ
+	//å¤–ç©
 	vx2 = ((cbdata[blockid].y[ vID[1] ] - cbdata[blockid].y[ vID[0] ]) * (z - cbdata[blockid].z[ vID[0] ])) - ((y - cbdata[blockid].y[ vID[0] ]) * (cbdata[blockid].z[ vID[1] ] - cbdata[blockid].z[ vID[0] ]));
 	vy2 = ((cbdata[blockid].z[ vID[1] ] - cbdata[blockid].z[ vID[0] ]) * (x - cbdata[blockid].x[ vID[0] ])) - ((z - cbdata[blockid].z[ vID[0] ]) * (cbdata[blockid].x[ vID[1] ] - cbdata[blockid].x[ vID[0] ]));
 	vz2 = ((cbdata[blockid].x[ vID[1] ] - cbdata[blockid].x[ vID[0] ]) * (y - cbdata[blockid].y[ vID[0] ])) - ((x - cbdata[blockid].x[ vID[0] ]) * (cbdata[blockid].y[ vID[1] ] - cbdata[blockid].y[ vID[0] ]));
 
-	//“àÏ
-	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ƒuƒƒbƒN–Ê‚Ì–@ü‚Æ‚ÌŠÖŒW‚ğZo
+	//å†…ç©
+	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ãƒ–ãƒ­ãƒƒã‚¯é¢ã®æ³•ç·šã¨ã®é–¢ä¿‚ã‚’ç®—å‡º
 
-	if( d1 < 0.0f ){	//ŠO‘¤‚É‚ ‚ê‚ÎœŠO
+	if( d1 < 0.0f ){	//å¤–å´ã«ã‚ã‚Œã°é™¤å¤–
 		return false;
 	}
 
 
-	//ŠOÏ
+	//å¤–ç©
 	vx2 = ((cbdata[blockid].y[ vID[2] ] - cbdata[blockid].y[ vID[1] ]) * (z - cbdata[blockid].z[ vID[1] ])) - ((y - cbdata[blockid].y[ vID[1] ]) * (cbdata[blockid].z[ vID[2] ] - cbdata[blockid].z[ vID[1] ]));
 	vy2 = ((cbdata[blockid].z[ vID[2] ] - cbdata[blockid].z[ vID[1] ]) * (x - cbdata[blockid].x[ vID[1] ])) - ((z - cbdata[blockid].z[ vID[1] ]) * (cbdata[blockid].x[ vID[2] ] - cbdata[blockid].x[ vID[1] ]));
 	vz2 = ((cbdata[blockid].x[ vID[2] ] - cbdata[blockid].x[ vID[1] ]) * (y - cbdata[blockid].y[ vID[1] ])) - ((x - cbdata[blockid].x[ vID[1] ]) * (cbdata[blockid].y[ vID[2] ] - cbdata[blockid].y[ vID[1] ]));
 
-	//“àÏ
-	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ƒuƒƒbƒN–Ê‚Ì–@ü‚Æ‚ÌŠÖŒW‚ğZo
+	//å†…ç©
+	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ãƒ–ãƒ­ãƒƒã‚¯é¢ã®æ³•ç·šã¨ã®é–¢ä¿‚ã‚’ç®—å‡º
 
-	if( d1 < 0.0f ){	//ŠO‘¤‚É‚ ‚ê‚ÎœŠO
+	if( d1 < 0.0f ){	//å¤–å´ã«ã‚ã‚Œã°é™¤å¤–
 		return false;
 	}
 
 
-	//ŠOÏ
+	//å¤–ç©
 	vx2 = ((cbdata[blockid].y[ vID[3] ] - cbdata[blockid].y[ vID[2] ]) * (z - cbdata[blockid].z[ vID[2] ])) - ((y - cbdata[blockid].y[ vID[2] ]) * (cbdata[blockid].z[ vID[3] ] - cbdata[blockid].z[ vID[2] ]));
 	vy2 = ((cbdata[blockid].z[ vID[3] ] - cbdata[blockid].z[ vID[2] ]) * (x - cbdata[blockid].x[ vID[2] ])) - ((z - cbdata[blockid].z[ vID[2] ]) * (cbdata[blockid].x[ vID[3] ] - cbdata[blockid].x[ vID[2] ]));
 	vz2 = ((cbdata[blockid].x[ vID[3] ] - cbdata[blockid].x[ vID[2] ]) * (y - cbdata[blockid].y[ vID[2] ])) - ((x - cbdata[blockid].x[ vID[2] ]) * (cbdata[blockid].y[ vID[3] ] - cbdata[blockid].y[ vID[2] ]));
 
-	//“àÏ
-	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ƒuƒƒbƒN–Ê‚Ì–@ü‚Æ‚ÌŠÖŒW‚ğZo
+	//å†…ç©
+	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ãƒ–ãƒ­ãƒƒã‚¯é¢ã®æ³•ç·šã¨ã®é–¢ä¿‚ã‚’ç®—å‡º
 
-	if( d1 < 0.0f ){	//ŠO‘¤‚É‚ ‚ê‚ÎœŠO
+	if( d1 < 0.0f ){	//å¤–å´ã«ã‚ã‚Œã°é™¤å¤–
 		return false;
 	}
 
 
-	//ŠOÏ
+	//å¤–ç©
 	vx2 = ((cbdata[blockid].y[ vID[0] ] - cbdata[blockid].y[ vID[3] ]) * (z - cbdata[blockid].z[ vID[3] ])) - ((y - cbdata[blockid].y[ vID[3] ]) * (cbdata[blockid].z[ vID[0] ] - cbdata[blockid].z[ vID[3] ]));
 	vy2 = ((cbdata[blockid].z[ vID[0] ] - cbdata[blockid].z[ vID[3] ]) * (x - cbdata[blockid].x[ vID[3] ])) - ((z - cbdata[blockid].z[ vID[3] ]) * (cbdata[blockid].x[ vID[0] ] - cbdata[blockid].x[ vID[3] ]));
 	vz2 = ((cbdata[blockid].x[ vID[0] ] - cbdata[blockid].x[ vID[3] ]) * (y - cbdata[blockid].y[ vID[3] ])) - ((x - cbdata[blockid].x[ vID[3] ]) * (cbdata[blockid].y[ vID[0] ] - cbdata[blockid].y[ vID[3] ]));
 
-	//“àÏ
-	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ƒuƒƒbƒN–Ê‚Ì–@ü‚Æ‚ÌŠÖŒW‚ğZo
+	//å†…ç©
+	d1 = data.material[face].vx*vx2 + data.material[face].vy*vy2 + data.material[face].vz*vz2;		//ãƒ–ãƒ­ãƒƒã‚¯é¢ã®æ³•ç·šã¨ã®é–¢ä¿‚ã‚’ç®—å‡º
 
-	if( d1 < 0.0f ){	//ŠO‘¤‚É‚ ‚ê‚ÎœŠO
+	if( d1 < 0.0f ){	//å¤–å´ã«ã‚ã‚Œã°é™¤å¤–
 		return false;
 	}
 
@@ -456,63 +456,63 @@ bool Collision::CheckIntersectTri(int blockid, int face, float RayPos_x, float R
 	return true;
 }
 
-//! @brief ƒuƒƒbƒN‚É–„‚Ü‚Á‚Ä‚¢‚È‚¢‚©’²‚×‚é
-//! @param blockid ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param x XÀ•W
-//! @param y YÀ•W
-//! @param z ZÀ•W
-//! @param worldgroup ‹óŠÔ‚ÌƒOƒ‹[ƒv‚ğ—˜—p‚µ‚ÄŒvZÈ—ª‚ğ‚İ‚éitrueF—LŒøEŒvZÈ—ª@falseF–³ŒøEŠ®‘SŒŸõj
-//! @param *planeid •\‚É‚ ‚é–Ê”Ô†iNULL‰Âj
-//! @return –„‚Á‚Ä‚¢‚éFtrue@–„‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning *planeid ‚ª•Ô‚·•\–Êi0`5j‚ÍA•¡”‚Ì–Ê‚ªŠY“–‚·‚éê‡‚Å‚àAÅ‰‚ÉŒ©‚Â‚¯‚½1–Ê‚Ì‚İ•Ô‚µ‚Ü‚·B
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã«åŸ‹ã¾ã£ã¦ã„ãªã„ã‹èª¿ã¹ã‚‹
+//! @param blockid åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param x Xåº§æ¨™
+//! @param y Yåº§æ¨™
+//! @param z Zåº§æ¨™
+//! @param worldgroup ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’åˆ©ç”¨ã—ã¦è¨ˆç®—çœç•¥ã‚’è©¦ã¿ã‚‹ï¼ˆtrueï¼šæœ‰åŠ¹ãƒ»è¨ˆç®—çœç•¥ã€€falseï¼šç„¡åŠ¹ãƒ»å®Œå…¨æ¤œç´¢ï¼‰
+//! @param *planeid è¡¨ã«ã‚ã‚‹é¢ç•ªå·ï¼ˆNULLå¯ï¼‰
+//! @return åŸ‹ã£ã¦ã„ã‚‹ï¼štrueã€€åŸ‹ã£ã¦ã„ãªã„ï¼šfalse
+//! @warning *planeid ãŒè¿”ã™è¡¨é¢ï¼ˆ0ï½5ï¼‰ã¯ã€è¤‡æ•°ã®é¢ãŒè©²å½“ã™ã‚‹å ´åˆã§ã‚‚ã€æœ€åˆã«è¦‹ã¤ã‘ãŸ1é¢ã®ã¿è¿”ã—ã¾ã™ã€‚
 bool Collision::CheckBlockInside(int blockid, float x, float y, float z, bool worldgroup, int *planeid)
 {
 	if( BlockDataIF == NULL ){ return false; }
 	if( (blockid < 0)||(BlockDataIF->GetTotaldatas() <= blockid) ){ return false; }
 
-	//”Âó‚ÌƒuƒƒbƒN‚ÍŒvZŠO
+	//æ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯è¨ˆç®—å¤–
 	if( cbdata[blockid].BoardBlock == true ){ return false; }
 
 
-	//”»’è‚Ì‘eí‚è
+	//åˆ¤å®šã®ç²—å‰Šã‚Š
 	if( worldgroup == true ){
 
-		//‹óŠÔ•ªŠ„
+		//ç©ºé–“åˆ†å‰²
 		if( cbdata[blockid].worldgroup != 0 ){
-			//ŠÏ‘ª“_‚Ì‹óŠÔ‚ÌƒOƒ‹[ƒv‚ğæ“¾
+			//è¦³æ¸¬ç‚¹ã®ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‚’å–å¾—
 			int worldgroup = GetWorldGroup(x, z);
 
 			if( worldgroup != 0 ){
-				//‹óŠÔ‚ÌƒOƒ‹[ƒv‚ªˆá‚¦‚ÎŒvZŠO
+				//ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ãŒé•ãˆã°è¨ˆç®—å¤–
 				if( cbdata[blockid].worldgroup != worldgroup ){
 					return false;
 				}
 			}
 		}
 
-		//”ÍˆÍ‚ÅŒŸõ
+		//ç¯„å›²ã§æ¤œç´¢
 		if( (x < cbdata[blockid].min_x)||(cbdata[blockid].max_x < x) ){ return false; }
 		if( (y < cbdata[blockid].min_y)||(cbdata[blockid].max_y < y) ){ return false; }
 		if( (z < cbdata[blockid].min_z)||(cbdata[blockid].max_z < z) ){ return false; }
 	}
 
 
-	//6–Ê‚©‚çŒ©‚Ä‘S‚Ä— –Ê‚©‚Ç‚¤‚©
+	//6é¢ã‹ã‚‰è¦‹ã¦å…¨ã¦è£é¢ã‹ã©ã†ã‹
 	for(int i=0; i<6; i++){
 		if( CheckPolygonFront(blockid, i, x, y, z) == true ){
 			if( planeid != NULL ){ *planeid = i; }
-			return false;	//•\–Ê‚È‚ç‚ÎI—¹
+			return false;	//è¡¨é¢ãªã‚‰ã°çµ‚äº†
 		}
 	}
 
 	return true;
 }
 
-//! @brief ‘S‚Ä‚ÌƒuƒƒbƒN‚É–„‚Ü‚Á‚Ä‚¢‚È‚¢‚©’²‚×‚é
-//! @param x XÀ•W
-//! @param y YÀ•W
-//! @param z ZÀ•W
-//! @return –„‚Á‚Ä‚¢‚éFtrue@–„‚Á‚Ä‚¢‚È‚¢Ffalse
+//! @brief å…¨ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã«åŸ‹ã¾ã£ã¦ã„ãªã„ã‹èª¿ã¹ã‚‹
+//! @param x Xåº§æ¨™
+//! @param y Yåº§æ¨™
+//! @param z Zåº§æ¨™
+//! @return åŸ‹ã£ã¦ã„ã‚‹ï¼štrueã€€åŸ‹ã£ã¦ã„ãªã„ï¼šfalse
 bool Collision::CheckALLBlockInside(float x, float y, float z)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -526,22 +526,22 @@ bool Collision::CheckALLBlockInside(float x, float y, float z)
 	return false;
 }
 
-//! @brief ƒuƒƒbƒN‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param blockid ”»’è‚·‚éƒuƒƒbƒN”Ô†
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param face “–‚½‚Á‚½ƒuƒƒbƒN‚Ì–Ê”Ô†i0`5j‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param Dist “–‚½‚Á‚½ƒuƒƒbƒN‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0 –¢–‚Å–³ŒøE–³ŒÀj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @warning ”»’è‚ğs‚¤Å‘å‹——£‚ğw’è‚µ‚È‚¢‚ÆAƒpƒtƒH[ƒ}ƒ“ƒX‚ª‘å•‚É’á‰º‚µ‚Ü‚·B
-//! @attention ƒŒƒC‚Ìn“_‚©‚ç— ‘¤‚É‚È‚éƒuƒƒbƒN‚Ì–Ê‚Í–³‹‚³‚ê‚Ü‚·BŒú‚³‚ğƒ[ƒ‚É•ÏŒ`‚³‚¹‚½”Âó‚ÌƒuƒƒbƒN‚à–³‹‚µ‚Ü‚·B
-//! @attention ‚Ü‚½AƒŒƒC‚ª•¡”‚ÌƒuƒƒbƒN‚É“–‚½‚éê‡‚ÍAƒŒƒC‚Ìn“_‚©‚çˆê”Ô‹ß‚¢”»’è‚ğ•Ô‚µ‚Ü‚·B
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param blockid åˆ¤å®šã™ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ç•ªå·
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param face å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã®é¢ç•ªå·ï¼ˆ0ï½5ï¼‰ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param Dist å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0 æœªæº€ã§ç„¡åŠ¹ãƒ»ç„¡é™ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @warning åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚’æŒ‡å®šã—ãªã„ã¨ã€ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ãŒå¤§å¹…ã«ä½ä¸‹ã—ã¾ã™ã€‚
+//! @attention ãƒ¬ã‚¤ã®å§‹ç‚¹ã‹ã‚‰è£å´ã«ãªã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚åšã•ã‚’ã‚¼ãƒ­ã«å¤‰å½¢ã•ã›ãŸæ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚‚ç„¡è¦–ã—ã¾ã™ã€‚
+//! @attention ã¾ãŸã€ãƒ¬ã‚¤ãŒè¤‡æ•°ã®ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã‚‹å ´åˆã¯ã€ãƒ¬ã‚¤ã®å§‹ç‚¹ã‹ã‚‰ä¸€ç•ªè¿‘ã„åˆ¤å®šã‚’è¿”ã—ã¾ã™ã€‚
 bool Collision::CheckBlockIntersectRay(int blockid, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, int *face, float *Dist, float maxDist)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -560,7 +560,7 @@ bool Collision::CheckBlockIntersectRay(int blockid, float RayPos_x, float RayPos
 	int worldgroupA = 0;
 	int worldgroupB = 0;
 
-	//”Âó‚ÌƒuƒƒbƒN‚ÍŒvZŠO
+	//æ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯è¨ˆç®—å¤–
 	if( cbdata[blockid].BoardBlock == true ){
 		if( face != NULL ){ *face = 0; }
 		*Dist = 0.0f;
@@ -568,26 +568,26 @@ bool Collision::CheckBlockIntersectRay(int blockid, float RayPos_x, float RayPos
 	}
 
 	if( maxDist > 0.0f ){
-		//ƒŒƒC‚ÌAABB‚ğì‚é
+		//ãƒ¬ã‚¤ã®AABBã‚’ä½œã‚‹
 		GetAABBRay(RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, maxDist, &rmin_x, &rmin_y, &rmin_z, &rmax_x, &rmax_y, &rmax_z);
 	}
 
 	if( maxDist > 0.0f ){
-		//n“_‚ÆI“_‚Ì‹óŠÔƒOƒ‹[ƒv‚ğæ“¾
+		//å§‹ç‚¹ã¨çµ‚ç‚¹ã®ç©ºé–“ã‚°ãƒ«ãƒ¼ãƒ—ã‚’å–å¾—
 		worldgroupA = GetWorldGroup(RayPos_x, RayPos_z);
 		worldgroupB = GetWorldGroup(RayPos_x + RayDir_x * maxDist, RayPos_z + RayDir_z * maxDist);
 	}
 
 	if( maxDist > 0.0f ){
 		if( cbdata[blockid].worldgroup != 0 ){
-			//n“_‚ÆI“_‚ªA‹óŠÔ‚ÌƒOƒ‹[ƒv‚©‚ço‚Ä‚¢‚È‚¯‚ê‚Î
+			//å§‹ç‚¹ã¨çµ‚ç‚¹ãŒã€ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‹ã‚‰å‡ºã¦ã„ãªã‘ã‚Œã°
 			if( (worldgroupA != 0)&&(worldgroupA == worldgroupB) ){
 
-				//‹óŠÔ‚ÌƒOƒ‹[ƒv‚ªˆá‚¦‚ÎŒvZŠO
+				//ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ãŒé•ãˆã°è¨ˆç®—å¤–
 				if( cbdata[blockid].worldgroup == worldgroupA ){		//worldgroupA == worldgroupB
-					//‹«ŠEƒ{ƒbƒNƒX“¯m‚Å”»’è
+					//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹åŒå£«ã§åˆ¤å®š
 					if( CollideBoxAABB(cbdata[blockid].min_x, cbdata[blockid].min_y, cbdata[blockid].min_z, cbdata[blockid].max_x, cbdata[blockid].max_y, cbdata[blockid].max_z, rmin_x, rmin_y, rmin_z, rmax_x, rmax_y, rmax_z) == false ){
-						//“–‚½‚Á‚Ä‚È‚¯‚ê‚ÎA‚±‚ÌƒuƒƒbƒN‚Í’²‚×‚È‚¢B
+						//å½“ãŸã£ã¦ãªã‘ã‚Œã°ã€ã“ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯èª¿ã¹ãªã„ã€‚
 						if( face != NULL ){ *face = 0; }
 						*Dist = 0.0f;
 						return false;
@@ -597,15 +597,15 @@ bool Collision::CheckBlockIntersectRay(int blockid, float RayPos_x, float RayPos
 		}
 	}
 
-	//‹«ŠEƒ{ƒbƒNƒX‚ÆƒŒƒC‚Å”»’è
+	//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹ã¨ãƒ¬ã‚¤ã§åˆ¤å®š
 	if( CollideAABBRay(cbdata[blockid].min_x, cbdata[blockid].min_y, cbdata[blockid].min_z, cbdata[blockid].max_x, cbdata[blockid].max_y, cbdata[blockid].max_z, RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, NULL, -1.0f) == false ){
-		//“–‚½‚Á‚Ä‚È‚¯‚ê‚ÎA‚±‚ÌƒuƒƒbƒN‚Í’²‚×‚È‚¢B
+		//å½“ãŸã£ã¦ãªã‘ã‚Œã°ã€ã“ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯èª¿ã¹ãªã„ã€‚
 		if( face != NULL ){ *face = 0; }
 		*Dist = 0.0f;
 		return false;
 	}
 
-	//Šeƒ|ƒŠƒSƒ“’PˆÊ‚Å”»’è
+	//å„ãƒãƒªã‚´ãƒ³å˜ä½ã§åˆ¤å®š
 	for(int i=0; i<6; i++){
 		if( CheckPolygonFront(blockid, i, RayPos_x, RayPos_y, RayPos_z) == true ){
 			if( CheckIntersectTri(blockid, i, RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, &pDist) == true ){
@@ -617,43 +617,43 @@ bool Collision::CheckBlockIntersectRay(int blockid, float RayPos_x, float RayPos
 		}
 	}
 
-	//Œ©‚Â‚¯‚½‹——£‚ªÅ‘å‹——£‚ğ’´‚¦‚Ä‚¢‚ê‚ÎA”»’è‚ğ–³Œø‚ÉB
+	//è¦‹ã¤ã‘ãŸè·é›¢ãŒæœ€å¤§è·é›¢ã‚’è¶…ãˆã¦ã„ã‚Œã°ã€åˆ¤å®šã‚’ç„¡åŠ¹ã«ã€‚
 	if( maxDist >= 0.0f ){
 		if( min_pDist > maxDist ){
 			min_blockface = -1;
 		}
 	}
 
-	//Œ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒ|ƒCƒ“ƒ^‚É“K“–‚È”š‚ğ“ü‚ê‚Ä•Ô‚·B
+	//è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒã‚¤ãƒ³ã‚¿ã«é©å½“ãªæ•°å­—ã‚’å…¥ã‚Œã¦è¿”ã™ã€‚
 	if( min_blockface == -1 ){
 		if( face != NULL ){ *face = 0; }
 		*Dist = 0.0f;
 		return false;
 	}
 
-	//ŒvZŒ‹‰Ê‚ğ“ü‚ê‚Ä•Ô‚·
+	//è¨ˆç®—çµæœã‚’å…¥ã‚Œã¦è¿”ã™
 	if( face != NULL ){ *face = min_blockface; }
 	*Dist = min_pDist;
 	return true;
 }
 
-//! @brief ‘S‚Ä‚ÌƒuƒƒbƒN‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param id “–‚½‚Á‚½ƒuƒƒbƒN‚ÌID‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param face “–‚½‚Á‚½ƒuƒƒbƒN‚Ì–Ê”Ô†i0`5j‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param Dist “–‚½‚Á‚½ƒuƒƒbƒN‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0 –¢–‚Å–³ŒøE–³ŒÀj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @warning ”»’è‚ğs‚¤Å‘å‹——£‚ğw’è‚µ‚È‚¢‚ÆAƒpƒtƒH[ƒ}ƒ“ƒX‚ª‘å•‚É’á‰º‚µ‚Ü‚·B
-//! @warning g‚¢•û‚Í CheckALLBlockIntersectDummyRay()ŠÖ” ‚Æ—Ş—‚µ‚Ä‚¢‚Ü‚·‚ªA“¯ŠÖ”‚æ‚è‚¸“x‚Å’á‘¬‚Å‚·B
-//! @attention ƒŒƒC‚Ìn“_‚©‚ç— ‘¤‚É‚È‚éƒuƒƒbƒN‚Ì–Ê‚Í–³‹‚³‚ê‚Ü‚·BŒú‚³‚ğƒ[ƒ‚É•ÏŒ`‚³‚¹‚½”Âó‚ÌƒuƒƒbƒN‚à–³‹‚µ‚Ü‚·B
-//! @attention ‚Ü‚½AƒŒƒC‚ª•¡”‚ÌƒuƒƒbƒN‚É“–‚½‚éê‡‚ÍA<b>ƒŒƒC‚Ìn“_‚©‚çˆê”Ô‹ß‚¢”»’è</b>‚ğ•Ô‚µ‚Ü‚·B
+//! @brief å…¨ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param id å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã®IDã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param face å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã®é¢ç•ªå·ï¼ˆ0ï½5ï¼‰ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param Dist å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0 æœªæº€ã§ç„¡åŠ¹ãƒ»ç„¡é™ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @warning åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚’æŒ‡å®šã—ãªã„ã¨ã€ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ãŒå¤§å¹…ã«ä½ä¸‹ã—ã¾ã™ã€‚
+//! @warning ä½¿ã„æ–¹ã¯ CheckALLBlockIntersectDummyRay()é–¢æ•° ã¨é¡ä¼¼ã—ã¦ã„ã¾ã™ãŒã€åŒé–¢æ•°ã‚ˆã‚Šé«˜ç²¾åº¦ã§ä½é€Ÿã§ã™ã€‚
+//! @attention ãƒ¬ã‚¤ã®å§‹ç‚¹ã‹ã‚‰è£å´ã«ãªã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚åšã•ã‚’ã‚¼ãƒ­ã«å¤‰å½¢ã•ã›ãŸæ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚‚ç„¡è¦–ã—ã¾ã™ã€‚
+//! @attention ã¾ãŸã€ãƒ¬ã‚¤ãŒè¤‡æ•°ã®ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã‚‹å ´åˆã¯ã€<b>ãƒ¬ã‚¤ã®å§‹ç‚¹ã‹ã‚‰ä¸€ç•ªè¿‘ã„åˆ¤å®š</b>ã‚’è¿”ã—ã¾ã™ã€‚
 bool Collision::CheckALLBlockIntersectRay(float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, int *id, int *face, float *Dist, float maxDist)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -674,31 +674,31 @@ bool Collision::CheckALLBlockIntersectRay(float RayPos_x, float RayPos_y, float 
 	int worldgroupB = 0;
 
 	if( maxDist > 0.0f ){
-		//ƒŒƒC‚ÌAABB‚ğì‚é
+		//ãƒ¬ã‚¤ã®AABBã‚’ä½œã‚‹
 		GetAABBRay(RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, maxDist, &rmin_x, &rmin_y, &rmin_z, &rmax_x, &rmax_y, &rmax_z);
 	}
 
 	if( maxDist > 0.0f ){
-		//n“_‚ÆI“_‚Ì‹óŠÔƒOƒ‹[ƒv‚ğæ“¾
+		//å§‹ç‚¹ã¨çµ‚ç‚¹ã®ç©ºé–“ã‚°ãƒ«ãƒ¼ãƒ—ã‚’å–å¾—
 		worldgroupA = GetWorldGroup(RayPos_x, RayPos_z);
 		worldgroupB = GetWorldGroup(RayPos_x + RayDir_x * maxDist, RayPos_z + RayDir_z * maxDist);
 	}
 	
 	for(int i=0; i<bs; i++){
-		//”Âó‚ÌƒuƒƒbƒN‚ÍŒvZŠO
+		//æ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯è¨ˆç®—å¤–
 		if( cbdata[i].BoardBlock == true ){ continue; }
 
 		if( maxDist > 0.0f ){
 			if( cbdata[i].worldgroup != 0 ){
-				//n“_‚ÆI“_‚ªA‹óŠÔ‚ÌƒOƒ‹[ƒv‚©‚ço‚Ä‚¢‚È‚¯‚ê‚Î
+				//å§‹ç‚¹ã¨çµ‚ç‚¹ãŒã€ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ã‹ã‚‰å‡ºã¦ã„ãªã‘ã‚Œã°
 				if( (worldgroupA != 0)&&(worldgroupA == worldgroupB) ){
 
-					//‹óŠÔ‚ÌƒOƒ‹[ƒv‚ªˆá‚¦‚ÎŒvZŠO
+					//ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—ãŒé•ãˆã°è¨ˆç®—å¤–
 					if( cbdata[i].worldgroup == worldgroupA ){		//worldgroupA == worldgroupB
 
-						//‹«ŠEƒ{ƒbƒNƒX“¯m‚Å”»’è
+						//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹åŒå£«ã§åˆ¤å®š
 						if( CollideBoxAABB(cbdata[i].min_x, cbdata[i].min_y, cbdata[i].min_z, cbdata[i].max_x, cbdata[i].max_y, cbdata[i].max_z, rmin_x, rmin_y, rmin_z, rmax_x, rmax_y, rmax_z) == false ){
-							continue;	//“–‚½‚Á‚Ä‚È‚¯‚ê‚ÎA‚±‚ÌƒuƒƒbƒN‚Í’²‚×‚È‚¢B
+							continue;	//å½“ãŸã£ã¦ãªã‘ã‚Œã°ã€ã“ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯èª¿ã¹ãªã„ã€‚
 						}
 
 					}
@@ -706,12 +706,12 @@ bool Collision::CheckALLBlockIntersectRay(float RayPos_x, float RayPos_y, float 
 			}
 		}
 
-		//‹«ŠEƒ{ƒbƒNƒX‚ÆƒŒƒC‚Å”»’è
+		//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹ã¨ãƒ¬ã‚¤ã§åˆ¤å®š
 		if( CollideAABBRay(cbdata[i].min_x, cbdata[i].min_y, cbdata[i].min_z, cbdata[i].max_x, cbdata[i].max_y, cbdata[i].max_z, RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, NULL, -1.0f) == false ){
-			continue;		//“–‚½‚Á‚Ä‚È‚¯‚ê‚ÎA‚±‚ÌƒuƒƒbƒN‚Í’²‚×‚È‚¢B
+			continue;		//å½“ãŸã£ã¦ãªã‘ã‚Œã°ã€ã“ã®ãƒ–ãƒ­ãƒƒã‚¯ã¯èª¿ã¹ãªã„ã€‚
 		}
 
-		//Šeƒ|ƒŠƒSƒ“’PˆÊ‚Å”»’è
+		//å„ãƒãƒªã‚´ãƒ³å˜ä½ã§åˆ¤å®š
 		for(int j=0; j<6; j++){
 			if( CheckPolygonFront(i, j, RayPos_x, RayPos_y, RayPos_z) == true ){
 				if( CheckIntersectTri(i, j, RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, &pDist) == true ){
@@ -725,14 +725,14 @@ bool Collision::CheckALLBlockIntersectRay(float RayPos_x, float RayPos_y, float 
 		}
 	}
 
-	//Œ©‚Â‚¯‚½‹——£‚ªÅ‘å‹——£‚ğ’´‚¦‚Ä‚¢‚ê‚ÎA”»’è‚ğ–³Œø‚ÉB
+	//è¦‹ã¤ã‘ãŸè·é›¢ãŒæœ€å¤§è·é›¢ã‚’è¶…ãˆã¦ã„ã‚Œã°ã€åˆ¤å®šã‚’ç„¡åŠ¹ã«ã€‚
 	if( maxDist >= 0.0f ){
 		if( min_pDist > maxDist ){
 			min_blockid = -1;
 		}
 	}
 
-	//Œ©‚Â‚©‚ç‚È‚¯‚ê‚ÎAƒ|ƒCƒ“ƒ^‚É“K“–‚È”š‚ğ“ü‚ê‚Ä•Ô‚·B
+	//è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°ã€ãƒã‚¤ãƒ³ã‚¿ã«é©å½“ãªæ•°å­—ã‚’å…¥ã‚Œã¦è¿”ã™ã€‚
 	if( min_blockid == -1 ){
 		if( id != NULL ){ *id = 0; }
 		if( face != NULL ){ *face = 0; }
@@ -740,29 +740,29 @@ bool Collision::CheckALLBlockIntersectRay(float RayPos_x, float RayPos_y, float 
 		return false;
 	}
 
-	//ŒvZŒ‹‰Ê‚ğ“ü‚ê‚Ä•Ô‚·
+	//è¨ˆç®—çµæœã‚’å…¥ã‚Œã¦è¿”ã™
 	if( id != NULL ){ *id = min_blockid; }
 	if( face != NULL ){ *face = min_blockface; }
 	*Dist = min_pDist;
 	return true;
 }
 
-//! @brief ‘S‚Ä‚ÌƒuƒƒbƒN‚ÆÕ“Ë‚µ‚Ä‚¢‚é‚©”»’è
-//! @param RayPos_x n“_ XÀ•W
-//! @param RayPos_y n“_ YÀ•W
-//! @param RayPos_z n“_ ZÀ•W
-//! @param RayDir_x ƒxƒNƒgƒ‹ X¬•ª
-//! @param RayDir_y ƒxƒNƒgƒ‹ Y¬•ª
-//! @param RayDir_z ƒxƒNƒgƒ‹ Z¬•ª
-//! @param id “–‚½‚Á‚½ƒuƒƒbƒN‚ÌID‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param face “–‚½‚Á‚½ƒuƒƒbƒN‚Ì–Ê”Ô†i0`5j‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param Dist ƒ_ƒ~[•Ï”‚Ìƒ|ƒCƒ“ƒ^ií‚É 0.0f ‚ğ•Ô‚·j
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0 –¢–w’è •s‰Âj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning n“_‚Æ ƒxƒNƒgƒ‹‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @warning g‚¢•û‚Í CheckALLBlockIntersectRay()ŠÖ” ‚Æ—Ş—‚µ‚Ä‚¢‚Ü‚·‚ªA“¯ŠÖ”‚æ‚è‚‘¬‚Å’á¸“x‚Å‚·B
-//! @attention ƒŒƒC‚Ìn“_‚©‚ç— ‘¤‚É‚È‚éƒuƒƒbƒN‚Ì–Ê‚Í–³‹‚³‚ê‚Ü‚·BŒú‚³‚ğƒ[ƒ‚É•ÏŒ`‚³‚¹‚½”Âó‚ÌƒuƒƒbƒN‚à–³‹‚µ‚Ü‚·B
-//! @attention ‚Ü‚½AƒŒƒC‚ª•¡”‚ÌƒuƒƒbƒN‚É“–‚½‚éê‡‚ÍA<b>ˆê”ÔÅ‰‚É”­Œ©‚µ‚½”»’è</b>‚ğ•Ô‚µ‚Ü‚·B
+//! @brief å…¨ã¦ã®ãƒ–ãƒ­ãƒƒã‚¯ã¨è¡çªã—ã¦ã„ã‚‹ã‹åˆ¤å®š
+//! @param RayPos_x å§‹ç‚¹ Xåº§æ¨™
+//! @param RayPos_y å§‹ç‚¹ Yåº§æ¨™
+//! @param RayPos_z å§‹ç‚¹ Zåº§æ¨™
+//! @param RayDir_x ãƒ™ã‚¯ãƒˆãƒ« Xæˆåˆ†
+//! @param RayDir_y ãƒ™ã‚¯ãƒˆãƒ« Yæˆåˆ†
+//! @param RayDir_z ãƒ™ã‚¯ãƒˆãƒ« Zæˆåˆ†
+//! @param id å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã®IDã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param face å½“ãŸã£ãŸãƒ–ãƒ­ãƒƒã‚¯ã®é¢ç•ªå·ï¼ˆ0ï½5ï¼‰ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param Dist ãƒ€ãƒŸãƒ¼å¤‰æ•°ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆå¸¸ã« 0.0f ã‚’è¿”ã™ï¼‰
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0 æœªæº€æŒ‡å®š ä¸å¯ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning å§‹ç‚¹ã¨ ãƒ™ã‚¯ãƒˆãƒ«ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @warning ä½¿ã„æ–¹ã¯ CheckALLBlockIntersectRay()é–¢æ•° ã¨é¡ä¼¼ã—ã¦ã„ã¾ã™ãŒã€åŒé–¢æ•°ã‚ˆã‚Šé«˜é€Ÿã§ä½ç²¾åº¦ã§ã™ã€‚
+//! @attention ãƒ¬ã‚¤ã®å§‹ç‚¹ã‹ã‚‰è£å´ã«ãªã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ã¯ç„¡è¦–ã•ã‚Œã¾ã™ã€‚åšã•ã‚’ã‚¼ãƒ­ã«å¤‰å½¢ã•ã›ãŸæ¿çŠ¶ã®ãƒ–ãƒ­ãƒƒã‚¯ã‚‚ç„¡è¦–ã—ã¾ã™ã€‚
+//! @attention ã¾ãŸã€ãƒ¬ã‚¤ãŒè¤‡æ•°ã®ãƒ–ãƒ­ãƒƒã‚¯ã«å½“ãŸã‚‹å ´åˆã¯ã€<b>ä¸€ç•ªæœ€åˆã«ç™ºè¦‹ã—ãŸåˆ¤å®š</b>ã‚’è¿”ã—ã¾ã™ã€‚
 bool Collision::CheckALLBlockIntersectDummyRay(float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, int *id, int *face, float *Dist, float maxDist)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -777,13 +777,13 @@ bool Collision::CheckALLBlockIntersectDummyRay(float RayPos_x, float RayPos_y, f
 	
 	if( (id == NULL)&&(face == NULL) ){
 		for(int i=0; i<MAX_BLOCKS; i++){
-			//I—¹“_
+			//çµ‚äº†æ™‚ç‚¹
 			if( CheckBlockInside(i, RayPos3_x, RayPos3_y, RayPos3_z, true, NULL) == true ){
 				*Dist = 0.0f;
 				return true;
 			}
 
-			//’†ŠÔ“_
+			//ä¸­é–“æ™‚ç‚¹
 			if( CheckBlockInside(i, RayPos2_x, RayPos2_y, RayPos2_z, true, NULL) == true ){
 				*Dist = 0.0f;
 				return true;
@@ -797,10 +797,10 @@ bool Collision::CheckALLBlockIntersectDummyRay(float RayPos_x, float RayPos_y, f
 	for(int i=0; i<MAX_BLOCKS; i++){
 		int surface;
 
-		//ŠJn’n“_
+		//é–‹å§‹åœ°ç‚¹
 		CheckBlockInside(i, RayPos_x, RayPos_y, RayPos_z, false, &surface);
 
-		//I—¹“_
+		//çµ‚äº†æ™‚ç‚¹
 		if( CheckBlockInside(i, RayPos3_x, RayPos3_y, RayPos3_z, true, &surface) == true ){
 			if( id != NULL ){ *id = i; }
 			if( face != NULL ){ *face = surface; }
@@ -808,7 +808,7 @@ bool Collision::CheckALLBlockIntersectDummyRay(float RayPos_x, float RayPos_y, f
 			return true;
 		}
 
-		//’†ŠÔ“_
+		//ä¸­é–“æ™‚ç‚¹
 		if( CheckBlockInside(i, RayPos2_x, RayPos2_y, RayPos2_z, true, &surface) == true ){
 			if( id != NULL ){ *id = i; }
 			if( face != NULL ){ *face = surface; }
@@ -823,7 +823,7 @@ bool Collision::CheckALLBlockIntersectDummyRay(float RayPos_x, float RayPos_y, f
 	return false;
 }
 
-//! @brief ƒuƒƒbƒN‚É‰ˆ‚Á‚ÄˆÚ“®‚·‚éƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã«æ²¿ã£ã¦ç§»å‹•ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 void Collision::ScratchVector(int id, int face, float in_vx, float in_vy, float in_vz, float *out_vx, float *out_vy, float *out_vz)
 {
 	if( BlockDataIF == NULL ){ return; }
@@ -833,7 +833,7 @@ void Collision::ScratchVector(int id, int face, float in_vx, float in_vy, float 
 	blockdata bdata;
 	BlockDataIF->Getdata(&bdata, id);
 
-	//“àÏ
+	//å†…ç©
 	float Dot = in_vx * bdata.material[face].vx + in_vy * bdata.material[face].vy + in_vz * bdata.material[face].vz;
 
 	*out_vx = in_vx - Dot * bdata.material[face].vx;
@@ -841,7 +841,7 @@ void Collision::ScratchVector(int id, int face, float in_vx, float in_vy, float 
 	*out_vz = in_vz - Dot * bdata.material[face].vz;
 }
 
-//! @brief ƒuƒƒbƒN‚É”½Ë‚·‚éƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã«åå°„ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 void Collision::ReflectVector(int id, int face, float in_vx, float in_vy, float in_vz, float *out_vx, float *out_vy, float *out_vz)
 {
 	if( BlockDataIF == NULL ){ return; }
@@ -851,7 +851,7 @@ void Collision::ReflectVector(int id, int face, float in_vx, float in_vy, float 
 	blockdata bdata;
 	BlockDataIF->Getdata(&bdata, id);
 
-	//“àÏ
+	//å†…ç©
 	float Dot = in_vx * bdata.material[face].vx + in_vy * bdata.material[face].vy + in_vz * bdata.material[face].vz;
 
 	*out_vx = in_vx - 2.0f * Dot * bdata.material[face].vx;
@@ -859,9 +859,9 @@ void Collision::ReflectVector(int id, int face, float in_vx, float in_vy, float 
 	*out_vz = in_vz - 2.0f * Dot * bdata.material[face].vz;
 }
 
-//! @brief ƒuƒƒbƒN‚É‘Î‚·‚éƒxƒNƒgƒ‹‚Ìi“üŠp“x‚ğ‹‚ß‚é
-//! @return ¬Œ÷Ftrue@¸”sFfalse
-//! @attention •\Œü‚«F0.0`PI/2i0.0“x`90.0“xjA— Œü‚«F-0.0`-PI/2i-0.0“x`-90.0“xj
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã«å¯¾ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã®é€²å…¥è§’åº¦ã‚’æ±‚ã‚ã‚‹
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
+//! @attention è¡¨å‘ãï¼š0.0ï½PI/2ï¼ˆ0.0åº¦ï½90.0åº¦ï¼‰ã€è£å‘ãï¼š-0.0ï½-PI/2ï¼ˆ-0.0åº¦ï½-90.0åº¦ï¼‰
 bool Collision::AngleVector(int id, int face, float in_vx, float in_vy, float in_vz, float *out_angle)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -876,18 +876,18 @@ bool Collision::AngleVector(int id, int face, float in_vx, float in_vy, float in
 
 	VectorNormalization(&in_vx, &in_vy, &in_vz);
 
-	//“àÏ
+	//å†…ç©
 	float Dot = in_vx * bdata.material[face].vx + in_vy * bdata.material[face].vy + in_vz * bdata.material[face].vz;
 
-	//Šp“x‚ğ‹‚ß‚é
+	//è§’åº¦ã‚’æ±‚ã‚ã‚‹
 	*out_angle = asinf(Dot) * -1;
 
 	return true;
 }
 
-//! @brief ƒuƒƒbƒN‚É‘Î‚·‚éƒxƒNƒgƒ‹‚Ì‚È‚·Šp‚ğ‹‚ß‚é
-//! @return ¬Œ÷Ftrue@¸”sFfalse
-//! @attention ƒxƒNƒgƒ‹‚Ì‚È‚·ŠpF0.0`PIi0“x`180“xj
+//! @brief ãƒ–ãƒ­ãƒƒã‚¯ã«å¯¾ã™ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã®ãªã™è§’ã‚’æ±‚ã‚ã‚‹
+//! @return æˆåŠŸï¼štrueã€€å¤±æ•—ï¼šfalse
+//! @attention ãƒ™ã‚¯ãƒˆãƒ«ã®ãªã™è§’ï¼š0.0ï½PIï¼ˆ0åº¦ï½180åº¦ï¼‰
 bool Collision::AngleVector2(int id, int face, float in_vx, float in_vy, float in_vz, float *out_angle)
 {
 	if( BlockDataIF == NULL ){ return false; }
@@ -900,37 +900,37 @@ bool Collision::AngleVector2(int id, int face, float in_vx, float in_vy, float i
 	blockdata bdata;
 	BlockDataIF->Getdata(&bdata, id);
 
-	//“àÏ
+	//å†…ç©
 	float Dot = in_vx * bdata.material[face].vx + in_vy * bdata.material[face].vy + in_vz * bdata.material[face].vz;
 
-	//— Œü‚«‚È‚çœŠO
+	//è£å‘ããªã‚‰é™¤å¤–
 	if( Dot >= 0.0f ){ return false; }
 
-	//‚È‚·Šp‚ğ‹‚ß‚é
+	//ãªã™è§’ã‚’æ±‚ã‚ã‚‹
 	*out_angle = acosf(Dot);
 
 	return true;
 }
 
-//! @brief ƒŒƒC‚ÌAABB‚ğ‹‚ß‚é
-//! @param RayPos_x n“_ XÀ•W
-//! @param RayPos_y n“_ YÀ•W
-//! @param RayPos_z n“_ ZÀ•W
-//! @param RayDir_x ƒxƒNƒgƒ‹ X¬•ª
-//! @param RayDir_y ƒxƒNƒgƒ‹ Y¬•ª
-//! @param RayDir_z ƒxƒNƒgƒ‹ Z¬•ª
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£
-//! @param *min_x Å¬ XÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *min_y Å¬ YÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *min_z Å¬ ZÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_x Å‘å XÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_y Å‘å YÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
-//! @param *max_z Å‘å ZÀ•W‚ğ•Ô‚·ƒ|ƒCƒ“ƒ^
+//! @brief ãƒ¬ã‚¤ã®AABBã‚’æ±‚ã‚ã‚‹
+//! @param RayPos_x å§‹ç‚¹ Xåº§æ¨™
+//! @param RayPos_y å§‹ç‚¹ Yåº§æ¨™
+//! @param RayPos_z å§‹ç‚¹ Zåº§æ¨™
+//! @param RayDir_x ãƒ™ã‚¯ãƒˆãƒ« Xæˆåˆ†
+//! @param RayDir_y ãƒ™ã‚¯ãƒˆãƒ« Yæˆåˆ†
+//! @param RayDir_z ãƒ™ã‚¯ãƒˆãƒ« Zæˆåˆ†
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢
+//! @param *min_x æœ€å° Xåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *min_y æœ€å° Yåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *min_z æœ€å° Zåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_x æœ€å¤§ Xåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_y æœ€å¤§ Yåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
+//! @param *max_z æœ€å¤§ Zåº§æ¨™ã‚’è¿”ã™ãƒã‚¤ãƒ³ã‚¿
 void GetAABBRay(float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, float maxDist, float *min_x, float *min_y, float *min_z, float *max_x, float *max_y, float *max_z)
 {
 	float rmin_x, rmin_y, rmin_z, rmax_x, rmax_y, rmax_z;
 
-	//ƒŒƒC‚ÌAABB‚ğì‚é
+	//ãƒ¬ã‚¤ã®AABBã‚’ä½œã‚‹
 	rmin_x = RayPos_x + RayDir_x * maxDist;
 	rmin_y = RayPos_y + RayDir_y * maxDist;
 	rmin_z = RayPos_z + RayDir_z * maxDist;
@@ -944,7 +944,7 @@ void GetAABBRay(float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, 
 	if( rmax_y < RayPos_y ){ rmax_y = RayPos_y; }
 	if( rmax_z < RayPos_z ){ rmax_z = RayPos_z; }
 
-	//ŒvZŒë·‘Îô‚Ì‚½‚ßA‚í‚¸‚©‚É‘å‚«‚ß‚É‚·‚éB
+	//è¨ˆç®—èª¤å·®å¯¾ç­–ã®ãŸã‚ã€ã‚ãšã‹ã«å¤§ãã‚ã«ã™ã‚‹ã€‚
 	rmin_x -= COLLISION_ADDSIZE;
 	rmin_y -= COLLISION_ADDSIZE;
 	rmin_z -= COLLISION_ADDSIZE;
@@ -960,24 +960,24 @@ void GetAABBRay(float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, 
 	*max_z = rmax_z;
 }
 
-//! @brief AABB‚É‚æ‚é“–‚½‚è”»’è
-//! @param box1_min_x •¨‘ÌA‚ÌÅ­ XÀ•W
-//! @param box1_min_y •¨‘ÌA‚ÌÅ­ YÀ•W
-//! @param box1_min_z •¨‘ÌA‚ÌÅ­ ZÀ•W
-//! @param box1_max_x •¨‘ÌA‚ÌÅ‘å XÀ•W
-//! @param box1_max_y •¨‘ÌA‚ÌÅ‘å YÀ•W
-//! @param box1_max_z •¨‘ÌA‚ÌÅ‘å ZÀ•W
-//! @param box2_min_x •¨‘ÌB‚ÌÅ­ XÀ•W
-//! @param box2_min_y •¨‘ÌB‚ÌÅ­ YÀ•W
-//! @param box2_min_z •¨‘ÌB‚ÌÅ­ ZÀ•W
-//! @param box2_max_x •¨‘ÌB‚ÌÅ‘å XÀ•W
-//! @param box2_max_y •¨‘ÌB‚ÌÅ‘å YÀ•W
-//! @param box2_max_z •¨‘ÌB‚ÌÅ‘å ZÀ•W
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @attention ƒGƒ‰[‚ª‚ ‚éê‡u“–‚½‚Á‚Ä‚¢‚È‚¢Ffalsev‚ª•Ô‚³‚ê‚Ü‚·B
+//! @brief AABBã«ã‚ˆã‚‹å½“ãŸã‚Šåˆ¤å®š
+//! @param box1_min_x ç‰©ä½“Aã®æœ€å°‘ Xåº§æ¨™
+//! @param box1_min_y ç‰©ä½“Aã®æœ€å°‘ Yåº§æ¨™
+//! @param box1_min_z ç‰©ä½“Aã®æœ€å°‘ Zåº§æ¨™
+//! @param box1_max_x ç‰©ä½“Aã®æœ€å¤§ Xåº§æ¨™
+//! @param box1_max_y ç‰©ä½“Aã®æœ€å¤§ Yåº§æ¨™
+//! @param box1_max_z ç‰©ä½“Aã®æœ€å¤§ Zåº§æ¨™
+//! @param box2_min_x ç‰©ä½“Bã®æœ€å°‘ Xåº§æ¨™
+//! @param box2_min_y ç‰©ä½“Bã®æœ€å°‘ Yåº§æ¨™
+//! @param box2_min_z ç‰©ä½“Bã®æœ€å°‘ Zåº§æ¨™
+//! @param box2_max_x ç‰©ä½“Bã®æœ€å¤§ Xåº§æ¨™
+//! @param box2_max_y ç‰©ä½“Bã®æœ€å¤§ Yåº§æ¨™
+//! @param box2_max_z ç‰©ä½“Bã®æœ€å¤§ Zåº§æ¨™
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @attention ã‚¨ãƒ©ãƒ¼ãŒã‚ã‚‹å ´åˆã€Œå½“ãŸã£ã¦ã„ãªã„ï¼šfalseã€ãŒè¿”ã•ã‚Œã¾ã™ã€‚
 bool CollideBoxAABB(float box1_min_x, float box1_min_y, float box1_min_z, float box1_max_x, float box1_max_y, float box1_max_z, float box2_min_x, float box2_min_y, float box2_min_z, float box2_max_x, float box2_max_y, float box2_max_z)
 {
-	//ƒGƒ‰[‘Îô
+	//ã‚¨ãƒ©ãƒ¼å¯¾ç­–
 	if( box1_min_x > box1_max_x ){ return false; }
 	if( box1_min_y > box1_max_y ){ return false; }
 	if( box1_min_z > box1_max_z ){ return false; }
@@ -996,26 +996,26 @@ bool CollideBoxAABB(float box1_min_x, float box1_min_y, float box1_min_z, float 
 	return false;
 }
 
-//! @brief ‰~’Œ“¯m‚Ì“–‚½‚è”»’è
-//! @param c1_x ‰~’Œ1 ’ê•Ó‚ÌxÀ•W
-//! @param c1_y ‰~’Œ1 ’ê•Ó‚ÌyÀ•W
-//! @param c1_z ‰~’Œ1 ’ê•Ó‚ÌzÀ•W
-//! @param c1_r ‰~’Œ1 ‚Ì”¼Œa
-//! @param c1_h ‰~’Œ1 ‚Ì‚‚³
-//! @param c2_x ‰~’Œ2 ’ê•Ó‚ÌxÀ•W
-//! @param c2_y ‰~’Œ2 ’ê•Ó‚ÌyÀ•W
-//! @param c2_z ‰~’Œ2 ’ê•Ó‚ÌzÀ•W
-//! @param c2_r ‰~’Œ2 ‚Ì”¼Œa
-//! @param c2_h ‰~’Œ2 ‚Ì‚‚³
-//! @param *angle ‰~’Œ1‚©‚ç‚İ‚½ÚGŠp“x‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param *length ‰~’Œ1‚©‚ç‚İ‚½ÚG‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
+//! @brief å††æŸ±åŒå£«ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param c1_x å††æŸ±1 åº•è¾ºã®xåº§æ¨™
+//! @param c1_y å††æŸ±1 åº•è¾ºã®yåº§æ¨™
+//! @param c1_z å††æŸ±1 åº•è¾ºã®zåº§æ¨™
+//! @param c1_r å††æŸ±1 ã®åŠå¾„
+//! @param c1_h å††æŸ±1 ã®é«˜ã•
+//! @param c2_x å††æŸ±2 åº•è¾ºã®xåº§æ¨™
+//! @param c2_y å††æŸ±2 åº•è¾ºã®yåº§æ¨™
+//! @param c2_z å††æŸ±2 åº•è¾ºã®zåº§æ¨™
+//! @param c2_r å††æŸ±2 ã®åŠå¾„
+//! @param c2_h å††æŸ±2 ã®é«˜ã•
+//! @param *angle å††æŸ±1ã‹ã‚‰ã¿ãŸæ¥è§¦è§’åº¦ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param *length å††æŸ±1ã‹ã‚‰ã¿ãŸæ¥è§¦è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
 bool CollideCylinder(float c1_x, float c1_y, float c1_z, float c1_r, float c1_h, float c2_x, float c2_y, float c2_z, float c2_r, float c2_h, float *angle, float *length)
 {
-	//æ‚É‚¨èŒy‚È‚‚³‚Å”»’è
+	//å…ˆã«ãŠæ‰‹è»½ãªé«˜ã•ã§åˆ¤å®š
 	if( (c1_y < c2_y + c2_h)&&(c1_y + c1_h > c2_y) ){
 
-		//‹——£‚Å”»’è
+		//è·é›¢ã§åˆ¤å®š
 		float x = c1_x - c2_x;
 		float z = c1_z - c2_z;
 		float caser = x*x + z*z;
@@ -1030,26 +1030,26 @@ bool CollideCylinder(float c1_x, float c1_y, float c1_z, float c1_r, float c1_h,
 	return false;
 }
 
-//! @brief ‹…‘Ì‚Æ“_‚Ì“–‚½‚è”»’è
-//! @param s_x ‹…‘Ì‚ÌxÀ•W
-//! @param s_y ‹…‘Ì‚ÌyÀ•W
-//! @param s_z ‹…‘Ì‚ÌzÀ•W
-//! @param s_r ‹…‘Ì‚Ì”¼Œa
-//! @param p_x XÀ•W
-//! @param p_y YÀ•W
-//! @param p_z ZÀ•W
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
+//! @brief çƒä½“ã¨ç‚¹ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param s_x çƒä½“ã®xåº§æ¨™
+//! @param s_y çƒä½“ã®yåº§æ¨™
+//! @param s_z çƒä½“ã®zåº§æ¨™
+//! @param s_r çƒä½“ã®åŠå¾„
+//! @param p_x Xåº§æ¨™
+//! @param p_y Yåº§æ¨™
+//! @param p_z Zåº§æ¨™
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
 bool CollideSphereInside(float s_x, float s_y, float s_z, float s_r, float p_x, float p_y, float p_z)
 {
 	float x, y, z, d;
 
-	//‹——£‚ğZo
+	//è·é›¢ã‚’ç®—å‡º
 	x = s_x - p_x;
 	y = s_y - p_y;
 	z = s_z - p_z;
 	d = x*x + y*y + z*z;
 
-	//‹——£‚ª”¼Œa‚æ‚è‹ß‚¢
+	//è·é›¢ãŒåŠå¾„ã‚ˆã‚Šè¿‘ã„
 	if( d < s_r*s_r ){
 		return true;
 	}
@@ -1057,32 +1057,32 @@ bool CollideSphereInside(float s_x, float s_y, float s_z, float s_r, float p_x, 
 	return false;
 }
 
-//! @brief ‹…‘Ì‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param s_x ‹…‘Ì‚ÌxÀ•W
-//! @param s_y ‹…‘Ì‚ÌyÀ•W
-//! @param s_z ‹…‘Ì‚ÌzÀ•W
-//! @param s_r ‹…‘Ì‚Ì”¼Œa
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param Dist “–‚½‚Á‚½‹…‘Ì‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0 –¢–‚Å–³ŒøE–³ŒÀj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @warning ”»’è‚ğs‚¤Å‘å‹——£‚ğw’è‚µ‚È‚¢‚ÆAƒpƒtƒH[ƒ}ƒ“ƒX‚ª‘å•‚É’á‰º‚µ‚Ü‚·B
-//! @todo ƒŒƒC‚Ìn“_‚ª‹…‘Ì‚ÌŠO‘¤‚Å‚©‚Â‹…‘Ì‚Æ‹tŒü‚«‚Ìê‡A³‚µ‚­”»’è‚Å‚«‚È‚¢H
+//! @brief çƒä½“ã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param s_x çƒä½“ã®xåº§æ¨™
+//! @param s_y çƒä½“ã®yåº§æ¨™
+//! @param s_z çƒä½“ã®zåº§æ¨™
+//! @param s_r çƒä½“ã®åŠå¾„
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param Dist å½“ãŸã£ãŸçƒä½“ã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0 æœªæº€ã§ç„¡åŠ¹ãƒ»ç„¡é™ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @warning åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚’æŒ‡å®šã—ãªã„ã¨ã€ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ãŒå¤§å¹…ã«ä½ä¸‹ã—ã¾ã™ã€‚
+//! @todo ãƒ¬ã‚¤ã®å§‹ç‚¹ãŒçƒä½“ã®å¤–å´ã§ã‹ã¤çƒä½“ã¨é€†å‘ãã®å ´åˆã€æ­£ã—ãåˆ¤å®šã§ããªã„ï¼Ÿ
 bool CollideSphereRay(float s_x, float s_y, float s_z, float s_r, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, float *Dist, float maxDist)
 {
 	if( maxDist > 0.0f ){
 		float pmin_x, pmin_y, pmin_z, pmax_x, pmax_y, pmax_z;
 
-		//ƒŒƒC‚ÌAABB‚ğì‚é
+		//ãƒ¬ã‚¤ã®AABBã‚’ä½œã‚‹
 		GetAABBRay(RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, maxDist, &pmin_x, &pmin_y, &pmin_z, &pmax_x, &pmax_y, &pmax_z);
 
-		//‹«ŠEƒ{ƒbƒNƒX“¯m‚Å”»’è
+		//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹åŒå£«ã§åˆ¤å®š
 		if( CollideBoxAABB(s_x - s_r, s_y - s_r, s_z - s_r, s_x + s_r, s_y + s_r, s_z + s_r, pmin_x, pmin_y, pmin_z, pmax_x, pmax_y, pmax_z) == false ){
 			return false;
 		}
@@ -1091,28 +1091,28 @@ bool CollideSphereRay(float s_x, float s_y, float s_z, float s_r, float RayPos_x
 	float x, y, z, d;
 	float MinDist, RayDist, RDist;
 
-	//“_‚ÆƒŒƒCn“_‚Ì‹——£
+	//ç‚¹ã¨ãƒ¬ã‚¤å§‹ç‚¹ã®è·é›¢
 	x = s_x - RayPos_x;
 	y = s_y - RayPos_y;
 	z = s_z - RayPos_z;
 	d = sqrtf(x*x + y*y + z*z);
 
-	//ƒŒƒCn“_‚ª”¼Œa‚æ‚è‹ß‚¢i‚ß‚è‚ñ‚Å‚¢‚éj
+	//ãƒ¬ã‚¤å§‹ç‚¹ãŒåŠå¾„ã‚ˆã‚Šè¿‘ã„ï¼ˆï¼ã‚ã‚Šè¾¼ã‚“ã§ã„ã‚‹ï¼‰
 	if( d < s_r ){
 		*Dist = 0.0f;
 		return true;
 	}
 
-	//“_i‹…‘Ì‚Ì’†Sj‚ÆƒŒƒC‚ÌÅ’Z‹——£‚ğ‹‚ß‚é
+	//ç‚¹ï¼ˆçƒä½“ã®ä¸­å¿ƒï¼‰ã¨ãƒ¬ã‚¤ã®æœ€çŸ­è·é›¢ã‚’æ±‚ã‚ã‚‹
 	MinDist = DistancePosRay(s_x, s_y, s_z, RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z);
 
 	if( MinDist <= s_r ){
-		RayDist = sqrtf(d*d - MinDist*MinDist);		//iƒŒƒCn“_‚©‚çj“_‚ÉÅ‚à‹ß‚Ã‚­‹——£
-		RDist = sqrtf(s_r*s_r - MinDist*MinDist);	//i“_”¼Œa‚©‚çj“_‚ÉÅ‚à‹ß‚Ã‚­‹——£
+		RayDist = sqrtf(d*d - MinDist*MinDist);		//ï¼ˆãƒ¬ã‚¤å§‹ç‚¹ã‹ã‚‰ï¼‰ç‚¹ã«æœ€ã‚‚è¿‘ã¥ãè·é›¢
+		RDist = sqrtf(s_r*s_r - MinDist*MinDist);	//ï¼ˆç‚¹åŠå¾„ã‹ã‚‰ï¼‰ç‚¹ã«æœ€ã‚‚è¿‘ã¥ãè·é›¢
 
-		*Dist = RayDist - RDist;	//ƒŒƒC‹“_Å’Z - ”¼ŒaÅ’Z = ƒŒƒC‹“_‚©‚ç”¼Œa‚Ü‚Å‚ÌÅ’Z
+		*Dist = RayDist - RDist;	//ãƒ¬ã‚¤è¦–ç‚¹æœ€çŸ­ - åŠå¾„æœ€çŸ­ = ãƒ¬ã‚¤è¦–ç‚¹ã‹ã‚‰åŠå¾„ã¾ã§ã®æœ€çŸ­
 
-		//”»’è‚ğs‚¤Å‘å‹——£‚æ‚è‚à‰“‚¯‚ê‚ÎA“–‚½‚Á‚Ä‚È‚¢‚±‚Æ‚É
+		//åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚ˆã‚Šã‚‚é ã‘ã‚Œã°ã€å½“ãŸã£ã¦ãªã„ã“ã¨ã«
 		if( (maxDist > 0.0f)&&(maxDist < *Dist) ){
 			return false;
 		}
@@ -1122,31 +1122,31 @@ bool CollideSphereRay(float s_x, float s_y, float s_z, float s_r, float RayPos_x
 	return false;
 }
 
-//! @brief AABB‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param box_min_x •¨‘Ì‚ÌÅ­ XÀ•W
-//! @param box_min_y •¨‘Ì‚ÌÅ­ YÀ•W
-//! @param box_min_z •¨‘Ì‚ÌÅ­ ZÀ•W
-//! @param box_max_x •¨‘Ì‚ÌÅ‘å XÀ•W
-//! @param box_max_y •¨‘Ì‚ÌÅ‘å YÀ•W
-//! @param box_max_z •¨‘Ì‚ÌÅ‘å ZÀ•W
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param Dist “–‚½‚Á‚½AABB‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0 –¢–‚Å–³ŒøE–³ŒÀj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @warning ”»’è‚ğs‚¤Å‘å‹——£‚ğw’è‚µ‚È‚¢‚ÆAƒpƒtƒH[ƒ}ƒ“ƒX‚ª‘å•‚É’á‰º‚µ‚Ü‚·B
+//! @brief AABBã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param box_min_x ç‰©ä½“ã®æœ€å°‘ Xåº§æ¨™
+//! @param box_min_y ç‰©ä½“ã®æœ€å°‘ Yåº§æ¨™
+//! @param box_min_z ç‰©ä½“ã®æœ€å°‘ Zåº§æ¨™
+//! @param box_max_x ç‰©ä½“ã®æœ€å¤§ Xåº§æ¨™
+//! @param box_max_y ç‰©ä½“ã®æœ€å¤§ Yåº§æ¨™
+//! @param box_max_z ç‰©ä½“ã®æœ€å¤§ Zåº§æ¨™
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param Dist å½“ãŸã£ãŸAABBã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0 æœªæº€ã§ç„¡åŠ¹ãƒ»ç„¡é™ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @warning åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚’æŒ‡å®šã—ãªã„ã¨ã€ãƒ‘ãƒ•ã‚©ãƒ¼ãƒãƒ³ã‚¹ãŒå¤§å¹…ã«ä½ä¸‹ã—ã¾ã™ã€‚
 bool CollideAABBRay(float box_min_x, float box_min_y, float box_min_z, float box_max_x, float box_max_y, float box_max_z, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, float *Dist, float maxDist)
 {
 	if( box_min_x > box_max_x ){ return false; }
 	if( box_min_y > box_max_y ){ return false; }
 	if( box_min_z > box_max_z ){ return false; }
 
-	//ƒŒƒC‚Ìn“_‚ªAABB‚Ì“à‘¤‚É“ü‚Á‚Ä‚¢‚ê‚ÎAŠù‚É“–‚½‚Á‚Ä‚¢‚é
+	//ãƒ¬ã‚¤ã®å§‹ç‚¹ãŒAABBã®å†…å´ã«å…¥ã£ã¦ã„ã‚Œã°ã€æ—¢ã«å½“ãŸã£ã¦ã„ã‚‹
 	if( (box_min_x <= RayPos_x)&&(RayPos_x <= box_max_x)&&(box_min_y <= RayPos_y)&&(RayPos_y <= box_max_y)&&(box_min_z <= RayPos_z)&&(RayPos_z <= box_max_z) ){
 		if( Dist != NULL ){ *Dist = 0.0f; }
 		return true;
@@ -1155,19 +1155,19 @@ bool CollideAABBRay(float box_min_x, float box_min_y, float box_min_z, float box
 	if( maxDist > 0.0f ){
 		float pmin_x, pmin_y, pmin_z, pmax_x, pmax_y, pmax_z;
 
-		//ƒŒƒC‚ÌAABB‚ğì‚é
+		//ãƒ¬ã‚¤ã®AABBã‚’ä½œã‚‹
 		GetAABBRay(RayPos_x, RayPos_y, RayPos_z, RayDir_x, RayDir_y, RayDir_z, maxDist, &pmin_x, &pmin_y, &pmin_z, &pmax_x, &pmax_y, &pmax_z);
 
-		//‹«ŠEƒ{ƒbƒNƒX“¯m‚Å”»’è
+		//å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹åŒå£«ã§åˆ¤å®š
 		if( CollideBoxAABB(box_min_x, box_min_y, box_min_z, box_max_x, box_max_y, box_max_z, pmin_x, pmin_y, pmin_z, pmax_x, pmax_y, pmax_z) == false ){
 			return false;
 		}
 	}
 
-	//ƒxƒNƒgƒ‹‚ğ³‹K‰»
+	//ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ­£è¦åŒ–
 	VectorNormalization(&RayDir_x, &RayDir_y, &RayDir_z);
 
-	//ŠeÀ•W‚ğ”z—ñ‚ÉŠi”[
+	//å„åº§æ¨™ã‚’é…åˆ—ã«æ ¼ç´
 	float box_min[] = {box_min_x, box_min_y, box_min_z};
 	float box_max[] = {box_max_x, box_max_y, box_max_z};
 	float RayPos[] = {RayPos_x, RayPos_y, RayPos_z};
@@ -1176,41 +1176,41 @@ bool CollideAABBRay(float box_min_x, float box_min_y, float box_min_z, float box
 	float Ray_max[3];
 	float Ray_tmin, Ray_tmax;
 
-	//XEYEZ‚Ì3²•ª‚Ìˆ—
+	//Xãƒ»Yãƒ»Zã®3è»¸åˆ†ã®å‡¦ç†
 	for(int axis=0; axis<3; axis++){
 		if( ( (RayPos[axis] < box_min[axis])||(box_max[axis] < RayPos[axis]) )&&(RayDir[axis] == 0.0f) ){
-			//“à‘¤‚É“ü‚Á‚Ä‚¢‚È‚¢‚Ì‚É ƒxƒNƒgƒ‹‚Ì•ûŒü‚ª 0 ‚È‚çAŠù‚ÉAABB‚ÌŠO
+			//å†…å´ã«å…¥ã£ã¦ã„ãªã„ã®ã« ãƒ™ã‚¯ãƒˆãƒ«ã®æ–¹å‘ãŒ 0 ãªã‚‰ã€æ—¢ã«AABBã®å¤–
 			return false;
 		}
 		else{
-			//“à‘¤‚É“ü‚Á‚Ä‚¢‚È‚¢‚ªAƒxƒNƒgƒ‹‚ª•ûŒü‚ğ‚Â‚È‚ç`
+			//å†…å´ã«å…¥ã£ã¦ã„ãªã„ãŒã€ãƒ™ã‚¯ãƒˆãƒ«ãŒæ–¹å‘ã‚’æŒã¤ãªã‚‰ï½
 			float t1, t2;
 
-			//AABB‚ğƒxƒNƒgƒ‹‚ª“Ë‚«”²‚¯‚éŒğ“_‚Ü‚Å‚Ì‹——£‚ğæ“¾
+			//AABBã‚’ãƒ™ã‚¯ãƒˆãƒ«ãŒçªãæŠœã‘ã‚‹äº¤ç‚¹ã¾ã§ã®è·é›¢ã‚’å–å¾—
 			t1 = (box_min[axis] - RayPos[axis]) / RayDir[axis];
 			t2 = (box_max[axis] - RayPos[axis]) / RayDir[axis];
 
-			//Œğ“_‚Ü‚Å‚Ì‹——£‚ªÅ¬EÅ‘å‚Å‹t‚È‚çA“ü‚ê‘Ö‚¦‚éB
+			//äº¤ç‚¹ã¾ã§ã®è·é›¢ãŒæœ€å°ãƒ»æœ€å¤§ã§é€†ãªã‚‰ã€å…¥ã‚Œæ›¿ãˆã‚‹ã€‚
 			if( t1 > t2 ){
 				float temp = t1; t1 = t2; t2 = temp;
 			}
 
-			//²‚Ìî•ñ‚Æ‚µ‚Ä‹L˜^
+			//è»¸ã®æƒ…å ±ã¨ã—ã¦è¨˜éŒ²
 			Ray_min[axis] = t1;
 			Ray_max[axis] = t2;
 
 			if( (box_min[axis] <= RayPos[axis])&&(RayPos[axis] <= box_max[axis]) ){
-				//“à‘¤‚É“ü‚Á‚Ä‚¢‚ê‚ÎA‚»‚Ì‚Ü‚Ü²‚Ìî•ñ‚Æ‚µ‚Ä‹L˜^
+				//å†…å´ã«å…¥ã£ã¦ã„ã‚Œã°ã€ãã®ã¾ã¾è»¸ã®æƒ…å ±ã¨ã—ã¦è¨˜éŒ²
 				Ray_min[axis] = 0.0f;
 			}
 
-			//‹——£‚ªƒ}ƒCƒiƒXiƒxƒNƒgƒ‹‹t•ûŒüj‚È‚çAABB‚Æ‚Í ‚ ‚½‚ç‚È‚¢
+			//è·é›¢ãŒãƒã‚¤ãƒŠã‚¹ï¼ˆï¼ãƒ™ã‚¯ãƒˆãƒ«é€†æ–¹å‘ï¼‰ãªã‚‰AABBã¨ã¯ ã‚ãŸã‚‰ãªã„
 			if( Ray_min[axis] < 0.0f ){ return false; }
 			if( Ray_max[axis] < 0.0f ){ return false; }
 		}
 	}
 
-	//Še²‚ÅAÅ‚à‰“‚¢eÅ¬‹——£f‚ÆÅ‚à‹ß‚¢eÅ‘å‹——£f‚ğZo
+	//å„è»¸ã§ã€æœ€ã‚‚é ã„â€˜æœ€å°è·é›¢â€™ã¨æœ€ã‚‚è¿‘ã„â€˜æœ€å¤§è·é›¢â€™ã‚’ç®—å‡º
 	Ray_tmin = Ray_min[0];
 	Ray_tmax = Ray_max[0];
 	if( Ray_tmin < Ray_min[1] ){ Ray_tmin = Ray_min[1]; }
@@ -1218,14 +1218,14 @@ bool CollideAABBRay(float box_min_x, float box_min_y, float box_min_z, float box
 	if( Ray_tmin < Ray_min[2] ){ Ray_tmin = Ray_min[2]; }
 	if( Ray_tmax > Ray_max[2] ){ Ray_tmax = Ray_max[2]; }
 
-	//Å¬‹——£‚ÆÅ‘å‹——£‚ÌŠÖŒW‚ª³‚µ‚¯‚ê‚Î`
+	//æœ€å°è·é›¢ã¨æœ€å¤§è·é›¢ã®é–¢ä¿‚ãŒæ­£ã—ã‘ã‚Œã°ï½
 	if( (Ray_tmax - Ray_tmin) > 0 ){
-		//”»’è‚ğs‚¤Å‘å‹——£‚æ‚è‰“‚¯‚ê‚ÎA”»’è–³ŒøB
+		//åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚ˆã‚Šé ã‘ã‚Œã°ã€åˆ¤å®šç„¡åŠ¹ã€‚
 		if( maxDist > 0.0f ){
 			if( Ray_tmin > maxDist ){ return false; }
 		}
 
-		//‹——£‚ğ‘ã“ü‚µ•Ô‚·
+		//è·é›¢ã‚’ä»£å…¥ã—è¿”ã™
 		if( Dist != NULL ){ *Dist = Ray_tmin; }
 		return true;
 	}
@@ -1233,61 +1233,61 @@ bool CollideAABBRay(float box_min_x, float box_min_y, float box_min_z, float box
 	return false;
 }
 
-//! @brief ‰~’Œ‚Æ“_‚Ì“–‚½‚è”»’è
-//! @param c_x ‰~’Œ ’ê•Ó‚ÌxÀ•W
-//! @param c_y ‰~’Œ ’ê•Ó‚ÌyÀ•W
-//! @param c_z ‰~’Œ ’ê•Ó‚ÌzÀ•W
-//! @param c_r ‰~’Œ ‚Ì”¼Œa
-//! @param c_h ‰~’Œ ‚Ì‚‚³
-//! @param p_x XÀ•W
-//! @param p_y YÀ•W
-//! @param p_z ZÀ•W
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
+//! @brief å††æŸ±ã¨ç‚¹ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param c_x å††æŸ± åº•è¾ºã®xåº§æ¨™
+//! @param c_y å††æŸ± åº•è¾ºã®yåº§æ¨™
+//! @param c_z å††æŸ± åº•è¾ºã®zåº§æ¨™
+//! @param c_r å††æŸ± ã®åŠå¾„
+//! @param c_h å††æŸ± ã®é«˜ã•
+//! @param p_x Xåº§æ¨™
+//! @param p_y Yåº§æ¨™
+//! @param p_z Zåº§æ¨™
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
 bool CollideCylinderInside(float c_x, float c_y, float c_z, float c_r, float c_h, float p_x, float p_y, float p_z)
 {
 	float x, z, d;
 
 
-	// X-Z•½–Ê‚Å‰~‚Æ‚µ‚Äˆ—‚·‚é
+	// X-Zå¹³é¢ã§å††ã¨ã—ã¦å‡¦ç†ã™ã‚‹
 
-	//‹——£‚ğZo
+	//è·é›¢ã‚’ç®—å‡º
 	x = c_x - p_x;
 	z = c_z - p_z;
 	d = x*x + z*z;
 
-	//‹——£‚ª”¼Œa‚æ‚è—£‚ê‚Ä‚¢‚é“_‚Å“–‚½‚ç‚È‚¢
+	//è·é›¢ãŒåŠå¾„ã‚ˆã‚Šé›¢ã‚Œã¦ã„ã‚‹æ™‚ç‚¹ã§å½“ãŸã‚‰ãªã„
 	if( d > c_r*c_r ){
 		return false;
 	}
 
 
-	//Y²‚Ì‚İAABB‚Æ“¯—l‚Ìˆ—
+	//Yè»¸ã®ã¿AABBã¨åŒæ§˜ã®å‡¦ç†
 
 	if( (c_y <= p_y)&&(p_y <= (c_y+c_h)) ){
-		//Y²‚Å‚à“à‘¤‚É“ü‚Á‚Ä‚¢‚ê‚ÎA“–‚½‚Á‚Ä‚¢‚é
+		//Yè»¸ã§ã‚‚å†…å´ã«å…¥ã£ã¦ã„ã‚Œã°ã€å½“ãŸã£ã¦ã„ã‚‹
 		return true;
 	}
 
 	return false;
 }
 
-//! @brief ‰~’Œ‚ÆƒŒƒCiŒõüj‚Ì“–‚½‚è”»’è
-//! @param c_x ‰~’Œ ’ê•Ó‚ÌxÀ•W
-//! @param c_y ‰~’Œ ’ê•Ó‚ÌyÀ•W
-//! @param c_z ‰~’Œ ’ê•Ó‚ÌzÀ•W
-//! @param c_r ‰~’Œ ‚Ì”¼Œa
-//! @param c_h ‰~’Œ ‚Ì‚‚³
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @param Dist “–‚½‚Á‚½‰~’Œ‚Æ‚Ì‹——£‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param maxDist ”»’è‚ğs‚¤Å‘å‹——£@i0.0f‚ğ’´‚¦‚é’lj
-//! @return “–‚½‚Á‚Ä‚¢‚éFtrue@“–‚½‚Á‚Ä‚¢‚È‚¢Ffalse
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @attention Y²•ûŒü‚Ö‚’¼‚É—§‚Â‰~’Œ‚Å‚·BŒü‚«‚Í•Ï‚¦‚ç‚ê‚Ü‚¹‚ñB
+//! @brief å††æŸ±ã¨ãƒ¬ã‚¤ï¼ˆå…‰ç·šï¼‰ã®å½“ãŸã‚Šåˆ¤å®š
+//! @param c_x å††æŸ± åº•è¾ºã®xåº§æ¨™
+//! @param c_y å††æŸ± åº•è¾ºã®yåº§æ¨™
+//! @param c_z å††æŸ± åº•è¾ºã®zåº§æ¨™
+//! @param c_r å††æŸ± ã®åŠå¾„
+//! @param c_h å††æŸ± ã®é«˜ã•
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @param Dist å½“ãŸã£ãŸå††æŸ±ã¨ã®è·é›¢ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param maxDist åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã€€ï¼ˆ0.0fã‚’è¶…ãˆã‚‹å€¤ï¼‰
+//! @return å½“ãŸã£ã¦ã„ã‚‹ï¼štrueã€€å½“ãŸã£ã¦ã„ãªã„ï¼šfalse
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @attention Yè»¸æ–¹å‘ã¸å‚ç›´ã«ç«‹ã¤å††æŸ±ã§ã™ã€‚å‘ãã¯å¤‰ãˆã‚‰ã‚Œã¾ã›ã‚“ã€‚
 bool CollideCylinderRay(float c_x, float c_y, float c_z, float c_r, float c_h, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z, float *Dist, float maxDist)
 {
 	float x, z, d;
@@ -1298,98 +1298,98 @@ bool CollideCylinderRay(float c_x, float c_y, float c_z, float c_r, float c_h, f
 	float Ray_tmin, Ray_tmax;
 
 
-	// X-Z•½–Ê‚Å‰~‚Æ‚µ‚Äˆ—‚·‚é
+	// X-Zå¹³é¢ã§å††ã¨ã—ã¦å‡¦ç†ã™ã‚‹
 
-	//“_‚ÆƒŒƒCn“_‚Ì‹——£
+	//ç‚¹ã¨ãƒ¬ã‚¤å§‹ç‚¹ã®è·é›¢
 	x = c_x - RayPos_x;
 	z = c_z - RayPos_z;
 	d = sqrtf(x*x + z*z);
 
-	//“_i‰~’Œ‚Ì’†Sj‚ÆƒŒƒC‚ÌÅ’Z‹——£‚ğ‹‚ß‚é
+	//ç‚¹ï¼ˆå††æŸ±ã®ä¸­å¿ƒï¼‰ã¨ãƒ¬ã‚¤ã®æœ€çŸ­è·é›¢ã‚’æ±‚ã‚ã‚‹
 	cMinDist = DistancePosRay(c_x, 0.0f, c_z, RayPos_x, 0.0f, RayPos_z, RayDir_x, 0.0f, RayDir_z);
 
-	//Å’Z‹——£‚ª”¼Œa‚æ‚è—£‚ê‚Ä‚¢‚é“_‚Å“–‚½‚ç‚È‚¢
+	//æœ€çŸ­è·é›¢ãŒåŠå¾„ã‚ˆã‚Šé›¢ã‚Œã¦ã„ã‚‹æ™‚ç‚¹ã§å½“ãŸã‚‰ãªã„
 	if( cMinDist > c_r ){
 		return false;
 	}
 
-	cRayDist = sqrtf(d*d - cMinDist*cMinDist);		//iƒŒƒCn“_‚©‚çj“_‚ÉÅ‚à‹ß‚Ã‚­‹——£
-	cRDist = sqrtf(c_r*c_r - cMinDist*cMinDist);	//i“_”¼Œa‚©‚çj“_‚ÉÅ‚à‹ß‚Ã‚­‹——£
+	cRayDist = sqrtf(d*d - cMinDist*cMinDist);		//ï¼ˆãƒ¬ã‚¤å§‹ç‚¹ã‹ã‚‰ï¼‰ç‚¹ã«æœ€ã‚‚è¿‘ã¥ãè·é›¢
+	cRDist = sqrtf(c_r*c_r - cMinDist*cMinDist);	//ï¼ˆç‚¹åŠå¾„ã‹ã‚‰ï¼‰ç‚¹ã«æœ€ã‚‚è¿‘ã¥ãè·é›¢
 
 	if( d < c_r ){
-		RayXZ_min = 0;		//n“_‚ª‰~‚Ì’†‚È‚ç‹——£ƒ[ƒ
+		RayXZ_min = 0;		//å§‹ç‚¹ãŒå††ã®ä¸­ãªã‚‰è·é›¢ã‚¼ãƒ­
 	}
 	else{
-		RayXZ_min = cRayDist - cRDist;	//ƒŒƒC‹“_Å’Z - ”¼ŒaÅ’Z = ƒŒƒC‹“_‚©‚ç”¼Œa‚Ü‚Å‚ÌÅ’Z
+		RayXZ_min = cRayDist - cRDist;	//ãƒ¬ã‚¤è¦–ç‚¹æœ€çŸ­ - åŠå¾„æœ€çŸ­ = ãƒ¬ã‚¤è¦–ç‚¹ã‹ã‚‰åŠå¾„ã¾ã§ã®æœ€çŸ­
 	}
 
-	//“_‚ÆƒŒƒCI“_‚Ì‹——£
+	//ç‚¹ã¨ãƒ¬ã‚¤çµ‚ç‚¹ã®è·é›¢
 	x = c_x - RayPos_x + RayDir_x*maxDist;
 	z = c_z - RayPos_z + RayDir_x*maxDist;
 	d = sqrtf(x*x + z*z);
 
 	if( d < c_r ){
-		RayXZ_max = maxDist;		//I“_‚ª‰~‚Ì’†‚È‚çÅ‘å‹——£
+		RayXZ_max = maxDist;		//çµ‚ç‚¹ãŒå††ã®ä¸­ãªã‚‰æœ€å¤§è·é›¢
 	}
 	else{
 		RayXZ_max = cRayDist + cRDist;
 	}
 
-	//Y²‚Æ”ä‚×‚é‘O‚ÉAY²‚Æ”äŠr‚Å‚«‚é‚æ‚¤•ÏŠ·@i’ê•Ó‚Ì’l‚ğÎ•Ó‚Ö•ÏŠ·j
+	//Yè»¸ã¨æ¯”ã¹ã‚‹å‰ã«ã€Yè»¸ã¨æ¯”è¼ƒã§ãã‚‹ã‚ˆã†å¤‰æ›ã€€ï¼ˆåº•è¾ºã®å€¤ã‚’æ–œè¾ºã¸å¤‰æ›ï¼‰
 	float Ray_ry = atan2f(RayDir_y, sqrtf(RayDir_x*RayDir_x + RayDir_z*RayDir_z));
 	Ray_min[0] = RayXZ_min / cosf(Ray_ry);
 	Ray_max[0] = RayXZ_max / cosf(Ray_ry);
 
 
-	//Y²‚Ì‚İAABB‚Æ“¯—l‚Ìˆ—
+	//Yè»¸ã®ã¿AABBã¨åŒæ§˜ã®å‡¦ç†
 
 	if( ( (RayPos_y < c_y)||((c_y+c_h) < RayPos_y) )&&(RayDir_y == 0.0f) ){
-		//“à‘¤‚É“ü‚Á‚Ä‚¢‚È‚¢‚Ì‚É ƒxƒNƒgƒ‹‚Ì•ûŒü‚ª 0 ‚È‚çAŠù‚É‰~’Œ‚ÌŠO
+		//å†…å´ã«å…¥ã£ã¦ã„ãªã„ã®ã« ãƒ™ã‚¯ãƒˆãƒ«ã®æ–¹å‘ãŒ 0 ãªã‚‰ã€æ—¢ã«å††æŸ±ã®å¤–
 		return false;
 	}
 
-	//“à‘¤‚É“ü‚Á‚Ä‚¢‚È‚¢‚ªAƒxƒNƒgƒ‹‚ª•ûŒü‚ğ‚Â‚È‚ç`
+	//å†…å´ã«å…¥ã£ã¦ã„ãªã„ãŒã€ãƒ™ã‚¯ãƒˆãƒ«ãŒæ–¹å‘ã‚’æŒã¤ãªã‚‰ï½
 	float t1, t2;
 
-	//‰~’Œ‚ğƒxƒNƒgƒ‹‚ª“Ë‚«”²‚¯‚éŒğ“_‚Ü‚Å‚Ì‹——£‚ğæ“¾
+	//å††æŸ±ã‚’ãƒ™ã‚¯ãƒˆãƒ«ãŒçªãæŠœã‘ã‚‹äº¤ç‚¹ã¾ã§ã®è·é›¢ã‚’å–å¾—
 	t1 = (c_y - RayPos_y) / RayDir_y;
 	t2 = ((c_y+c_h) - RayPos_y) / RayDir_y;
 
-	//Œğ“_‚Ü‚Å‚Ì‹——£‚ªÅ¬EÅ‘å‚Å‹t‚È‚çA“ü‚ê‘Ö‚¦‚éB
+	//äº¤ç‚¹ã¾ã§ã®è·é›¢ãŒæœ€å°ãƒ»æœ€å¤§ã§é€†ãªã‚‰ã€å…¥ã‚Œæ›¿ãˆã‚‹ã€‚
 	if( t1 > t2 ){
 		float temp = t1; t1 = t2; t2 = temp;
 	}
 
-	//²‚Ìî•ñ‚Æ‚µ‚Ä‹L˜^
+	//è»¸ã®æƒ…å ±ã¨ã—ã¦è¨˜éŒ²
 	Ray_min[1] = t1;
 	Ray_max[1] = t2;
 
 	if( (c_y <= RayPos_y)&&(RayPos_y <= (c_y+c_h)) ){
-		//“à‘¤‚É“ü‚Á‚Ä‚¢‚ê‚ÎA‚»‚Ì‚Ü‚Ü²‚Ìî•ñ‚Æ‚µ‚Ä‹L˜^
+		//å†…å´ã«å…¥ã£ã¦ã„ã‚Œã°ã€ãã®ã¾ã¾è»¸ã®æƒ…å ±ã¨ã—ã¦è¨˜éŒ²
 		Ray_min[1] = 0.0f;
 	}
 
-	//‹——£‚ªƒ}ƒCƒiƒXiƒxƒNƒgƒ‹‹t•ûŒüj‚È‚ç‰~’Œ‚Æ‚Í ‚ ‚½‚ç‚È‚¢
+	//è·é›¢ãŒãƒã‚¤ãƒŠã‚¹ï¼ˆï¼ãƒ™ã‚¯ãƒˆãƒ«é€†æ–¹å‘ï¼‰ãªã‚‰å††æŸ±ã¨ã¯ ã‚ãŸã‚‰ãªã„
 	if( Ray_min[1] < 0.0f ){ return false; }
 	if( Ray_max[1] < 0.0f ){ return false; }
 
 
-	//—¼ŒvZ‚ğ‡‚í‚¹‚é
+	//ä¸¡è¨ˆç®—ã‚’åˆã‚ã›ã‚‹
 
-	//Še²‚ÅAÅ‚à‰“‚¢eÅ¬‹——£f‚ÆÅ‚à‹ß‚¢eÅ‘å‹——£f‚ğZo
+	//å„è»¸ã§ã€æœ€ã‚‚é ã„â€˜æœ€å°è·é›¢â€™ã¨æœ€ã‚‚è¿‘ã„â€˜æœ€å¤§è·é›¢â€™ã‚’ç®—å‡º
 	Ray_tmin = Ray_min[0];
 	Ray_tmax = Ray_max[0];
 	if( Ray_tmin < Ray_min[1] ){ Ray_tmin = Ray_min[1]; }
 	if( Ray_tmax > Ray_max[1] ){ Ray_tmax = Ray_max[1]; }
 
-	//Å¬‹——£‚ÆÅ‘å‹——£‚ÌŠÖŒW‚ª³‚µ‚¯‚ê‚Î`
+	//æœ€å°è·é›¢ã¨æœ€å¤§è·é›¢ã®é–¢ä¿‚ãŒæ­£ã—ã‘ã‚Œã°ï½
 	if( (Ray_tmax - Ray_tmin) > 0 ){
-		//”»’è‚ğs‚¤Å‘å‹——£‚æ‚è‰“‚¯‚ê‚ÎA”»’è–³ŒøB
+		//åˆ¤å®šã‚’è¡Œã†æœ€å¤§è·é›¢ã‚ˆã‚Šé ã‘ã‚Œã°ã€åˆ¤å®šç„¡åŠ¹ã€‚
 		if( maxDist > 0.0f ){
 			if( Ray_tmin > maxDist ){ return false; }
 		}
 
-		//‹——£‚ğ‘ã“ü‚µ•Ô‚·
+		//è·é›¢ã‚’ä»£å…¥ã—è¿”ã™
 		if( Dist != NULL ){ *Dist = Ray_tmin; }
 		return true;
 	}
@@ -1397,19 +1397,19 @@ bool CollideCylinderRay(float c_x, float c_y, float c_z, float c_r, float c_h, f
 	return false;
 }
 
-//! @brief “_‚ÆƒŒƒC‚ÌÅ’Z‹——£‚ğ‹‚ß‚é
-//! @param Pos_x “_‚ÌXÀ•W
-//! @param Pos_y “_‚ÌYÀ•W
-//! @param Pos_z “_‚ÌZÀ•W
-//! @param RayPos_x ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é XÀ•W
-//! @param RayPos_y ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é YÀ•W
-//! @param RayPos_z ƒŒƒC‚ÌˆÊ’uin“_j‚ğw’è‚·‚é ZÀ•W
-//! @param RayDir_x ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é X¬•ª
-//! @param RayDir_y ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Y¬•ª
-//! @param RayDir_z ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ğw’è‚·‚é Z¬•ª
-//! @return Å’Z‹——£
-//! @warning RayPosin“_j‚Æ RayDiriƒxƒNƒgƒ‹j‚ğŠÔˆá‚¦‚È‚¢‚±‚ÆB
-//! @attention ƒŒƒC‚Ì•ûŒü‚Íl—¶‚³‚ê‚Ü‚·‚ªAƒŒƒC‚Ì’·‚³‚Íl—¶‚³‚ê‚Ü‚¹‚ñB
+//! @brief ç‚¹ã¨ãƒ¬ã‚¤ã®æœ€çŸ­è·é›¢ã‚’æ±‚ã‚ã‚‹
+//! @param Pos_x ç‚¹ã®Xåº§æ¨™
+//! @param Pos_y ç‚¹ã®Yåº§æ¨™
+//! @param Pos_z ç‚¹ã®Zåº§æ¨™
+//! @param RayPos_x ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Xåº§æ¨™
+//! @param RayPos_y ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Yåº§æ¨™
+//! @param RayPos_z ãƒ¬ã‚¤ã®ä½ç½®ï¼ˆå§‹ç‚¹ï¼‰ã‚’æŒ‡å®šã™ã‚‹ Zåº§æ¨™
+//! @param RayDir_x ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Xæˆåˆ†
+//! @param RayDir_y ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Yæˆåˆ†
+//! @param RayDir_z ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æŒ‡å®šã™ã‚‹ Zæˆåˆ†
+//! @return æœ€çŸ­è·é›¢
+//! @warning RayPosï¼ˆå§‹ç‚¹ï¼‰ã¨ RayDirï¼ˆãƒ™ã‚¯ãƒˆãƒ«ï¼‰ã‚’é–“é•ãˆãªã„ã“ã¨ã€‚
+//! @attention ãƒ¬ã‚¤ã®æ–¹å‘ã¯è€ƒæ…®ã•ã‚Œã¾ã™ãŒã€ãƒ¬ã‚¤ã®é•·ã•ã¯è€ƒæ…®ã•ã‚Œã¾ã›ã‚“ã€‚
 float DistancePosRay(float Pos_x, float Pos_y, float Pos_z, float RayPos_x, float RayPos_y, float RayPos_z, float RayDir_x, float RayDir_y, float RayDir_z)
 {
 	float x1, y1, z1;
@@ -1424,15 +1424,15 @@ float DistancePosRay(float Pos_x, float Pos_y, float Pos_z, float RayPos_x, floa
 	y2 = RayDir_y;
 	z2 = RayDir_z;
 
-	//“àÏ
+	//å†…ç©
 	Dot = x1 * x2 + y1 * y2 + z1 * z2;
 
-	//ƒŒƒC‚ÌƒxƒNƒgƒ‹‚ª‹t•ûŒü‚È‚ç
+	//ãƒ¬ã‚¤ã®ãƒ™ã‚¯ãƒˆãƒ«ãŒé€†æ–¹å‘ãªã‚‰
 	if( Dot < 0.0f ){
 		return sqrtf(x1*x1 + y1*y1 + z1*z1);
 	}
 
-	//ŠOÏ
+	//å¤–ç©
 	x3 = y1 * z2 - z1 * y2;
 	y3 = z1 * x2 - x1 * z2;
 	z3 = x1 * y2 - y1 * x2;
@@ -1440,40 +1440,40 @@ float DistancePosRay(float Pos_x, float Pos_y, float Pos_z, float RayPos_x, floa
 	return sqrtf(x3*x3 + y3*y3 + z3*z3) / sqrtf(RayDir_x*RayDir_x + RayDir_y*RayDir_y + RayDir_z*RayDir_z);
 }
 
-//! @brief ü•ª‚Æü•ª‚Ì“–‚½‚è”»’èi2Dj
-//! @param A1x ü•ªA‚Ìn“_ XÀ•W
-//! @param A1y ü•ªA‚Ìn“_ YÀ•W
-//! @param A2x ü•ªA‚ÌI“_ XÀ•W
-//! @param A2y ü•ªA‚ÌI“_ YÀ•W
-//! @param B1x ü•ªB‚Ìn“_ XÀ•W
-//! @param B1y ü•ªB‚Ìn“_ YÀ•W
-//! @param B2x ü•ªB‚ÌI“_ XÀ•W
-//! @param B2y ü•ªB‚ÌI“_ YÀ•W
-//! @param out_x Œğ“_‚Ì XÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param out_y Œğ“_‚Ì YÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return Œğ·‚·‚éFtrue@Œğ·‚µ‚È‚¢Ffalse
+//! @brief ç·šåˆ†ã¨ç·šåˆ†ã®å½“ãŸã‚Šåˆ¤å®šï¼ˆ2Dï¼‰
+//! @param A1x ç·šåˆ†Aã®å§‹ç‚¹ Xåº§æ¨™
+//! @param A1y ç·šåˆ†Aã®å§‹ç‚¹ Yåº§æ¨™
+//! @param A2x ç·šåˆ†Aã®çµ‚ç‚¹ Xåº§æ¨™
+//! @param A2y ç·šåˆ†Aã®çµ‚ç‚¹ Yåº§æ¨™
+//! @param B1x ç·šåˆ†Bã®å§‹ç‚¹ Xåº§æ¨™
+//! @param B1y ç·šåˆ†Bã®å§‹ç‚¹ Yåº§æ¨™
+//! @param B2x ç·šåˆ†Bã®çµ‚ç‚¹ Xåº§æ¨™
+//! @param B2y ç·šåˆ†Bã®çµ‚ç‚¹ Yåº§æ¨™
+//! @param out_x äº¤ç‚¹ã® Xåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param out_y äº¤ç‚¹ã® Yåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return äº¤å·®ã™ã‚‹ï¼štrueã€€äº¤å·®ã—ãªã„ï¼šfalse
 bool Collide2DLine(int A1x, int A1y, int A2x, int A2y, int B1x, int B1y, int B2x, int B2y, int *out_x, int *out_y)
 {
-	//ü•ª‚ÌƒxƒNƒgƒ‹‚ğ‹‚ß‚é
+	//ç·šåˆ†ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’æ±‚ã‚ã‚‹
 	int Avx = A2x - A1x;
 	int Avy = A2y - A1y;
 	int Bvx = B2x - B1x;
 	int Bvy = B2y - B1y;
 
-	float v1_v2 = (float)(Avx * Bvy - Avy * Bvx);	//ŠOÏ
+	float v1_v2 = (float)(Avx * Bvy - Avy * Bvx);	//å¤–ç©
 	if( v1_v2 == 0.0f ){
-		return false;	//•½s
+		return false;	//å¹³è¡Œ
 	}
 
 	float vx = (float)(B1x - A1x);
 	float vy = (float)(B1y - A1y);
-	float v_v1 = vx * Avy - vy * Avx;	//ŠOÏ
-	float v_v2 = vx * Bvy - vy * Bvx;	//ŠOÏ
+	float v_v1 = vx * Avy - vy * Avx;	//å¤–ç©
+	float v_v2 = vx * Bvy - vy * Bvx;	//å¤–ç©
 	float t1 = v_v2 / v1_v2;
 	float t2 = v_v1 / v1_v2;
 
 	if( (t1 <= 0)||(1 <= t1)||(t2 <= 0)||(1 <= t2) ){
-		return false;	//Œğ·‚µ‚Ä‚È‚¢
+		return false;	//äº¤å·®ã—ã¦ãªã„
 	}
 
 	if( out_x != NULL ){ *out_x = (int)(A1x + Avx * t1); }
@@ -1482,34 +1482,34 @@ bool Collide2DLine(int A1x, int A1y, int A2x, int A2y, int B1x, int B1y, int B2x
 	return true;
 }
 
-//! @brief lŠpŒ`‚Éû‚Ü‚éü•ª‚ğ‹‚ß‚éi2Dj
-//! @param line_x1 ü•ª‚Ìn“_ XÀ•W
-//! @param line_y1 ü•ª‚Ìn“_ YÀ•W
-//! @param line_x2 ü•ª‚ÌI“_ XÀ•W
-//! @param line_y2 ü•ª‚ÌI“_ YÀ•W
-//! @param box_x1 lŠpŒ`‚Ì¶ã XÀ•W
-//! @param box_y1 lŠpŒ`‚Ì¶ã YÀ•W
-//! @param box_x2 lŠpŒ`‚Ì‰E‰º XÀ•W
-//! @param box_y2 lŠpŒ`‚Ì‰E‰º YÀ•W
-//! @param out_line_x1 lŠpŒ`‚Éû‚Ü‚é ü•ª‚Ìn“_ XÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param out_line_y1 lŠpŒ`‚Éû‚Ü‚é ü•ª‚Ìn“_ YÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param out_line_x2 lŠpŒ`‚Éû‚Ü‚é ü•ª‚ÌI“_ XÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @param out_line_y2 lŠpŒ`‚Éû‚Ü‚é ü•ª‚ÌI“_ YÀ•W ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return —LŒøi•`‰æ‚·‚éjFtrue@–³Œøi•`‰æ‚µ‚È‚¢jFfalse
-//! @warning ˆø”‚Í•K‚¸ubox_x1 < box_x2v‚©‚Âubox_x1 < box_x2v‚É‚·‚é‚±‚Æ
-//! @note ŠÈˆÕƒŒ[ƒ_[‚Ìƒ}ƒbƒv•`‰æ—p
+//! @brief å››è§’å½¢ã«åã¾ã‚‹ç·šåˆ†ã‚’æ±‚ã‚ã‚‹ï¼ˆ2Dï¼‰
+//! @param line_x1 ç·šåˆ†ã®å§‹ç‚¹ Xåº§æ¨™
+//! @param line_y1 ç·šåˆ†ã®å§‹ç‚¹ Yåº§æ¨™
+//! @param line_x2 ç·šåˆ†ã®çµ‚ç‚¹ Xåº§æ¨™
+//! @param line_y2 ç·šåˆ†ã®çµ‚ç‚¹ Yåº§æ¨™
+//! @param box_x1 å››è§’å½¢ã®å·¦ä¸Š Xåº§æ¨™
+//! @param box_y1 å››è§’å½¢ã®å·¦ä¸Š Yåº§æ¨™
+//! @param box_x2 å››è§’å½¢ã®å³ä¸‹ Xåº§æ¨™
+//! @param box_y2 å››è§’å½¢ã®å³ä¸‹ Yåº§æ¨™
+//! @param out_line_x1 å››è§’å½¢ã«åã¾ã‚‹ ç·šåˆ†ã®å§‹ç‚¹ Xåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param out_line_y1 å››è§’å½¢ã«åã¾ã‚‹ ç·šåˆ†ã®å§‹ç‚¹ Yåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param out_line_x2 å››è§’å½¢ã«åã¾ã‚‹ ç·šåˆ†ã®çµ‚ç‚¹ Xåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @param out_line_y2 å››è§’å½¢ã«åã¾ã‚‹ ç·šåˆ†ã®çµ‚ç‚¹ Yåº§æ¨™ ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æœ‰åŠ¹ï¼ˆæç”»ã™ã‚‹ï¼‰ï¼štrueã€€ç„¡åŠ¹ï¼ˆæç”»ã—ãªã„ï¼‰ï¼šfalse
+//! @warning å¼•æ•°ã¯å¿…ãšã€Œbox_x1 < box_x2ã€ã‹ã¤ã€Œbox_x1 < box_x2ã€ã«ã™ã‚‹ã“ã¨
+//! @note ç°¡æ˜“ãƒ¬ãƒ¼ãƒ€ãƒ¼ã®ãƒãƒƒãƒ—æç”»ç”¨
 bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_x1, int box_y1, int box_x2, int box_y2, int *out_line_x1, int *out_line_y1, int *out_line_x2, int *out_line_y2)
 {
-	//lŠpŒ`w’è‚ªˆÙí
+	//å››è§’å½¢æŒ‡å®šãŒç•°å¸¸
 	if( (box_x1 >= box_x2)||(box_y1 >= box_y2) ){ return false; }
 
-	//ã‰º¶‰E‚Ì‹óŠÔ‚É‚ ‚é‚È‚çA“IŠO‚ê
+	//ä¸Šä¸‹å·¦å³ã®ç©ºé–“ã«ã‚ã‚‹ãªã‚‰ã€çš„å¤–ã‚Œ
 	if( (line_x1 < box_x1)&&(line_x2 < box_x1) ){ return false; }
 	if( (line_y1 < box_y1)&&(line_y2 < box_y1) ){ return false; }
 	if( (box_x2 < line_x1)&&(box_x2 < line_x2) ){ return false; }
 	if( (box_y2 < line_y1)&&(box_y2 < line_y2) ){ return false; }
 
-	//Šù‚ÉlŠpŒ`‚Éû‚Ü‚é
+	//æ—¢ã«å››è§’å½¢ã«åã¾ã‚‹
 	if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 		if( (box_x1 <= line_x2)&&(line_x2 <= box_x2)&&(box_y1 <= line_y2)&&(line_y2 <= box_y2) ){
 			*out_line_x1 = line_x1;
@@ -1522,9 +1522,9 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 
 	int x, y;
 
-	//ã•Ó
+	//ä¸Šè¾º
 	if( Collide2DLine(box_x1, box_y1, box_x2, box_y1, line_x1, line_y1, line_x2, line_y2, &x, &y) == true ){
-		//n“_‚ªlŠpŒ`‚Ì“à‘¤‚È‚çI“_‚ğAˆá‚¦‚ÎiI“_‚ª“à‘¤jn“_‚ğ‘‚«Š·‚¦‚éB
+		//å§‹ç‚¹ãŒå››è§’å½¢ã®å†…å´ãªã‚‰çµ‚ç‚¹ã‚’ã€é•ãˆã°ï¼ˆï¼çµ‚ç‚¹ãŒå†…å´ï¼‰å§‹ç‚¹ã‚’æ›¸ãæ›ãˆã‚‹ã€‚
 		if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 			line_x2 = x;
 			line_y2 = y;
@@ -1534,9 +1534,9 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 			line_y1 = y;
 		}
 	}
-	//‰E•Ó
+	//å³è¾º
 	if( Collide2DLine(box_x2, box_y1, box_x2, box_y2, line_x1, line_y1, line_x2, line_y2, &x, &y) == true ){
-		//n“_‚ªlŠpŒ`‚Ì“à‘¤‚È‚çI“_‚ğAˆá‚¦‚ÎiI“_‚ª“à‘¤jn“_‚ğ‘‚«Š·‚¦‚éB
+		//å§‹ç‚¹ãŒå››è§’å½¢ã®å†…å´ãªã‚‰çµ‚ç‚¹ã‚’ã€é•ãˆã°ï¼ˆï¼çµ‚ç‚¹ãŒå†…å´ï¼‰å§‹ç‚¹ã‚’æ›¸ãæ›ãˆã‚‹ã€‚
 		if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 			line_x2 = x;
 			line_y2 = y;
@@ -1546,9 +1546,9 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 			line_y1 = y;
 		}
 	}
-	//‰º•Ó
+	//ä¸‹è¾º
 	if( Collide2DLine(box_x2, box_y2, box_x1, box_y2, line_x1, line_y1, line_x2, line_y2, &x, &y) == true ){
-		//n“_‚ªlŠpŒ`‚Ì“à‘¤‚È‚çI“_‚ğAˆá‚¦‚ÎiI“_‚ª“à‘¤jn“_‚ğ‘‚«Š·‚¦‚éB
+		//å§‹ç‚¹ãŒå››è§’å½¢ã®å†…å´ãªã‚‰çµ‚ç‚¹ã‚’ã€é•ãˆã°ï¼ˆï¼çµ‚ç‚¹ãŒå†…å´ï¼‰å§‹ç‚¹ã‚’æ›¸ãæ›ãˆã‚‹ã€‚
 		if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 			line_x2 = x;
 			line_y2 = y;
@@ -1558,9 +1558,9 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 			line_y1 = y;
 		}
 	}
-	//¶•Ó
+	//å·¦è¾º
 	if( Collide2DLine(box_x1, box_y2, box_x1, box_y1, line_x1, line_y1, line_x2, line_y2, &x, &y) == true ){
-		//n“_‚ªlŠpŒ`‚Ì“à‘¤‚È‚çI“_‚ğAˆá‚¦‚ÎiI“_‚ª“à‘¤jn“_‚ğ‘‚«Š·‚¦‚éB
+		//å§‹ç‚¹ãŒå››è§’å½¢ã®å†…å´ãªã‚‰çµ‚ç‚¹ã‚’ã€é•ãˆã°ï¼ˆï¼çµ‚ç‚¹ãŒå†…å´ï¼‰å§‹ç‚¹ã‚’æ›¸ãæ›ãˆã‚‹ã€‚
 		if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 			line_x2 = x;
 			line_y2 = y;
@@ -1571,7 +1571,7 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 		}
 	}
 
-	//‰ü‚ß‚ÄlŠpŒ`‚Éû‚Ü‚é‚©Šm”F
+	//æ”¹ã‚ã¦å››è§’å½¢ã«åã¾ã‚‹ã‹ç¢ºèª
 	if( (box_x1 <= line_x1)&&(line_x1 <= box_x2)&&(box_y1 <= line_y1)&&(line_y1 <= box_y2) ){
 		if( (box_x1 <= line_x2)&&(line_x2 <= box_x2)&&(box_y1 <= line_y2)&&(line_y2 <= box_y2) ){
 			*out_line_x1 = line_x1;
@@ -1585,23 +1585,23 @@ bool Get2DLineInBox(int line_x1, int line_y1, int line_x2, int line_y2, int box_
 	return false;
 }
 
-//! @brief ŠÏ‘ª“_‚©‚ç‘ÎÛ“_‚Ö‚Ì ‹——£”»’èEŠp“xZo
-//! @param pos_x ŠÏ‘ª“_‚ÌXÀ•W
-//! @param pos_y ŠÏ‘ª“_‚ÌYÀ•W
-//! @param pos_z ŠÏ‘ª“_‚ÌZÀ•W
-//! @param rx ŠÏ‘ª“_‚Ì…•½Šp“x
-//! @param ry ŠÏ‘ª“_‚Ì‚’¼Šp“x
-//! @param target_x ‘ÎÛ“_‚ÌXÀ•W
-//! @param target_y ‘ÎÛ“_‚ÌYÀ•W
-//! @param target_z ‘ÎÛ“_‚ÌZÀ•W
-//! @param checkdist ”»’è‹——£i0.0fˆÈ‰º‚Å”»’è–³Œøj
-//! @param out_rx ‘ÎÛ“_‚Ö‚Ì…•½Šp“xiƒÎ`-ƒÎj‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param out_ry ‘ÎÛ“_‚Ö‚Ì‚’¼Šp“x‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @param out_dist2 ‘ÎÛ“_‚Ö‚Ì‹——£<b>‚Ì“ñæ</b>‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^iNULL‰Âj
-//! @return ¬Œ÷Ftrue ¸”sFfalse
-//! @warning out_dist2‚Í‹——£‚Ì<b>“ñæ</b>‚Å‚·B•K—v‚É‰‚¶‚Ä‰ü‚ß‚Ä sqrtf()ŠÖ” ‚È‚Ç‚ğ—p‚¢‚Ä‚­‚¾‚³‚¢B
-//! @attention ˆø” checkdist ‚É—LŒø‚È‹——£‚ğ—^‚¦‚½ê‡‚ÍAŠÏ‘ª“_‚©‚ç‘ÎÛ“_‚Ö‚Ì‹——£”»’è‚às‚¢‚Ü‚·Bw’è‚³‚ê‚½‹——£‚æ‚è—£‚ê‚Ä‚¢‚éê‡AŠp“x‚ğŒvZ‚¹‚¸‚É false ‚ğ•Ô‚µ‚Ü‚·B
-//! @attention ‹t‚ÉAˆø” checkdist ‚É0.0fˆÈ‰º‚ğ—^‚¦‚½ê‡A‹——£‚É‚æ‚é”»’è‚ğs‚¢‚Ü‚¹‚ñBŠÖ”‚Íí‚É true ‚ğ•Ô‚µ‚Ü‚·B
+//! @brief è¦³æ¸¬ç‚¹ã‹ã‚‰å¯¾è±¡ç‚¹ã¸ã® è·é›¢åˆ¤å®šãƒ»è§’åº¦ç®—å‡º
+//! @param pos_x è¦³æ¸¬ç‚¹ã®Xåº§æ¨™
+//! @param pos_y è¦³æ¸¬ç‚¹ã®Yåº§æ¨™
+//! @param pos_z è¦³æ¸¬ç‚¹ã®Zåº§æ¨™
+//! @param rx è¦³æ¸¬ç‚¹ã®æ°´å¹³è§’åº¦
+//! @param ry è¦³æ¸¬ç‚¹ã®å‚ç›´è§’åº¦
+//! @param target_x å¯¾è±¡ç‚¹ã®Xåº§æ¨™
+//! @param target_y å¯¾è±¡ç‚¹ã®Yåº§æ¨™
+//! @param target_z å¯¾è±¡ç‚¹ã®Zåº§æ¨™
+//! @param checkdist åˆ¤å®šè·é›¢ï¼ˆ0.0fä»¥ä¸‹ã§åˆ¤å®šç„¡åŠ¹ï¼‰
+//! @param out_rx å¯¾è±¡ç‚¹ã¸ã®æ°´å¹³è§’åº¦ï¼ˆÏ€ï½-Ï€ï¼‰ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param out_ry å¯¾è±¡ç‚¹ã¸ã®å‚ç›´è§’åº¦ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @param out_dist2 å¯¾è±¡ç‚¹ã¸ã®è·é›¢<b>ã®äºŒä¹—</b>ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ï¼ˆNULLå¯ï¼‰
+//! @return æˆåŠŸï¼štrue å¤±æ•—ï¼šfalse
+//! @warning out_dist2ã¯è·é›¢ã®<b>äºŒä¹—</b>ã§ã™ã€‚å¿…è¦ã«å¿œã˜ã¦æ”¹ã‚ã¦ sqrtf()é–¢æ•° ãªã©ã‚’ç”¨ã„ã¦ãã ã•ã„ã€‚
+//! @attention å¼•æ•° checkdist ã«æœ‰åŠ¹ãªè·é›¢ã‚’ä¸ãˆãŸå ´åˆã¯ã€è¦³æ¸¬ç‚¹ã‹ã‚‰å¯¾è±¡ç‚¹ã¸ã®è·é›¢åˆ¤å®šã‚‚è¡Œã„ã¾ã™ã€‚æŒ‡å®šã•ã‚ŒãŸè·é›¢ã‚ˆã‚Šé›¢ã‚Œã¦ã„ã‚‹å ´åˆã€è§’åº¦ã‚’è¨ˆç®—ã›ãšã« false ã‚’è¿”ã—ã¾ã™ã€‚
+//! @attention é€†ã«ã€å¼•æ•° checkdist ã«0.0fä»¥ä¸‹ã‚’ä¸ãˆãŸå ´åˆã€è·é›¢ã«ã‚ˆã‚‹åˆ¤å®šã‚’è¡Œã„ã¾ã›ã‚“ã€‚é–¢æ•°ã¯å¸¸ã« true ã‚’è¿”ã—ã¾ã™ã€‚
 bool CheckTargetAngle(float pos_x, float pos_y, float pos_z, float rx, float ry, float target_x, float target_y, float target_z, float checkdist, float *out_rx, float *out_ry, float *out_dist2)
 {
 	float x, y, z;
@@ -1638,11 +1638,11 @@ bool CheckTargetAngle(float pos_x, float pos_y, float pos_z, float rx, float ry,
 	return true;
 }
 
-//! @brief ƒxƒNƒgƒ‹³‹K‰»
-//! @param vx vx‚Ìƒ|ƒCƒ“ƒ^
-//! @param vy vy‚Ìƒ|ƒCƒ“ƒ^
-//! @param vz vz‚Ìƒ|ƒCƒ“ƒ^
-//! @return ³‹K‰»‘O‚ÌƒxƒNƒgƒ‹‚Ì’·‚³
+//! @brief ãƒ™ã‚¯ãƒˆãƒ«æ­£è¦åŒ–
+//! @param vx vxã®ãƒã‚¤ãƒ³ã‚¿
+//! @param vy vyã®ãƒã‚¤ãƒ³ã‚¿
+//! @param vz vzã®ãƒã‚¤ãƒ³ã‚¿
+//! @return æ­£è¦åŒ–å‰ã®ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•
 float VectorNormalization(float *vx, float *vy, float *vz)
 {
 	float r = sqrtf((*vx) * (*vx) + (*vy) * (*vy) + (*vz) * (*vz));

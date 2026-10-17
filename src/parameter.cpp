@@ -1,5 +1,5 @@
 //! @file parameter.cpp
-//! @brief ParameterInfoƒNƒ‰ƒX‚Ì’è‹`
+//! @brief ParameterInfoã‚¯ãƒ©ã‚¹ã®å®šç¾©
 
 //--------------------------------------------------------------------------------
 // 
@@ -29,12 +29,12 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------------
 
-// lE•ŠíE¬•¨ İ’èƒf[ƒ^‚ÌŠm”Fì‹Æ
-// @Manda‚³‚ñ@i2014”N12Œj
+// äººãƒ»æ­¦å™¨ãƒ»å°ç‰© è¨­å®šãƒ‡ãƒ¼ã‚¿ã®ç¢ºèªä½œæ¥­
+// ã€€Mandaã•ã‚“ã€€ï¼ˆ2014å¹´12æœˆï¼‰
 
 #include "parameter.h"
 
-//! @brief ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+//! @brief ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ParameterInfo::ParameterInfo()
 {
 	Human = NULL;
@@ -52,18 +52,18 @@ ParameterInfo::ParameterInfo()
 	Scope = NULL;
 }
 
-//! @brief ƒfƒBƒXƒgƒ‰ƒNƒ^
+//! @brief ãƒ‡ã‚£ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 ParameterInfo::~ParameterInfo()
 {
 	DestroyInfo();
 }
 
-//! @brief ‰Šú‰»iƒpƒ‰ƒ[ƒ^‚Ìİ’èj
-//! @attention ‚±‚ÌŠÖ”‚ğŒÄ‚Ño‚³‚È‚¢‚ÆAƒNƒ‰ƒX©‘Ì‚ª³‚µ‚­‹@”\‚µ‚Ü‚¹‚ñB
+//! @brief åˆæœŸåŒ–ï¼ˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®è¨­å®šï¼‰
+//! @attention ã“ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã•ãªã„ã¨ã€ã‚¯ãƒ©ã‚¹è‡ªä½“ãŒæ­£ã—ãæ©Ÿèƒ½ã—ã¾ã›ã‚“ã€‚
 void ParameterInfo::InitInfo()
 {
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_INIT, "ParameterInfo", "");
 #endif
 
@@ -78,7 +78,7 @@ void ParameterInfo::InitInfo()
 	AIlevel = new AIParameter[TOTAL_PARAMETERINFO_AILEVEL];
 	Scope = new ScopeParameter[TOTAL_PARAMETERINFO_SCOPE];
 
-	//“Áê • A
+	//ç‰¹æ®Š é»’ A
 	Human[0].texture = 14;
 	Human[0].model = 5;
 	Human[0].hp = 120;
@@ -87,7 +87,7 @@ void ParameterInfo::InitInfo()
 	Human[0].Weapon[0] = 21;
 	Human[0].Weapon[1] = 8;
 	Human[0].type = 0;
-	//“Áê • B
+	//ç‰¹æ®Š é»’ B
 	Human[1].texture = 14;
 	Human[1].model = 5;
 	Human[1].hp = 120;
@@ -96,7 +96,7 @@ void ParameterInfo::InitInfo()
 	Human[1].Weapon[0] = 21;
 	Human[1].Weapon[1] = 2;
 	Human[1].type = 0;
-	//“Áê —Î A
+	//ç‰¹æ®Š ç·‘ A
 	Human[2].texture = 16;
 	Human[2].model = 0;
 	Human[2].hp = 110;
@@ -105,7 +105,7 @@ void ParameterInfo::InitInfo()
 	Human[2].Weapon[0] = 3;
 	Human[2].Weapon[1] = 6;
 	Human[2].type = 0;
-	//“Áê —Î B
+	//ç‰¹æ®Š ç·‘ B
 	Human[3].texture = 16;
 	Human[3].model = 0;
 	Human[3].hp = 110;
@@ -114,7 +114,7 @@ void ParameterInfo::InitInfo()
 	Human[3].Weapon[0] = 3;
 	Human[3].Weapon[1] = 10;
 	Human[3].type = 0;
-	//“Áê —Î C
+	//ç‰¹æ®Š ç·‘ C
 	Human[4].texture = 16;
 	Human[4].model = 0;
 	Human[4].hp = 110;
@@ -123,7 +123,7 @@ void ParameterInfo::InitInfo()
 	Human[4].Weapon[0] = 3;
 	Human[4].Weapon[1] = 2;
 	Human[4].type = 0;
-	//“Áê ”’ A
+	//ç‰¹æ®Š ç™½ A
 	Human[5].texture = 18;
 	Human[5].model = 0;
 	Human[5].hp = 110;
@@ -132,7 +132,7 @@ void ParameterInfo::InitInfo()
 	Human[5].Weapon[0] = 4;
 	Human[5].Weapon[1] = 7;
 	Human[5].type = 0;
-	//“Áê ”’ B
+	//ç‰¹æ®Š ç™½ B
 	Human[6].texture = 18;
 	Human[6].model = 0;
 	Human[6].hp = 110;
@@ -141,7 +141,7 @@ void ParameterInfo::InitInfo()
 	Human[6].Weapon[0] = 4;
 	Human[6].Weapon[1] = 2;
 	Human[6].type = 0;
-	//ƒnƒQ
+	//ãƒã‚²
 	Human[7].texture = 5;
 	Human[7].model = 0;
 	Human[7].hp = 100;
@@ -150,7 +150,7 @@ void ParameterInfo::InitInfo()
 	Human[7].Weapon[0] = 4;
 	Human[7].Weapon[1] = 0;
 	Human[7].type = 0;
-	//“Áê ‡
+	//ç‰¹æ®Š ç´«
 	Human[8].texture = 17;
 	Human[8].model = 0;
 	Human[8].hp = 110;
@@ -159,7 +159,7 @@ void ParameterInfo::InitInfo()
 	Human[8].Weapon[0] = 22;
 	Human[8].Weapon[1] = 14;
 	Human[8].type = 0;
-	//“Áê Â
+	//ç‰¹æ®Š é’
 	Human[9].texture = 15;
 	Human[9].model = 5;
 	Human[9].hp = 120;
@@ -168,7 +168,7 @@ void ParameterInfo::InitInfo()
 	Human[9].Weapon[0] = 3;
 	Human[9].Weapon[1] = 1;
 	Human[9].type = 0;
-	//í“¬—pƒƒ{ƒbƒg
+	//æˆ¦é—˜ç”¨ãƒ­ãƒœãƒƒãƒˆ
 	Human[10].texture = 13;
 	Human[10].model = 0;
 	Human[10].hp = 2500;
@@ -177,7 +177,7 @@ void ParameterInfo::InitInfo()
 	Human[10].Weapon[0] = 6;
 	Human[10].Weapon[1] = 12;
 	Human[10].type = 1;
-	//ƒX[ƒc • SG
+	//ã‚¹ãƒ¼ãƒ„ é»’ SG
 	Human[11].texture = 4;
 	Human[11].model = 1;
 	Human[11].hp = 100;
@@ -186,7 +186,7 @@ void ParameterInfo::InitInfo()
 	Human[11].Weapon[0] = 18;
 	Human[11].Weapon[1] = 0;
 	Human[11].type = 0;
-	//ƒX[ƒc •
+	//ã‚¹ãƒ¼ãƒ„ é»’
 	Human[12].texture = 4;
 	Human[12].model = 0;
 	Human[12].hp = 100;
@@ -195,7 +195,7 @@ void ParameterInfo::InitInfo()
 	Human[12].Weapon[0] = 5;
 	Human[12].Weapon[1] = 0;
 	Human[12].type = 0;
-	//ƒX[ƒc ŠD
+	//ã‚¹ãƒ¼ãƒ„ ç°
 	Human[13].texture = 11;
 	Human[13].model = 0;
 	Human[13].hp = 100;
@@ -204,7 +204,7 @@ void ParameterInfo::InitInfo()
 	Human[13].Weapon[0] = 0;
 	Human[13].Weapon[1] = 0;
 	Human[13].type = 0;
-	//Œx@Š¯
+	//è­¦å¯Ÿå®˜
 	Human[14].texture = 8;
 	Human[14].model = 2;
 	Human[14].hp = 100;
@@ -213,7 +213,7 @@ void ParameterInfo::InitInfo()
 	Human[14].Weapon[0] = 3;
 	Human[14].Weapon[1] = 0;
 	Human[14].type = 0;
-	//ƒX[ƒc ’ƒ
+	//ã‚¹ãƒ¼ãƒ„ èŒ¶
 	Human[15].texture = 9;
 	Human[15].model = 0;
 	Human[15].hp = 100;
@@ -222,7 +222,7 @@ void ParameterInfo::InitInfo()
 	Human[15].Weapon[0] = 0;
 	Human[15].Weapon[1] = 0;
 	Human[15].type = 0;
-	//ƒVƒƒƒc’j 1
+	//ã‚·ãƒ£ãƒ„ç”· 1
 	Human[16].texture = 23;
 	Human[16].model = 0;
 	Human[16].hp = 100;
@@ -231,7 +231,7 @@ void ParameterInfo::InitInfo()
 	Human[16].Weapon[0] = 17;
 	Human[16].Weapon[1] = 0;
 	Human[16].type = 0;
-	//’†“Œ•º
+	//ä¸­æ±å…µ
 	Human[17].texture = 6;
 	Human[17].model = 0;
 	Human[17].hp = 100;
@@ -240,7 +240,7 @@ void ParameterInfo::InitInfo()
 	Human[17].Weapon[0] = 17;
 	Human[17].Weapon[1] = 10;
 	Human[17].type = 0;
-	//—
+	//å¥³
 	Human[18].texture = 25;
 	Human[18].model = 3;
 	Human[18].hp = 90;
@@ -249,7 +249,7 @@ void ParameterInfo::InitInfo()
 	Human[18].Weapon[0] = 0;
 	Human[18].Weapon[1] = 0;
 	Human[18].type = 0;
-	//‹à”¯’j
+	//é‡‘é«ªç”·
 	Human[19].texture = 0;
 	Human[19].model = 0;
 	Human[19].hp = 100;
@@ -258,7 +258,7 @@ void ParameterInfo::InitInfo()
 	Human[19].Weapon[0] = 0;
 	Human[19].Weapon[1] = 0;
 	Human[19].type = 0;
-	//s–¯ 1
+	//å¸‚æ°‘ 1
 	Human[20].texture = 1;
 	Human[20].model = 0;
 	Human[20].hp = 100;
@@ -267,7 +267,7 @@ void ParameterInfo::InitInfo()
 	Human[20].Weapon[0] = 0;
 	Human[20].Weapon[1] = 0;
 	Human[20].type = 0;
-	//s–¯ 2
+	//å¸‚æ°‘ 2
 	Human[21].texture = 2;
 	Human[21].model = 0;
 	Human[21].hp = 100;
@@ -276,7 +276,7 @@ void ParameterInfo::InitInfo()
 	Human[21].Weapon[0] = 0;
 	Human[21].Weapon[1] = 0;
 	Human[21].type = 0;
-	//ƒVƒƒƒc’j 1 SG
+	//ã‚·ãƒ£ãƒ„ç”· 1 SG
 	Human[22].texture = 23;
 	Human[22].model = 1;
 	Human[22].hp = 100;
@@ -285,7 +285,7 @@ void ParameterInfo::InitInfo()
 	Human[22].Weapon[0] = 0;
 	Human[22].Weapon[1] = 0;
 	Human[22].type = 0;
-	//‹à”¯’j SG
+	//é‡‘é«ªç”· SG
 	Human[23].texture = 0;
 	Human[23].model = 1;
 	Human[23].hp = 100;
@@ -294,7 +294,7 @@ void ParameterInfo::InitInfo()
 	Human[23].Weapon[0] = 0;
 	Human[23].Weapon[1] = 0;
 	Human[23].type = 0;
-	//s–¯ 1 SG
+	//å¸‚æ°‘ 1 SG
 	Human[24].texture = 1;
 	Human[24].model = 1;
 	Human[24].hp = 100;
@@ -303,7 +303,7 @@ void ParameterInfo::InitInfo()
 	Human[24].Weapon[0] = 0;
 	Human[24].Weapon[1] = 0;
 	Human[24].type = 0;
-	//s–¯ 2 SG
+	//å¸‚æ°‘ 2 SG
 	Human[25].texture = 2;
 	Human[25].model = 1;
 	Human[25].hp = 100;
@@ -312,7 +312,7 @@ void ParameterInfo::InitInfo()
 	Human[25].Weapon[0] = 0;
 	Human[25].Weapon[1] = 0;
 	Human[25].type = 0;
-	//•ºm 1 A
+	//å…µå£« 1 A
 	Human[26].texture = 19;
 	Human[26].model = 4;
 	Human[26].hp = 115;
@@ -321,7 +321,7 @@ void ParameterInfo::InitInfo()
 	Human[26].Weapon[0] = 5;
 	Human[26].Weapon[1] = 9;
 	Human[26].type = 0;
-	//•ºm 1 B
+	//å…µå£« 1 B
 	Human[27].texture = 20;
 	Human[27].model = 4;
 	Human[27].hp = 115;
@@ -330,7 +330,7 @@ void ParameterInfo::InitInfo()
 	Human[27].Weapon[0] = 5;
 	Human[27].Weapon[1] = 12;
 	Human[27].type = 0;
-	//•ºm 2
+	//å…µå£« 2
 	Human[28].texture = 21;
 	Human[28].model = 4;
 	Human[28].hp = 115;
@@ -339,7 +339,7 @@ void ParameterInfo::InitInfo()
 	Human[28].Weapon[0] = 13;
 	Human[28].Weapon[1] = 10;
 	Human[28].type = 0;
-	//ƒ]ƒ“ƒr 1
+	//ã‚¾ãƒ³ãƒ“ 1
 	Human[29].texture = 26;
 	Human[29].model = 0;
 	Human[29].hp = 1000;
@@ -348,7 +348,7 @@ void ParameterInfo::InitInfo()
 	Human[29].Weapon[0] = 0;
 	Human[29].Weapon[1] = 0;
 	Human[29].type = 2;
-	//ƒ]ƒ“ƒr 2
+	//ã‚¾ãƒ³ãƒ“ 2
 	Human[30].texture = 27;
 	Human[30].model = 0;
 	Human[30].hp = 1000;
@@ -357,7 +357,7 @@ void ParameterInfo::InitInfo()
 	Human[30].Weapon[0] = 0;
 	Human[30].Weapon[1] = 0;
 	Human[30].type = 2;
-	//ƒ]ƒ“ƒr 3
+	//ã‚¾ãƒ³ãƒ“ 3
 	Human[31].texture = 28;
 	Human[31].model = 0;
 	Human[31].hp = 1000;
@@ -366,7 +366,7 @@ void ParameterInfo::InitInfo()
 	Human[31].Weapon[0] = 0;
 	Human[31].Weapon[1] = 0;
 	Human[31].type = 2;
-	//ƒ]ƒ“ƒr 4
+	//ã‚¾ãƒ³ãƒ“ 4
 	Human[32].texture = 29;
 	Human[32].model = 3;
 	Human[32].hp = 950;
@@ -375,7 +375,7 @@ void ParameterInfo::InitInfo()
 	Human[32].Weapon[0] = 0;
 	Human[32].Weapon[1] = 0;
 	Human[32].type = 2;
-	//ƒX[ƒc ®
+	//ã‚¹ãƒ¼ãƒ„ ç´º
 	Human[33].texture = 12;
 	Human[33].model = 0;
 	Human[33].hp = 100;
@@ -384,7 +384,7 @@ void ParameterInfo::InitInfo()
 	Human[33].Weapon[0] = 0;
 	Human[33].Weapon[1] = 0;
 	Human[33].type = 0;
-	//ƒX[ƒc ® SG
+	//ã‚¹ãƒ¼ãƒ„ ç´º SG
 	Human[34].texture = 12;
 	Human[34].model = 1;
 	Human[34].hp = 100;
@@ -393,7 +393,7 @@ void ParameterInfo::InitInfo()
 	Human[34].Weapon[0] = 17;
 	Human[34].Weapon[1] = 0;
 	Human[34].type = 0;
-	//«ŒR
+	//å°†è»
 	Human[35].texture = 7;
 	Human[35].model = 0;
 	Human[35].hp = 95;
@@ -402,7 +402,7 @@ void ParameterInfo::InitInfo()
 	Human[35].Weapon[0] = 17;
 	Human[35].Weapon[1] = 0;
 	Human[35].type = 0;
-	//ƒX[ƒc Â
+	//ã‚¹ãƒ¼ãƒ„ é’
 	Human[36].texture = 10;
 	Human[36].model = 0;
 	Human[36].hp = 100;
@@ -411,7 +411,7 @@ void ParameterInfo::InitInfo()
 	Human[36].Weapon[0] = 0;
 	Human[36].Weapon[1] = 0;
 	Human[36].type = 0;
-	//ƒX[ƒc Â SG
+	//ã‚¹ãƒ¼ãƒ„ é’ SG
 	Human[37].texture = 10;
 	Human[37].model = 1;
 	Human[37].hp = 100;
@@ -420,7 +420,7 @@ void ParameterInfo::InitInfo()
 	Human[37].Weapon[0] = 18;
 	Human[37].Weapon[1] = 0;
 	Human[37].type = 0;
-	//ƒVƒƒƒc’j 2 SG
+	//ã‚·ãƒ£ãƒ„ç”· 2 SG
 	Human[38].texture = 24;
 	Human[38].model = 1;
 	Human[38].hp = 100;
@@ -429,7 +429,7 @@ void ParameterInfo::InitInfo()
 	Human[38].Weapon[0] = 6;
 	Human[38].Weapon[1] = 0;
 	Human[38].type = 0;
-	//•ºm 3
+	//å…µå£« 3
 	Human[39].texture = 22;
 	Human[39].model = 0;
 	Human[39].hp = 105;
@@ -438,7 +438,7 @@ void ParameterInfo::InitInfo()
 	Human[39].Weapon[0] = 5;
 	Human[39].Weapon[1] = 20;
 	Human[39].type = 0;
-	//•ºm 3 SG
+	//å…µå£« 3 SG
 	Human[40].texture = 22;
 	Human[40].model = 1;
 	Human[40].hp = 105;
@@ -447,7 +447,7 @@ void ParameterInfo::InitInfo()
 	Human[40].Weapon[0] = 21;
 	Human[40].Weapon[1] = 0;
 	Human[40].type = 0;
-	//ƒQƒCƒc
+	//ã‚²ã‚¤ãƒ„
 	Human[41].texture = 3;
 	Human[41].model = 0;
 	Human[41].hp = 100;
@@ -456,7 +456,7 @@ void ParameterInfo::InitInfo()
 	Human[41].Weapon[0] = 0;
 	Human[41].Weapon[1] = 0;
 	Human[41].type = 0;
-	//ƒQƒCƒc SG
+	//ã‚²ã‚¤ãƒ„ SG
 	Human[42].texture = 3;
 	Human[42].model = 1;
 	Human[42].hp = 100;
@@ -498,7 +498,7 @@ void ParameterInfo::InitInfo()
 	HumanTexturePath[29] = "./data/model/zombie4.bmp";
 
 
-	Weapon[0].name = "NONE";		// ID_WEAPON_NONE ’è”‚ğ—vİ’è
+	Weapon[0].name = "NONE";		// ID_WEAPON_NONE å®šæ•°ã‚’è¦è¨­å®š
 	Weapon[0].model = "";
 	Weapon[0].texture = "";
 	Weapon[0].attacks = 0;
@@ -953,7 +953,7 @@ void ParameterInfo::InitInfo()
 	Weapon[12].ChangeWeaponID = -1;
 	Weapon[12].ChangeWeaponCnt = 0;
 	Weapon[12].pellet = 1;
-	Weapon[13].name = "GRENADE";		// ID_WEAPON_GRENADE ’è”‚ğ—vİ’è
+	Weapon[13].name = "GRENADE";		// ID_WEAPON_GRENADE å®šæ•°ã‚’è¦è¨­å®š
 	Weapon[13].model = "./data/model/weapon/grenade.x";
 	Weapon[13].texture = "./data/model/weapon/grenade.bmp";
 	Weapon[13].attacks = 0;
@@ -1023,7 +1023,7 @@ void ParameterInfo::InitInfo()
 	Weapon[14].ChangeWeaponID = -1;
 	Weapon[14].ChangeWeaponCnt = 0;
 	Weapon[14].pellet = 1;
-	Weapon[15].name = "CASE";		// ID_WEAPON_CASE ’è”‚ğ—vİ’è
+	Weapon[15].name = "CASE";		// ID_WEAPON_CASE å®šæ•°ã‚’è¦è¨­å®š
 	Weapon[15].model = "./data/model/weapon/case.x";
 	Weapon[15].texture = "./data/model/weapon/case.bmp";
 	Weapon[15].attacks = 0;
@@ -1305,7 +1305,7 @@ void ParameterInfo::InitInfo()
 	Weapon[22].pellet = 1;
 
 #ifdef ENABLE_BUG_HUMANWEAPON
-	//“Áê‚ÈƒoƒO•Ší—pƒf[ƒ^
+	//ç‰¹æ®Šãªãƒã‚°æ­¦å™¨ç”¨ãƒ‡ãƒ¼ã‚¿
 	BugWeapon[0].name = "BugWeapon";
 	BugWeapon[0].model = "";
 	BugWeapon[0].texture = "";
@@ -1344,84 +1344,84 @@ void ParameterInfo::InitInfo()
 #endif
 
 
-	//ŠÊ
+	//ç¼¶
 	SmallObject[0].model = "./data/article/can.x";
 	SmallObject[0].texture = "./data/article/can.bmp";
 	SmallObject[0].decide = 10;
 	SmallObject[0].hp = 6;
 	SmallObject[0].sound = 0;
 	SmallObject[0].jump = 10;
-	//ƒpƒ\ƒRƒ“
+	//ãƒ‘ã‚½ã‚³ãƒ³
 	SmallObject[1].model = "./data/article/pc.x";
 	SmallObject[1].texture = "./data/article/pc.bmp";
 	SmallObject[1].decide = 29;
 	SmallObject[1].hp = 60;
 	SmallObject[1].sound = 0;
 	SmallObject[1].jump = 5;
-	//ƒpƒ\ƒRƒ“ ƒL[ƒ{[ƒhã
+	//ãƒ‘ã‚½ã‚³ãƒ³ ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ä¸Š
 	SmallObject[2].model = "./data/article/pc2.x";
 	SmallObject[2].texture = "./data/article/pc.bmp";
 	SmallObject[2].decide = 29;
 	SmallObject[2].hp = 60;
 	SmallObject[2].sound = 0;
 	SmallObject[2].jump = 5;
-	//ƒpƒ\ƒRƒ“ –{‘Ì‹t
+	//ãƒ‘ã‚½ã‚³ãƒ³ æœ¬ä½“é€†
 	SmallObject[3].model = "./data/article/pc3.x";
 	SmallObject[3].texture = "./data/article/pc.bmp";
 	SmallObject[3].decide = 29;
 	SmallObject[3].hp = 60;
 	SmallObject[3].sound = 0;
 	SmallObject[3].jump = 5;
-	//ƒpƒ\ƒRƒ“ ƒƒCƒh
+	//ãƒ‘ã‚½ã‚³ãƒ³ ãƒ¯ã‚¤ãƒ‰
 	SmallObject[4].model = "./data/article/pc_w.x";
 	SmallObject[4].texture = "./data/article/pc.bmp";
 	SmallObject[4].decide = 29;
 	SmallObject[4].hp = 60;
 	SmallObject[4].sound = 0;
 	SmallObject[4].jump = 5;
-	//ƒpƒ\ƒRƒ“ ƒƒCƒh ƒL[ƒ{[ƒhã
+	//ãƒ‘ã‚½ã‚³ãƒ³ ãƒ¯ã‚¤ãƒ‰ ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ä¸Š
 	SmallObject[5].model = "./data/article/pc2_w.x";
 	SmallObject[5].texture = "./data/article/pc.bmp";
 	SmallObject[5].decide = 29;
 	SmallObject[5].hp = 60;
 	SmallObject[5].sound = 0;
 	SmallObject[5].jump = 5;
-	//ƒpƒ\ƒRƒ“ ƒƒCƒh –{‘Ì‹t
+	//ãƒ‘ã‚½ã‚³ãƒ³ ãƒ¯ã‚¤ãƒ‰ æœ¬ä½“é€†
 	SmallObject[6].model = "./data/article/pc3_w.x";
 	SmallObject[6].texture = "./data/article/pc.bmp";
 	SmallObject[6].decide = 29;
 	SmallObject[6].hp = 60;
 	SmallObject[6].sound = 0;
 	SmallObject[6].jump = 5;
-	//ˆÖq
+	//æ¤…å­
 	SmallObject[7].model = "./data/article/isu.x";
 	SmallObject[7].texture = "./data/article/isu.bmp";
 	SmallObject[7].decide = 56;
 	SmallObject[7].hp = 50;
 	SmallObject[7].sound = 1;
 	SmallObject[7].jump = 6;
-	//ƒ_ƒ“ƒ{[ƒ‹
+	//ãƒ€ãƒ³ãƒœãƒ¼ãƒ«
 	SmallObject[8].model = "./data/article/dan.x";
 	SmallObject[8].texture = "./data/article/dan.bmp";
 	SmallObject[8].decide = 28;
 	SmallObject[8].hp = 35;
 	SmallObject[8].sound = 1;
 	SmallObject[8].jump = 8;
-	//ƒpƒ\ƒRƒ“ ‹N“®’†
+	//ãƒ‘ã‚½ã‚³ãƒ³ èµ·å‹•ä¸­
 	SmallObject[9].model = "./data/article/pc.x";
 	SmallObject[9].texture = "./data/article/pc_sw.bmp";
 	SmallObject[9].decide = 29;
 	SmallObject[9].hp = 60;
 	SmallObject[9].sound = 0;
 	SmallObject[9].jump = 5;
-	//ƒpƒ\ƒRƒ“ ‹N“®’† ˆÃ
+	//ãƒ‘ã‚½ã‚³ãƒ³ èµ·å‹•ä¸­ æš—
 	SmallObject[10].model = "./data/article/pc.x";
 	SmallObject[10].texture = "./data/article/pc_d.bmp";
 	SmallObject[10].decide = 29;
 	SmallObject[10].hp = 60;
 	SmallObject[10].sound = 0;
 	SmallObject[10].jump = 5;
-	//ƒpƒCƒƒ“
+	//ãƒ‘ã‚¤ãƒ­ãƒ³
 	SmallObject[11].model = "./data/article/cone.x";
 	SmallObject[11].texture = "./data/article/cone.bmp";
 	SmallObject[11].decide = 35;
@@ -1430,11 +1430,11 @@ void ParameterInfo::InitInfo()
 	SmallObject[11].jump = 7;
 
 
-	//e’eƒIƒuƒWƒFƒNƒg
+	//éŠƒå¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	Bullet[0].model = "./data/model/bullet.x";
 	Bullet[0].texture = "./data/model/bullet.bmp";
 	Bullet[0].size = 1.0f;
-	//èÖ’eƒIƒuƒWƒFƒNƒg
+	//æ‰‹æ¦´å¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 	Bullet[1].model = Weapon[ID_WEAPON_GRENADE].model;
 	Bullet[1].texture = Weapon[ID_WEAPON_GRENADE].texture;
 	Bullet[1].size = Weapon[ID_WEAPON_GRENADE].size;
@@ -1816,7 +1816,7 @@ void ParameterInfo::InitInfo()
 	AIlevel[5].limitserror = -3;
 
 
-	//ƒXƒR[ƒv‚È‚µ
+	//ã‚¹ã‚³ãƒ¼ãƒ—ãªã—
 	Scope[0].ViewAngle = DegreeToRadian(65);
 	Scope[0].MouseRange = 0.0100f;
 	Scope[0].ScopeGunsight = 0;
@@ -1831,7 +1831,7 @@ void ParameterInfo::InitInfo()
 	Scope[0].AI_ShotAngleLong = DegreeToRadian(4);
 	Scope[0].AI_AddSearchEnemyMaxDist_Normal = 0.0f;
 	Scope[0].AI_AddSearchEnemyMaxDist_Caution = 0.0f;
-	//ŠÈˆÕƒXƒR[ƒv
+	//ç°¡æ˜“ã‚¹ã‚³ãƒ¼ãƒ—
 	Scope[1].ViewAngle = DegreeToRadian(30);
 	Scope[1].MouseRange = 0.0032f;
 	Scope[1].ScopeGunsight = 1;
@@ -1846,7 +1846,7 @@ void ParameterInfo::InitInfo()
 	Scope[1].AI_ShotAngleLong = DegreeToRadian(3);
 	Scope[1].AI_AddSearchEnemyMaxDist_Normal = 25.0f;
 	Scope[1].AI_AddSearchEnemyMaxDist_Caution = 40.0f;
-	//¸–§ƒXƒR[ƒv
+	//ç²¾å¯†ã‚¹ã‚³ãƒ¼ãƒ—
 	Scope[2].ViewAngle = DegreeToRadian(15);
 	Scope[2].MouseRange = 0.0060f;
 	Scope[2].ScopeGunsight = 2;
@@ -1861,17 +1861,17 @@ void ParameterInfo::InitInfo()
 	Scope[2].AI_ShotAngleLong = DegreeToRadian(2);
 	Scope[2].AI_AddSearchEnemyMaxDist_Normal = 50.0f;
 	Scope[2].AI_AddSearchEnemyMaxDist_Caution = 80.0f;
-	//“™”{ƒXƒR[ƒv
+	//ç­‰å€ã‚¹ã‚³ãƒ¼ãƒ—
 	Scope[3] = Scope[0];
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_COMPLETE, "", "");
 #endif
 }
 
-//! @brief ‰ğ•ú
-//! @attention –{ŠÖ”‚Í©“®“I‚ÉŒÄ‚Ño‚³‚ê‚Ü‚·‚ªA–¾¦“I‚ÉŒÄ‚Ño‚·‚±‚Æ‚à‰Â”\‚Å‚·B
+//! @brief è§£æ”¾
+//! @attention æœ¬é–¢æ•°ã¯è‡ªå‹•çš„ã«å‘¼ã³å‡ºã•ã‚Œã¾ã™ãŒã€æ˜ç¤ºçš„ã«å‘¼ã³å‡ºã™ã“ã¨ã‚‚å¯èƒ½ã§ã™ã€‚
 void ParameterInfo::DestroyInfo()
 {
 	//CleanupModelTextureWeapon();
@@ -1915,15 +1915,15 @@ void ParameterInfo::DestroyInfo()
 	}
 
 #ifdef ENABLE_DEBUGLOG
-	//ƒƒO‚Éo—Í
+	//ãƒ­ã‚°ã«å‡ºåŠ›
 	OutputLog.WriteLog(LOG_CLEANUP, "ParameterInfo", "");
 #endif
 }
 
-//! @brief l‚Ìİ’è‚ğæ“¾
-//! @param id ”Ô†
-//! @param out_data ó‚¯æ‚éHumanParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief äººã®è¨­å®šã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹HumanParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ParameterInfo::GetHuman(int id, HumanParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }
@@ -1933,10 +1933,10 @@ int ParameterInfo::GetHuman(int id, HumanParameter *out_data)
 	return 0;
 }
 
-//! @brief l‚ÌƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹‚ÌƒpƒX‚ğæ“¾
-//! @param id ”Ô†
-//! @param *out_str ó‚¯æ‚éƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief äººã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param *out_str å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ParameterInfo::GetHumanTexturePath(int id, char *out_str)
 {
 	if( out_str == NULL ){ return 1; }
@@ -1946,10 +1946,10 @@ int ParameterInfo::GetHumanTexturePath(int id, char *out_str)
 	return 0;
 }
 
-//! @brief •Ší‚Ìİ’è‚ğæ“¾
-//! @param id ”Ô†
-//! @param out_data ó‚¯æ‚éWeaponParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief æ­¦å™¨ã®è¨­å®šã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹WeaponParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ParameterInfo::GetWeapon(int id, WeaponParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }
@@ -1966,12 +1966,12 @@ int ParameterInfo::GetWeapon(int id, WeaponParameter *out_data)
 }
 
 #ifdef ENABLE_BUG_HUMANWEAPON
-//! @brief •Ší‚Ìİ’è‚ğæ“¾
-//! @param id ”Ô†
-//! @param out_data ó‚¯æ‚éWeaponParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
-//! @warning æ‚É GetWeapon()ŠÖ” ‚ğÀs‚µ‚Äæ“¾‚É¸”s‚µ‚½‚ÉŒÀ‚èA‚±‚ÌŠÖ”‚ğg‚Á‚Ä‚­‚¾‚³‚¢B
-//! @attention ƒoƒO•Ší‚ğ’Ç‰Á‚·‚éê‡‚ÍAResourceManagerƒNƒ‰ƒX‚Ì GetBugWeaponModelTexture() ŠÖ”‚à•ÒW‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief æ­¦å™¨ã®è¨­å®šã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹WeaponParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
+//! @warning å…ˆã« GetWeapon()é–¢æ•° ã‚’å®Ÿè¡Œã—ã¦å–å¾—ã«å¤±æ•—ã—ãŸæ™‚ã«é™ã‚Šã€ã“ã®é–¢æ•°ã‚’ä½¿ã£ã¦ãã ã•ã„ã€‚
+//! @attention ãƒã‚°æ­¦å™¨ã‚’è¿½åŠ ã™ã‚‹å ´åˆã¯ã€ResourceManagerã‚¯ãƒ©ã‚¹ã® GetBugWeaponModelTexture() é–¢æ•°ã‚‚ç·¨é›†ã—ã¦ãã ã•ã„ã€‚
 int ParameterInfo::GetBugWeapon(int id, WeaponParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }
@@ -1985,11 +1985,11 @@ int ParameterInfo::GetBugWeapon(int id, WeaponParameter *out_data)
 #endif
 
 
-//! @brief ¬•¨‚Ìİ’è‚ğæ“¾
-//! @param id ”Ô†
-//! @param out_data ó‚¯æ‚éSmallObjectParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
-//! @warning ’Ç‰Á¬•¨‚Ìî•ñ‚Íæ“¾‚Å‚«‚Ü‚¹‚ñB’Ç‰Á¬•¨‚Ìî•ñ‚Í MIFInterfaceƒNƒ‰ƒX ‚©‚çæ“¾‚µ‚Ä‚­‚¾‚³‚¢B
+//! @brief å°ç‰©ã®è¨­å®šã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹SmallObjectParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
+//! @warning è¿½åŠ å°ç‰©ã®æƒ…å ±ã¯å–å¾—ã§ãã¾ã›ã‚“ã€‚è¿½åŠ å°ç‰©ã®æƒ…å ±ã¯ MIFInterfaceã‚¯ãƒ©ã‚¹ ã‹ã‚‰å–å¾—ã—ã¦ãã ã•ã„ã€‚
 int ParameterInfo::GetSmallObject(int id, SmallObjectParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }
@@ -1999,10 +1999,10 @@ int ParameterInfo::GetSmallObject(int id, SmallObjectParameter *out_data)
 	return 0;
 }
 
-//! @brief e’eƒIƒuƒWƒFƒNƒg‚Ìİ’è‚ğæ“¾
-//! @param id ”Ô†
-//! @param out_data ó‚¯æ‚éBulletParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief éŠƒå¼¾ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è¨­å®šã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹BulletParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ParameterInfo::GetBullet(int id, BulletParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }
@@ -2012,16 +2012,16 @@ int ParameterInfo::GetBullet(int id, BulletParameter *out_data)
 	return 0;
 }
 
-//! @brief •W€ƒ~ƒbƒVƒ‡ƒ“‚ğæ“¾
-//! @param id ”Ô†
-//! @param name ƒ~ƒbƒVƒ‡ƒ“¯•Ê–¼‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param fullname ƒ~ƒbƒVƒ‡ƒ“³®–¼Ì‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param directory ƒf[ƒ^‚ÌŠi”[æ‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param txt ƒtƒ@ƒCƒ‹–¼‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param collisionflag ’Ç‰Á‚Ì“–‚½‚è”»’è‚ğ¦‚·ƒtƒ‰ƒO‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @param screenflag ‰æ–Ê‚ğˆÃ‚­‚·‚éƒtƒ‰ƒO‚ğó‚¯æ‚éƒ|ƒCƒ“ƒ^@iNULL‰Âj
-//! @return ¬Œ÷F0@¸”sF1
-//! @note ƒtƒ@ƒCƒ‹–¼EEEƒ~ƒbƒVƒ‡ƒ“î•ñƒtƒ@ƒCƒ‹i.txtj‚Æƒ|ƒCƒ“ƒgƒf[ƒ^ƒtƒ@ƒCƒ‹i.pd1j‚Ég‚í‚ê‚é–¼‘O
+//! @brief æ¨™æº–ãƒŸãƒƒã‚·ãƒ§ãƒ³ã‚’å–å¾—
+//! @param id ç•ªå·
+//! @param name ãƒŸãƒƒã‚·ãƒ§ãƒ³è­˜åˆ¥åã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param fullname ãƒŸãƒƒã‚·ãƒ§ãƒ³æ­£å¼åç§°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param directory ãƒ‡ãƒ¼ã‚¿ã®æ ¼ç´å…ˆã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param txt ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param collisionflag è¿½åŠ ã®å½“ãŸã‚Šåˆ¤å®šã‚’ç¤ºã™ãƒ•ãƒ©ã‚°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @param screenflag ç”»é¢ã‚’æš—ãã™ã‚‹ãƒ•ãƒ©ã‚°ã‚’å—ã‘å–ã‚‹ãƒã‚¤ãƒ³ã‚¿ã€€ï¼ˆNULLå¯ï¼‰
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
+//! @note ãƒ•ã‚¡ã‚¤ãƒ«åãƒ»ãƒ»ãƒ»ãƒŸãƒƒã‚·ãƒ§ãƒ³æƒ…å ±ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ.txtï¼‰ã¨ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«ï¼ˆ.pd1ï¼‰ã«ä½¿ã‚ã‚Œã‚‹åå‰
 int ParameterInfo::GetOfficialMission(int id, char *name, char *fullname, char* directory, char *txt, bool *collisionflag, bool *screenflag)
 {
 	if( (id < 0)||(TOTAL_OFFICIALMISSION <= id ) ){ return 1; }
@@ -2035,10 +2035,10 @@ int ParameterInfo::GetOfficialMission(int id, char *name, char *fullname, char* 
 	return 0;
 }
 
-//! @brief AIƒŒƒxƒ‹‚Ìİ’èi«”\’lj‚ğæ“¾
-//! @param level AIƒŒƒxƒ‹
-//! @param out_AIlevel ó‚¯æ‚éAIParameterŒ^ƒ|ƒCƒ“ƒ^‚Ìƒ|ƒCƒ“ƒ^i2dƒ|ƒCƒ“ƒ^j
-//! @return ¬Œ÷F0@¸”sF1
+//! @brief AIãƒ¬ãƒ™ãƒ«ã®è¨­å®šï¼ˆæ€§èƒ½å€¤ï¼‰ã‚’å–å¾—
+//! @param level AIãƒ¬ãƒ™ãƒ«
+//! @param out_AIlevel å—ã‘å–ã‚‹AIParameterå‹ãƒã‚¤ãƒ³ã‚¿ã®ãƒã‚¤ãƒ³ã‚¿ï¼ˆ2é‡ãƒã‚¤ãƒ³ã‚¿ï¼‰
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
 int ParameterInfo::GetAIlevel(int level, AIParameter **out_AIlevel)
 {
 	if( out_AIlevel == NULL ){ return 1; }
@@ -2047,11 +2047,11 @@ int ParameterInfo::GetAIlevel(int level, AIParameter **out_AIlevel)
 	return 0;
 }
 
-//! ƒXƒR[ƒvİ’è‚ğæ“¾
-//! @param id ƒXƒR[ƒv”Ô†
-//! @param out_data ó‚¯æ‚éScopeParameterŒ^ƒ|ƒCƒ“ƒ^
-//! @return ¬Œ÷F0@¸”sF1
-//! @attention 0–¢–‚ğw’è‚µ‚½ê‡¸”s‚µ‚Ü‚·‚ªATOTAL_PARAMETERINFO_SCOPEˆÈã‚ğw’è‚µ‚½ê‡ TOTAL_PARAMETERINFO_SCOPE-1 ‚Ìİ’è’l‚ğ•Ô‚µ‚Ü‚·B
+//! ã‚¹ã‚³ãƒ¼ãƒ—è¨­å®šã‚’å–å¾—
+//! @param id ã‚¹ã‚³ãƒ¼ãƒ—ç•ªå·
+//! @param out_data å—ã‘å–ã‚‹ScopeParameterå‹ãƒã‚¤ãƒ³ã‚¿
+//! @return æˆåŠŸï¼š0ã€€å¤±æ•—ï¼š1
+//! @attention 0æœªæº€ã‚’æŒ‡å®šã—ãŸå ´åˆå¤±æ•—ã—ã¾ã™ãŒã€TOTAL_PARAMETERINFO_SCOPEä»¥ä¸Šã‚’æŒ‡å®šã—ãŸå ´åˆ TOTAL_PARAMETERINFO_SCOPE-1 ã®è¨­å®šå€¤ã‚’è¿”ã—ã¾ã™ã€‚
 int ParameterInfo::GetScopeParam(int id, ScopeParameter *out_data)
 {
 	if( out_data == NULL ){ return 1; }

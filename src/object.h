@@ -1,5 +1,5 @@
 //! @file object.h
-//! @brief objectƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief objectã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,80 +32,80 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-// ’ˆÓF‘¬“x•ÏX‚ÍA“–‚½‚è”»’èŒn‚Ì’è”‚à—vŠm”F
-#define HUMAN_PROGRESSRUN_ACCELERATION	0.7f			//!< l‚Ì‘Oii‘–‚èj‰Á‘¬“x
-#define HUMAN_SIDEWAYSRUN_ACCELERATION 0.5f			//!< l‚Ì‰¡‘–‚è‰Á‘¬“x
-#define HUMAN_REGRESSRUN_ACCELERATION 0.38f			//!< l‚ÌŒã‘Ş‰Á‘¬“x
-//! l‚ªÎ‚ß‘O‚Éi‚Ş‰Á‘¬“x
+// æ³¨æ„ï¼šé€Ÿåº¦å¤‰æ›´æ™‚ã¯ã€å½“ãŸã‚Šåˆ¤å®šç³»ã®å®šæ•°ã‚‚è¦ç¢ºèª
+#define HUMAN_PROGRESSRUN_ACCELERATION	0.7f			//!< äººã®å‰é€²ï¼ˆèµ°ã‚Šï¼‰åŠ é€Ÿåº¦
+#define HUMAN_SIDEWAYSRUN_ACCELERATION 0.5f			//!< äººã®æ¨ªèµ°ã‚ŠåŠ é€Ÿåº¦
+#define HUMAN_REGRESSRUN_ACCELERATION 0.38f			//!< äººã®å¾Œé€€åŠ é€Ÿåº¦
+//! äººãŒæ–œã‚å‰ã«é€²ã‚€åŠ é€Ÿåº¦
 #define HUMAN_PROGRESSRUN_SIDEWAYSRUN_ACCELERATION ((HUMAN_PROGRESSRUN_ACCELERATION + HUMAN_SIDEWAYSRUN_ACCELERATION) / 2)
-//! l‚ªÎ‚ßŒã‚ë‚Éi‚Ş‰Á‘¬“x
+//! äººãŒæ–œã‚å¾Œã‚ã«é€²ã‚€åŠ é€Ÿåº¦
 #define HUMAN_REGRESSRUN_SIDEWAYSRUN_ACCELERATION (HUMAN_REGRESSRUN_ACCELERATION)
-#define HUMAN_PROGRESSWALK_ACCELERATION	0.35f		//!< l‚ª•à‚­‰Á‘¬“x
-#define HUMAN_ATTENUATION			0.5f		//!< l‚Ì1ƒtƒŒ[ƒ€‚ ‚½‚è‚ÌŒ¸Š—¦@i0.0 < x < 1.0j
+#define HUMAN_PROGRESSWALK_ACCELERATION	0.35f		//!< äººãŒæ­©ãåŠ é€Ÿåº¦
+#define HUMAN_ATTENUATION			0.5f		//!< äººã®1ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ãŸã‚Šã®æ¸›è¡°ç‡ã€€ï¼ˆ0.0 < x < 1.0ï¼‰
 
-#define HUMAN_JUMP_SPEED 2.2f					//!< ƒWƒƒƒ“ƒv‚·‚é‘¬“x
+#define HUMAN_JUMP_SPEED 2.2f					//!< ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹é€Ÿåº¦
 
-#define HUMAN_HEIGHT 20.0f			//!< l‚Ì‚‚³
-#define HUMAN_DAMAGE_HEAD 2.0f		//!< ’e‚ª “ª ‚É“–‚½‚Á‚½ê‡‚Ìƒ_ƒ[ƒW”{—¦
-#define HUMAN_DAMAGE_UP 1.0f		//!< ’e‚ª ã”¼g ‚É“–‚½‚Á‚½ê‡‚Ìƒ_ƒ[ƒW”{—¦
-#define HUMAN_DAMAGE_LEG 0.7f		//!< ’e‚ª ‰º”¼g ‚É“–‚½‚Á‚½ê‡‚Ìƒ_ƒ[ƒW”{—¦
-#define HUMAN_DAMAGE_ZOMBIEU 15		//!< ƒ]ƒ“ƒr‚ÌUŒ‚‚ğó‚¯‚½ê‡‚ÌÅ’áƒ_ƒ[ƒW
-#define HUMAN_DAMAGE_ZOMBIEA 5		//!< ƒ]ƒ“ƒr‚ÌUŒ‚‚ğó‚¯‚½ê‡‚Ì’Ç‰Áƒ_ƒ[ƒW—Ê
-#define HUMAN_DAMAGE_SPEED 0.066f	//!< —‰º—Ê
-#define HUMAN_DAMAGE_MINSPEED -3.8f	//!< —‰º‚É‚æ‚èƒ_ƒ[ƒW‚ğó‚¯‚È‚¢‘¬“x
-#define HUMAN_DAMAGE_MAXSPEED -7.0f	//!< Å‘å—‰º‘¬“x
-#define HUMAN_DAMAGE_MAXFALL 120	//!< —‰º‚É‚æ‚éÅ‘åƒ_ƒ[ƒW
-#define MAX_DAMAGE_GRENADE_DISTANCE 80.0f		//!< èÖ’e‚É‚æ‚èƒ_ƒ[ƒW‚ğó‚¯‚éÅ‘å‹——£
-#define HUMAN_DAMAGE_GRENADE_HEAD 100			//!< èÖ’e‚É‚æ‚é “ª ‚Ö‚ÌÅ‘åƒ_ƒ[ƒW
-#define HUMAN_DAMAGE_GRENADE_LEG 80				//!< èÖ’e‚É‚æ‚é ‘« ‚Ö‚ÌÅ‘åƒ_ƒ[ƒW
-#define SMALLOBJECT_DAMAGE_GRENADE 80			//!< èÖ’e‚É‚æ‚é ¬•¨ ‚Ö‚ÌÅ‘åƒ_ƒ[ƒW
+#define HUMAN_HEIGHT 20.0f			//!< äººã®é«˜ã•
+#define HUMAN_DAMAGE_HEAD 2.0f		//!< å¼¾ãŒ é ­ ã«å½“ãŸã£ãŸå ´åˆã®ãƒ€ãƒ¡ãƒ¼ã‚¸å€ç‡
+#define HUMAN_DAMAGE_UP 1.0f		//!< å¼¾ãŒ ä¸ŠåŠèº« ã«å½“ãŸã£ãŸå ´åˆã®ãƒ€ãƒ¡ãƒ¼ã‚¸å€ç‡
+#define HUMAN_DAMAGE_LEG 0.7f		//!< å¼¾ãŒ ä¸‹åŠèº« ã«å½“ãŸã£ãŸå ´åˆã®ãƒ€ãƒ¡ãƒ¼ã‚¸å€ç‡
+#define HUMAN_DAMAGE_ZOMBIEU 15		//!< ã‚¾ãƒ³ãƒ“ã®æ”»æ’ƒã‚’å—ã‘ãŸå ´åˆã®æœ€ä½ãƒ€ãƒ¡ãƒ¼ã‚¸
+#define HUMAN_DAMAGE_ZOMBIEA 5		//!< ã‚¾ãƒ³ãƒ“ã®æ”»æ’ƒã‚’å—ã‘ãŸå ´åˆã®è¿½åŠ ãƒ€ãƒ¡ãƒ¼ã‚¸é‡
+#define HUMAN_DAMAGE_SPEED 0.066f	//!< è½ä¸‹é‡
+#define HUMAN_DAMAGE_MINSPEED -3.8f	//!< è½ä¸‹ã«ã‚ˆã‚Šãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãªã„é€Ÿåº¦
+#define HUMAN_DAMAGE_MAXSPEED -7.0f	//!< æœ€å¤§è½ä¸‹é€Ÿåº¦
+#define HUMAN_DAMAGE_MAXFALL 120	//!< è½ä¸‹ã«ã‚ˆã‚‹æœ€å¤§ãƒ€ãƒ¡ãƒ¼ã‚¸
+#define MAX_DAMAGE_GRENADE_DISTANCE 80.0f		//!< æ‰‹æ¦´å¼¾ã«ã‚ˆã‚Šãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹æœ€å¤§è·é›¢
+#define HUMAN_DAMAGE_GRENADE_HEAD 100			//!< æ‰‹æ¦´å¼¾ã«ã‚ˆã‚‹ é ­ ã¸ã®æœ€å¤§ãƒ€ãƒ¡ãƒ¼ã‚¸
+#define HUMAN_DAMAGE_GRENADE_LEG 80				//!< æ‰‹æ¦´å¼¾ã«ã‚ˆã‚‹ è¶³ ã¸ã®æœ€å¤§ãƒ€ãƒ¡ãƒ¼ã‚¸
+#define SMALLOBJECT_DAMAGE_GRENADE 80			//!< æ‰‹æ¦´å¼¾ã«ã‚ˆã‚‹ å°ç‰© ã¸ã®æœ€å¤§ãƒ€ãƒ¡ãƒ¼ã‚¸
 
-#define ARMRAD_NOWEAPON DegreeToRadian((-90 + 20))			//!< è‚Ô‚ç‚Ì˜r‚Ì•`‰æŠp“x
-#define ARMRAD_RELOADWEAPON DegreeToRadian(-20)				//!< ƒŠƒ[ƒh‚Ì˜r‚Ì•`‰æŠp“x
+#define ARMRAD_NOWEAPON DegreeToRadian((-90 + 20))			//!< æ‰‹ã¶ã‚‰æ™‚ã®è…•ã®æç”»è§’åº¦
+#define ARMRAD_RELOADWEAPON DegreeToRadian(-20)				//!< ãƒªãƒ­ãƒ¼ãƒ‰æ™‚ã®è…•ã®æç”»è§’åº¦
 
-#define HUMAN_MAPCOLLISION_R 2.8f							//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@”¼Œa
-#define HUMAN_MAPCOLLISION_HEIGHT 10.0f						//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@‚‚³i’F˜’ö“xj
-#define HUMAN_MAPCOLLISION_ADD_HEIGHT_A 9.0f				//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è ’Ç‰Á•ª@‚‚³i’F•W€ƒ}ƒbƒv SCHOOL ‚É‡‚í‚¹‚éj
-#define HUMAN_MAPCOLLISION_ADD_HEIGHT_B 13.0f				//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è ’Ç‰Á•ª@‚‚³i’F•W€ƒ}ƒbƒv SCHOOL ‚É‡‚í‚¹‚éj
-#define HUMAN_MAPCOLLISION_SLOPEANGLE DegreeToRadian(50)	//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@“o‚ê‚È‚¢Î–Ê‚ÌŠp“x
-#define HUMAN_MAPCOLLISION_CLIMBHEIGHT 3.2f					//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@“o‚ê‚é‚‚³
-#define HUMAN_MAPCOLLISION_CLIMBADDY 0.4f					//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@1ƒtƒŒ[ƒ€‚Å“o‚é‚‚³
-#define HUMAN_MAPCOLLISION_GROUND_HEIGHT -0.5f				//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@’n–Ê”»’è@‚‚³
-#define HUMAN_MAPCOLLISION_GROUND_R1 0.15f					//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@’n–Ê”»’è@”¼Œai1j
-#define HUMAN_MAPCOLLISION_GROUND_R2 0.50f					//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@’n–Ê”»’è@”¼Œai2j
-#define HUMAN_MAPCOLLISION_GROUND_R3 0.30f					//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@’n–Ê”»’è@”¼Œai3j
-#define HUMAN_MAPCOLLISION_CHECK_MAXDIST 12.0f				//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@1ƒtƒŒ[ƒ€‚ÅˆÚ“®‚·‚éÅ‘å‹——£
-#define HUMAN_MAPCOLLISION_CHECK_HEIGHT (HUMAN_HEIGHT-3.0f)	//!< l‚Æƒ}ƒbƒv‚Ì“–‚½‚è”»’è@ÅI“I‚ÈˆÚ“®‰Â”Û‚ğ”»’è‚·‚é‚‚³i’FŒ¨’ö“xj
-#define HUMAN_DEADLINE -100.0f						//!< l‚ª€–S‚·‚éYÀ•Wiƒfƒbƒhƒ‰ƒCƒ“j
-#define HUMAN_DEADADDRY DegreeToRadian(0.75f)		//!< €‘Ì‚Ì“|‚ê‚é‰Á‘¬“x
+#define HUMAN_MAPCOLLISION_R 2.8f							//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€åŠå¾„
+#define HUMAN_MAPCOLLISION_HEIGHT 10.0f						//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€é«˜ã•ï¼ˆæ³¨ï¼šè…°ç¨‹åº¦ï¼‰
+#define HUMAN_MAPCOLLISION_ADD_HEIGHT_A 9.0f				//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®š è¿½åŠ åˆ†ã€€é«˜ã•ï¼ˆæ³¨ï¼šæ¨™æº–ãƒãƒƒãƒ— SCHOOL ã«åˆã‚ã›ã‚‹ï¼‰
+#define HUMAN_MAPCOLLISION_ADD_HEIGHT_B 13.0f				//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®š è¿½åŠ åˆ†ã€€é«˜ã•ï¼ˆæ³¨ï¼šæ¨™æº–ãƒãƒƒãƒ— SCHOOL ã«åˆã‚ã›ã‚‹ï¼‰
+#define HUMAN_MAPCOLLISION_SLOPEANGLE DegreeToRadian(50)	//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€ç™»ã‚Œãªã„æ–œé¢ã®è§’åº¦
+#define HUMAN_MAPCOLLISION_CLIMBHEIGHT 3.2f					//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€ç™»ã‚Œã‚‹é«˜ã•
+#define HUMAN_MAPCOLLISION_CLIMBADDY 0.4f					//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€1ãƒ•ãƒ¬ãƒ¼ãƒ ã§ç™»ã‚‹é«˜ã•
+#define HUMAN_MAPCOLLISION_GROUND_HEIGHT -0.5f				//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€åœ°é¢åˆ¤å®šã€€é«˜ã•
+#define HUMAN_MAPCOLLISION_GROUND_R1 0.15f					//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€åœ°é¢åˆ¤å®šã€€åŠå¾„ï¼ˆ1ï¼‰
+#define HUMAN_MAPCOLLISION_GROUND_R2 0.50f					//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€åœ°é¢åˆ¤å®šã€€åŠå¾„ï¼ˆ2ï¼‰
+#define HUMAN_MAPCOLLISION_GROUND_R3 0.30f					//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€åœ°é¢åˆ¤å®šã€€åŠå¾„ï¼ˆ3ï¼‰
+#define HUMAN_MAPCOLLISION_CHECK_MAXDIST 12.0f				//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€1ãƒ•ãƒ¬ãƒ¼ãƒ ã§ç§»å‹•ã™ã‚‹æœ€å¤§è·é›¢
+#define HUMAN_MAPCOLLISION_CHECK_HEIGHT (HUMAN_HEIGHT-3.0f)	//!< äººã¨ãƒãƒƒãƒ—ã®å½“ãŸã‚Šåˆ¤å®šã€€æœ€çµ‚çš„ãªç§»å‹•å¯å¦ã‚’åˆ¤å®šã™ã‚‹é«˜ã•ï¼ˆæ³¨ï¼šè‚©ç¨‹åº¦ï¼‰
+#define HUMAN_DEADLINE -100.0f						//!< äººãŒæ­»äº¡ã™ã‚‹Yåº§æ¨™ï¼ˆãƒ‡ãƒƒãƒ‰ãƒ©ã‚¤ãƒ³ï¼‰
+#define HUMAN_DEADADDRY DegreeToRadian(0.75f)		//!< æ­»ä½“ã®å€’ã‚Œã‚‹åŠ é€Ÿåº¦
 
-#define BULLET_SPEEDSCALE 2.5f			//!< ’e‘¬‚Ì”{—¦
-#define BULLET_DESTROYFRAME 40			//!< ’e‚ÌÁ–ÅƒtƒŒ[ƒ€”
-#define GRENADE_DESTROYFRAME 100		//!< èÖ’e‚Ì”š”­ƒtƒŒ[ƒ€”
+#define BULLET_SPEEDSCALE 2.5f			//!< å¼¾é€Ÿã®å€ç‡
+#define BULLET_DESTROYFRAME 40			//!< å¼¾ã®æ¶ˆæ»…ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+#define GRENADE_DESTROYFRAME 100		//!< æ‰‹æ¦´å¼¾ã®çˆ†ç™ºãƒ•ãƒ¬ãƒ¼ãƒ æ•°
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 2		//!< Select include file.
 #endif
 #include "main.h"
 
-#define HUMAN_DEADBODY_COLLISION	//!< @brief l‚ª“|‚ê‚éÛ‚Éƒ}ƒbƒv‚Æ“–‚½‚è”»’è‚ğÀ{‚·‚é‚© @details ’è”éŒ¾—LŒøF“–‚½‚è”»’è‚ğÀ{@’è”éŒ¾–³ŒøiƒRƒƒ“ƒg‰»jF‚»‚Ì‚Ü‚Ü“|‚·‚¾‚¯
+#define HUMAN_DEADBODY_COLLISION	//!< @brief äººãŒå€’ã‚Œã‚‹éš›ã«ãƒãƒƒãƒ—ã¨å½“ãŸã‚Šåˆ¤å®šã‚’å®Ÿæ–½ã™ã‚‹ã‹ @details å®šæ•°å®£è¨€æœ‰åŠ¹ï¼šå½“ãŸã‚Šåˆ¤å®šã‚’å®Ÿæ–½ã€€å®šæ•°å®£è¨€ç„¡åŠ¹ï¼ˆã‚³ãƒ¡ãƒ³ãƒˆåŒ–ï¼‰ï¼šãã®ã¾ã¾å€’ã™ã ã‘
 
-//! @brief ƒIƒuƒWƒFƒNƒgŠÇ—ƒNƒ‰ƒXiŠî’êƒNƒ‰ƒXj
-//! @details 3D‚ÅÀ•WŠÇ—‚â•`‰æ‚ğs‚¤ƒIƒuƒWƒFƒNƒg‘S”Ê‚ğŠÇ—‚·‚éƒNƒ‰ƒXŒQ‚ÌŠî’êƒNƒ‰ƒX‚Å‚·B
+//! @brief ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹ï¼ˆåŸºåº•ã‚¯ãƒ©ã‚¹ï¼‰
+//! @details 3Dã§åº§æ¨™ç®¡ç†ã‚„æç”»ã‚’è¡Œã†ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå…¨èˆ¬ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ç¾¤ã®åŸºåº•ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
 class object
 {
 protected:
-	class ParameterInfo *Param;	//!< İ’è’l‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	float pos_x;		//!< XÀ•W
-	float pos_y;		//!< YÀ•W
-	float pos_z;		//!< ZÀ•W
-	float rotation_x;	//!< ‰ñ“]Šp“x
-	float model_size;	//!< •`‰æƒTƒCƒY
-	int id_parameter;	//!< ƒf[ƒ^‚Ìí—Ş
-	int id_model;		//!< ƒ‚ƒfƒ‹‚Ìƒf[ƒ^”Ô†
-	int id_texture;		//!< ƒeƒNƒXƒ`ƒƒ‚Ìƒf[ƒ^”Ô†
-	bool DarkModelFlag;	//!< ƒ‚ƒfƒ‹‚ğˆÃ‚­‚·‚é
-	bool EnableFlag;	//!< —LŒø‰»ƒtƒ‰ƒO
+	class ParameterInfo *Param;	//!< è¨­å®šå€¤ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	float pos_x;		//!< Xåº§æ¨™
+	float pos_y;		//!< Yåº§æ¨™
+	float pos_z;		//!< Zåº§æ¨™
+	float rotation_x;	//!< å›è»¢è§’åº¦
+	float model_size;	//!< æç”»ã‚µã‚¤ã‚º
+	int id_parameter;	//!< ãƒ‡ãƒ¼ã‚¿ã®ç¨®é¡
+	int id_model;		//!< ãƒ¢ãƒ‡ãƒ«ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	int id_texture;		//!< ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	bool DarkModelFlag;	//!< ãƒ¢ãƒ‡ãƒ«ã‚’æš—ãã™ã‚‹
+	bool EnableFlag;	//!< æœ‰åŠ¹åŒ–ãƒ•ãƒ©ã‚°
 
 public:
 	object(class ParameterInfo *in_Param = NULL, float x = 0.0f, float y = 0.0f, float z = 0.0f, float rx = 0.0f, float size = 1.0f, bool flag = true);
@@ -124,51 +124,51 @@ public:
 	virtual void Render(class D3DGraphics *d3dg, bool NoModel);
 };
 
-//! @brief lŠÇ—ƒNƒ‰ƒX
+//! @brief äººç®¡ç†ã‚¯ãƒ©ã‚¹
 class human : public object
 {
 protected:
-	int point_dataid;			//!< ƒ|ƒCƒ“ƒg‚Ìƒf[ƒ^”Ô†
-	signed short int point_p4;	//!< ƒ|ƒCƒ“ƒg‚Ì¯•Ê”Ô†
-	int teamid;					//!< ƒ`[ƒ€”Ô†
-	float move_x;				//!< X²‘¬“x
-	float move_y;				//!< Y²i—‰ºj‘¬“x
-	float move_z;				//!< Z²‘¬“x
-	bool move_y_flag;			//!< Y²ˆÚ“®ƒtƒ‰ƒO
-	int move_y_upper;			//!< Y²ã¸‹Ö~ƒJƒEƒ“ƒ^[
-	bool move_y_landing;		//!< ’…’nƒtƒ‰ƒO
-	int underblock_id;			//!< ‘«Œ³‚ÌƒuƒƒbƒNID
-	int underblock_face;		//!< ‘«Œ³‚ÌƒuƒƒbƒN‚Ì–Ê”Ô†
-	float rotation_y;			//!< ‘S‘Ì‚Ì‰ñ“]Šp“x
-	float armrotation_y;		//!< ˜r‚Ì‰ñ“]Šp“x
-	float upmodel_size;			//!< ã”¼g•`‰æƒTƒCƒY
-	float armmodel_size;		//!< ˜r•`‰æƒTƒCƒY
-	float legmodel_size;		//!< ‘«•`‰æƒTƒCƒY
-	class weapon *weapon[TOTAL_HAVEWEAPON];			//!< •Ší
-	int noweapon_bullets[TOTAL_HAVEWEAPON];			//!< •Ší–¢Š‚Ì‡Œv’e”
-	int noweapon_loadbullets[TOTAL_HAVEWEAPON];		//!< •Ší–¢Š‚Ì‘•’e”
-	int selectweapon;			//!< •ŠíA/B‚Ì‘I‘ğ
-	int selectweaponcnt;		//!< •Ší‚ÌØ‚è‘Ö‚¦i‚¿‘Ö‚¦jƒJƒEƒ“ƒg
-	int changeweaponidcnt;		//!< •Ší‚Ìí—ŞØ‚è‘Ö‚¦ƒJƒEƒ“ƒg
-	int weaponshotcnt;			//!< •Ší‚Ì˜AËƒJƒEƒ“ƒg
-	int weaponreloadcnt;		//!< •Ší‚ÌƒŠƒ[ƒhƒJƒEƒ“ƒg
-	bool weaponshotframe;		//!< ”­–Cƒtƒ‰ƒO
-	int weaponburstmodecnt;		//!< ƒo[ƒXƒgƒ‚[ƒhƒJƒEƒ“ƒg
-	int hp;						//!< ‘Ì—Í
-	int deadstate;				//!< €‘Ì‚É‚È‚Á‚Ä‚¢‚é‚©
-	float add_ry;				//!< €‘Ì‚Ì“|‚ê‚é‰Á‘¬“x
-	float move_rx;				//!< ˆÚ“®Šp“x
-	int MoveFlag;				//!< ˆÚ“®•ûŒü‚ğ•\‚·ƒtƒ‰ƒO
-	int MoveFlag_lt;			//!< i‘O‰ñ‚ÌjˆÚ“®•ûŒü‚ğ•\‚·ƒtƒ‰ƒO
-	int scopemode;				//!< ƒXƒR[ƒvg—pƒ‚[ƒh
-	bool HitFlag;				//!< ”í’e‚ğ•\‚·ƒtƒ‰ƒO
-	float Hit_rx;				//!< ”í’e‚µ‚½•ûŒü
-	float totalmove;			//!< ‡ŒvˆÚ“®—Ê
-	int StateGunsightErrorRange;		//!< Æ€‚Ìó‘ÔŒë·
-	int ReactionGunsightErrorRange;		//!< Æ€‚Ì”½“®Œë·
-	bool Invincible;			//!< –³“Gƒtƒ‰ƒO
+	int point_dataid;			//!< ãƒã‚¤ãƒ³ãƒˆã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	signed short int point_p4;	//!< ãƒã‚¤ãƒ³ãƒˆã®è­˜åˆ¥ç•ªå·
+	int teamid;					//!< ãƒãƒ¼ãƒ ç•ªå·
+	float move_x;				//!< Xè»¸é€Ÿåº¦
+	float move_y;				//!< Yè»¸ï¼ˆè½ä¸‹ï¼‰é€Ÿåº¦
+	float move_z;				//!< Zè»¸é€Ÿåº¦
+	bool move_y_flag;			//!< Yè»¸ç§»å‹•ãƒ•ãƒ©ã‚°
+	int move_y_upper;			//!< Yè»¸ä¸Šæ˜‡ç¦æ­¢ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
+	bool move_y_landing;		//!< ç€åœ°ãƒ•ãƒ©ã‚°
+	int underblock_id;			//!< è¶³å…ƒã®ãƒ–ãƒ­ãƒƒã‚¯ID
+	int underblock_face;		//!< è¶³å…ƒã®ãƒ–ãƒ­ãƒƒã‚¯ã®é¢ç•ªå·
+	float rotation_y;			//!< å…¨ä½“ã®å›è»¢è§’åº¦
+	float armrotation_y;		//!< è…•ã®å›è»¢è§’åº¦
+	float upmodel_size;			//!< ä¸ŠåŠèº«æç”»ã‚µã‚¤ã‚º
+	float armmodel_size;		//!< è…•æç”»ã‚µã‚¤ã‚º
+	float legmodel_size;		//!< è¶³æç”»ã‚µã‚¤ã‚º
+	class weapon *weapon[TOTAL_HAVEWEAPON];			//!< æ­¦å™¨
+	int noweapon_bullets[TOTAL_HAVEWEAPON];			//!< æ­¦å™¨æœªæ‰€æŒæ™‚ã®åˆè¨ˆå¼¾æ•°
+	int noweapon_loadbullets[TOTAL_HAVEWEAPON];		//!< æ­¦å™¨æœªæ‰€æŒæ™‚ã®è£…å¼¾æ•°
+	int selectweapon;			//!< æ­¦å™¨A/Bã®é¸æŠ
+	int selectweaponcnt;		//!< æ­¦å™¨ã®åˆ‡ã‚Šæ›¿ãˆï¼ˆæŒã¡æ›¿ãˆï¼‰ã‚«ã‚¦ãƒ³ãƒˆ
+	int changeweaponidcnt;		//!< æ­¦å™¨ã®ç¨®é¡åˆ‡ã‚Šæ›¿ãˆã‚«ã‚¦ãƒ³ãƒˆ
+	int weaponshotcnt;			//!< æ­¦å™¨ã®é€£å°„ã‚«ã‚¦ãƒ³ãƒˆ
+	int weaponreloadcnt;		//!< æ­¦å™¨ã®ãƒªãƒ­ãƒ¼ãƒ‰ã‚«ã‚¦ãƒ³ãƒˆ
+	bool weaponshotframe;		//!< ç™ºç ²ãƒ•ãƒ©ã‚°
+	int weaponburstmodecnt;		//!< ãƒãƒ¼ã‚¹ãƒˆãƒ¢ãƒ¼ãƒ‰ã‚«ã‚¦ãƒ³ãƒˆ
+	int hp;						//!< ä½“åŠ›
+	int deadstate;				//!< æ­»ä½“ã«ãªã£ã¦ã„ã‚‹ã‹
+	float add_ry;				//!< æ­»ä½“ã®å€’ã‚Œã‚‹åŠ é€Ÿåº¦
+	float move_rx;				//!< ç§»å‹•è§’åº¦
+	int MoveFlag;				//!< ç§»å‹•æ–¹å‘ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	int MoveFlag_lt;			//!< ï¼ˆå‰å›ã®ï¼‰ç§»å‹•æ–¹å‘ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	int scopemode;				//!< ã‚¹ã‚³ãƒ¼ãƒ—ä½¿ç”¨ãƒ¢ãƒ¼ãƒ‰
+	bool HitFlag;				//!< è¢«å¼¾ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	float Hit_rx;				//!< è¢«å¼¾ã—ãŸæ–¹å‘
+	float totalmove;			//!< åˆè¨ˆç§»å‹•é‡
+	int StateGunsightErrorRange;		//!< ç…§æº–ã®çŠ¶æ…‹èª¤å·®
+	int ReactionGunsightErrorRange;		//!< ç…§æº–ã®åå‹•èª¤å·®
+	bool Invincible;			//!< ç„¡æ•µãƒ•ãƒ©ã‚°
 
-	class HumanMotionControl *MotionCtrl;	//!< ƒ‚[ƒVƒ‡ƒ“‚ğ§Œä‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+	class HumanMotionControl *MotionCtrl;	//!< ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆ¶å¾¡ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 
 	void GunsightErrorRange();
 	int CheckAndProcessDead(class Collision *CollD);
@@ -235,17 +235,17 @@ public:
 	virtual void Render(class D3DGraphics *d3dg, class ResourceManager *Resource, bool DrawArmOnly, bool player, bool NoModel);
 };
 
-//! @brief •ŠíŠÇ—ƒNƒ‰ƒX
+//! @brief æ­¦å™¨ç®¡ç†ã‚¯ãƒ©ã‚¹
 class weapon : public object
 {
 protected:
-	float move_x;		//!< X²ˆÚ“®—Ê
-	float move_y;		//!< Y²ˆÚ“®—Ê
-	float move_z;		//!< Z²ˆÚ“®—Ê
-	bool usingflag;		//!< g—p’†‚ğ•\‚·ƒtƒ‰ƒO
-	int bullets;		//!< ‡Œv’e”
-	int Loadbullets;	//!< ‘•’e”
-	bool motionflag;	//!< À•WˆÚ“®’†‚ğ•\‚·ƒtƒ‰ƒO
+	float move_x;		//!< Xè»¸ç§»å‹•é‡
+	float move_y;		//!< Yè»¸ç§»å‹•é‡
+	float move_z;		//!< Zè»¸ç§»å‹•é‡
+	bool usingflag;		//!< ä½¿ç”¨ä¸­ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
+	int bullets;		//!< åˆè¨ˆå¼¾æ•°
+	int Loadbullets;	//!< è£…å¼¾æ•°
+	bool motionflag;	//!< åº§æ¨™ç§»å‹•ä¸­ã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
 
 public:
 	weapon(class ParameterInfo *in_Param = NULL, float x = 0.0f, float y = 0.0f, float z = 0.0f, float rx = 0.0f, int id_param = 0, int nbs = 0, bool flag = false);
@@ -264,19 +264,19 @@ public:
 	virtual void Render(class D3DGraphics *d3dg, bool NoModel);
 };
 
-//! @brief ¬•¨ŠÇ—ƒNƒ‰ƒX
+//! @brief å°ç‰©ç®¡ç†ã‚¯ãƒ©ã‚¹
 class smallobject : public object
 {
 protected:
-	class MIFInterface *MIFdata;		//!< MIF‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	float rotation_y;			//!< ‰ñ“]Šp“x
-	signed short int point_p4;	//!< ƒ|ƒCƒ“ƒg‚Ì¯•Ê”Ô†
-	int hp;						//!< ‘Ì—Í
-	float jump_rx;				//!< ”ò‚Î‚·‰¡²Šp“x
-	float move_rx;				//!< ”ò‚Î‚·‰¡²ˆÚ“®—Ê
-	float add_rx;				//!< ”ò‚Î‚·‰¡²‰ñ“]—Ê
-	float add_ry;				//!< ”ò‚Î‚·c²‰ñ“]—Ê
-	int jump_cnt;				//!< ”ò‚Î‚·ã¸ƒJƒEƒ“ƒg
+	class MIFInterface *MIFdata;		//!< MIFã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	float rotation_y;			//!< å›è»¢è§’åº¦
+	signed short int point_p4;	//!< ãƒã‚¤ãƒ³ãƒˆã®è­˜åˆ¥ç•ªå·
+	int hp;						//!< ä½“åŠ›
+	float jump_rx;				//!< é£›ã°ã™æ¨ªè»¸è§’åº¦
+	float move_rx;				//!< é£›ã°ã™æ¨ªè»¸ç§»å‹•é‡
+	float add_rx;				//!< é£›ã°ã™æ¨ªè»¸å›è»¢é‡
+	float add_ry;				//!< é£›ã°ã™ç¸¦è»¸å›è»¢é‡
+	int jump_cnt;				//!< é£›ã°ã™ä¸Šæ˜‡ã‚«ã‚¦ãƒ³ãƒˆ
 
 public:
 	smallobject(class ParameterInfo *in_Param = NULL, class MIFInterface *in_MIFdata = NULL, float x = 0.0f, float y = 0.0f, float z = 0.0f, float rx = 0.0f, int id_param = 0, signed short int p4 = 0, bool flag = false);
@@ -293,18 +293,18 @@ public:
 	virtual void Render(D3DGraphics *d3dg, bool NoModel);
 };
 
-//! @brief ’eŠÛŠÇ—ƒNƒ‰ƒX
+//! @brief å¼¾ä¸¸ç®¡ç†ã‚¯ãƒ©ã‚¹
 class bullet : public object
 {
 protected:
-	float rotation_y;	//!< ‰ñ“]Šp“x
-	int attacks;		//!< UŒ‚—Í
-	int penetration;	//!< ŠÑ’Ê—Í
-	float speed;		//!< ’e‘¬
-	int teamid;			//!< ƒ`[ƒ€”Ô†
-	int humanid;		//!< l‚Ìƒf[ƒ^”Ô†
-	float ontargetcnt;	//!< –½’†‚ÌƒJƒEƒ“ƒg”
-	int cnt;			//!< ƒJƒEƒ“ƒg
+	float rotation_y;	//!< å›è»¢è§’åº¦
+	int attacks;		//!< æ”»æ’ƒåŠ›
+	int penetration;	//!< è²«é€šåŠ›
+	float speed;		//!< å¼¾é€Ÿ
+	int teamid;			//!< ãƒãƒ¼ãƒ ç•ªå·
+	int humanid;		//!< äººã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	float ontargetcnt;	//!< å‘½ä¸­æ™‚ã®ã‚«ã‚¦ãƒ³ãƒˆæ•°
+	int cnt;			//!< ã‚«ã‚¦ãƒ³ãƒˆ
 
 public:
 	bullet(int modelid = -1, int textureid = -1);
@@ -317,12 +317,12 @@ public:
 	virtual void Render(class D3DGraphics *d3dg, bool NoModel);
 };
 
-//! @brief èÖ’eŠÇ—ƒNƒ‰ƒX
+//! @brief æ‰‹æ¦´å¼¾ç®¡ç†ã‚¯ãƒ©ã‚¹
 class grenade : public bullet
 {
-	float move_x;		//!< X²ˆÚ“®—Ê
-	float move_y;		//!< Y²ˆÚ“®—Ê
-	float move_z;		//!< Y²ˆÚ“®—Ê
+	float move_x;		//!< Xè»¸ç§»å‹•é‡
+	float move_y;		//!< Yè»¸ç§»å‹•é‡
+	float move_z;		//!< Yè»¸ç§»å‹•é‡
 
 public:
 	grenade(int modelid = -1, int textureid = -1);
@@ -334,24 +334,24 @@ public:
 	virtual void Render(D3DGraphics *d3dg, bool NoModel);
 };
 
-//! @brief ƒGƒtƒFƒNƒgŠÇ—ƒNƒ‰ƒX
+//! @brief ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç®¡ç†ã‚¯ãƒ©ã‚¹
 class effect : public object
 {
 protected:
-	float move_x;		//!< X²ˆÚ“®—Ê
-	float move_y;		//!< Y²ˆÚ“®—Ê
-	float move_z;		//!< Z²ˆÚ“®—Ê
-	float addmove_y;	//!< Y²ˆÚ“®—Ê‚Ì‰ÁZ—Ê
-	float rotation_y;	//!< ‰ñ“]Šp“x
-	float rotation_texture;		//!< ‰ñ“]Šp“x
-	float addrotation_texture;	//!< ‰ñ“]Šp“x‚Ì‰ÁZ—Ê
-	float addmodel_size;		//!< •`‰æƒTƒCƒY
-	int brightness;				//!< –¾‚é‚³
-	int addbrightness;			//!< –¾‚é‚³‚Ì‰ÁZ—Ê
-	float alpha;				//!< “§–¾“x
-	float add_alpha;			//!< “§–¾“x‚Ì‰ÁZ—Ê
-	int cnt;			//!< ƒJƒEƒ“ƒg
-	int type;			//!< í—Ş
+	float move_x;		//!< Xè»¸ç§»å‹•é‡
+	float move_y;		//!< Yè»¸ç§»å‹•é‡
+	float move_z;		//!< Zè»¸ç§»å‹•é‡
+	float addmove_y;	//!< Yè»¸ç§»å‹•é‡ã®åŠ ç®—é‡
+	float rotation_y;	//!< å›è»¢è§’åº¦
+	float rotation_texture;		//!< å›è»¢è§’åº¦
+	float addrotation_texture;	//!< å›è»¢è§’åº¦ã®åŠ ç®—é‡
+	float addmodel_size;		//!< æç”»ã‚µã‚¤ã‚º
+	int brightness;				//!< æ˜ã‚‹ã•
+	int addbrightness;			//!< æ˜ã‚‹ã•ã®åŠ ç®—é‡
+	float alpha;				//!< é€æ˜åº¦
+	float add_alpha;			//!< é€æ˜åº¦ã®åŠ ç®—é‡
+	int cnt;			//!< ã‚«ã‚¦ãƒ³ãƒˆ
+	int type;			//!< ç¨®é¡
 
 public:
 	effect(float x = 0.0f, float y = 0.0f, float z = 0.0f, float size = 1.0f, float rotation = 0.0f, int texture = -1, int count = 0);
@@ -366,25 +366,25 @@ public:
 	virtual void Render(class D3DGraphics *d3dg, float camera_rx, float camera_ry, bool NoModel);
 };
 
-//! @brief lƒ‚[ƒVƒ‡ƒ“§ŒäƒNƒ‰ƒX
-//! @details l‚Ìƒ‚[ƒVƒ‡ƒ“iƒAƒjƒ[ƒVƒ‡ƒ“j§Œä‚ğs‚¤ƒNƒ‰ƒX‚Å‚·BhumanƒNƒ‰ƒX“à‚Åg—p‚µ‚Ü‚·B
-//! @attention –{ƒNƒ‰ƒX‚Él‚ª€–S‚µ‚½Û‚Ì“|‚ê‚éƒ‚[ƒVƒ‡ƒ“‚ÍÀ‘•‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
+//! @brief äººãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
+//! @details äººã®ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ï¼ˆã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ï¼‰åˆ¶å¾¡ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚humanã‚¯ãƒ©ã‚¹å†…ã§ä½¿ç”¨ã—ã¾ã™ã€‚
+//! @attention æœ¬ã‚¯ãƒ©ã‚¹ã«äººãŒæ­»äº¡ã—ãŸéš›ã®å€’ã‚Œã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã¯å®Ÿè£…ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
 class HumanMotionControl
 {
-	class ParameterInfo *Param;				//!< İ’è’l‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	int id_upmodel;							//!< ã”¼g
-	int id_armmodel[TOTAL_ARMMODE];			//!< ˜r
-	int id_legmodel;						//!< ‘«iÃ~j
-	int id_walkmodel[TOTAL_WALKMODE];		//!< ‘«i•à‚­j
-	int id_runmodel[TOTAL_RUNMODE];			//!< ‘«i‘–‚éj
-	float reaction_y;				//!< ˜r‚ğã‚°‰º‚°‚·‚é‘Š‘ÎŠp“x
-	bool slowarm;					//!< ˜r‚Ìã‚°‰º‚°‚ğ‚ä‚Á‚­‚è‚·‚é
-	float armmodel_rotation_y;		//!< ˜r‚Ì‰ñ“]Šp“x
-	float legrotation_x;			//!< ‘«‚Ì‰ñ“]Šp“x
-	int walkcnt;					//!< •à‚­ƒ‚[ƒVƒ‡ƒ“‚ÌƒJƒEƒ“ƒg
-	int runcnt;						//!< ‘–‚éƒ‚[ƒVƒ‡ƒ“‚ÌƒJƒEƒ“ƒg
-	int armmodelid;					//!< •`‰æ‚·‚é˜r‚Ìƒ‚ƒfƒ‹
-	int legmodelid;					//!< •`‰æ‚·‚é‘«‚Ìƒ‚ƒfƒ‹
+	class ParameterInfo *Param;				//!< è¨­å®šå€¤ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	int id_upmodel;							//!< ä¸ŠåŠèº«
+	int id_armmodel[TOTAL_ARMMODE];			//!< è…•
+	int id_legmodel;						//!< è¶³ï¼ˆé™æ­¢ï¼‰
+	int id_walkmodel[TOTAL_WALKMODE];		//!< è¶³ï¼ˆæ­©ãï¼‰
+	int id_runmodel[TOTAL_RUNMODE];			//!< è¶³ï¼ˆèµ°ã‚‹ï¼‰
+	float reaction_y;				//!< è…•ã‚’ä¸Šã’ä¸‹ã’ã™ã‚‹ç›¸å¯¾è§’åº¦
+	bool slowarm;					//!< è…•ã®ä¸Šã’ä¸‹ã’ã‚’ã‚†ã£ãã‚Šã™ã‚‹
+	float armmodel_rotation_y;		//!< è…•ã®å›è»¢è§’åº¦
+	float legrotation_x;			//!< è¶³ã®å›è»¢è§’åº¦
+	int walkcnt;					//!< æ­©ããƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	int runcnt;						//!< èµ°ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚«ã‚¦ãƒ³ãƒˆ
+	int armmodelid;					//!< æç”»ã™ã‚‹è…•ã®ãƒ¢ãƒ‡ãƒ«
+	int legmodelid;					//!< æç”»ã™ã‚‹è¶³ã®ãƒ¢ãƒ‡ãƒ«
 
 public:
 	HumanMotionControl(class ParameterInfo *in_Param = NULL);
@@ -404,7 +404,7 @@ public:
 	int GetMoveMotionCnt();
 };
 
-//! l‚Ì‘«‚Ìó‘Ô‚ğ¦‚·’è”
+//! äººã®è¶³ã®çŠ¶æ…‹ã‚’ç¤ºã™å®šæ•°
 enum Human_LegState
 {
 	LEG_STOP = 0,
@@ -412,7 +412,7 @@ enum Human_LegState
 	LEG_RUN
 };
 
-//! l‚ÌˆÚ“®‘€ì‚ğ•\‚·ƒtƒ‰ƒO
+//! äººã®ç§»å‹•æ“ä½œã‚’è¡¨ã™ãƒ•ãƒ©ã‚°
 enum Human_MoveFlag
 {
 	MOVEFLAG_FORWARD = 0x01,
@@ -423,12 +423,12 @@ enum Human_MoveFlag
 	MOVEFLAG_JUMP = 0x20,
 };
 
-//! ƒGƒtƒFƒNƒg‚Ìí—Ş‚ğ•\‚·’è”
+//! ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç¨®é¡ã‚’è¡¨ã™å®šæ•°
 enum Effect_Type
 {
-	EFFECT_NORMAL = 0x00,			//!< ƒm[ƒ}ƒ‹
-	EFFECT_NOBILLBOARD = 0x01,		//!< ƒrƒ‹ƒ{[ƒh‰»‚µ‚È‚¢
-	EFFECT_COLLIDEMAP = 0x02		//!< ƒ}ƒbƒv‚Æ‚Ì“–‚½‚è”»’è
+	EFFECT_NORMAL = 0x00,			//!< ãƒãƒ¼ãƒãƒ«
+	EFFECT_NOBILLBOARD = 0x01,		//!< ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰åŒ–ã—ãªã„
+	EFFECT_COLLIDEMAP = 0x02		//!< ãƒãƒƒãƒ—ã¨ã®å½“ãŸã‚Šåˆ¤å®š
 };
 
 #endif

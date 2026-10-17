@@ -1,5 +1,5 @@
 //! @file ai.h
-//! @brief AIcontrolƒNƒ‰ƒX‚ÌéŒ¾
+//! @brief AIcontrolã‚¯ãƒ©ã‚¹ã®å®£è¨€
 
 //--------------------------------------------------------------------------------
 // 
@@ -32,61 +32,61 @@
 #ifndef AI_H
 #define AI_H
 
-#define AI_TOTALHUMAN_SCALE (MAX_HUMAN/24)		//!< 24l‚ ‚½‚è‚ÌÅ‘ål”‚Ì”{—¦
+#define AI_TOTALHUMAN_SCALE (MAX_HUMAN/24)		//!< 24äººã‚ãŸã‚Šã®æœ€å¤§äººæ•°ã®å€ç‡
 
-#define AI_ADDTURNRAD DegreeToRadian(0.8f)	//!< AI‚Ìù‰ñi‰ñ“]j”\—Í
-#define AI_SEARCH_RX DegreeToRadian(110)	//!< “G‚ğ”­Œ©‚·‚é‰¡²Šp“x
-#define AI_SEARCH_RY DegreeToRadian(60)		//!< “G‚ğ”­Œ©‚·‚éc²Šp“x
-#define AI_ZOMBIEATTACK_ARMRY DegreeToRadian(-15)		//!< ƒ]ƒ“ƒrUŒ‚‚Ì˜r‚ÌŠp“x
+#define AI_ADDTURNRAD DegreeToRadian(0.8f)	//!< AIã®æ—‹å›ï¼ˆå›è»¢ï¼‰èƒ½åŠ›
+#define AI_SEARCH_RX DegreeToRadian(110)	//!< æ•µã‚’ç™ºè¦‹ã™ã‚‹æ¨ªè»¸è§’åº¦
+#define AI_SEARCH_RY DegreeToRadian(60)		//!< æ•µã‚’ç™ºè¦‹ã™ã‚‹ç¸¦è»¸è§’åº¦
+#define AI_ZOMBIEATTACK_ARMRY DegreeToRadian(-15)		//!< ã‚¾ãƒ³ãƒ“æ”»æ’ƒæ™‚ã®è…•ã®è§’åº¦
 
-#define AI_ARRIVALDIST_PATH 5.0f			//!< ƒpƒX‚É“’B‚µ‚½‚Æ”»’è‚·‚é‹——£
-#define AI_ARRIVALDIST_TRACKING 18.0f		//!< ’Ç”ö‘ÎÛ‚É“’B‚µ‚½‚Æ”»’è‚·‚é‹——£
-#define AI_ARRIVALDIST_WALKTRACKING 24.0f	//!< ’Ç”ö‘ÎÛ‚Öi‘–‚ç‚¸‚Éj•à‚¢‚Ä‹ß‚Ã‚­‹——£
-#define AI_CHECKJUMP_HEIGHT 0.3f			//!< ‘O‚ÉƒuƒƒbƒN‚ª–³‚¢‚©”»’è‚·‚é‚‚³
-#define AI_CHECKJUMP_DIST 2.0f				//!< ‘O‚ÉƒuƒƒbƒN‚ª–³‚¢‚©”»’è‚·‚é‹——£
-#define AI_CHECKJUMP2_DIST 10.0f			//!< ‘O‚ÉƒuƒƒbƒN‚ª–³‚¢‚©”»’è‚·‚é‹——£i—Dæ“I‚È‘–‚èj
-#define AI_CHECKBULLET 20.0f				//!< ’e‚ª‹ß‚­‚ğ’Ê‚Á‚½‚Æ”»’è‚·‚é‹——£
-#define AI_CHECKSHORTATTACK_DIST 200.0f		//!< ‹ß‹——£UŒ‚‚Æ”»’è‚·‚é‹——£
+#define AI_ARRIVALDIST_PATH 5.0f			//!< ãƒ‘ã‚¹ã«åˆ°é”ã—ãŸã¨åˆ¤å®šã™ã‚‹è·é›¢
+#define AI_ARRIVALDIST_TRACKING 18.0f		//!< è¿½å°¾å¯¾è±¡ã«åˆ°é”ã—ãŸã¨åˆ¤å®šã™ã‚‹è·é›¢
+#define AI_ARRIVALDIST_WALKTRACKING 24.0f	//!< è¿½å°¾å¯¾è±¡ã¸ï¼ˆèµ°ã‚‰ãšã«ï¼‰æ­©ã„ã¦è¿‘ã¥ãè·é›¢
+#define AI_CHECKJUMP_HEIGHT 0.3f			//!< å‰ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒç„¡ã„ã‹åˆ¤å®šã™ã‚‹é«˜ã•
+#define AI_CHECKJUMP_DIST 2.0f				//!< å‰ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒç„¡ã„ã‹åˆ¤å®šã™ã‚‹è·é›¢
+#define AI_CHECKJUMP2_DIST 10.0f			//!< å‰ã«ãƒ–ãƒ­ãƒƒã‚¯ãŒç„¡ã„ã‹åˆ¤å®šã™ã‚‹è·é›¢ï¼ˆå„ªå…ˆçš„ãªèµ°ã‚Šï¼‰
+#define AI_CHECKBULLET 20.0f				//!< å¼¾ãŒè¿‘ãã‚’é€šã£ãŸã¨åˆ¤å®šã™ã‚‹è·é›¢
+#define AI_CHECKSHORTATTACK_DIST 200.0f		//!< è¿‘è·é›¢æ”»æ’ƒã¨åˆ¤å®šã™ã‚‹è·é›¢
 
 #ifndef H_LAYERLEVEL
  #define H_LAYERLEVEL 3		//!< Select include file.
 #endif
 #include "main.h"
 
-//! @brief AI§Œä‚ğs‚¤ƒNƒ‰ƒX
-//! @details ƒpƒX‚É‚æ‚éˆÚ“®A‹–ì‚É‚¢‚é“G‚Ö‚Ì”F¯‚âUŒ‚A•Ší‚Ìg‚¢•ª‚¯@‚È‚Ç‚ÌAI‚Ì§Œä‘S”Ê‚ğs‚¢‚Ü‚·B
+//! @brief AIåˆ¶å¾¡ã‚’è¡Œã†ã‚¯ãƒ©ã‚¹
+//! @details ãƒ‘ã‚¹ã«ã‚ˆã‚‹ç§»å‹•ã€è¦–é‡ã«ã„ã‚‹æ•µã¸ã®èªè­˜ã‚„æ”»æ’ƒã€æ­¦å™¨ã®ä½¿ã„åˆ†ã‘ã€€ãªã©ã®AIã®åˆ¶å¾¡å…¨èˆ¬ã‚’è¡Œã„ã¾ã™ã€‚
 class AIcontrol
 {
-	class ObjectManager *ObjMgr;		//!< ObjectManagerƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-	class BlockDataInterface *blocks;	//!< ƒuƒƒbƒNƒf[ƒ^‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	class ParameterInfo *Param;		//!< İ’è’l‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	class Collision *CollD;				//!< “–‚½‚è”»’è‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
-	class SoundManager *GameSound;		//!< ƒQ[ƒ€Œø‰Ê‰¹Ä¶ƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+	class ObjectManager *ObjMgr;		//!< ObjectManagerã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	class BlockDataInterface *blocks;	//!< ãƒ–ãƒ­ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	class ParameterInfo *Param;		//!< è¨­å®šå€¤ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	class Collision *CollD;				//!< å½“ãŸã‚Šåˆ¤å®šã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
+	class SoundManager *GameSound;		//!< ã‚²ãƒ¼ãƒ åŠ¹æœéŸ³å†ç”Ÿã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 
-	class AIMoveNavi *MoveNavi;			//!< lˆÚ“®ŠÇ—ƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-	class AIObjectDriver *ObjDriver;	//!< lˆÚ“®‰ñ“]§ŒäƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
+	class AIMoveNavi *MoveNavi;			//!< äººç§»å‹•ç®¡ç†ã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	class AIObjectDriver *ObjDriver;	//!< äººç§»å‹•å›è»¢åˆ¶å¾¡ã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
 
-	int AIlevel;		//!< AIƒŒƒxƒ‹
-	int battlemode;		//!< í“¬ƒ‚[ƒh
-	bool NoFight;		//!< ”ñí“¬‰»ƒtƒ‰ƒO
-	float posx;			//!< XÀ•W
-	float posy;			//!< YÀ•W
-	float posz;			//!< ZÀ•W
-	float rx;			//!< X²‰ñ“]Šp“x
-	float ry;			//!< Y²‰ñ“]Šp“x
-	float cautionback_posx;		//!< Œx‰úŒã‚É–ß‚éXÀ•W
-	float cautionback_posz;		//!< Œx‰úŒã‚É–ß‚éZÀ•W
-	bool FaceCaution_flag;		//!< Œx‰ú’†‚É“Á’è‚Ì•ñ‚ğŒü‚­ƒtƒ‰ƒO
-	float FaceCaution_rx;		//!< Œx‰ú’†‚ÉŒü‚­•ûŒü
-	float total_move;			//!< ‡ŒvˆÚ“®—Ê
-	int waitcnt;				//!< ŠÔ‘Ò‚¿ƒJƒEƒ“ƒg
-	int movejumpcnt;			//!< ƒWƒƒƒ“ƒv”»’èƒJƒEƒ“ƒg
-	int gotocnt;				//!< ˆÚ“®ƒJƒEƒ“ƒg
-	int cautioncnt;				//!< Œx‰ú’†ƒJƒEƒ“ƒg
-	int actioncnt;				//!< UŒ‚’†ƒJƒEƒ“ƒg
-	bool longattack;			//!< ‹ß‹——£E‰“‹——£ƒtƒ‰ƒO
-	bool EventWeaponShot;		//!< ƒCƒxƒ“ƒg‚É‚æ‚éèÖ’e“Š‚°ƒtƒ‰ƒO
-	AIParameter *LevelParam;	//!< AI‚Ì«”\’l
+	int AIlevel;		//!< AIãƒ¬ãƒ™ãƒ«
+	int battlemode;		//!< æˆ¦é—˜ãƒ¢ãƒ¼ãƒ‰
+	bool NoFight;		//!< éæˆ¦é—˜åŒ–ãƒ•ãƒ©ã‚°
+	float posx;			//!< Xåº§æ¨™
+	float posy;			//!< Yåº§æ¨™
+	float posz;			//!< Zåº§æ¨™
+	float rx;			//!< Xè»¸å›è»¢è§’åº¦
+	float ry;			//!< Yè»¸å›è»¢è§’åº¦
+	float cautionback_posx;		//!< è­¦æˆ’å¾Œã«æˆ»ã‚‹Xåº§æ¨™
+	float cautionback_posz;		//!< è­¦æˆ’å¾Œã«æˆ»ã‚‹Zåº§æ¨™
+	bool FaceCaution_flag;		//!< è­¦æˆ’ä¸­ã«ç‰¹å®šã®å ±å‘Šã‚’å‘ããƒ•ãƒ©ã‚°
+	float FaceCaution_rx;		//!< è­¦æˆ’ä¸­ã«å‘ãæ–¹å‘
+	float total_move;			//!< åˆè¨ˆç§»å‹•é‡
+	int waitcnt;				//!< æ™‚é–“å¾…ã¡ã‚«ã‚¦ãƒ³ãƒˆ
+	int movejumpcnt;			//!< ã‚¸ãƒ£ãƒ³ãƒ—åˆ¤å®šã‚«ã‚¦ãƒ³ãƒˆ
+	int gotocnt;				//!< ç§»å‹•ã‚«ã‚¦ãƒ³ãƒˆ
+	int cautioncnt;				//!< è­¦æˆ’ä¸­ã‚«ã‚¦ãƒ³ãƒˆ
+	int actioncnt;				//!< æ”»æ’ƒä¸­ã‚«ã‚¦ãƒ³ãƒˆ
+	bool longattack;			//!< è¿‘è·é›¢ãƒ»é è·é›¢ãƒ•ãƒ©ã‚°
+	bool EventWeaponShot;		//!< ã‚¤ãƒ™ãƒ³ãƒˆã«ã‚ˆã‚‹æ‰‹æ¦´å¼¾æŠ•ã’ãƒ•ãƒ©ã‚°
+	AIParameter *LevelParam;	//!< AIã®æ€§èƒ½å€¤
 
 	bool CheckTargetPos(bool back);
 	void MoveTarget(bool back);
@@ -112,9 +112,9 @@ class AIcontrol
 	bool CautionMain();
 	bool NormalMain();
 
-	int ctrlid;					//!< ©•ª©gi§Œä‘ÎÛj‚Ìl”Ô†
-	class human *ctrlhuman;		//!< ©•ª©gi§Œä‘ÎÛj‚ÌhumanƒNƒ‰ƒX
-	class human *enemyhuman;	//!< UŒ‚‘ÎÛ‚ÌhumanƒNƒ‰ƒX
+	int ctrlid;					//!< è‡ªåˆ†è‡ªèº«ï¼ˆåˆ¶å¾¡å¯¾è±¡ï¼‰ã®äººç•ªå·
+	class human *ctrlhuman;		//!< è‡ªåˆ†è‡ªèº«ï¼ˆåˆ¶å¾¡å¯¾è±¡ï¼‰ã®humanã‚¯ãƒ©ã‚¹
+	class human *enemyhuman;	//!< æ”»æ’ƒå¯¾è±¡ã®humanã‚¯ãƒ©ã‚¹
 
 public:
 	AIcontrol(class ObjectManager *in_ObjMgr = NULL, int in_ctrlid = -1, class BlockDataInterface *in_blocks = NULL, class PointDataInterface *in_Points = NULL, class ParameterInfo *in_Param = NULL, class Collision *in_CollD = NULL, class SoundManager *in_GameSound = NULL);
@@ -134,21 +134,21 @@ public:
 	void Process();
 };
 
-//! @brief lˆÚ“®ŠÇ—ƒNƒ‰ƒX
-//! @details ’Êíƒ‚[ƒh‚É‚¨‚¢‚ÄAl‚ÌˆÚ“®æ‚ğŒˆ’è‚·‚éƒNƒ‰ƒX‚Å‚·BAIcontrolƒNƒ‰ƒX“à‚Åg—p‚µ‚Ü‚·B
+//! @brief äººç§»å‹•ç®¡ç†ã‚¯ãƒ©ã‚¹
+//! @details é€šå¸¸ãƒ¢ãƒ¼ãƒ‰ã«ãŠã„ã¦ã€äººã®ç§»å‹•å…ˆã‚’æ±ºå®šã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚AIcontrolã‚¯ãƒ©ã‚¹å†…ã§ä½¿ç”¨ã—ã¾ã™ã€‚
 class AIMoveNavi
 {
-	class ObjectManager *ObjMgr;		//!< ObjectManagerƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-	int ctrlid;							//!< ©•ª©gi§Œä‘ÎÛj‚Ìl”Ô†
-	class PointDataInterface *Points;	//!< ƒ|ƒCƒ“ƒgƒf[ƒ^‚ğŠÇ—‚·‚éƒNƒ‰ƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^
+	class ObjectManager *ObjMgr;		//!< ObjectManagerã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	int ctrlid;							//!< è‡ªåˆ†è‡ªèº«ï¼ˆåˆ¶å¾¡å¯¾è±¡ï¼‰ã®äººç•ªå·
+	class PointDataInterface *Points;	//!< ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿
 
-	int movemode;			//!< ˆÚ“®ƒ‚[ƒh
-	bool hold;				//!< ˆÚ“®ƒpƒX‚ğ“Ç‚Ü‚È‚¢
-	int path_pointid;		//!< ƒpƒX‚Ìƒ|ƒCƒ“ƒgƒf[ƒ^”Ô†
-	int target_humanid;		//!< ƒ^[ƒQƒbƒg‚É‚·‚él‚Ìƒf[ƒ^”Ô†
-	float target_posx;		//!< ƒ^[ƒQƒbƒg‚ÌXÀ•W
-	float target_posz;		//!< ƒ^[ƒQƒbƒg‚ÌZÀ•W
-	float target_rx;		//!< ƒ^[ƒQƒbƒg‚Ì…•½Šp“x
+	int movemode;			//!< ç§»å‹•ãƒ¢ãƒ¼ãƒ‰
+	bool hold;				//!< ç§»å‹•ãƒ‘ã‚¹ã‚’èª­ã¾ãªã„
+	int path_pointid;		//!< ãƒ‘ã‚¹ã®ãƒã‚¤ãƒ³ãƒˆãƒ‡ãƒ¼ã‚¿ç•ªå·
+	int target_humanid;		//!< ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ã™ã‚‹äººã®ãƒ‡ãƒ¼ã‚¿ç•ªå·
+	float target_posx;		//!< ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®Xåº§æ¨™
+	float target_posz;		//!< ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®Zåº§æ¨™
+	float target_rx;		//!< ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®æ°´å¹³è§’åº¦
 
 public:
 	AIMoveNavi(class ObjectManager *in_ObjMgr = NULL, int in_ctrlid = -1, class PointDataInterface *in_Points = NULL);
@@ -166,16 +166,16 @@ public:
 	void GetTargetPos(float *posx, float *posz, float *rx, int *out_movemode, int *out_pointmode);
 };
 
-//! @brief lˆÚ“®‰ñ“]§ŒäƒNƒ‰ƒX
-//! @details l‚ÌˆÚ“®§Œä‚Æ‰ñ“]§Œä‚ğƒtƒ‰ƒOŠÇ—‚·‚éƒNƒ‰ƒX‚Å‚·BAIcontrolƒNƒ‰ƒX“à‚Åg—p‚µ‚Ü‚·B
+//! @brief äººç§»å‹•å›è»¢åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
+//! @details äººã®ç§»å‹•åˆ¶å¾¡ã¨å›è»¢åˆ¶å¾¡ã‚’ãƒ•ãƒ©ã‚°ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚AIcontrolã‚¯ãƒ©ã‚¹å†…ã§ä½¿ç”¨ã—ã¾ã™ã€‚
 class AIObjectDriver
 {
-	class ObjectManager *ObjMgr;		//!< ObjectManagerƒNƒ‰ƒX‚Ìƒ|ƒCƒ“ƒ^
-	int ctrlid;				//!< ©•ª©gi§Œä‘ÎÛj‚Ìl”Ô†
+	class ObjectManager *ObjMgr;		//!< ObjectManagerã‚¯ãƒ©ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+	int ctrlid;				//!< è‡ªåˆ†è‡ªèº«ï¼ˆåˆ¶å¾¡å¯¾è±¡ï¼‰ã®äººç•ªå·
 
-	int moveturn_mode;		//!< ˆÚ“®•ûŒü‚â‰ñ“]•ûŒü‚Ìƒtƒ‰ƒO
-	float addrx;			//!< X²‰ñ“]Šp‰Á‘¬“x
-	float addry;			//!< Y²‰ñ“]Šp‰Á‘¬“x
+	int moveturn_mode;		//!< ç§»å‹•æ–¹å‘ã‚„å›è»¢æ–¹å‘ã®ãƒ•ãƒ©ã‚°
+	float addrx;			//!< Xè»¸å›è»¢è§’åŠ é€Ÿåº¦
+	float addry;			//!< Yè»¸å›è»¢è§’åŠ é€Ÿåº¦
 
 public:
 	AIObjectDriver(class ObjectManager *in_ObjMgr = NULL, int in_ctrlid = -1);
@@ -189,27 +189,27 @@ public:
 	void ControlObject();
 };
 
-//! AI‚Ì§Œäƒ‚[ƒh‚ğ•\‚·’è”
-//! @warning ’è”‚ğ•ÏX‚·‚éê‡A•K—v‚É‰‚¶‚ÄGetBattleMode()ŠÖ”‚Ì•¶š—ño—Íˆ—‚à•ÏX‚·‚é‚±‚ÆB
+//! AIã®åˆ¶å¾¡ãƒ¢ãƒ¼ãƒ‰ã‚’è¡¨ã™å®šæ•°
+//! @warning å®šæ•°ã‚’å¤‰æ›´ã™ã‚‹å ´åˆã€å¿…è¦ã«å¿œã˜ã¦GetBattleMode()é–¢æ•°ã®æ–‡å­—åˆ—å‡ºåŠ›å‡¦ç†ã‚‚å¤‰æ›´ã™ã‚‹ã“ã¨ã€‚
 enum AImode
 {
-	AI_DEAD = 0,	//!< €–S‚µ‚Ä‚¢‚él
-	AI_ACTION,		//!< í“¬’†‚Ìl
-	AI_CAUTION,		//!< Œx‰ú’†‚Ìl
-	AI_NORMAL,		//!< ’Êí‚Ìƒ‚[ƒh
+	AI_DEAD = 0,	//!< æ­»äº¡ã—ã¦ã„ã‚‹äºº
+	AI_ACTION,		//!< æˆ¦é—˜ä¸­ã®äºº
+	AI_CAUTION,		//!< è­¦æˆ’ä¸­ã®äºº
+	AI_NORMAL,		//!< é€šå¸¸ã®ãƒ¢ãƒ¼ãƒ‰
 
-	AI_WALK,		//!< ˆÚ“®ƒpƒX‚É‚æ‚Á‚Ä•à‚¢‚Ä‚¢‚él
-	AI_RUN,			//!< ˆÚ“®ƒpƒX‚É‚æ‚Á‚Ä‘–‚Á‚Ä‚¢‚él
-	AI_WAIT,		//!< ƒpƒX‚É‚æ‚Á‚Ä‘Ò‹@‚µ‚Ä‚¢‚él
-	AI_STOP_5SEC,	//!< ƒpƒX‚É‚æ‚Á‚ÄŠÔ‘Ò‚¿‚ğ‚µ‚Ä‚¢‚éli5•bj
-	AI_TRACKING,	//!< “Á’è‚Ìl‚ğ’Ç”ö‚·‚é
-	AI_GRENADE,		//!< èÖ’e‚ğ“Š‚°‚é
-	AI_RUN2,		//!< —Dæ“I‚È‘–‚è
-	AI_RANDOM,		//!< ƒ‰ƒ“ƒ_ƒ€ƒpƒXˆ—’†
-	AI_NULL			//!< ƒpƒX‚È‚µ
+	AI_WALK,		//!< ç§»å‹•ãƒ‘ã‚¹ã«ã‚ˆã£ã¦æ­©ã„ã¦ã„ã‚‹äºº
+	AI_RUN,			//!< ç§»å‹•ãƒ‘ã‚¹ã«ã‚ˆã£ã¦èµ°ã£ã¦ã„ã‚‹äºº
+	AI_WAIT,		//!< ãƒ‘ã‚¹ã«ã‚ˆã£ã¦å¾…æ©Ÿã—ã¦ã„ã‚‹äºº
+	AI_STOP_5SEC,	//!< ãƒ‘ã‚¹ã«ã‚ˆã£ã¦æ™‚é–“å¾…ã¡ã‚’ã—ã¦ã„ã‚‹äººï¼ˆ5ç§’ï¼‰
+	AI_TRACKING,	//!< ç‰¹å®šã®äººã‚’è¿½å°¾ã™ã‚‹
+	AI_GRENADE,		//!< æ‰‹æ¦´å¼¾ã‚’æŠ•ã’ã‚‹
+	AI_RUN2,		//!< å„ªå…ˆçš„ãªèµ°ã‚Š
+	AI_RANDOM,		//!< ãƒ©ãƒ³ãƒ€ãƒ ãƒ‘ã‚¹å‡¦ç†ä¸­
+	AI_NULL			//!< ãƒ‘ã‚¹ãªã—
 };
 
-//! AI‚ÌˆÚ“®ƒ‚[ƒh‚ğ•\‚·’è”
+//! AIã®ç§»å‹•ãƒ¢ãƒ¼ãƒ‰ã‚’è¡¨ã™å®šæ•°
 enum AIMoveNaviFlag
 {
 	AI_NAVI_MOVE_NULL,
@@ -225,7 +225,7 @@ enum AIMoveNaviFlag
 	AI_NAVI_POINT_GRENADE
 };
 
-//! AI‚Ì‘€ìƒ‚[ƒh‚ğ•\‚·’è”
+//! AIã®æ“ä½œãƒ¢ãƒ¼ãƒ‰ã‚’è¡¨ã™å®šæ•°
 enum AIcontrolFlag
 {
 	AI_CTRL_MOVEFORWARD = 0x0001,

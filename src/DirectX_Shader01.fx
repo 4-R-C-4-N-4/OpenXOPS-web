@@ -26,43 +26,43 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //--------------------------------------------------------------------------------
 
-//ƒOƒ[ƒoƒ‹•Ï”
-float4x4 WorldVertexPos;	//ƒ‚ƒfƒ‹À•W
-float4x4 WorldViewPos;		//ƒJƒƒ‰À•W
-float4x4 WorldViewProj;		//•ÏŠ·s—ñ
-float4   Diffuse;		//ƒfƒBƒtƒ…[ƒYF
-float4   ViewPos;		//ƒJƒƒ‰À•Wi¦–¢g—pj
-bool     Enable2DRendering;	//2D•`‰æƒtƒ‰ƒOi¦–¢g—pj
-bool     EnableTexture;		//ƒeƒNƒXƒ`ƒƒƒtƒ‰ƒO
-bool     EnableFog;		//ƒtƒHƒO—LŒøƒtƒ‰ƒO
-float4   FogColor;		//ƒtƒHƒOF
-float    FogStart;		//ƒtƒHƒO‚ÌŠJn[“x
-float    FogEnd;		//ƒtƒHƒO‚ÌI—¹[“x
+//ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°
+float4x4 WorldVertexPos;	//ãƒ¢ãƒ‡ãƒ«åº§æ¨™
+float4x4 WorldViewPos;		//ã‚«ãƒ¡ãƒ©åº§æ¨™
+float4x4 WorldViewProj;		//å¤‰æ›è¡Œåˆ—
+float4   Diffuse;		//ãƒ‡ã‚£ãƒ•ãƒ¥ãƒ¼ã‚ºè‰²
+float4   ViewPos;		//ã‚«ãƒ¡ãƒ©åº§æ¨™ï¼ˆâ€»æœªä½¿ç”¨ï¼‰
+bool     Enable2DRendering;	//2Dæç”»ãƒ•ãƒ©ã‚°ï¼ˆâ€»æœªä½¿ç”¨ï¼‰
+bool     EnableTexture;		//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ãƒ©ã‚°
+bool     EnableFog;		//ãƒ•ã‚©ã‚°æœ‰åŠ¹ãƒ•ãƒ©ã‚°
+float4   FogColor;		//ãƒ•ã‚©ã‚°è‰²
+float    FogStart;		//ãƒ•ã‚©ã‚°ã®é–‹å§‹æ·±åº¦
+float    FogEnd;		//ãƒ•ã‚©ã‚°ã®çµ‚äº†æ·±åº¦
 
-// ’¸“_ƒVƒF[ƒ_[‚ÌŠÖ”
+// é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®é–¢æ•°
 void VertexShader_Main(
-	in  float4 inPos      : POSITION,	//[“ü—Í] À•W(ƒ‚ƒfƒ‹‹óŠÔ)
-	in  float4 inDiff     : COLOR0,		//[“ü—Í] F
-	in  float4 inTexture  : TEXCOORD0,	//[“ü—Í] ƒeƒNƒXƒ`ƒƒÀ•W
+	in  float4 inPos      : POSITION,	//[å…¥åŠ›] åº§æ¨™(ãƒ¢ãƒ‡ãƒ«ç©ºé–“)
+	in  float4 inDiff     : COLOR0,		//[å…¥åŠ›] è‰²
+	in  float4 inTexture  : TEXCOORD0,	//[å…¥åŠ›] ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
 
-	out float4 outPos      : POSITION,	//[o—Í] À•W(Ë‰e‹óŠÔ)
-	out float4 outDiff     : COLOR0,	//[o—Í] F
-	out float4 outTexture  : TEXCOORD0,	//[o—Í] ƒeƒNƒXƒ`ƒƒÀ•W
-	out float4 outPosWorld : TEXCOORD1,	//[o—Í] À•W(ƒ[ƒ‹ƒhÀ•W)
-	out float4 outPosView  : TEXCOORD2)	//[o—Í] À•W(Ë‰e‹óŠÔ)
+	out float4 outPos      : POSITION,	//[å‡ºåŠ›] åº§æ¨™(å°„å½±ç©ºé–“)
+	out float4 outDiff     : COLOR0,	//[å‡ºåŠ›] è‰²
+	out float4 outTexture  : TEXCOORD0,	//[å‡ºåŠ›] ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
+	out float4 outPosWorld : TEXCOORD1,	//[å‡ºåŠ›] åº§æ¨™(ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™)
+	out float4 outPosView  : TEXCOORD2)	//[å‡ºåŠ›] åº§æ¨™(å°„å½±ç©ºé–“)
 {
 	float4 VertexPos = mul(inPos, WorldVertexPos);
 
-	outPos = mul(mul(VertexPos, WorldViewPos), WorldViewProj);	//’¸“_‚Æ•ÏŠ·s—ñ‚ğŠ|‚¯‚é
-	outDiff = max(inDiff, Diffuse);					//F‚ğ‹‚ß‚é
-	outTexture = inTexture;						//ƒeƒNƒXƒ`ƒƒÀ•W‚Í‚»‚Ì‚Ü‚Ü
-	outPosWorld = VertexPos;					//ƒ[ƒ‹ƒhÀ•W‚ğ‚»‚Ì‚Ü‚Üo—Í
-	outPosView = outPos;						//Ë‰e‹óŠÔ‚ğ‚»‚Ì‚Ü‚Üo—Í
+	outPos = mul(mul(VertexPos, WorldViewPos), WorldViewProj);	//é ‚ç‚¹ã¨å¤‰æ›è¡Œåˆ—ã‚’æ›ã‘ã‚‹
+	outDiff = max(inDiff, Diffuse);					//è‰²ã‚’æ±‚ã‚ã‚‹
+	outTexture = inTexture;						//ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™ã¯ãã®ã¾ã¾
+	outPosWorld = VertexPos;					//ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã‚’ãã®ã¾ã¾å‡ºåŠ›
+	outPosView = outPos;						//å°„å½±ç©ºé–“ã‚’ãã®ã¾ã¾å‡ºåŠ›
 }
 
 
-texture Tex;				//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Åg‚¤ƒeƒNƒXƒ`ƒƒ
-sampler TexSampler = sampler_state	//ƒeƒNƒXƒ`ƒƒEƒTƒ“ƒvƒ‰
+texture Tex;				//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§ä½¿ã†ãƒ†ã‚¯ã‚¹ãƒãƒ£
+sampler TexSampler = sampler_state	//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ»ã‚µãƒ³ãƒ—ãƒ©
 {
 	Texture   = (Tex);
 	MipFilter = LINEAR;
@@ -70,14 +70,14 @@ sampler TexSampler = sampler_state	//ƒeƒNƒXƒ`ƒƒEƒTƒ“ƒvƒ‰
 	MagFilter = LINEAR;
 };
 
-//ƒsƒNƒZƒ‹ƒVƒF[ƒ_[
+//ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼
 void PixelShader_Main(
-	in  float4 inDiff     : COLOR0,		//[“ü—Í] F
-	in  float2 inTexture  : TEXCOORD0,	//[“ü—Í] ƒeƒNƒXƒ`ƒƒÀ•W
-	in  float4 inWorldPos : TEXCOORD1,	//[“ü—Í] ƒ[ƒ‹ƒhÀ•W
-	in  float4 inViewPos  : TEXCOORD2,	//[“ü—Í] Ë‰e‹óŠÔ
+	in  float4 inDiff     : COLOR0,		//[å…¥åŠ›] è‰²
+	in  float2 inTexture  : TEXCOORD0,	//[å…¥åŠ›] ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
+	in  float4 inWorldPos : TEXCOORD1,	//[å…¥åŠ›] ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
+	in  float4 inViewPos  : TEXCOORD2,	//[å…¥åŠ›] å°„å½±ç©ºé–“
 
-	out float4 outDiff    : COLOR0)		//[o—Í] F
+	out float4 outDiff    : COLOR0)		//[å‡ºåŠ›] è‰²
 {
 	if( EnableTexture == true ){
 		outDiff = inDiff * tex2D(TexSampler, inTexture);
@@ -86,7 +86,7 @@ void PixelShader_Main(
 		outDiff = inDiff;
 	}
 
-	//ƒtƒHƒOŒvZ
+	//ãƒ•ã‚©ã‚°è¨ˆç®—
 	if( EnableFog == true ){
 		float fog;
 		fog = max(0.0f, (inViewPos.z - FogStart)/(FogEnd - FogStart));
