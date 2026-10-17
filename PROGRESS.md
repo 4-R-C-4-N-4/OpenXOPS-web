@@ -68,3 +68,10 @@ Luna reviewers withheld approval. Three bounded Luna correction tasks are active
 - DDS: reject either zero dimension and preserve alpha context in contact sheets. Verify manifest-format concern against canonical `build.py` (which also uses indent=1) before changing it.
 
 These are findings under verification, not claims that every reported issue is confirmed. No affected branch has been merged.
+
+### Integrated recovery gates
+
+- VFS fixes independently re-reviewed APPROVED; component merged. Parent rebuilt sanitized main and ran both VFS tests successfully (including real archive).
+- DDS/alpha fixes merged; parent ran all 32 Python tests (21 manifest/validator + 8 artgen + 3 sound), all passing. Follow-up read-only check pending. Scope remains generated, not human approved.
+- SDL remains on branch pending final re-review. Parent resolved the alleged missing-data blocker: local original data IS present at main checkout's `xopsdata/extracted`. Fresh full-game SDL build succeeded with explicit stub graphics/sound; 100 ticks each offscreen/dummy exited cleanly under sanitizers. Both SDL CTests passed. No stale-menu-delta accumulation: pump-boundary reset now implemented/tested.
+- Browser renderer and VFS game-call integration remain next; current main still uses stub rendering.
