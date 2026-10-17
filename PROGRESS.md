@@ -59,3 +59,12 @@ human listening/in-engine mix review.
 - p1-shell `065b1d0`: SDL window/input complete; backend and full-game headless/offscreen smoke tests provided. Renderer/audio still stubs.
 - fdp-w1b `2b37a3a`: DDS/alpha tooling + procedural scope complete; parent reran 6 tooling tests successfully. Scope leaves 66 required P0 slots missing.
 - Three independent read-only reviewers now run on `openai-codex/gpt-6-luna` with low reasoning. Runtime worker list confirms that exact model. Results are not merged until review and integration pass.
+
+### Review corrections in progress
+
+Luna reviewers withheld approval. Three bounded Luna correction tasks are active:
+- VFS: reject invalid above-root read paths and validate ZIP directory names before skipping them; add regression coverage. Trusted configured save-root boundary must be explicit.
+- SDL: investigate relative-motion consumption across absolute/relative polls, with regression tests and protection against stale menu movement.
+- DDS: reject either zero dimension and preserve alpha context in contact sheets. Verify manifest-format concern against canonical `build.py` (which also uses indent=1) before changing it.
+
+These are findings under verification, not claims that every reported issue is confirmed. No affected branch has been merged.
