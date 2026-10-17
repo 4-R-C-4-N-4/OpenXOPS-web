@@ -96,6 +96,12 @@ class SoundControl
 #if SOUND_ENGINE == 3
 	//[OpenXOPS-web] platform-neutral state (src/platform/*/sound-*.cpp)
 	bool useflag[MAX_LOADSOUND];	//!< 使用中のサウンド番号を管理する配列
+#ifdef OPENXOPS_SOUND_OPENAL
+	unsigned int buffers[MAX_LOADSOUND];	//!< OpenAL sample buffers
+	unsigned int sources[1][MAX_SOUNDLISTS];	//!< OpenAL source pool
+	void* device;	//!< OpenAL device
+	void* context;	//!< OpenAL context
+#endif
 	float camera_x;			//!< カメラ座標
 	float camera_y;			//!< カメラ座標
 	float camera_z;			//!< カメラ座標
