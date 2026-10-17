@@ -30,6 +30,7 @@
 //--------------------------------------------------------------------------------
 
 #include "debug.h"
+#include "platform/vfs.h"
 
 #ifdef ENABLE_DEBUGLOG
 
@@ -52,7 +53,7 @@ DebugLog::~DebugLog()
 	if( OutputFlag == true ){
 		FILE *fp;
 
-		fp = fopen(fname, "a");
+		fp = vfs_fopen(fname, "a");
 		if( fp == NULL ){ return; }
 
 		fprintf(fp, "</table>\n");
@@ -97,7 +98,7 @@ bool DebugLog::MakeLog()
 	local = localtime(&timer);
 
 
-	fp = fopen(fname, "w");
+	fp = vfs_fopen(fname, "w");
 	if( fp == NULL ){ return true; }
 
 	//ヘッダー
@@ -214,7 +215,7 @@ bool DebugLog::WriteLog(int tag, const char* title, const char* text)
 			strcpy(tagstr, "");
 	}
 
-	fp = fopen(fname, "a");
+	fp = vfs_fopen(fname, "a");
 	if( fp == NULL ){ return true; }
 
 	//現在のミリ秒

@@ -105,9 +105,8 @@ target_compile_definitions(openxops PRIVATE ${OPENXOPS_PLATFORM_DEFS})
 if(OPENXOPS_AUTOCREATECONFIG)
   target_compile_definitions(openxops PRIVATE ENABLE_AUTOCREATECONFIG)
 endif()
-if(OPENXOPS_PATH_DELIMITER_SLASH)
-  target_compile_definitions(openxops PRIVATE ENABLE_PATH_DELIMITER_SLASH)
-endif()
+# VFS must receive original CP932 bytes; blanket slash conversion can rewrite
+# a trail byte. Keep the legacy option accepted but do not define it for VFS paths.
 
 target_compile_options(openxops PRIVATE -Wall -Wextra)
 target_link_libraries(openxops PRIVATE m)
