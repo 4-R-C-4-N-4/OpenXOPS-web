@@ -37,9 +37,23 @@
 #endif
 #include "main.h"
 
-#include <windows.h>
+#ifdef _WIN32
+ #include <windows.h>
+#endif
 
-#define INPUT_INTERFACE 0	//!< @brief 入力を取得するインターフェースの選択 @details WindowsInput：0　RawInput：1　DirectInput：2
+//! @brief 入力を取得するインターフェースの選択 @details WindowsInput：0　RawInput：1　DirectInput：2　SDL（OpenXOPS-web）：3
+//! @note [OpenXOPS-web] 0～2 are Windows-only. Non-Windows targets default to 3.
+#ifndef INPUT_INTERFACE
+ #ifdef _WIN32
+  #define INPUT_INTERFACE 0
+ #else
+  #define INPUT_INTERFACE 3
+ #endif
+#endif
+
+#if (INPUT_INTERFACE <= 2) && !defined(_WIN32)
+ #error "INPUT_INTERFACE 0-2 require Windows; use 3 (SDL) on this platform"
+#endif
 
 #if INPUT_INTERFACE == 0
  #define INPUT_CORE "WindowsInput"					//!< バージョン表示用情報
@@ -56,13 +70,22 @@
  #pragma comment(lib, "dxguid.lib")
 
  #define INPUT_CORE "DirectInput"					//!< バージョン表示用情報
+#elif INPUT_INTERFACE == 3
+ #include "platform/vkcodes.h"	//[OpenXOPS-web] key ids stay Windows VK codes
+ #ifdef OPENXOPS_PLATFORM_STUB
+  #define INPUT_CORE "none (stub)"					//!< バージョン表示用情報
+ #else
+  #define INPUT_CORE "SDL"							//!< バージョン表示用情報
+ #endif
 #endif
 
 //! @brief 入力デバイスを管理するクラス
 //! @details マウスやキーボードなどの入力デバイスを管理しています。
 class InputControl
 {
+#ifdef _WIN32
 	HWND hWnd;				//!< ウィンドウハンドル
+#endif
 #if INPUT_INTERFACE == 2
 	LPDIRECTINPUT8 pDI;					//!< DIRECTINPUT8のポインタ
 	LPDIRECTINPUTDEVICE8 pDIDevice;		//!< DIRECTINPUTDEVICE8のポインタ・キーボード用

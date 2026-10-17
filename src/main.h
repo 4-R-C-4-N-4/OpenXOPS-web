@@ -34,7 +34,7 @@
 
 #define MAINICON 101		//!< Icon
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(_MSC_VER)	//[OpenXOPS-web] crtdbg.h is MSVC-only
  #define _CRTDBG_MAP_ALLOC
  #include <crtdbg.h>
 #endif
@@ -43,8 +43,10 @@
  #define H_LAYERLEVEL 3		//!< Select include file.
 #endif
 
-#pragma warning(disable:4996)		//VC++警告防止
-//#pragma warning(disable:4244)
+#ifdef _MSC_VER	//[OpenXOPS-web] MSVC-only pragma
+ #pragma warning(disable:4996)		//VC++警告防止
+ //#pragma warning(disable:4244)
+#endif
 
 //定数
 #define GAMENAME "OpenXOPS"				//!< ゲーム名
@@ -65,7 +67,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <direct.h>
+#ifdef _WIN32
+ #include <direct.h>
+#else
+ #include "platform/compat.h"	//[OpenXOPS-web] POSIX replacements for <direct.h> etc.
+#endif
 
 #define ENABLE_BUG_HUMANWEAPON			//!< 範囲外の人・武器種類番号を用いたバグを再現する（コメント化で無効）
 #define ENABLE_BUG_TEAMID				//!< チーム番号を負数に設定した際のバグを再現する（コメント化で無効）

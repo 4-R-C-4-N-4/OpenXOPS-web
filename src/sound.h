@@ -40,11 +40,31 @@
  #define H_LAYERLEVEL 1		//!< Select include file.
 #endif
 #include "main.h"
-#include <windows.h>
+#ifdef _WIN32
+ #include <windows.h>
+#endif
 
-#define SOUND_ENGINE 0		//!< @brief サウンドの再生ライブラリを選択 @details ezds.dll：0　DirectSound（2D再生）：1　DirectSound（3D再生）：2
+//! @brief サウンドの再生ライブラリを選択 @details ezds.dll：0　DirectSound（2D再生）：1　DirectSound（3D再生）：2　OpenAL（OpenXOPS-web）：3
+//! @note [OpenXOPS-web] 0～2 are Windows-only. Non-Windows targets default to 3.
+#ifndef SOUND_ENGINE
+ #ifdef _WIN32
+  #define SOUND_ENGINE 0
+ #else
+  #define SOUND_ENGINE 3
+ #endif
+#endif
 
-#if SOUND_ENGINE == 0
+#if (SOUND_ENGINE <= 2) && !defined(_WIN32)
+ #error "SOUND_ENGINE 0-2 require Windows; use 3 (OpenAL) on this platform"
+#endif
+
+#if SOUND_ENGINE == 3
+ #ifdef OPENXOPS_PLATFORM_STUB
+  #define SOUND_CORE "none (stub)"			//!< バージョン表示用情報
+ #else
+  #define SOUND_CORE "OpenAL"				//!< バージョン表示用情報
+ #endif
+#elif SOUND_ENGINE == 0
  typedef int (*FARPROCH)(HWND);					//!< DLL Parameter
  typedef int (*FARPROCCI)(const char*, int);	//!< DLL Parameter
  typedef int (*FARPROCIII)(int, int, int);		//!< DLL Parameter
@@ -73,7 +93,15 @@
 //! @details 参考資料：ezds.dllファイル(ver:0.4)解析情報　http://openxops.net/filesystem-ezds04.php
 class SoundControl
 {
-#if SOUND_ENGINE == 0
+#if SOUND_ENGINE == 3
+	//[OpenXOPS-web] platform-neutral state (src/platform/*/sound-*.cpp)
+	bool useflag[MAX_LOADSOUND];	//!< 使用中のサウンド番号を管理する配列
+	float camera_x;			//!< カメラ座標
+	float camera_y;			//!< カメラ座標
+	float camera_z;			//!< カメラ座標
+	float camera_rx;		//!< カメラX軸角度
+	float mastervolume;		//!< 音量(パーセント)
+#elif SOUND_ENGINE == 0
 	HINSTANCE lib;		//!< DLLファイルのインスタンス
 	FARPROC DSver;		//!< DSver()
 	FARPROCH DSinit;	//!< DSinit()

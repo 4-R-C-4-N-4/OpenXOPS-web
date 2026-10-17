@@ -34,7 +34,7 @@
 
 #include "main.h"
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(_WIN32)
  #include <shlwapi.h>
  #pragma comment(lib, "Shlwapi.lib")
 #endif
@@ -53,6 +53,12 @@ Config GameConfig;
 //! メインウィンドウ
 WindowControl MainWindow;
 
+//[OpenXOPS-web] The body of upstream WinMain() now lives in GameEntry(), shared by
+//WinMain() (Windows) and main() (other platforms). __argc/__argv became argc/argv;
+//the Win32-only parts (MessageBox in _DEBUG, SetParam) stay behind _WIN32.
+static int GameEntry(int argc, char **argv);
+
+#ifdef _WIN32
 //! @brief WinMain()関数
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -60,6 +66,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	UNREFERENCED_PARAMETER(hInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
+	//[OpenXOPS-web] moved up from just before InitWindow(); SetParam() only stores the two values
+	MainWindow.SetParam(hPrevInstance, nCmdShow);
+
+	return GameEntry(__argc, __argv);
+}
+#else
+//! @brief main()関数
+int main(int argc, char **argv)
+{
+	return GameEntry(argc, argv);
+}
+#endif
+
+//! @brief ゲームの起動から終了まで（旧 WinMain() の本体）
+//! @param argc 引数の数
+//! @param argv 引数
+//! @return 終了コード
+static int GameEntry(int argc, char **argv)
+{
 	char path[MAX_PATH];
 
 #ifdef ENABLE_AUTOLOADMIF
@@ -71,7 +96,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	InitRand();
 
 	//実行ファイルのある場所を、カレントディレクトリにする。
-	GetFileDirectory(__argv[0], path);
+	GetFileDirectory(argv[0], path);
 	chdir(path);
 
 #ifdef _DEBUG
@@ -80,17 +105,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	char str[255];
 	strcpy(str, "[Information]\nThe compiler is the Debug mode.\nIf release the software, Switch compiler to Release mode.");
+ #ifdef _WIN32
 	MessageBox(NULL, str, GAMENAME, MB_OK);
+ #else
+	MainWindow.ErrorInfo(str);
+ #endif
 #endif
 
 	//引数処理
 	//メモ：Windows環境なら、lpCmdLine引数とかGetCommandLine()関数でも取れますけどね・・。
 	strcpy(path, "");
-	if( __argc > 1 ){
-		for(int param=1; param<__argc; param++){
+	if( argc > 1 ){
+		for(int param=1; param<argc; param++){
 #ifdef ENABLE_DEBUGLOG
 			//"Log"が与えられていたら、ログ出力を有効化
-			if( CheckCommandParameter(__argv[param], "-Log") == true ){
+			if( CheckCommandParameter(argv[param], "-Log") == true ){
 				//ログ出力を有効化
 				OutputLog.EnableOutputLog();
 
@@ -101,24 +130,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 #ifdef ENABLE_AUTOLOADMIF
 			//"Dir"が与えられていたら、カレントディレクトリ移動
-			if( CheckCommandParameter(__argv[param], "-Dir") == true ){
-				if( (param+1) < __argc ){
-					chdir(__argv[param+1]);
+			if( CheckCommandParameter(argv[param], "-Dir") == true ){
+				if( (param+1) < argc ){
+					chdir(argv[param+1]);
 					param += 1;
 				}
 				continue;
 			}
 
 			//"NoBriefing"が与えられていたら、（.mif指定時は）ブリーフィングを省略する
-			if( CheckCommandParameter(__argv[param], "-NoBriefing") == true ){
+			if( CheckCommandParameter(argv[param], "-NoBriefing") == true ){
 				NoBriefingFlag = true;
 				continue;
 			}
 
 			//それ以外の引数ならば拡張子を判定してみる
-			if( CheckFileExtension(__argv[param], ".mif") == true ){
+			if( CheckFileExtension(argv[param], ".mif") == true ){
 				//.mifであればファイルパスとして記憶
-				strcpy(path, __argv[param]);
+				strcpy(path, argv[param]);
 			}
 #endif
 		}
@@ -143,11 +172,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	/*
 	//ログに出力
-	sprintf(infostr, "Total Parameters : %d", __argc);
+	sprintf(infostr, "Total Parameters : %d", argc);
 	OutputLog.WriteLog(LOG_CHECK, "Parameter", infostr);
-	for(int i=0; i<__argc; i++){
+	for(int i=0; i<argc; i++){
 		sprintf(infostr, "Parameter[%d]", i);
-		OutputLog.WriteLog(LOG_CHECK, infostr, __argv[i]);
+		OutputLog.WriteLog(LOG_CHECK, infostr, argv[i]);
 	}
 	*/
 
@@ -230,7 +259,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 #endif
 
 	//ウィンドウ初期化
-	MainWindow.SetParam(hPrevInstance, nCmdShow);
 	MainWindow.InitWindow(GAMENAME, GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight(), GameConfig.GetFullscreenFlag());
 
 	//基本的な初期化処理

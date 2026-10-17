@@ -39,29 +39,46 @@ class WindowControl;	//プロトタイプ宣言
 #endif
 #include "main.h"
 
-#include <windows.h>
-#include <mmsystem.h>
+#ifdef _WIN32
+ #include <windows.h>
+ #include <mmsystem.h>
+#endif
 #include <time.h>
 
-#pragma comment(lib, "winmm.lib")
+#ifdef _WIN32
+ #pragma comment(lib, "winmm.lib")
+#endif
 
 //! @brief ウィンドウ制御クラス
 //! @details ゲーム画面を表示するウィンドウを制御し管理します。
 class WindowControl
 {
+#ifdef _WIN32
 	HINSTANCE hInstance;	//!< インスタンス ハンドル
 	int nCmdShow;			//!< ウィンドウの表示状態
 	HWND hWnd;				//!< ウィンドウハンドル
 
 	static LRESULT WINAPI WindowProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+#else
+	//[OpenXOPS-web] platform-neutral state (src/platform/*/window-*.cpp)
+	int width;				//!< クライアント領域の幅
+	int height;				//!< クライアント領域の高さ
+	bool fullscreenflag;	//!< フルスクリーン表示
+	bool closeflag;			//!< CloseWindow() が要求された
+	unsigned int frames;	//!< CheckMainLoop() が「1」を返した回数
+#endif
 
 public:
 	WindowControl();
 	~WindowControl();
+#ifdef _WIN32
 	void SetParam(HINSTANCE in_hInstance, int in_nCmdShow);
+#endif
 	bool InitWindow(const char* title, int width, int height, bool fullscreen);
 	bool ChangeWindowMode(bool fullscreen);
+#ifdef _WIN32
 	HWND GethWnd();
+#endif
 	int CheckMainLoop();
 	void ErrorInfo(const char *str);
 	void CloseWindow();
@@ -80,7 +97,7 @@ int GetRand(int num);
 float Round(float r);
 
 #ifdef ENABLE_PATH_DELIMITER_SLASH
- char* ChangePathDelimiter(char *str);
+ char* ChangePathDelimiter(const char *str);	//[OpenXOPS-web] was (char *str); every caller passes const char*
 #endif
 
 #endif

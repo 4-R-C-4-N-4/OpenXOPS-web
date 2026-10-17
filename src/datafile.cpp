@@ -31,6 +31,10 @@
 
 #include "datafile.h"
 
+#ifndef _WIN32
+ #include <dirent.h>	//[OpenXOPS-web] opendir()/readdir() for AddonList::GetMIFlist()
+#endif
+
 //! @brief コンストラクタ
 DataInterface::DataInterface()
 {
@@ -1255,6 +1259,7 @@ void AddonList::GetMIFlist(const char *dir)
 {
 	if( dir == NULL ){ return; }
 
+#ifdef _WIN32
 	char SearchDIR[_MAX_PATH];
 	HANDLE hFind;
 	WIN32_FIND_DATA FindFileData;
@@ -1275,6 +1280,32 @@ void AddonList::GetMIFlist(const char *dir)
 		}
 	}
 	FindClose(hFind);
+#else
+	//[OpenXOPS-web] POSIX version of the FindFirstFile("dir\\*.mif") scan above.
+	//  - extension match is case-insensitive, like FindFirstFile on Windows;
+	//  - names are sorted case-insensitively (readdir() order is arbitrary,
+	//    NTFS returns this order), so the addon list is deterministic;
+	//  - stops at MAX_ADDONLIST and skips names that do not fit filename[]
+	//    (the Win32 path above has no bound and overflows past 128 files).
+	DIR *pDir = opendir(dir);
+	if( pDir == NULL ){ return; }
+
+	struct dirent *entry;
+	while( (entry = readdir(pDir)) != NULL ){
+		if( datas >= MAX_ADDONLIST ){ break; }
+
+		size_t len = strlen(entry->d_name);
+		if( len < 4 ){ continue; }
+		if( len >= sizeof(filename[0]) ){ continue; }
+		if( strcasecmp(&(entry->d_name[len-4]), ".mif") != 0 ){ continue; }
+
+		strcpy(filename[datas], entry->d_name);
+		datas += 1;
+	}
+	closedir(pDir);
+
+	qsort(filename, datas, sizeof(filename[0]), [](const void *a, const void *b){ return strcasecmp((const char*)a, (const char*)b); });
+#endif
 }
 
 //! @brief ミッション名を取得

@@ -1106,7 +1106,7 @@ void mainmenu::CreateOptions()
 	scrollbar_license.SetColor(d3dg->GetColorCode(0.5f,0.5f,0.5f,0.5f), d3dg->GetColorCode(0.6f,0.6f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.8f,0.25f,1.0f),
 		d3dg->GetColorCode(0.4f,0.67f,0.57f,1.0f), d3dg->GetColorCode(0.38f,0.77f,0.64f,1.0f), d3dg->GetColorCode(0.6f,0.3f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.3f,0.25f,1.0f));
 
-#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
+#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)||(GRAPHIC_ENGINE == 9)	//[OpenXOPS-web] GLES: full licence text (the short list is an OpenGL 1.1 flicker workaround)
 	//ライセンス文章
 	licenseinfo[0] = "";
 	licenseinfo[1] = "OpenXOPS";

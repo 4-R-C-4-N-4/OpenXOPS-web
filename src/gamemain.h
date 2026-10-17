@@ -82,7 +82,7 @@
  #define OPTIONS_P3_X ((GameConfig.GetScreenWidth() - OPTIONS_P3_W)/2)				//!< オプション画面 No.3　X座標
  #define OPTIONS_P3_Y (105 + (GameConfig.GetScreenHeight()-105 - OPTIONS_P3_H)/2)	//!< オプション画面 No.3　Y座標
  #define OPTIONS_P3_DATAS 1															//!< オプション画面 No.3　リンクテキストの数
-#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
+#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)||(GRAPHIC_ENGINE == 9)	//[OpenXOPS-web] GLES: full licence text (the short list is an OpenGL 1.1 flicker workaround)
  #define OPTIONS_LICENSELINE 26											//!< ライセンス文の行数
 #elif GRAPHIC_ENGINE == 8
  #define OPTIONS_LICENSELINE 6											//!< ライセンス文の行数

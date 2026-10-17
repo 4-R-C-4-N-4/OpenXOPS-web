@@ -31,6 +31,8 @@
 
 #include "window.h"
 
+#ifdef _WIN32	//[OpenXOPS-web] Win32 window backend only
+
 //! @brief コンストラクタ
 WindowControl::WindowControl()
 {
@@ -271,57 +273,6 @@ void GetOperatingEnvironment()
 }
 #endif
 
-//! @brief fps（Frames Per Second：フレームレート）計算
-//! @param getcnt fpsを取得する周期（フレーム単位）
-//! @return fps数
-float GetFps(int getcnt)
-{
-	if( getcnt <= 0 ){ return 0.0f; }
-
-	static unsigned int ptimeg = 0;
-	unsigned int nowtime;
-	static float pfps = 0.0f;
-	static int cnt = 0;
-
-	if( cnt == 0 ){
-		ptimeg = GetTimeMS();
-	}
-	if( cnt == getcnt ){
-		nowtime = GetTimeMS();
-		pfps = 1000.0f / ((nowtime - ptimeg)/getcnt);
-		cnt = 0;
-	}
-	else{
-		cnt += 1;
-	}
-
-	return pfps;
-}
-
-//! @brief fps（Frames Per Second：フレームレート）調整
-//! @return 調整を実施：true　　調整を実施せず：false
-//! @attention WindowControlクラスを初期化しないと、タイマーの精度が出ません。
-bool ControlFps()
-{
-	static unsigned int ptimec = 0;
-	unsigned int nowtime;
-	unsigned int waittime;
-
-	nowtime = GetTimeMS();
-	waittime = GAMEFRAMEMS - (nowtime - ptimec);
-	if( (0 < waittime)&&(waittime <= GAMEFRAMEMS) ){
-		//timeBeginPeriod(1);
-		Sleep(waittime);
-		//timeEndPeriod(1);
-		
-		ptimec = GetTimeMS();
-		return true;
-	}
-
-	ptimec = nowtime;
-	return false;
-}
-
 //! @brief ミリ秒単位を返す
 //! @return ミリ秒
 //! @attention WindowControlクラスを初期化しないと、タイマーの精度が出ません。
@@ -336,73 +287,7 @@ unsigned int GetTimeMS()
 	return time;
 }
 
-//! @brief 日時による文字列を取得
-//! @param str 文字列を受け取るポインタ
-void GetTimeName(char *str)
-{
-	if( str == NULL ){ return; }
+//[OpenXOPS-web] GetFps(), ControlFps(), GetTimeName(), InitRand(), GetRand(), Round() and
+//ChangePathDelimiter() are platform-neutral and were moved to platform/common.cpp.
 
-	time_t timer;
-	struct tm *local;
-
-	timer = time(NULL);
-	local = localtime(&timer);
-
-	sprintf(str, "%04d%02d%02d%02d%02d%02d", local->tm_year + 1900, local->tm_mon + 1, local->tm_mday, local->tm_hour, local->tm_min, local->tm_sec);
-}
-
-//! @brief 乱数を初期化
-void InitRand()
-{
-	srand(GetTimeMS());
-}
-
-//! @brief ランダムな整数値を返す
-//! @param num 範囲
-//! @return 0～num-1
-int GetRand(int num)
-{
-	if( num <= 0 ){ return 0; }
-
-	return rand()%num;
-
-	//return rand() / (RAND_MAX/num);
-
-	//本家XOPSのアルゴリズム？
-	//static int memory = GetTimeMS();
-	//int x;
-	//memory = memory * 214013 + 2745024;
-	//x = memory >> 16;
-	//x = x & 0x00007FFF;
-	//return x%num;
-}
-
-//! @brief 四捨五入
-//! @param r 値
-//! @return 値
-float Round(float r)
-{
-	return (r > 0.0f) ? floorf(r + 0.5f) : ceilf(r - 0.5f);
-}
-
-#ifdef ENABLE_PATH_DELIMITER_SLASH
-//! @brief パス区切り文字を変換
-//! @param *str ファイルパスのポインタ
-//! @return 新しいファイルパスのポインタ
-//! @note '\'を'/'へ置き換えます。
-char* ChangePathDelimiter(char *str)
-{
-	if( str == NULL ){ return NULL; }
-
-	static char newstr[MAX_PATH];
-	strcpy(newstr, str);
-
-	for(int i=0; i<(int)strlen(newstr); i++){
-		if( newstr[i] == '\\' ){
-			newstr[i] = '/';
-		}
-	}
-
-	return newstr;
-}
 #endif

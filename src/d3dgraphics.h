@@ -58,11 +58,30 @@
 #include "main.h"
 
 //! @brief 使用するグラフィックスコアの選択
-//! @details DirectX 9.0c（固定パイプライン）：0　DirectX 9.0c（シェーダー）：1　OpenGL 1.1：8
+//! @details DirectX 9.0c（固定パイプライン）：0　DirectX 9.0c（シェーダー）：1　OpenGL 1.1：8　OpenGL ES 3.0（OpenXOPS-web）：9
 //! @attention DirectX 9.0cのシェーダーを使う場合、"resource.rc"も編集してください。
-#define GRAPHIC_ENGINE 0
+//! @note [OpenXOPS-web] 0, 1 and 8 are Windows-only. Non-Windows targets default to 9.
+#ifndef GRAPHIC_ENGINE
+ #ifdef _WIN32
+  #define GRAPHIC_ENGINE 0
+ #else
+  #define GRAPHIC_ENGINE 9
+ #endif
+#endif
 
-#if (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
+#if (GRAPHIC_ENGINE != 9) && !defined(_WIN32)
+ #error "GRAPHIC_ENGINE 0, 1 and 8 require Windows; use 9 (GLES) on this platform"
+#endif
+
+#if GRAPHIC_ENGINE == 9
+
+#ifdef OPENXOPS_PLATFORM_STUB
+ #define GRAPHICS_CORE "none (stub)"		//!< バージョン表示用情報
+#else
+ #define GRAPHICS_CORE "OpenGL ES 3.0"		//!< バージョン表示用情報
+#endif
+
+#elif (GRAPHIC_ENGINE == 0)||(GRAPHIC_ENGINE == 1)
 
 #define BLOCKDATA_GPUMEMORY	//!< @brief ブロックデータを格納するメモリーを選択 @details 定数宣言有効：GPUメモリー　定数宣言無効（コメント化）：メインメモリー
 
@@ -291,6 +310,32 @@ class D3DGraphics
 	int StrMaxLineLen(const char *str);
 	void Start2DRender();
 	void End2DRender();
+
+#elif GRAPHIC_ENGINE == 9
+
+	//[OpenXOPS-web] platform-neutral state (src/platform/*/d3dgraphics-*.cpp)
+	int width;				//!< 幅
+	int height;				//!< 高さ
+	bool fullscreenflag;	//!< フルスクリーン表示
+	int LanguageMode;		//!< 言語選択
+	bool modeluse[MAX_MODEL];		//!< モデルの使用フラグ
+	bool textureuse[MAX_TEXTURE];	//!< テクスチャの使用フラグ
+	int texturewidth[MAX_TEXTURE];	//!< テクスチャの幅
+	int textureheight[MAX_TEXTURE];	//!< テクスチャの高さ
+	float world_x;			//!< ワールド変換の平行移動（GetWorldTransformPos用）
+	float world_y;			//!< ワールド変換の平行移動（GetWorldTransformPos用）
+	float world_z;			//!< ワールド変換の平行移動（GetWorldTransformPos用）
+
+	class BlockDataInterface* BlockDataIF;		//!< 読み込んだブロックデータを格納するクラスへのポインタ
+	int bs;										//!< ブロック数
+	int mapTextureID[TOTAL_BLOCKTEXTURE];		//!< テクスチャ番号
+
+	char TextureFontFname[_MAX_PATH];	//!< テクスチャフォントのファイル名
+	int TextureFont;				//!< テクスチャフォントのテクスチャID
+
+	bool StartRenderFlag;			//!< StartRender()関数 実行中を表すフラグ
+
+	void CleanupD3Dresource();
 
 #endif	//GRAPHIC_ENGINE
 
