@@ -110,3 +110,16 @@ is explicitly non-Windows). A second factual integration review is active.
 Parent reproduced GLES failure: every sampled pixel stays background, so
 rendering is not yet verified. A narrow Luna task is debugging that actual
 failure instead of papering over pixel assertions or sanitizer settings.
+
+### ZIP-only integration merged and verified
+
+VFS game integration re-review APPROVED. Parent merged and fixed an integration
+link omission: SDL shell test compiles debug.cpp, which now needs openxops_vfs.
+Combined sanitized CTest4/4 passes. Parent ran game100ticks from original ZIP
+with an EMPTY runtime directory: exit0, no physical data/ directory, no
+sanitizer report. Renderer remains stub, so this is data-loading verification.
+
+Audio left-channel selection is intentional original-compatibility behaviour,
+not a stereo-preservation bug; a sample-content regression is being added.
+GLES harness inspection found malformed9-float vertex records and wrong
+transformed sample coordinates; targeted correction task active.
