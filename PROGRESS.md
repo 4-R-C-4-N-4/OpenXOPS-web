@@ -422,3 +422,11 @@ an upload-free mission in browser before any deploy.
 - Blockers before deploy: STARTER ends instantly with no movement (worker
   open-fix root-causing); placeholder char.dds makes all text unreadable (worker
   open-font generating CC0 atlas from Shinonome).
+- 878f8de: merged starter team fix (mapgen now emits HUMANINFO; ab6ae9c) and CC0
+  char.dds/title.dds atlas (a5ac14a). Parent fixes: placeholder generator no longer
+  stubs maps/points (stubs made 58 fake classic missions appear), main menu demo
+  falls back to free data/menu/ when classic demo maps are absent, build cleans old
+  pack zips. Browser (no file): opening → menu shows readable text and only
+  STARTER → mission starts. Found: player falls through floor and dies, weapon NONE.
+  Note: blur pause blocked earlier workers' synthetic input — click Resume first.
+- Active: open-fix2 (floor collision/spawn/weapon), open-tex (Codex P0 textures).
