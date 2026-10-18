@@ -575,3 +575,16 @@ classic ZIP overlay loads the original opening. 161 tests pass, 0 provenance
 failures (32 pre-existing missing-P0-slot gaps unchanged). PR to main next.
 
 Deployed (run 39169667440, main 27a66fd). Live engine openxops.d21d1fc40c59f582.js matches the accepted local production build; no QA exports. Live: opening demo at correct scale with uniformed soldier; STARTER survives backing toward the closed gate, enemies render as soldiers. Known remaining: HUD weapon icon is still a checkerboard placeholder; distant sky reads mostly as horizon fog colour.
+
+### Free-pack P0 completion — active (Sonnet workers, isolated worktrees off f6086ae)
+
+Validator baseline after visual deploy: 32 FAIL "missing P0 slot", manifest
+statuses stale. Three bounded workers (deleg_0e72af80):
+- p0-weapons: procedural UV-aligned textures for m92f/de/mac10/m4/grenade,
+  bullet, soldier0 (fixes checkerboard HUD weapon icon / held guns).
+- p0-effects: blood, mflash, smoke, yakkyou DDS with soft alpha edges.
+- p0-manifest: truthful manifest statuses, source-cited "not required for
+  free pack" marking for classic-only demo maps, free-only files listed,
+  sync tool + test.
+Asset workers write PROVENANCE-ADD.jsonl sidecars; parent merges provenance,
+then browser-verifies weapons/HUD icon/effects before PR + deploy.
