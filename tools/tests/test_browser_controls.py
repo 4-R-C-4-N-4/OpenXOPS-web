@@ -43,6 +43,24 @@ class BrowserControlsTests(unittest.TestCase):
         self.assertIn("Module.browserPaused", main)
         self.assertIn("SDL_FlushEvents(SDL_KEYDOWN, SDL_MOUSEWHEEL)", (ROOT / "src/platform/sdl/input-sdl.cpp").read_text())
 
+    def test_paused_overlay_restores_cursor_and_is_easy_to_click(self):
+        page = (ROOT / "web/index.html").read_text()
+        # The OS cursor must become visible over the canvas while paused,
+        # overriding the 'cursor:none' that SDL applies while playing.
+        self.assertIn("body.paused #stage canvas{cursor:auto!important}", page)
+        self.assertIn("if(paused)canvas.style.cursor='default';else canvas.style.cursor='';", page)
+        # Resume control must be large, high-contrast, and the whole dimmed
+        # overlay must also resume on click, not just the small button.
+        self.assertIn('id="resume-overlay"', page)
+        self.assertIn("min-width:240px;min-height:64px", page)
+        self.assertIn("#resume-game:focus-visible", page)
+        self.assertIn("document.getElementById('resume-overlay').addEventListener('click'", page)
+        self.assertIn("function resumeGame()", page)
+        self.assertIn("canvas.requestPointerLock?.()", page)
+        # Automation contract: id and global flag must be unchanged.
+        self.assertIn('id="resume-game"', page)
+        self.assertIn("Module.browserPaused", page)
+
     def test_accessible_setup_dialog_and_storage_failure(self):
         page = (ROOT / "web/index.html").read_text()
         self.assertIn('id="controls-setup"', page)
