@@ -449,3 +449,38 @@ PR held pending actual STARTER ground/movement/weapon regression gate: merging
 CI onto main would automatically publish the still-unverified free starter.
 No live-game replacement claimed. Parent owns merge/deploy after recovery gates.
 
+### Free-starter recovery integration — release candidate
+
+Luna recovered9c65f327 (loadout/collision harness) and96e79b1 (16 map/sky texture
+files and validated provenance). Parent integrated them with the tested CI fix
+on isolated branch integrate/free-starter, not main.
+
+Parent browser QA found the real immediate-death cause: initial HP110, M92F
+present; enemy hits reduced HP19 then-64 in about1second while feet remained
+y0. NONE was a death/drop symptom. Generated walls5/cover2 were undersized
+against HUMAN_HEIGHT20. Rescaled source geometry/points8x and added full-height
+spawn cover; rebuilt source-authored BD1/PD1 and refreshed provenance hashes.
+Removed speculative SDL mode-transition patch (original input retained).
+
+Verified local production artifact, no selected ZIP and no QA exports:
+- STARTER alive/unpaused after30seconds, then W moved z159.92→154.72 with
+  ground-level y; M92F fired (ammo reduced). QA build separately retainedHP110.
+- Exact Downloads/xops096.zip overlay still loads Training Yard; W movement
+  and original textures/HUD verified.
+-137 tests pass, including actual engine collision harness and map-scale tests.
+  Production WASM build and allowlisted staging/original-hash guards pass.
+- README/RUNNING now describe no-file STARTER and optional classic data.
+Release review resolved: original pickup selects an empty slot (1/2), not an
+occupied slot. Real browser QA read slots[3,-1]→[3,3] on key2; a C++ test runs
+the exact production PickupWeapon body and verifies a different second weapon
+without replacing the first. No auto-pickup redesign. Fixed a buried spare
+pistol (spawn barricade overlap), changed indoor MP5 to included M4, and added
+model-presence / unobstructed-pickup tests. Updated guide and briefing.
+Canonical provenance now has one current record per path, correct rebuilt
+hashes and pinned source URLs; no provenance/known-original-match failures.
+The legacy all-missions validator still fails33 missing-P0 checks, expected
+for the unfinished starter profile (classic demo maps and placeholder skins/
+effects); not reported as a complete353-slot pack.142 tooling tests pass.
+Production build/staging pass with no QA exports. Pending final CI and deployment.
+This is an unfinished free starter prototype, not all353 asset slots or final art.
+

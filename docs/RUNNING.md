@@ -1,20 +1,21 @@
 # Play the browser preview
 
-The actual OpenXOPS engine now boots in Chromium using the original game data:
-opening → mission menu → briefing → first-person gameplay. This is an early
-compatibility preview, not the finished free-data-pack release.
+The OpenXOPS engine runs in Chromium with a bundled original free-data starter:
+opening → STARTER → briefing → first-person gameplay. No archive is needed.
+This is a prototype pack, not finished art or a replacement for all classic
+content. An optional player-supplied original ZIP adds the classic missions.
 
 ## On this development machine
 
 Open **http://127.0.0.1:8766/** while the preview server is running.
 
-1. Select `/home/ivy/Work/OpenXOPS-web/xopsdata/xops096.zip` in the file picker.
-2. Click **Start game**. The archive is read locally, not uploaded to a server.
-   After validation it is saved in IndexedDB on this browser/device. On later
-   visits just click **Start game**, without selecting the file again. Use
-   **Forget saved ZIP** on the setup screen to delete the cached copy.
+1. Leave the optional classic-data picker empty (use **Forget saved ZIP** if
+   classic data was remembered from an earlier visit).
+2. Click **Start game** to load the bundled free starter pack.
+   Alternatively select your original `xops096.zip` before starting. It is read
+   locally and remembered in IndexedDB, never uploaded to a server.
 3. Press Enter to leave the opening scene.
-4. Click **TRAINING YARD** in the mission menu.
+4. Click **STARTER** (or **TRAINING YARD** if using classic data).
 5. Left-click again on the briefing to begin.
 6. The game switches to a centred play view that fills the available window
    while preserving 4:3. Use the **Fullscreen** button underneath for fullscreen.
@@ -23,7 +24,8 @@ Open **http://127.0.0.1:8766/** while the preview server is running.
 Classic (the original default configuration): W/S forward/back, A/D strafe,
 arrow keys look, left mouse fires, Space jumps, Tab walks, Home toggles arm
 visibility, R reloads, Left Shift aims/zooms the scope, X changes fire mode,
-Z switches weapon, and 1/2 select weapon slots. A custom config may change
+Z switches weapon, and 1/2 select weapon slots. Select an empty slot before
+walking over a weapon pickup (the original pickup rule). A custom config may change
 these defaults. The optional Modern preset uses Shift for walking and right mouse for scope,
 left mouse to fire, Q to switch weapon, plus R, Space, X, G and 1/2 as shown
 in its in-game guide. Presets apply next game start; the selected value applies

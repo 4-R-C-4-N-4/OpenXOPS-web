@@ -1,9 +1,11 @@
 # OpenXOPS-web (unofficial fork)
 
 A work-in-progress port of OpenXOPS 1.080 to the browser (WebAssembly) and Linux.
-**An early browser game preview now boots the original game.** Bring your own
-`xops096.zip`; opening, mission selection and Training Yard gameplay have been
-exercised in Chromium. Japanese text and some UI rendering remain incomplete.
+**The browser preview includes an original free-data starter mission.**
+Click Start game with no file to play STARTER. The bundled pack is an early
+CC0 prototype: generated models, map textures, font/HUD and placeholder skins.
+An optional player-supplied `xops096.zip` adds the classic missions locally.
+Japanese text uses the public-domain Shinonome font.
 
 ## Play the browser preview
 
@@ -22,9 +24,11 @@ bash tools/build-playable-web.sh
 python3 -m http.server 8766 --bind 127.0.0.1 --directory build-web
 ```
 
-Open http://127.0.0.1:8766/, select your original `xops096.zip`, then click
-**Start game**. Enter skips the opening; select a mission and left-click its
-briefing to begin. The archive stays local to your browser and is not uploaded.
+Open http://127.0.0.1:8766/ and click **Start game** without selecting a file.
+Enter skips the opening; select **STARTER** and left-click its briefing to begin.
+If you want classic content instead, select your original `xops096.zip` before
+starting. A remembered classic ZIP is used until **Forget saved ZIP** removes
+it. Player archives stay local and are not uploaded.
 
 The preview uses the original OpenGL renderer via Emscripten legacy-GL
 compatibility. The experimental shader rewrite is separate and does not block
@@ -34,8 +38,8 @@ this build. Native developer builds still use stub graphics.
 - Scope and plan: [docs/SCOPE-OF-WORK.md](docs/SCOPE-OF-WORK.md)
 - Status: [PROGRESS.md](PROGRESS.md)
 - Licensing and data: [NOTICE.md](NOTICE.md). No original X operations data is
-  included. The intended default CC0 free pack is still incomplete; development
-  testing uses the player's own `xops096.zip`.
+  included. The default CC0 starter pack is playable but unfinished; it is not
+  a replacement for every classic mission, skin, effect or sound.
 
 `src/` holds UTF-8 source. Tag `upstream-1.080` preserves the original CP932
 import. The historical upstream README follows; its Windows-only instructions

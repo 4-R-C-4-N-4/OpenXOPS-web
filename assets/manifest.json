@@ -6761,7 +6761,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 1 of 5, wraps the sky box mesh. Used by the opening and menu.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {

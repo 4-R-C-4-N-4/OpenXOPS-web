@@ -44,6 +44,64 @@ def _player_spawn(points):
     return None
 
 
+class StarterProvenanceTests(unittest.TestCase):
+    def test_asset_ledger_has_one_current_record_per_path(self):
+        records = [json.loads(line) for line in (REPO_ROOT / 'assets/provenance.jsonl').read_text().splitlines() if line.strip()]
+        paths = [record['path'].replace('\\\\', '/').lower() for record in records]
+        self.assertEqual(len(paths), len(set(paths)), 'stale duplicate asset records')
+
+    def test_current_map_and_briefing_hashes_match_provenance(self):
+        import hashlib
+        records = {record['path']: record for line in (REPO_ROOT / 'assets/provenance.jsonl').read_text().splitlines() if line.strip() for record in [json.loads(line)]}
+        for slot in ('data/starter/temp.bd1','data/starter/start.pd1','data/starter/start.txt',
+                     'data/map10/temp.bd1','data/map10/op.pd1','data/menu/temp.bd1','data/menu/demo.pd1'):
+            record = records[slot]
+            self.assertEqual(record['sha256'], hashlib.sha256((REPO_ROOT / 'assets/pack' / slot).read_bytes()).hexdigest(), slot)
+            self.assertEqual(record['license'], 'CC0-1.0')
+            self.assertTrue(record.get('source_url') or record.get('prompt'), slot)
+
+
+class StarterScaleTests(unittest.TestCase):
+    def test_geometry_matches_twenty_unit_humans(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        # Engine HUMAN_HEIGHT=20 and HUMAN_MAPCOLLISION_R=2.8 (object.h).
+        north = next(b for b in doc['blocks'] if b.get('comment') == 'perimeter north wall')
+        self.assertGreaterEqual(north['max'][1] - north['min'][1], 30)
+        self.assertGreaterEqual(north['max'][0] - north['min'][0], 300)
+
+    def test_pickup_models_are_in_the_free_pack(self):
+        import re
+        doc = json.loads(STARTER_JSON.read_text())
+        parameters = (SRC_DIR / 'parameter.cpp').read_text()
+        for point in doc['points']:
+            if point['type'] != 'weapon_pickup':
+                continue
+            wid = point['weapon_id']
+            match = re.search(r'Weapon\[' + str(wid) + r'\]\.model\s*=\s*"([^"]+)"', parameters)
+            self.assertIsNotNone(match, wid)
+            model = match.group(1).removeprefix('./')
+            self.assertTrue((REPO_ROOT / 'assets/pack' / model).is_file(), model)
+
+    def test_pickups_are_not_buried_in_cover(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        for point in doc['points']:
+            if point['type'] != 'weapon_pickup':
+                continue
+            x, y, z = point['pos']; y += 0.1
+            for box in doc['blocks']:
+                lo, hi = box['min'], box['max']
+                inside = lo[0] < x < hi[0] and lo[1] < y < hi[1] and lo[2] < z < hi[2]
+                self.assertFalse(inside, (point, box.get('comment')))
+
+    def test_spawn_has_full_height_cover_from_front(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        spawn = next(p for p in doc['points'] if p['type'] == 'player_spawn')['pos']
+        cover = next(b for b in doc['blocks'] if b.get('comment') == 'spawn protective barricade')
+        self.assertGreater(cover['max'][1], spawn[1] + 20)
+        self.assertLess(cover['max'][2], spawn[2])
+        self.assertGreater(cover['max'][0] - cover['min'][0], 50)
+
+
 class StarterMapDeterminismTests(unittest.TestCase):
     """The committed .bd1/.pd1 binaries must match a fresh build from
     the committed JSON source (tools.mapgen.author.build), so the
@@ -109,11 +167,20 @@ class StarterMapContentTests(unittest.TestCase):
         self.assertTrue(zmin <= spawn.z <= zmax, "spawn.z outside map bounds")
 
     def test_player_spawn_on_or_above_floor(self):
-        # The ground slab's top face sits at y=0 (see "ground slab"
-        # block in starter_compound.json); the spawn point must not
-        # be below it.
+        # The authored slab spans y=-1..0; keep the player's feet above it.
         spawn = _player_spawn(self.pd1_file.points)
         self.assertGreaterEqual(spawn.y, 0.0)
+
+    def test_player_has_configured_nonempty_default_weapon(self):
+        # HUMANINFO resolves Human[2], whose slot 0 is the equipped M92F.
+        spawn = _player_spawn(self.pd1_file.points)
+        self.assertIsNotNone(spawn)
+        self.assertEqual(spawn.p2, 1)
+        info = next(p for p in self.pd1_file.points if p.p1 == pd1.P1_HUMANINFO and p.p4 == spawn.p2)
+        self.assertEqual((info.p2, info.p3), (2, 0))
+        parameter_cpp = (SRC_DIR / "parameter.cpp").read_text()
+        self.assertIn("Human[2].Weapon[0] = 3;", parameter_cpp)
+        self.assertIn('Weapon[3].name = "M92F"', parameter_cpp)
 
     def test_has_multiple_enemies_with_waypoints(self):
         enemies = [p for p in self.pd1_file.points if p.p1 == pd1.P1_HUMAN2 and p.p4 != 0]
@@ -202,9 +269,28 @@ class EngineLoaderProofTests(unittest.TestCase):
         if proc.returncode != 0:
             raise RuntimeError(f"link failed:\n{proc.stdout}\n{proc.stderr}")
 
+        cls.collision_binary = cls.tmpdir / 'collision_harness'
+        collision_cmd = ['g++', '-std=c++17', '-I', str(SRC_DIR),
+                         str(HARNESS_SRC_DIR / 'collision_harness.cpp'),
+                         str(SRC_DIR / 'collision.cpp')]
+        collision_cmd += [o for o in objs if Path(o).stem != 'load_harness']
+        collision_cmd += ['-lz', '-o', str(cls.collision_binary)]
+        proc = subprocess.run(collision_cmd, capture_output=True, text=True)
+        if proc.returncode != 0:
+            raise RuntimeError(f'collision harness build failed:\n{proc.stderr}')
+
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(cls.tmpdir, ignore_errors=True)
+
+    def test_starter_floor_uses_real_engine_collision(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        spawn = next(p for p in doc['points'] if p['type'] == 'player_spawn')['pos']
+        proc = subprocess.run([str(self.collision_binary), str(STARTER_BD1),
+                               *map(str, spawn)], capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn('RAY_HIT block=0 face=0', proc.stdout)
+        self.assertIn('OK', proc.stdout)
 
     def _run(self, bd1_path, pd1_path):
         proc = subprocess.run(
