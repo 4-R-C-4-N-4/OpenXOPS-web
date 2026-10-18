@@ -7,6 +7,12 @@ body{margin:0;background:#151719;color:#ddd;font:16px monospace;text-align:cente
 canvas{display:block;margin:auto;width:min(100vw,960px);height:auto}
 button,input{margin:12px;padding:10px}pre{max-height:160px;overflow:auto;text-align:left;font-size:11px}a{color:#9cf}
 #status[data-error=true]{color:#ffab91;max-width:900px;margin:16px auto}
+#stage{display:none}
+body.playing{overflow:hidden}
+body.playing #stage,#stage:fullscreen{display:flex;position:fixed;inset:0;background:#000;align-items:center;justify-content:center;flex-direction:column;z-index:10;box-sizing:border-box;padding-bottom:48px}
+#stage canvas{display:block;margin:0;outline:none;flex:none;width:auto;height:auto;max-width:none}
+.gamebar{position:absolute;bottom:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:center;gap:16px;background:#151719;color:#ddd;font-size:13px}
+.gamebar button{padding:5px 12px;margin:0}
 </style>
 <h2>OpenXOPS — browser preview</h2>
 <p>Select <strong>xops096.zip — the original X operations 0.96 game data</strong>.
@@ -20,7 +26,10 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 <input id="archive" type="file" accept=".zip">
 <button id="play" disabled>Loading engine…</button>
 <p id="status" role="status">Preparing WASM…</p>
+<div id="stage">
 <canvas id="canvas" width="640" height="480" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
+<div class="gamebar"><span>Click game for mouse · Esc releases</span><button id="fullscreen" type="button">Fullscreen</button></div>
+</div>
 <p>Click canvas to capture mouse. Esc releases it. Original key bindings apply.
 <a href="LICENSE">Engine license</a></p>
 <pre id="log"></pre>
@@ -28,7 +37,22 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 const logElement=document.getElementById('log'),play=document.getElementById('play'),
  status=document.getElementById('status'),canvas=document.getElementById('canvas');
 let engineError='', enteredMain=false;
-function reportError(message){status.textContent=message;status.dataset.error='true';}
+function reportError(message){document.body.classList.remove('playing');status.textContent=message;status.dataset.error='true';}
+function fitGame(){
+ const stage=document.getElementById('stage');
+ if(!document.body.classList.contains('playing'))return;
+ const width=stage.clientWidth,height=Math.max(1,stage.clientHeight-48);
+ const ratio=canvas.width/canvas.height;
+ const displayWidth=Math.min(width,height*ratio);
+ canvas.style.width=displayWidth+'px';canvas.style.height=(displayWidth/ratio)+'px';
+}
+window.addEventListener('resize',fitGame);
+document.addEventListener('fullscreenchange',fitGame);
+document.getElementById('fullscreen').onclick=async()=>{
+ try{if(document.fullscreenElement)await document.exitFullscreen();
+ else await document.getElementById('stage').requestFullscreen();fitGame();}
+ catch(e){console.warn('Fullscreen unavailable:',e);}
+};
 var Module={
  canvas,noInitialRun:true,
  locateFile:path=>path.endsWith('.wasm')?'__ENGINE_WASM__':path,
@@ -56,7 +80,8 @@ play.onclick=async()=>{
      reportError(Module.UTF8ToString(Module._openxops_archive_error()));
      play.disabled=false;return; // Do not enter main; another archive can be selected safely.
    }
-   status.textContent='Starting original game…';canvas.focus();
+   status.textContent='Starting original game…';
+   document.body.classList.add('playing');fitGame();canvas.focus();
    engineError='';enteredMain=true;
    const code=Module.callMain(['-Dir','/']);
    if(engineError||code){reportError(engineError||('Startup failed (exit '+code+'). Reload to retry.'));return;}

@@ -241,3 +241,13 @@ working page if template invalid. Parent tested EXACT /home/ivy/Downloads/xops09
 in Chromium with fingerprinted script3adad08bbb6b42a9: preflight function exists,
 opening renders, Enter menu, Training Yard click/briefing, gameplay, arrow look
 and W key state verified; no missing-function/data-dir error. User archive valid.
+
+### Play-view layout fix
+
+Replaced scrolling setup+fixed960px canvas with fixed full-window play stage,
+centred4:3 viewport-fit scaling and fullscreen toolbar. Renderer backing buffer
+and GL viewport remain640x480 (CSS-only resizing avoids high-DPI corner renders).
+Errors restore setup view. Parent tested exact Downloads/xops096.zip: opening
+visible/centred at1280x577, fullscreen button succeeds, resized1600x1000 atDPR2
+fits1269x952 with640x480 GL viewport and no clipped canvas. Build repackaged via
+fingerprint tool; original archive remains local.

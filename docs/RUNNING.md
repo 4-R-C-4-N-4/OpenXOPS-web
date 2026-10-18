@@ -13,7 +13,9 @@ Open **http://127.0.0.1:8766/** while the preview server is running.
 3. Press Enter to leave the opening scene.
 4. Click **TRAINING YARD** in the mission menu.
 5. Left-click again on the briefing to begin.
-6. Click the canvas to capture the mouse. Esc releases it.
+6. The game switches to a centred play view that fills the available window
+   while preserving 4:3. Use the **Fullscreen** button underneath for fullscreen.
+   Click the canvas to capture the mouse. Esc releases it.
 
 Original default controls: W/S forward/back, A/D strafe, arrow keys look,
 left mouse fire, Space jump, Tab walk, R reload, Shift scope,
