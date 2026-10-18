@@ -631,3 +631,5 @@ square picture, resume button hard to hit because the cursor is hidden.
 - Pause: worker fix-pause: visible cursor while paused, large resume button,
   click-anywhere-to-resume.
 Merged fix-font d40275f + fix-pause 5ef09a1 + fix-briefpic 748824a. Browser verified: briefing text readable, generated compound map picture, body fits above prompt; paused state shows cursor (computed cursor auto), 240x70 resume button, overlay click resumes. 194 tests, validate_pack 0 FAIL, production build 0 _qa_.
+
+Deployed (PR #5, run 39177059234, main 44fba99). Live verified: readable briefing with compound map; paused cursor visible (auto), 240px resume button.
