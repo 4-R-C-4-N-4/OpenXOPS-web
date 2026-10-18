@@ -255,10 +255,7 @@ static int GameEntry(int argc, char **argv)
 
 #ifdef __EMSCRIPTEN__
 	// Apply browser choice only after both original and extension config loaded.
-	openxops_apply_controls(EM_ASM_INT({
-		try { return localStorage.getItem('openxops-input-preset') === 'modern' ? 1 : 0; }
-		catch (e) { return 0; }
-	}));
+	openxops_apply_controls(EM_ASM_INT({ return Module.browserInputPreset === 'modern' ? 1 : 0; }));
 #endif
 
 #ifdef ENABLE_DEBUGLOG

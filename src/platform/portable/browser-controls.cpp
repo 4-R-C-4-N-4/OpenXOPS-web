@@ -2,6 +2,9 @@
 #include "config.h"
 #include <emscripten/emscripten.h>
 
+// Keycodes here are verified against Config::SetDefaultConfig; browser preset
+// changes only key assignments, not the user's native config files.
+
 extern Config GameConfig;
 
 extern "C" EMSCRIPTEN_KEEPALIVE void openxops_apply_controls(int preset)
@@ -20,7 +23,7 @@ extern "C" EMSCRIPTEN_KEEPALIVE void openxops_apply_controls(int preset)
 	GameConfig.SetKeycode(KEY_JUMP, 17);         // Space
 	GameConfig.SetKeycode(KEY_RELOAD, 49);       // R
 	GameConfig.SetKeycode(KEY_DROPWEAPON, 38);    // G
-	GameConfig.SetKeycode(KEY_ZOOMSCOPE, 19);     // right mouse
+	GameConfig.SetKeycode(KEY_ZOOMSCOPE, 20);     // Shift (same scope/zoom action as Classic)
 	GameConfig.SetKeycode(KEY_SHOTMODE, 55);      // X
 	GameConfig.SetKeycode(KEY_SWITCHWEAPON, 48);  // Q
 	GameConfig.SetKeycode(KEY_WEAPON1, 23);       // 1

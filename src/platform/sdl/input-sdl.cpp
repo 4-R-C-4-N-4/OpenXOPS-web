@@ -52,6 +52,12 @@ void Platform_SDLInputEvent(const SDL_Event& e){
         if(e.button.button == SDL_BUTTON_RIGHT) state.right = e.type == SDL_MOUSEBUTTONDOWN;
     }
 }
+#ifdef __EMSCRIPTEN__
+extern "C" EMSCRIPTEN_KEEPALIVE void openxops_reset_input(){
+    Platform_SDLResetInput();
+    SDL_FlushEvents(SDL_KEYDOWN, SDL_MOUSEWHEEL);
+}
+#endif
 InputControl::InputControl(): InitFlag(false), MouseLimitFlag(true), keys{}, keys_lt{}, mx(0), my(0), mbl(false), mbr(false), mbl_lt(false), mbr_lt(false) {}
 InputControl::~InputControl(){ DestroyInput(); }
 int InputControl::InitInput(WindowControl* w){
