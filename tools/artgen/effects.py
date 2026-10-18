@@ -80,9 +80,12 @@ def smoke_image(seed=20261018):
     px = im.load()
     for y in range(SIZE):
         for x in range(SIZE):
-            a = _radial_alpha(x, y, MAXR - 1, power=1.4)
-            if a <= 0:
+            # Fuller core than a linear cone: bullet-impact puffs are drawn tiny
+            # (objectmanager.cpp:1032) at 0.625 alpha and must still read.
+            d = math.hypot(x - CENTER, y - CENTER) / (MAXR - 1)
+            if d >= 1.0:
                 continue
+            a = 255 * (1.0 - d * d) ** 1.8
             nx, ny = x * (nlo - 1) / (SIZE - 1), y * (nlo - 1) / (SIZE - 1)
             ix, iy = int(nx), int(ny)
             fx, fy = nx - ix, ny - iy
@@ -90,10 +93,11 @@ def smoke_image(seed=20261018):
             top = noise[iy][ix] * (1 - fx) + noise[iy][ix1] * fx
             bot = noise[iy1][ix] * (1 - fx) + noise[iy1][ix1] * fx
             n = top * (1 - fy) + bot * fy
-            grey = int(round(190 + 25 * n))
-            grey = max(0, min(255, grey))
-            a = max(0, min(255, int(round(a * (1.0 + 0.15 * n)))))
-            px[x, y] = (grey, grey, grey, a)
+            # Dusty grey-brown, darker than pale walls so impacts stay visible.
+            k = 1.0 + 0.18 * n
+            col = tuple(max(0, min(255, int(round(c * k)))) for c in (150, 140, 124))
+            a = max(0, min(255, int(round(a * (1.0 + 0.25 * n)))))
+            px[x, y] = col + (a,)
     return im
 
 
