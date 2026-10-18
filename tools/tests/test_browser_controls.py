@@ -38,7 +38,7 @@ class BrowserControlsTests(unittest.TestCase):
         self.assertIn("browserPaused", page)
         self.assertIn("visibilitychange", page)
         self.assertIn("window.addEventListener('blur'", page)
-        self.assertIn("window.addEventListener('focus'", page)
+        self.assertNotIn("window.addEventListener('focus'", page)  # focus must not auto-resume
         self.assertIn("resume-game", page)
         self.assertIn("Module.browserPaused", main)
         self.assertIn("SDL_FlushEvents(SDL_KEYDOWN, SDL_MOUSEWHEEL)", (ROOT / "src/platform/sdl/input-sdl.cpp").read_text())

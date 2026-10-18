@@ -376,3 +376,16 @@ mounted via VFS, ZIP becomes optional overlay) → B authoring tools → C P0 st
 pack = first upload-free public release → D full roster → E stretch: new maps,
 campaign, in-browser editor. Official mission layouts are not remade.
 Starts after the final-polish batch is integrated.
+
+### Final polish integration (subagents now anthropic claude-sonnet-5)
+- Codex 429 killed all three Luna workers; re-dispatched on Sonnet.
+- Lifecycle merged: pause reasons (dialog/blur/hidden), input flush, Resume button.
+  Parent fix: regaining focus/visibility no longer auto-resumes (worker version
+  did, which let held W leak). Parent-verified in Training Yard with exact ZIP:
+  idle stable, held W + blur + release + focus stays paused, explicit Resume → no
+  drift; dialog close keeps blur pause.
+- Audit merged: docs/POLISH-AND-FREE-PACK-GATES.md (66 P0 missing; fdp-sfx/w1b
+  already merged).
+- Text: polish-text 9a817a7 has CP932 decode/measure/render pipeline but atlas has
+  only Latin-1, so Japanese shows boxes. Follow-up worker generating Shinonome
+  JIS X 0208 glyph atlas; not merged until legible text verified in browser.
