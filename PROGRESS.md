@@ -285,3 +285,19 @@ asset URLs work at /OpenXOPS-web/ and fullscreen viewport remains640x480.
 Root site deployment remains branch-based; tiny-games workflow/manifest left
 unchanged. Future OpenXOPS pushes deploy independently without root-site edits
 or crossrepo secrets. See docs/DEPLOYMENT.md and README live link.
+
+## Rendering cleanup and accessible controls — active
+
+Plan: docs/RENDERING-CLEANUP-PLAN.md. Baseline d3ebefd;26tooling tests pass.
+Three low-reasoning gpt-6-luna workers, isolated worktrees, cap3:
+- cleanup-reticles: reproduce/fix scoped PSG1 pixel path; only owner of active
+  portable renderer. Unscoped PSG1 absence is intentional and stays unchanged.
+- cleanup-assets: source/ZIP audit + synthetic tests + missing-asset issue ledger;
+  distinguish held/Home-disabled weapons, HUD models and world models. No shared
+  renderer edits in this task.
+- cleanup-controls: accessible key guide and explicit Modern/Classic setup preset,
+  guarded local preference, dialog focus/pointer-lock and resume behaviour.
+
+Current live preview stays unchanged until local runtime gates and independent
+review pass. Parent will integrate, rebuild packagedWASM and verify actual
+repaired states; source-only reviews do not establish rendered correctness.
