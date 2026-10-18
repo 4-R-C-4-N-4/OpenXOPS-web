@@ -13,6 +13,17 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_weapon_resources() {
     }
     return valid;
 }
+extern "C" EMSCRIPTEN_KEEPALIVE void qa_player_state() {
+    human* p=ObjMgr.GetHumanObject(ObjMgr.GetPlayerID());
+    float x,y,z,rx;p->GetPosData(&x,&y,&z,&rx);
+    int type=-1,data=-1,team=-1,selected=-1;short tag=0;
+    p->GetParamData(&type,&data,&tag,&team);
+    weapon* weapons[TOTAL_HAVEWEAPON];int ln[TOTAL_HAVEWEAPON],n[TOTAL_HAVEWEAPON];
+    p->GetWeapon(&selected,weapons,ln,n);
+    int wid=-1;
+    if(selected>=0 && selected<TOTAL_HAVEWEAPON && weapons[selected])weapons[selected]->GetParamData(&wid,nullptr,nullptr);
+    EM_ASM({Module.qaPlayer=({x:$0,y:$1,z:$2,hp:$3,dead:!!$4,type:$5,team:$6,selected:$7,weapon:$8});},x,y,z,p->GetHP(),p->GetDeadFlag(),type,team,selected,wid);
+}
 extern "C" EMSCRIPTEN_KEEPALIVE int qa_give_weapon(int id) {
     return ObjMgr.CheatNewWeapon(ObjMgr.GetPlayerID(), id) ? 1 : 0;
 }

@@ -11,14 +11,14 @@
     {
       "comment": "ground slab",
       "min": [
-        -25,
-        -1,
-        -25
+        -200.0,
+        -8.0,
+        -200.0
       ],
       "max": [
-        25,
-        0,
-        25
+        200.0,
+        0.0,
+        200.0
       ],
       "texture": "ground.bmp",
       "uv_scale": [
@@ -29,14 +29,14 @@
     {
       "comment": "perimeter north wall",
       "min": [
-        -25,
-        0,
-        -26
+        -200.0,
+        0.0,
+        -208.0
       ],
       "max": [
-        25,
-        5,
-        -25
+        200.0,
+        40.0,
+        -200.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -47,14 +47,14 @@
     {
       "comment": "perimeter east wall",
       "min": [
-        25,
-        0,
-        -25
+        200.0,
+        0.0,
+        -200.0
       ],
       "max": [
-        26,
-        5,
-        25
+        208.0,
+        40.0,
+        200.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -65,14 +65,14 @@
     {
       "comment": "perimeter west wall",
       "min": [
-        -26,
-        0,
-        -25
+        -208.0,
+        0.0,
+        -200.0
       ],
       "max": [
-        -25,
-        5,
-        25
+        -200.0,
+        40.0,
+        200.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -83,14 +83,14 @@
     {
       "comment": "perimeter south wall (left of gate)",
       "min": [
-        -25,
-        0,
-        25
+        -200.0,
+        0.0,
+        200.0
       ],
       "max": [
-        -3,
-        5,
-        26
+        -24.0,
+        40.0,
+        208.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -101,14 +101,14 @@
     {
       "comment": "perimeter south wall (right of gate)",
       "min": [
-        3,
-        0,
-        25
+        24.0,
+        0.0,
+        200.0
       ],
       "max": [
-        25,
-        5,
-        26
+        200.0,
+        40.0,
+        208.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -119,14 +119,14 @@
     {
       "comment": "building north wall",
       "min": [
-        -7,
-        0,
-        -20
+        -56.0,
+        0.0,
+        -160.0
       ],
       "max": [
-        7,
-        6,
-        -19
+        56.0,
+        48.0,
+        -152.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -137,14 +137,14 @@
     {
       "comment": "building south wall (left of doorway)",
       "min": [
-        -7,
-        0,
-        -11
+        -56.0,
+        0.0,
+        -88.0
       ],
       "max": [
-        -1.5,
-        6,
-        -10
+        -12.0,
+        48.0,
+        -80.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -155,14 +155,14 @@
     {
       "comment": "building south wall (right of doorway)",
       "min": [
-        1.5,
-        0,
-        -11
+        12.0,
+        0.0,
+        -88.0
       ],
       "max": [
-        7,
-        6,
-        -10
+        56.0,
+        48.0,
+        -80.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -173,14 +173,14 @@
     {
       "comment": "building east wall",
       "min": [
-        6,
-        0,
-        -19
+        48.0,
+        0.0,
+        -152.0
       ],
       "max": [
-        7,
-        6,
-        -11
+        56.0,
+        48.0,
+        -88.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -191,14 +191,14 @@
     {
       "comment": "building west wall",
       "min": [
-        -7,
-        0,
-        -19
+        -56.0,
+        0.0,
+        -152.0
       ],
       "max": [
-        -6,
-        6,
-        -11
+        -48.0,
+        48.0,
+        -88.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -209,14 +209,14 @@
     {
       "comment": "building interior partition (left of inner doorway)",
       "min": [
-        -6,
-        0,
-        -15
+        -48.0,
+        0.0,
+        -120.0
       ],
       "max": [
-        -1,
-        6,
-        -14
+        -8.0,
+        48.0,
+        -112.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -227,14 +227,14 @@
     {
       "comment": "building interior partition (right of inner doorway)",
       "min": [
-        1,
-        0,
-        -15
+        8.0,
+        0.0,
+        -120.0
       ],
       "max": [
-        6,
-        6,
-        -14
+        48.0,
+        48.0,
+        -112.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -245,14 +245,14 @@
     {
       "comment": "building floor",
       "min": [
-        -6,
-        -1,
-        -19
+        -48.0,
+        -8.0,
+        -152.0
       ],
       "max": [
-        6,
-        0,
-        -11
+        48.0,
+        0.0,
+        -88.0
       ],
       "texture": "floor.bmp",
       "uv_scale": [
@@ -263,14 +263,14 @@
     {
       "comment": "building roof",
       "min": [
-        -7,
-        6,
-        -20
+        -56.0,
+        48.0,
+        -160.0
       ],
       "max": [
-        7,
-        6.5,
-        -10
+        56.0,
+        52.0,
+        -80.0
       ],
       "texture": "roof.bmp",
       "uv_scale": [
@@ -281,14 +281,14 @@
     {
       "comment": "watchtower leg 1",
       "min": [
-        -18,
-        0,
-        -18
+        -144.0,
+        0.0,
+        -144.0
       ],
       "max": [
-        -17.4,
-        4,
-        -17.4
+        -139.2,
+        32.0,
+        -139.2
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -299,14 +299,14 @@
     {
       "comment": "watchtower leg 2",
       "min": [
-        -16,
-        0,
-        -18
+        -128.0,
+        0.0,
+        -144.0
       ],
       "max": [
-        -15.4,
-        4,
-        -17.4
+        -123.2,
+        32.0,
+        -139.2
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -317,14 +317,14 @@
     {
       "comment": "watchtower leg 3",
       "min": [
-        -18,
-        0,
-        -16
+        -144.0,
+        0.0,
+        -128.0
       ],
       "max": [
-        -17.4,
-        4,
-        -15.4
+        -139.2,
+        32.0,
+        -123.2
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -335,14 +335,14 @@
     {
       "comment": "watchtower leg 4",
       "min": [
-        -16,
-        0,
-        -16
+        -128.0,
+        0.0,
+        -128.0
       ],
       "max": [
-        -15.4,
-        4,
-        -15.4
+        -123.2,
+        32.0,
+        -123.2
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -353,14 +353,14 @@
     {
       "comment": "watchtower platform",
       "min": [
-        -18.5,
-        4,
-        -18.5
+        -148.0,
+        32.0,
+        -148.0
       ],
       "max": [
-        -15.5,
-        4.4,
-        -15.5
+        -124.0,
+        35.2,
+        -124.0
       ],
       "texture": "floor.bmp",
       "uv_scale": [
@@ -371,14 +371,14 @@
     {
       "comment": "watchtower rail north",
       "min": [
-        -18.5,
-        4.4,
-        -18.5
+        -148.0,
+        35.2,
+        -148.0
       ],
       "max": [
-        -15.5,
-        5.4,
-        -18.1
+        -124.0,
+        43.2,
+        -144.8
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -389,14 +389,14 @@
     {
       "comment": "watchtower rail south",
       "min": [
-        -18.5,
-        4.4,
-        -15.9
+        -148.0,
+        35.2,
+        -127.2
       ],
       "max": [
-        -15.5,
-        5.4,
-        -15.5
+        -124.0,
+        43.2,
+        -124.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -407,14 +407,14 @@
     {
       "comment": "watchtower rail west",
       "min": [
-        -18.5,
-        4.4,
-        -18.5
+        -148.0,
+        35.2,
+        -148.0
       ],
       "max": [
-        -18.1,
-        5.4,
-        -15.5
+        -144.8,
+        43.2,
+        -124.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -425,14 +425,14 @@
     {
       "comment": "watchtower rail east",
       "min": [
-        -15.9,
-        4.4,
-        -18.5
+        -127.2,
+        35.2,
+        -148.0
       ],
       "max": [
-        -15.5,
-        5.4,
-        -15.5
+        -124.0,
+        43.2,
+        -124.0
       ],
       "texture": "wall.bmp",
       "uv_scale": [
@@ -443,14 +443,14 @@
     {
       "comment": "cover crate 1",
       "min": [
-        -11,
-        0,
-        13
+        -88.0,
+        0.0,
+        104.0
       ],
       "max": [
-        -9,
-        2,
-        15
+        -72.0,
+        16.0,
+        120.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -461,14 +461,14 @@
     {
       "comment": "cover crate 2",
       "min": [
-        9,
-        0,
-        13
+        72.0,
+        0.0,
+        104.0
       ],
       "max": [
-        11,
-        2,
-        15
+        88.0,
+        16.0,
+        120.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -479,14 +479,14 @@
     {
       "comment": "cover crate 3",
       "min": [
-        -15,
-        0,
-        5
+        -120.0,
+        0.0,
+        40.0
       ],
       "max": [
-        -13,
-        2,
-        7
+        -104.0,
+        16.0,
+        56.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -497,14 +497,14 @@
     {
       "comment": "cover crate 4",
       "min": [
-        13,
-        0,
-        5
+        104.0,
+        0.0,
+        40.0
       ],
       "max": [
-        15,
-        2,
-        7
+        120.0,
+        16.0,
+        56.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -515,14 +515,14 @@
     {
       "comment": "cover crate 5",
       "min": [
-        -9,
-        0,
-        -3
+        -72.0,
+        0.0,
+        -24.0
       ],
       "max": [
-        -7,
-        2,
-        -1
+        -56.0,
+        16.0,
+        -8.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -533,14 +533,14 @@
     {
       "comment": "cover crate 6",
       "min": [
-        7,
-        0,
-        -3
+        56.0,
+        0.0,
+        -24.0
       ],
       "max": [
-        9,
-        2,
-        -1
+        72.0,
+        16.0,
+        -8.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -551,14 +551,14 @@
     {
       "comment": "cover crate 7",
       "min": [
-        -17,
-        0,
-        -7
+        -136.0,
+        0.0,
+        -56.0
       ],
       "max": [
-        -15,
-        2,
-        -5
+        -120.0,
+        16.0,
+        -40.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -569,14 +569,14 @@
     {
       "comment": "cover crate 8",
       "min": [
-        15,
-        0,
-        -7
+        120.0,
+        0.0,
+        -56.0
       ],
       "max": [
-        17,
-        2,
-        -5
+        136.0,
+        16.0,
+        -40.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -585,16 +585,16 @@
       ]
     },
     {
-      "comment": "cover crate 9",
+      "comment": "spawn protective barricade",
       "min": [
-        -1,
-        0,
-        17
+        -32.0,
+        0.0,
+        136.0
       ],
       "max": [
-        1,
-        2,
-        19
+        32.0,
+        28.0,
+        152.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -605,14 +605,14 @@
     {
       "comment": "cover crate 10",
       "min": [
-        -7,
-        0,
-        15
+        -56.0,
+        0.0,
+        120.0
       ],
       "max": [
-        -5,
-        2,
-        17
+        -40.0,
+        16.0,
+        136.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -623,14 +623,14 @@
     {
       "comment": "cover crate 11",
       "min": [
-        5,
-        0,
-        15
+        40.0,
+        0.0,
+        120.0
       ],
       "max": [
-        7,
-        2,
-        17
+        56.0,
+        16.0,
+        136.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -641,14 +641,14 @@
     {
       "comment": "cover crate 12",
       "min": [
-        -1,
-        0,
-        1
+        -8.0,
+        0.0,
+        8.0
       ],
       "max": [
-        1,
-        2,
-        3
+        8.0,
+        16.0,
+        24.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -659,14 +659,14 @@
     {
       "comment": "cover crate 13",
       "min": [
-        -21,
-        0,
-        1
+        -168.0,
+        0.0,
+        8.0
       ],
       "max": [
-        -19,
-        2,
-        3
+        -152.0,
+        16.0,
+        24.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -677,14 +677,14 @@
     {
       "comment": "cover crate 14",
       "min": [
-        19,
-        0,
-        1
+        152.0,
+        0.0,
+        8.0
       ],
       "max": [
-        21,
-        2,
-        3
+        168.0,
+        16.0,
+        24.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -695,14 +695,14 @@
     {
       "comment": "cover crate 15",
       "min": [
-        -5,
-        0,
-        7
+        -40.0,
+        0.0,
+        56.0
       ],
       "max": [
-        -3,
-        2,
-        9
+        -24.0,
+        16.0,
+        72.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -713,14 +713,14 @@
     {
       "comment": "cover crate 16",
       "min": [
-        3,
-        0,
-        7
+        24.0,
+        0.0,
+        56.0
       ],
       "max": [
-        5,
-        2,
-        9
+        40.0,
+        16.0,
+        72.0
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -735,7 +735,7 @@
       "pos": [
         0.0,
         0.0,
-        20.0
+        160.0
       ],
       "rotation": 3.14159,
       "human_type": 2,
@@ -745,9 +745,9 @@
     {
       "type": "weapon_pickup",
       "pos": [
-        2.0,
+        16.0,
         0.0,
-        18.0
+        144.0
       ],
       "weapon_id": 3,
       "ammo": 45,
@@ -756,9 +756,9 @@
     {
       "type": "weapon_pickup",
       "pos": [
-        4.0,
+        32.0,
         0.0,
-        -13.0
+        -104.0
       ],
       "weapon_id": 1,
       "ammo": 90,
@@ -767,9 +767,9 @@
     {
       "type": "waypoint",
       "pos": [
-        -12.0,
+        -96.0,
         0.0,
-        14.0
+        112.0
       ],
       "mode": 1,
       "p3": 0,
@@ -778,9 +778,9 @@
     {
       "type": "waypoint",
       "pos": [
-        -14.0,
+        -112.0,
         0.0,
-        -4.0
+        -32.0
       ],
       "mode": 1,
       "p3": 1,
@@ -789,9 +789,9 @@
     {
       "type": "waypoint",
       "pos": [
-        -3.0,
+        -24.0,
         0.0,
-        -13.0
+        -104.0
       ],
       "mode": 1,
       "p3": 2,
@@ -800,9 +800,9 @@
     {
       "type": "waypoint",
       "pos": [
-        3.0,
+        24.0,
         0.0,
-        -13.0
+        -104.0
       ],
       "mode": 1,
       "p3": 3,
@@ -811,9 +811,9 @@
     {
       "type": "waypoint",
       "pos": [
-        14.0,
+        112.0,
         0.0,
-        -4.0
+        -32.0
       ],
       "mode": 1,
       "p3": 4,
@@ -822,9 +822,9 @@
     {
       "type": "waypoint",
       "pos": [
-        12.0,
+        96.0,
         0.0,
-        14.0
+        112.0
       ],
       "mode": 1,
       "p3": 5,
@@ -833,9 +833,9 @@
     {
       "type": "human",
       "pos": [
-        -10.0,
+        -80.0,
         0.0,
-        10.0
+        80.0
       ],
       "rotation": 0.0,
       "human_type": 2,
@@ -846,9 +846,9 @@
     {
       "type": "human",
       "pos": [
-        -16.0,
+        -128.0,
         0.0,
-        -2.0
+        -16.0
       ],
       "rotation": 0.0,
       "human_type": 2,
@@ -861,7 +861,7 @@
       "pos": [
         0.0,
         0.0,
-        -13.5
+        -108.0
       ],
       "rotation": 0.0,
       "human_type": 2,
@@ -872,9 +872,9 @@
     {
       "type": "human",
       "pos": [
-        10.0,
+        80.0,
         0.0,
-        -2.0
+        -16.0
       ],
       "rotation": 0.0,
       "human_type": 2,
@@ -885,9 +885,9 @@
     {
       "type": "human",
       "pos": [
-        10.0,
+        80.0,
         0.0,
-        10.0
+        80.0
       ],
       "rotation": 0.0,
       "human_type": 2,
@@ -900,7 +900,7 @@
       "pos": [
         0.0,
         0.0,
-        -17.0
+        -136.0
       ],
       "event_id": 10,
       "p2": 0,
@@ -908,5 +908,6 @@
       "p4": 0,
       "comment": "mission goal marker in the building's inner room"
     }
-  ]
+  ],
+  "world_units_note": "Authored at 8 engine units per original design unit; HUMAN_HEIGHT=20, collision radius=2.8. Spawn barricade fully blocks initial enemy fire."
 }

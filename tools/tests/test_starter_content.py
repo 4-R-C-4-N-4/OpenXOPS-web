@@ -44,6 +44,23 @@ def _player_spawn(points):
     return None
 
 
+class StarterScaleTests(unittest.TestCase):
+    def test_geometry_matches_twenty_unit_humans(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        # Engine HUMAN_HEIGHT=20 and HUMAN_MAPCOLLISION_R=2.8 (object.h).
+        north = next(b for b in doc['blocks'] if b.get('comment') == 'perimeter north wall')
+        self.assertGreaterEqual(north['max'][1] - north['min'][1], 30)
+        self.assertGreaterEqual(north['max'][0] - north['min'][0], 300)
+
+    def test_spawn_has_full_height_cover_from_front(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        spawn = next(p for p in doc['points'] if p['type'] == 'player_spawn')['pos']
+        cover = next(b for b in doc['blocks'] if b.get('comment') == 'spawn protective barricade')
+        self.assertGreater(cover['max'][1], spawn[1] + 20)
+        self.assertLess(cover['max'][2], spawn[2])
+        self.assertGreater(cover['max'][0] - cover['min'][0], 50)
+
+
 class StarterMapDeterminismTests(unittest.TestCase):
     """The committed .bd1/.pd1 binaries must match a fresh build from
     the committed JSON source (tools.mapgen.author.build), so the
@@ -211,9 +228,28 @@ class EngineLoaderProofTests(unittest.TestCase):
         if proc.returncode != 0:
             raise RuntimeError(f"link failed:\n{proc.stdout}\n{proc.stderr}")
 
+        cls.collision_binary = cls.tmpdir / 'collision_harness'
+        collision_cmd = ['g++', '-std=c++17', '-I', str(SRC_DIR),
+                         str(HARNESS_SRC_DIR / 'collision_harness.cpp'),
+                         str(SRC_DIR / 'collision.cpp')]
+        collision_cmd += [o for o in objs if Path(o).stem != 'load_harness']
+        collision_cmd += ['-lz', '-o', str(cls.collision_binary)]
+        proc = subprocess.run(collision_cmd, capture_output=True, text=True)
+        if proc.returncode != 0:
+            raise RuntimeError(f'collision harness build failed:\n{proc.stderr}')
+
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(cls.tmpdir, ignore_errors=True)
+
+    def test_starter_floor_uses_real_engine_collision(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        spawn = next(p for p in doc['points'] if p['type'] == 'player_spawn')['pos']
+        proc = subprocess.run([str(self.collision_binary), str(STARTER_BD1),
+                               *map(str, spawn)], capture_output=True, text=True)
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn('RAY_HIT block=0 face=0', proc.stdout)
+        self.assertIn('OK', proc.stdout)
 
     def _run(self, bd1_path, pd1_path):
         proc = subprocess.run(

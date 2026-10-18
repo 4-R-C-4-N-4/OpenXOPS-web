@@ -72,20 +72,6 @@ void InputControl::DestroyInput(){
 void InputControl::SetMouseLimitFlag(bool flag){ MouseLimitFlag = flag; }
 void InputControl::GetInputState(bool relative){
     if(!InitFlag) return;
-    // [OpenXOPS-web] On an absolute(menu)->relative(gameplay) transition,
-    // SDL/the browser may have queued large xrel/yrel deltas from menu
-    // mouse interaction (clicking distant UI buttons) into state.dx/dy
-    // while we were still polling in absolute mode (which never drains
-    // them, by design -- see the comment below). Applying that stale,
-    // possibly huge delta as the *first* relative-mode look input snaps
-    // the camera pitch to an extreme angle (e.g. near-vertical) on the
-    // very first gameplay frame; holding forward then drives the player
-    // through thin floor geometry before per-frame collision can react.
-    // Drop any queued delta exactly once, right as the mode flips.
-    static bool last_relative = false;
-    if(relative && !last_relative){ state.dx = state.dy = 0; }
-    last_relative = relative;
-
     memcpy(keys_lt, keys, sizeof(keys)); memset(keys, 0, sizeof(keys));
     for(int s = 1; s < SDL_NUM_SCANCODES; ++s){
         int vk = Platform_ScancodeToVK(SDL_Scancode(s));

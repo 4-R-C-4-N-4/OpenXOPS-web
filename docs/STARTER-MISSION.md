@@ -33,20 +33,20 @@ two can never silently drift.
 A small walled compound (40 blocks, well within `MAX_BLOCKS` = 160,
 `src/datafile.h:35`):
 
-* a ground slab and a 5-unit-tall perimeter wall with a gate gap on
+* a ground slab and a 40-unit-tall perimeter wall with a gate gap on
   the south side (player entry point);
 * a single building (two rooms split by an interior partition wall
   with its own doorway), with its own floor and roof;
 * a 4-legged watchtower with a railed platform near the gate;
-* 12 crate blocks scattered through the courtyard for cover.
+* 15 crate blocks and one full-height spawn barricade for cover.
 
-Points (15 total, well within `MAX_POINTS` = 256, `src/datafile.h:39`):
+Points (15 authored plus 2 synthesized HUMANINFO records, well within `MAX_POINTS` = 256, `src/datafile.h:39`):
 
 * 1 `player_spawn` (HUMAN2, `p4=0` — the first such point becomes the
   controlled player, `objectmanager.cpp:269,1486`) just inside the
-  south gate, holding no built-in weapon (weapon pickup is placed
-  right next to it instead, matching how `objectmanager.cpp:384-399`
-  resolves WEAPON points independently of the player's own loadout);
+  south gate, holding an M92F via Human[2]'s loadout. When only one weapon
+  slot is populated, the engine selects that usable slot; nearby pickups
+  remain independent WEAPON points;
 * 2 `weapon_pickup` points: an **M92F** pistol (`weapon_id=3`, per
   `src/parameter.cpp:606` — `Weapon[3].name = "M92F"`) near the gate,
   and an **MP5** SMG (`weapon_id=1`, `src/parameter.cpp:536`) inside
@@ -64,6 +64,22 @@ Points (15 total, well within `MAX_POINTS` = 256, `src/datafile.h:39`):
   this); engine-side event handling for p1=10 is being built in
   parallel per the task brief, so this point is a grounded placeholder
   consistent with the documented range, not a guessed payload.
+
+### Engine-scale and survivable-spawn correction
+
+Engine humans are 20 units tall (`src/object.h:HUMAN_HEIGHT`), with a 2.8-unit
+collision radius. The initial authored design used 5-unit walls and 2-unit
+crates: it was undersized, not evidence that its floor collision was broken.
+Parent QA readback showed HP 110 -> 19 -> -64 in about a second while feet
+stayed at y=0. The M92F was present initially; NONE appeared after death/drop.
+
+The starter JSON now uses eight engine units per initial design unit. The
+spawn barricade is wide and taller than a standing human. Production browser
+verification (no ZIP and no QA exports): survived 30 seconds; W moved camera
+z159.92 ->154.72 with ground-level feet; M92F fired and the ammo count fell.
+QA-build readback independently retained HP110 after 30 seconds. The real
+engine collision harness is run from the test suite, not only manually.
+This is a starter prototype, not a completed campaign/balance pass.
 
 ### Bug fix: mission ended instantly with no player control
 
