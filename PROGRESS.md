@@ -217,3 +217,15 @@ claim. No original assets or derived screenshots shipped. Independent Luna
 critical-runtime/privacy review pending; local server running for user testing.
 
 Browser preview Luna review completed: no critical runtime/privacy blocker found. Local archive is read into browser memory/VFS only; no upload endpoint or asset publication path. Static screen lifetimes and browser-yielding loop reviewed. Japanese placeholder text remains a known limitation.
+
+### Archive-selection startup fix
+
+Reproduced exact missing-data error by selecting Downloads/1.080-src.zip;
+old launcher falsely showed Game running. This reproduces the user's symptom,
+not proof of which ZIP they selected. Added real VFS/CRC archive preflight and
+required representative game files before main, descriptive missing-data errors,
+retry without restarting, original-game download link, and startup exit/error
+handling. Chromium: source ZIP rejected with explanation and retry enabled;
+selecting verified xops096.zip on same page then boots original opening scene.
+Three synthetic regressions (wrong->correct retry, wrapping folder, corrupt ZIP)
+and existing21tests pass (24 total). WASM rebuilt; RUNNING.md explains archives.

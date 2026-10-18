@@ -82,6 +82,20 @@ been exhaustively verified. Do not interpret successful boot as full parity.
   engine. The CC0 replacement pack is incomplete.
 - No public hosted game release is claimed by this local preview guide.
 
+## Wrong ZIP / “Data directory not exist”
+
+`1.080-src.zip` contains source code and `1.080.zip` contains the OpenXOPS
+engine; neither substitutes for the original game data. Choose `xops096.zip`.
+On this machine a verified copy is at
+`/home/ivy/Work/OpenXOPS-web/xopsdata/xops096.zip`.
+
+The launcher now checks the selected archive using the engine's real ZIP/VFS
+loader before entering the game. Missing representative files or damaged ZIPs
+produce an actionable message and allow another selection without reloading.
+A single common wrapping folder is supported. It no longer announces “Game
+running” after an ordinary startup error. The legacy-GL emulation warning is
+expected and is unrelated to missing game data.
+
 ## Native developer checks
 
 The native CMake build still uses stub graphics; it is not the playable browser
