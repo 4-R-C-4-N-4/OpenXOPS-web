@@ -1,0 +1,2 @@
+# Font/HUD atlas and model UV preview tests. Keep local and Actions tests aligned.
+Pillow==12.3.0
