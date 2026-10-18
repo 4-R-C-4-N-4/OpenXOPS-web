@@ -150,8 +150,23 @@ exposes a raw `p1..p4` escape hatch for events rather than guessing.
   id, `p3` nonzero enables an extra map-collision snap, `p4` passed
   through but not decoded further by the lines read.
 * **HUMANINFO** (`objectmanager.cpp:1448-1465,1495`): `p2` = human type
-  id; a plain HUMAN point looks up its companion HUMANINFO point to
-  resolve type/texture (foreign-key style, via `SearchPointdata`).
+  id; a HUMAN/HUMAN2 point looks up its companion HUMANINFO point via
+  a **`p1==HUMANINFO && p4==(the HUMAN point's own p2)`** search
+  (`objectmanager.cpp:1465`'s mask `0x01+0x08`, i.e. match on `p1` and
+  `p4` — **not** `p2`-to-`p2`), to resolve the real model (`p2`) and,
+  critically, the **team** (`p3`, used via `AddHumanIndex(pointdata,
+  pointdata, bool)`, `objectmanager.cpp:215`). Without a matching
+  HUMANINFO point, `AddHumanIndex` falls back to its "mystery human"
+  path (`objectmanager.cpp:1468-1491`) which hardcodes `TeamID=0` for
+  *every* human — this was the root cause of a real bug where the
+  starter mission's player and enemies all ended up on team 0 and
+  `ObjectManager::CheckGameOverorComplete` (`objectmanager.cpp:2575`)
+  declared "mission complete" on the first frame (see
+  `docs/STARTER-MISSION.md`'s "Bug fix" section). `author.py`'s
+  `_synthesize_human_info()` now auto-generates these companion
+  points for every `player_spawn`/`human` entry so authors never have
+  to think about this by hand; `human_type` in the JSON schema still
+  means the model id passed to `HUMANINFO.p2`.
 
 ## Author JSON schema
 
@@ -201,8 +216,8 @@ as the box-face names above) giving raw file-slot `u`/`v` (see the
 
 | `type` | Required fields | Maps to |
 |---|---|---|
-| `player_spawn` | `pos` | HUMAN2, `p4=0` |
-| `human` | `pos`, `team` (≠0) | HUMAN2, `p4=team` |
+| `player_spawn` | `pos` | HUMAN2, `p4=0` (+ auto-synthesized HUMANINFO) |
+| `human` | `pos`, `team` (≠0) | HUMAN2, `p4=team` (+ auto-synthesized HUMANINFO) |
 | `weapon_pickup` | `pos`, `weapon_id` | WEAPON |
 | `waypoint` | `pos` | AIPATH |
 | `small_object` | `pos`, `object_type` | SMALLOBJ |

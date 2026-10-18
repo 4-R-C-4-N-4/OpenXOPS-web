@@ -11,7 +11,7 @@ source citations).
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 from . import bd1, pd1
 
@@ -98,6 +98,11 @@ def _build_point(entry: Dict[str, Any]) -> pd1.Point:
 
     if kind == "player_spawn":
         # HUMAN2 with p4=0 is the controlled player (objectmanager.cpp:269,1486).
+        # p2 here is still the *authored* human_type; _synthesize_human_info()
+        # rewrites it to a HUMANINFO foreign key after all points are built
+        # (objectmanager.cpp:1461-1498 requires a HUMANINFO companion for the
+        # real in-game team, or every human silently gets TeamID=0 -- see
+        # that function's docstring for the bug this fixes).
         return pd1.Point(x, y, z, r, p1=pd1.P1_HUMAN2,
                           p2=entry.get("human_type", 0),
                           p3=entry.get("ai_path", 0),
@@ -148,17 +153,69 @@ def _build_point(entry: Dict[str, Any]) -> pd1.Point:
     raise AuthorError(f"unknown point type {kind!r}")
 
 
-_HUMAN2_KIND_BY_P4 = None  # placeholder for readability; see _point_to_json
+def _synthesize_human_info(points: List[pd1.Point]) -> List[pd1.Point]:
+    """Give every HUMAN2 point a HUMANINFO companion point.
+
+    Without one, ``ObjectManager::AddHumanIndex``'s point-list scan
+    (objectmanager.cpp:1461-1498) fails its
+    ``SearchPointdata(..., POINT_P1TYPE_HUMANINFO, ..., data.p2, ...)``
+    lookup (datafile.h's mask-0x01|0x08 search matches on p1 AND p4,
+    so it is really keyed by "HUMANINFO.p4 == HUMAN2.p2") and falls
+    into the "mystery human" fallback (objectmanager.cpp:1468-1491),
+    which calls ``AddHumanIndex(..., TeamID=0, ...)`` with a
+    **hardcoded** team of 0 for every human regardless of the
+    authored ``team``/p4 value. That made every spawned human
+    (player and all enemies alike) share team 0, so
+    ``ObjectManager::CheckGameOverorComplete`` (objectmanager.cpp:2575)
+    counted zero enemies and returned "mission complete" on the very
+    first frame -- the root cause of the starter mission ending
+    immediately with no player control.
+
+    This rewrites each HUMAN2 point's ``p2`` (previously the raw,
+    author-facing ``human_type``) into a synthesized HUMANINFO foreign
+    key, and appends one HUMANINFO point per distinct
+    (human_type, team) pair: HUMANINFO.p2 = human_type (model id into
+    ``ParameterInfo::Human[]``, parameter.cpp), HUMANINFO.p3 = team
+    (the real team used by ``AddHumanIndex(pointdata, pointdata, bool)``
+    at objectmanager.cpp:215, via ``SetParamData(infodata.p2, ...,
+    infodata.p3, true)``), HUMANINFO.p4 = the synthesized key.
+    """
+    key_to_id: Dict[Any, int] = {}
+    next_id = 1
+    extra: List[pd1.Point] = []
+    out: List[pd1.Point] = []
+    for p in points:
+        if p.p1 == pd1.P1_HUMAN2:
+            key = (p.p2, p.p4)
+            if key not in key_to_id:
+                if not (-128 <= next_id <= 127):
+                    raise AuthorError("too many distinct human_type/team "
+                                       "combinations for HUMANINFO ids (max 255)")
+                key_to_id[key] = next_id
+                human_type, team = key
+                extra.append(pd1.Point(p.x, p.y, p.z, 0.0, p1=pd1.P1_HUMANINFO,
+                                        p2=human_type, p3=team, p4=next_id))
+                next_id += 1
+            out.append(pd1.Point(p.x, p.y, p.z, p.r, p1=p.p1,
+                                  p2=key_to_id[key], p3=p.p3, p4=p.p4))
+        else:
+            out.append(p)
+    return out + extra
 
 
-def _point_to_json(p: pd1.Point) -> Dict[str, Any]:
+def _point_to_json(p: pd1.Point, info_by_id: Optional[Dict[int, pd1.Point]] = None) -> Dict[str, Any]:
     pos = [p.x, p.y, p.z]
     if p.p1 == pd1.P1_HUMAN2:
+        # p.p2 is a HUMANINFO foreign key (see _synthesize_human_info);
+        # resolve the authored human_type back out of its companion
+        # point when one was found, else fall back to the raw value.
+        info = (info_by_id or {}).get(p.p2)
+        human_type = info.p2 if info is not None else p.p2
         if p.p4 == 0:
             return {"type": "player_spawn", "pos": pos, "rotation": p.r,
-                    "human_type": p.p2, "ai_path": p.p3}
+                    "human_type": human_type, "ai_path": p.p3}
         return {"type": "human", "pos": pos, "rotation": p.r,
-                "human_type": p.p2, "ai_path": p.p3, "team": p.p4}
+                "human_type": human_type, "ai_path": p.p3, "team": p.p4}
     if p.p1 == pd1.P1_WEAPON:
         return {"type": "weapon_pickup", "pos": pos, "rotation": p.r,
                 "weapon_id": p.p2, "ammo": p.p3, "p4": p.p4}
@@ -194,6 +251,7 @@ def build(doc: Dict[str, Any]) -> BuildResult:
     bd1_file = bd1.BD1File(textures=textures, blocks=blocks)
 
     points = [_build_point(p) for p in doc.get("points", [])]
+    points = _synthesize_human_info(points)
     pd1_file = pd1.PD1File(points=points)
 
     return BuildResult(bd1_bytes=bd1.dumps(bd1_file), pd1_bytes=pd1.dumps(pd1_file))
@@ -210,4 +268,10 @@ def dump_bd1(data: bytes) -> Dict[str, Any]:
 
 def dump_pd1(data: bytes) -> Dict[str, Any]:
     f = pd1.loads(data)
-    return {"schema": SCHEMA_VERSION, "points": [_point_to_json(p) for p in f.points]}
+    # HUMANINFO points are synthesized companions (see
+    # _synthesize_human_info); resolve HUMAN2 points through them and
+    # drop them from the decompiled JSON so round-tripping through
+    # author.build() reproduces the same authored input and bytes.
+    info_by_id = {p.p4: p for p in f.points if p.p1 == pd1.P1_HUMANINFO}
+    points = [_point_to_json(p, info_by_id) for p in f.points if p.p1 != pd1.P1_HUMANINFO]
+    return {"schema": SCHEMA_VERSION, "points": points}
