@@ -40,8 +40,11 @@ def stage(build, destination):
         raise ValueError('Expected exactly one fingerprinted engine script and WASM reference')
     if scripts[0].split('.')[1] != wasm[0].split('.')[1]:
         raise ValueError('Engine fingerprints differ')
-    if '_qa_reticle_pixels' in (build / scripts[0]).read_text():
-        raise ValueError('Refusing to publish a diagnostic/test-hook engine build')
+    engine_js = (build / scripts[0]).read_text()
+    if '_qa_' in engine_js:
+        raise ValueError(
+            'Refusing to publish a diagnostic/test-hook engine build '
+            '(engine JS exports a _qa_* QA hook symbol)')
     packs = re.findall(r'(openxops-data\.[0-9a-f]{16}\.zip)', html)
     if len(set(packs)) != 1:
         raise ValueError('Expected exactly one data-pack zip reference')

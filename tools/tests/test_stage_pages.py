@@ -88,6 +88,24 @@ class StagePagesTests(unittest.TestCase):
             finally:
                 stage_pages._original_md5s = real_lookup
 
+    def test_rejects_engine_js_with_qa_hook_export(self):
+        with tempfile.TemporaryDirectory() as t:
+            root = Path(t)
+            build = root / 'build-web'
+            _write_build(build)
+            fp = 'cafebabecafebabe'
+            js_name = f'openxops.{fp}.js'
+            # Simulate a build compiled with OPENXOPS_TEST_HOOKS=1 leaking
+            # into the engine JS via an exported QA hook wrapper.
+            (build / js_name).write_text(
+                '// engine js\nvar _qa_pose_preview = Module["_qa_pose_preview"];\n')
+            (root / 'NOTICE.md').write_text('notice')
+            real_originals = stage_pages._original_md5s()
+            stage_pages._original_md5s = lambda: real_originals
+            stage_pages.ROOT = root
+            with self.assertRaises(ValueError):
+                stage_pages.stage(build, root / 'build-pages')
+
     def test_reference_json_shape_is_readable(self):
         data = json.loads((stage_pages.ROOT / 'tools/manifest/xops096_reference.json').read_text())
         self.assertIn('files', data)
