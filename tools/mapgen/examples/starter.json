@@ -58,7 +58,7 @@
       "type": "player_spawn",
       "pos": [0.0, 0.0, 10.0],
       "rotation": 3.14159,
-      "human_type": 0,
+      "human_type": 2,
       "ai_path": 0
     },
     {

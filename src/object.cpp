@@ -414,6 +414,23 @@ void human::SetWeapon(class weapon *in_weapon[], int nlnbs[], int nnbs[])
 		noweapon_loadbullets[i] = nlnbs[i];
 		noweapon_bullets[i] = nnbs[i];
 	}
+
+	//[OpenXOPS-web] 選択中の武器スロットが未所持(NULL)なら、所持している
+	//最初のスロットに切り替える。AddHumanIndex()はHUMANINFO経由で武器を
+	//設定する際、スロット1(武器A)はPOINT_P1TYPE_HUMAN点のみ設定され、
+	//HUMAN2点(controller pointで使われることが多い)ではスロット0(武器B)
+	//のみが設定される。selectweaponの初期値は1固定(コンストラクタ)のため、
+	//スロット0だけ持っている人物はこのままでは「武器なし(NONE)」表示に
+	//なってしまう。実際に持っている武器があるなら、それを表示・使用でき
+	//るようにする。
+	if( weapon[selectweapon] == NULL ){
+		for(int i=0; i<TOTAL_HAVEWEAPON; i++){
+			if( weapon[i] != NULL ){
+				selectweapon = i;
+				break;
+			}
+		}
+	}
 }
 
 //! @brief 武器を拾う

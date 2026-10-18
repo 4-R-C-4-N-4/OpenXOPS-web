@@ -39,3 +39,12 @@ unsigned int Get2ByteLittleEndian(unsigned char *indata) {
     if (indata == NULL) { return 0; }
     return (unsigned int)(((indata[1] << 8) & 0xFF00) + ((indata[0] << 0) & 0x00FF));
 }
+
+// Exact copy of src/main.cpp:391-397's angle-wrap math, needed because
+// collision.cpp's CheckTargetAngle() calls it and we don't link main.cpp.
+#include <cmath>
+float AngleNormalization(float r) {
+    for (; r > (float)M_PI; r -= (float)M_PI * 2) {}
+    for (; r < (float)M_PI * -1; r += (float)M_PI * 2) {}
+    return r;
+}
