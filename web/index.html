@@ -15,6 +15,8 @@ body.playing #stage,#stage:fullscreen{display:flex;position:fixed;inset:0;backgr
 .gamebar button{padding:5px 12px;margin:0}
 #setup-controls{display:inline-flex;align-items:center;gap:8px;margin:8px}
 #setup-controls select{padding:8px;background:#202427;color:#eee;font:inherit}
+#resume-game{display:none;position:fixed;z-index:30;top:50%;left:50%;transform:translate(-50%,-50%);font:16px monospace}
+body.paused #resume-game{display:block}
 #controls-dialog{max-width:560px;background:#202427;color:#eee;border:1px solid #8aa;padding:20px;text-align:left;font:16px/1.5 monospace}
 #controls-dialog::backdrop{background:#000b}
 #controls-dialog h2{margin-top:0}
@@ -38,6 +40,7 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 <p>The validated ZIP is remembered on this browser/device. Clearing site data or using private browsing can remove it. <strong>Forget saved ZIP</strong> deletes the saved copy.</p>
 <p id="saved-archive" role="status"></p>
 <p id="status" role="status">Preparing WASM…</p>
+<button id="resume-game" type="button" aria-label="Resume game">Resume game</button>
 <div id="stage">
 <canvas id="canvas" width="640" height="480" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
 <div class="gamebar"><span>Click game for mouse · Esc releases</span><button id="controls" type="button">Controls</button><button id="fullscreen" type="button">Fullscreen</button></div>
@@ -55,16 +58,30 @@ function loadPreset(){try{const saved=localStorage.getItem('openxops-input-prese
 function savePreset(value){try{localStorage.setItem('openxops-input-preset',value);return true;}catch(_){return false;}}
 let selectedPreset=loadPreset();presetSelect.value=selectedPreset;
 window.browserSelectedPreset=selectedPreset;
-Module=window.Module||{};Module.browserInputPreset=selectedPreset;
-presetSelect.addEventListener('change',()=>{selectedPreset=presetSelect.value==='modern'?'modern':'classic';window.browserSelectedPreset=selectedPreset;Module.browserInputPreset=selectedPreset;const saved=savePreset(selectedPreset);status.textContent=saved?'Preset saved; it applies on the next game start.':'Preset selected for this page; browser storage is unavailable, so it will not persist after reload.';});
+Module=window.Module||{};Module.browserInputPreset=selectedPreset;Module.browserPaused=false;
+const pauseReasons=new Set();
 function resetGameInput(){if(typeof Module._openxops_reset_input==='function')Module._openxops_reset_input();}
-function showControls(event){controlsOpener=event.currentTarget;const modern=selectedPreset==='modern';document.getElementById('controls-description').textContent=modern?'Selected preset: Modern. Move with W/A/S/D; left mouse button fires; R reloads; Space jumps; Shift walks; right mouse aims/zooms the scope; Q switches weapon; X changes fire mode; G drops weapon; 1 and 2 select weapon slots; Home toggles arms/held-weapon visibility. Arrow keys turn the camera. This preset applies on the next game start, not immediately.':'Selected preset: Classic. Original default bindings (a custom config may differ): W/S/A/D move; Tab walks; Home toggles arms/held-weapon visibility; Space jumps; R reloads; Left Shift aims/zooms the scope; X changes fire mode; Z switches weapon; 1 and 2 select weapon slots; left mouse button fires. Arrow keys turn the camera. This preset applies on the next game start, not immediately.';if(document.body.classList.contains('playing'))resetGameInput();document.exitPointerLock?.();if(!controlsDialog.open)controlsDialog.showModal();document.getElementById('close-controls').focus();}
+function syncPauseState(){const paused=pauseReasons.size>0;Module.browserPaused=paused;document.body.classList.toggle('paused',paused);}
+// Pause reasons stack (dialog, hidden tab, window blur); closing one reason
+// (e.g. the controls dialog) must not resume play while another (e.g. focus
+// loss) is still active. Reset happens on entering pause so nothing queued
+// during the pause can move/fire once the user explicitly resumes.
+function addPauseReason(reason){if(!document.body.classList.contains('playing'))return;if(pauseReasons.has(reason))return;pauseReasons.add(reason);resetGameInput();document.exitPointerLock?.();syncPauseState();}
+function removePauseReason(reason){pauseReasons.delete(reason);syncPauseState();}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)addPauseReason('hidden');else removePauseReason('hidden');});
+window.addEventListener('blur',()=>addPauseReason('blur'));
+window.addEventListener('focus',()=>removePauseReason('blur'));
+document.getElementById('resume-game').addEventListener('click',()=>{if(document.hidden||!document.hasFocus())return;pauseReasons.clear();syncPauseState();canvas.focus();});
+presetSelect.addEventListener('change',()=>{selectedPreset=presetSelect.value==='modern'?'modern':'classic';window.browserSelectedPreset=selectedPreset;Module.browserInputPreset=selectedPreset;const saved=savePreset(selectedPreset);status.textContent=saved?'Preset saved; it applies on the next game start.':'Preset selected for this page; browser storage is unavailable, so it will not persist after reload.';});
+function showControls(event){controlsOpener=event.currentTarget;const modern=selectedPreset==='modern';document.getElementById('controls-description').textContent=modern?'Selected preset: Modern. Move with W/A/S/D; left mouse button fires; R reloads; Space jumps; Shift walks; right mouse aims/zooms the scope; Q switches weapon; X changes fire mode; G drops weapon; 1 and 2 select weapon slots; Home toggles arms/held-weapon visibility. Arrow keys turn the camera. This preset applies on the next game start, not immediately.':'Selected preset: Classic. Original default bindings (a custom config may differ): W/S/A/D move; Tab walks; Home toggles arms/held-weapon visibility; Space jumps; R reloads; Left Shift aims/zooms the scope; X changes fire mode; Z switches weapon; 1 and 2 select weapon slots; left mouse button fires. Arrow keys turn the camera. This preset applies on the next game start, not immediately.';addPauseReason('dialog');if(!controlsDialog.open)controlsDialog.showModal();document.getElementById('close-controls').focus();}
 function closeControls(){if(controlsDialog.open)controlsDialog.close();}
 document.getElementById('controls').addEventListener('click',showControls);
 document.getElementById('controls-setup').addEventListener('click',showControls);
 document.getElementById('close-controls').addEventListener('click',closeControls);
 controlsDialog.addEventListener('cancel',event=>{event.preventDefault();closeControls();});
-controlsDialog.addEventListener('close',()=>{if(document.body.classList.contains('playing'))resetGameInput();if(controlsOpener?.isConnected)controlsOpener.focus();});
+// Closing the dialog only lifts the 'dialog' pause reason; if a focus-loss
+// reason is still active the game stays paused until the user resumes it.
+controlsDialog.addEventListener('close',()=>{removePauseReason('dialog');if(controlsOpener?.isConnected)controlsOpener.focus();});
 for(const type of ['keydown','keyup','keypress'])controlsDialog.addEventListener(type,event=>{event.stopPropagation();});
 const savedLabel=document.getElementById('saved-archive'),forget=document.getElementById('forget');
 let savedArchive=null;

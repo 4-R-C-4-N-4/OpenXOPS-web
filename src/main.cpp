@@ -311,7 +311,7 @@ static int GameEntry(int argc, char **argv)
  emscripten_set_main_loop([](){
    static unsigned int framecnt=0;
    static double last=0;
-   if(EM_ASM_INT({ return !!document.getElementById('controls-dialog')?.open; })) return;
+   if(EM_ASM_INT({ return !!Module.browserPaused; })) return;
    double now=emscripten_get_now();
    if(now-last<GAMEFRAMEMS)return;
    last=now;
