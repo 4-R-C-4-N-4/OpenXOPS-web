@@ -113,17 +113,26 @@ def tapered_box(
     bw, bd = base_size
     tx, ty, tz = top_center
     tw, td = top_size
+    # Rings span the plane perpendicular to the center-to-center axis. Limb
+    # generators pass equal Y coordinates and separated Z coordinates, so
+    # choose a Y-oriented cross-section for their longitudinal -Z axis.
+    axis = (tx - bx, ty - by, tz - bz)
+    longitudinal = max(range(3), key=lambda i: abs(axis[i]))
+    transverse = [i for i in range(3) if i != longitudinal]
     m = Mesh()
     center = ((bx + tx) / 2, (by + ty) / 2, (bz + tz) / 2)
 
-    b_fl = (bx - bw / 2, by, bz - bd / 2)
-    b_fr = (bx + bw / 2, by, bz - bd / 2)
-    b_br = (bx + bw / 2, by, bz + bd / 2)
-    b_bl = (bx - bw / 2, by, bz + bd / 2)
-    t_fl = (tx - tw / 2, ty, tz - td / 2)
-    t_fr = (tx + tw / 2, ty, tz - td / 2)
-    t_br = (tx + tw / 2, ty, tz + td / 2)
-    t_bl = (tx - tw / 2, ty, tz + td / 2)
+    def ring(cx, cy, cz, width, depth):
+        points = []
+        for s0, s1 in ((-1, -1), (1, -1), (1, 1), (-1, 1)):
+            p = [cx, cy, cz]
+            p[transverse[0]] += s0 * width / 2
+            p[transverse[1]] += s1 * depth / 2
+            points.append(tuple(p))
+        return points
+
+    b_fl, b_fr, b_br, b_bl = ring(bx, by, bz, bw, bd)
+    t_fl, t_fr, t_br, t_bl = ring(tx, ty, tz, tw, td)
 
     faces = {
         "front": [t_fl, t_fr, b_fr, b_fl],

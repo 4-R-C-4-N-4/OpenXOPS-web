@@ -209,6 +209,19 @@ class PrimitiveWindingTests(unittest.TestCase):
         bad = check_x.check_winding({"verts": m.verts, "faces": m.faces})
         self.assertEqual(bad, [])
 
+    def test_tapered_box_with_z_axis_is_a_solid(self):
+        uv = {k: (0, 0, 1, 1) for k in ("front", "back", "left", "right", "top", "bottom")}
+        m = primitives.tapered_box((0, 0, 0), (1, 1), (0, 0, -1), (0.8, 0.8), uv)
+        self.assertGreater(max(v[2] for v in m.verts) - min(v[2] for v in m.verts), 0.9)
+        self.assertEqual(check_x.check_winding({"verts": m.verts, "faces": m.faces}), [])
+        self.assertGreater(abs(sum(
+            m.verts[f[0]][0] * (m.verts[f[1]][1] * m.verts[f[2]][2] - m.verts[f[1]][2] * m.verts[f[2]][1])
+            + m.verts[f[1]][0] * (m.verts[f[2]][1] * m.verts[f[3]][2] - m.verts[f[2]][2] * m.verts[f[3]][1])
+            + m.verts[f[2]][0] * (m.verts[f[3]][1] * m.verts[f[0]][2] - m.verts[f[3]][2] * m.verts[f[0]][1])
+            + m.verts[f[3]][0] * (m.verts[f[0]][1] * m.verts[f[1]][2] - m.verts[f[0]][2] * m.verts[f[1]][1])
+            for f in m.faces
+        )), 0)
+
     def test_cylinder_is_closed_and_outward(self):
         m = primitives.cylinder((0, 0, 0), radius=1.0, height=2.0, segments=8,
                                  side_uv=(0, 0, 1, 1))
