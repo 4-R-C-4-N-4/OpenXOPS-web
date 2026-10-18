@@ -462,7 +462,7 @@
       "uv_layout": null,
       "summary": "Effect billboard: blood splash sprite (effecttexture_blood).",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -4907,7 +4907,7 @@
       "uv_layout": null,
       "summary": "Effect billboard: muzzle flash sprite (effecttexture_mflash).",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -4982,7 +4982,7 @@
       "uv_layout": "data/model/bullet.x",
       "summary": "Bullet object skin (Bullet[0]); drawn for every shot in flight.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -5441,7 +5441,7 @@
       "uv_layout": "data/model/up4.x",
       "summary": "Character skin: soldier 1 A (HumanTexturePath[19]).",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6008,7 +6008,7 @@
       "uv_layout": "data/model/weapon/de.x",
       "summary": "Weapon skin: DESERT EAGLE.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6149,7 +6149,7 @@
       "uv_layout": "data/model/weapon/grenade.x",
       "summary": "Weapon skin: GRENADE.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6266,7 +6266,7 @@
       "uv_layout": "data/model/weapon/m4.x",
       "summary": "Weapon skin: M4.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6305,7 +6305,7 @@
       "uv_layout": "data/model/weapon/m92f.x",
       "summary": "Weapon skin: M92F.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6344,7 +6344,7 @@
       "uv_layout": "data/model/weapon/mac10.x",
       "summary": "Weapon skin: MAC10.",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -6891,7 +6891,7 @@
       "uv_layout": null,
       "summary": "Effect billboard: smoke puff sprite (effecttexture_smoke).",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
@@ -7190,7 +7190,7 @@
       "uv_layout": null,
       "summary": "Effect billboard: ejected cartridge case sprite (effecttexture_yakkyou).",
       "priority": "P0",
-      "status": "missing",
+      "status": "generated",
       "note": null
     },
     {
