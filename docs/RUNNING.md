@@ -33,6 +33,27 @@ The original archive is gitignored and is not included in builds or hosted
 files. Obtain your own copy from the distribution linked in
 [NOTICE.md](../NOTICE.md) if you do not have it.
 
+## Tab/window lifecycle (pause and resume)
+
+While a mission is running, the page pauses automatically if the tab is
+hidden (switching tabs, minimizing) or the window/canvas loses focus
+(Alt-Tab, clicking another app). A visible, keyboard-focusable **Resume
+game** button appears over the canvas; play only continues once you click
+it (or tab to it and press Enter/Space) while the tab is visible and
+focused again. Simply switching back to the tab does not by itself resume
+play if another pause reason (for example the Controls dialog) is still
+open.
+
+Multiple pause reasons (hidden tab, window blur, the Controls dialog) are
+tracked independently: closing the Controls dialog while the window is
+still unfocused keeps the game paused, since the focus-loss reason is
+unresolved. On pause the page releases pointer lock and clears any
+held/queued keyboard and mouse input (`Module._openxops_reset_input`), so
+nothing keeps moving or firing once you resume.
+
+Pressing Esc only to release pointer lock (without changing tab/window
+focus) does not pause the game by itself.
+
 ## Build and serve
 
 Requires Emscripten **6.0.12**, Python 3 and a desktop browser with WebGL.

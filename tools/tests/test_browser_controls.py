@@ -32,6 +32,17 @@ class BrowserControlsTests(unittest.TestCase):
         self.assertIn("Module.browserInputPreset", main)
         self.assertNotIn("localStorage.getItem", main)
 
+    def test_browser_pause_requires_explicit_resume_and_tracks_reasons(self):
+        page = (ROOT / "web/index.html").read_text()
+        main = (ROOT / "src/main.cpp").read_text()
+        self.assertIn("browserPaused", page)
+        self.assertIn("visibilitychange", page)
+        self.assertIn("window.addEventListener('blur'", page)
+        self.assertIn("window.addEventListener('focus'", page)
+        self.assertIn("resume-game", page)
+        self.assertIn("Module.browserPaused", main)
+        self.assertIn("SDL_FlushEvents(SDL_KEYDOWN, SDL_MOUSEWHEEL)", (ROOT / "src/platform/sdl/input-sdl.cpp").read_text())
+
     def test_accessible_setup_dialog_and_storage_failure(self):
         page = (ROOT / "web/index.html").read_text()
         self.assertIn('id="controls-setup"', page)
