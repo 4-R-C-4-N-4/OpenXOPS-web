@@ -613,3 +613,5 @@ faces are plain skin with subtle features. 185 tests pass; production build
 has 0 _qa_ symbols.
 
 Deployed (PR #4, run 39175785257). Live: bullet impacts are dusty puffs, HUD shows the textured M92F icon; engine JS unchanged (data-only release). Next candidates: P1 skins/weapons (26+15 missing), more free missions, original SFX polish.
+
+Merged fix-font d40275f + fix-pause 5ef09a1 + fix-briefpic 748824a. Browser verified: briefing text readable, generated compound map picture, body fits above prompt; paused state shows cursor (computed cursor auto), 240x70 resume button, overlay click resumes. 194 tests, validate_pack 0 FAIL, production build 0 _qa_.
