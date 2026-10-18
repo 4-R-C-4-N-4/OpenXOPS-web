@@ -573,3 +573,5 @@ symbols): opening shows the procedural sky; no-ZIP STARTER briefing -> play,
 strafing and firing work (ammo 15->14), enemies render as uniformed soldiers;
 classic ZIP overlay loads the original opening. 161 tests pass, 0 provenance
 failures (32 pre-existing missing-P0-slot gaps unchanged). PR to main next.
+
+Deployed (run 39169667440, main 27a66fd). Live engine openxops.d21d1fc40c59f582.js matches the accepted local production build; no QA exports. Live: opening demo at correct scale with uniformed soldier; STARTER survives backing toward the closed gate, enemies render as soldiers. Known remaining: HUD weapon icon is still a checkerboard placeholder; distant sky reads mostly as horizon fog colour.
