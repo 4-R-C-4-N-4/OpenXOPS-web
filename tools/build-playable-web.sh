@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+if ! command -v em++ >/dev/null; then source "$HOME/programs/emsdk/emsdk_env.sh"; fi
+mkdir -p build-web
+sources=()
+for n in ai collision config d3dgraphics-debugfont datafile debug event gamemain gui-object main object objectmanager parameter resource scene soundmanager statemachine; do sources+=("src/$n.cpp"); done
+em++ -std=c++17 -O1 -g2 -Isrc -DGRAPHIC_ENGINE=8 -DINPUT_INTERFACE=3 -DSOUND_ENGINE=3 \
+ -DOPENXOPS_PORTABLE_GL -DOPENXOPS_WINDOW_SDL -DOPENXOPS_INPUT_SDL -DOPENXOPS_SOUND_OPENAL -DENABLE_AUTOCREATECONFIG \
+ "${sources[@]}" src/platform/common.cpp src/platform/input-common.cpp src/platform/vfs.cpp \
+ src/platform/sdl/window-sdl.cpp src/platform/sdl/input-sdl.cpp src/platform/openal/sound-openal.cpp \
+ src/platform/portable/d3dgraphics-portable.cpp \
+ -sUSE_SDL=2 -sUSE_ZLIB=1 -lopenal -sLEGACY_GL_EMULATION=1 -sGL_UNSAFE_OPTS=0 -sALLOW_MEMORY_GROWTH=1 \
+ -sINITIAL_MEMORY=128MB -sSTACK_SIZE=8MB -sEXPORTED_RUNTIME_METHODS=FS,callMain -sINVOKE_RUN=0 \
+ -sASSERTIONS=1 -sEXIT_RUNTIME=0 -o build-web/openxops.js
+cp web/index.html build-web/index.html
+cp LICENSE build-web/LICENSE

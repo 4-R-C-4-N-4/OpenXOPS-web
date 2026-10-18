@@ -25,7 +25,9 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#ifndef __EMSCRIPTEN__
 #include <iconv.h>
+#endif
 #include <limits.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -188,6 +190,9 @@ bool IsValidUtf8(const std::string& s)
 //! UTF-8 → CP932 bytes. false if iconv lacks CP932 or a character is not representable.
 bool Utf8ToCp932(const std::string& in, std::string& out)
 {
+#ifdef __EMSCRIPTEN__
+ return false; // Original archive names are raw CP932; no transcoding needed.
+#else
 	iconv_t cd = iconv_open("CP932", "UTF-8");
 	if( cd == (iconv_t)-1 ){ return false; }
 	std::vector<char> buf(in.size() * 2 + 4);
@@ -200,6 +205,7 @@ bool Utf8ToCp932(const std::string& in, std::string& out)
 	if( r == (size_t)-1 || il != 0 ){ return false; }
 	out.assign(buf.data(), buf.size() - ol);
 	return true;
+#endif
 }
 
 //! Host / UTF-8-flagged names: index by CP932 bytes when possible.

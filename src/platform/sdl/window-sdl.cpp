@@ -26,8 +26,14 @@ bool WindowControl::InitWindow(const char* title, int w, int h, bool fullscreen)
     if(SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER) != 0){ ErrorInfo(SDL_GetError()); return false; }
     initialized = true;
     const bool dummy = !strcmp(SDL_GetCurrentVideoDriver(), "dummy");
+#ifndef __EMSCRIPTEN__
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_ES);
+#endif
+#ifdef __EMSCRIPTEN__
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+#else
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+#endif
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
@@ -37,13 +43,19 @@ bool WindowControl::InitWindow(const char* title, int w, int h, bool fullscreen)
     if(!dummy){
         context = SDL_GL_CreateContext(window);
         if(!context){ ErrorInfo(SDL_GetError()); DestroySDLWindow(); return false; }
+#ifndef __EMSCRIPTEN__
         SDL_GL_SetSwapInterval(0);
+#endif
         fprintf(stderr, "[sdl] GLES3 context created (%s)\n", SDL_GetCurrentVideoDriver());
     }else fprintf(stderr, "[sdl] dummy video: no GL context\n");
     // MainWindow is global: release GL before SDL/driver atexit handlers run.
     if(atexit(DestroySDLWindow) != 0){ DestroySDLWindow(); return false; }
     width = w; height = h; closeflag = false; frames = 0; focused = true;
+#ifdef __EMSCRIPTEN__
+    return true; // Browser fullscreen requires an explicit user gesture.
+#else
     return ChangeWindowMode(fullscreen);
+#endif
 }
 bool WindowControl::ChangeWindowMode(bool fullscreen){
     if(!window) return false;

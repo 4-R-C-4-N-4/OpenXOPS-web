@@ -2,6 +2,9 @@
 #include "../../input.h"
 #include "events-sdl.h"
 #include <algorithm>
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 static SDLInputSnapshot state;
 void Platform_SDLResetInput(){ state = SDLInputSnapshot{}; }
 void Platform_SDLBeginEventPump(){ state.dx = state.dy = 0; }
@@ -73,6 +76,9 @@ void InputControl::GetInputState(bool relative){
     mbl_lt = mbl; mbr_lt = mbr; mbl = state.left; mbr = state.right;
     keys[VK_LBUTTON] = mbl ? char(0x80) : 0; keys[VK_RBUTTON] = mbr ? char(0x80) : 0;
     mx = relative ? state.dx : state.x; my = relative ? state.dy : state.y;
+#ifdef __EMSCRIPTEN__
+    EM_ASM({Module.input=Array.of($0,$1,$2,$3,$4);},relative,mx,my,(int)keys['W'],(int)mbl);
+#endif
     // Absolute-mode menu polls must not discard deltas queued before a
     // same-frame transition to gameplay. Relative polls consume them once.
     if(relative) state.dx = state.dy = 0;

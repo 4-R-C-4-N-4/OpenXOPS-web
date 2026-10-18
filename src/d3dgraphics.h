@@ -69,7 +69,7 @@
  #endif
 #endif
 
-#if (GRAPHIC_ENGINE != 9) && !defined(_WIN32)
+#if (GRAPHIC_ENGINE != 9) && !defined(_WIN32) && !defined(OPENXOPS_PORTABLE_GL)
  #error "GRAPHIC_ENGINE 0, 1 and 8 require Windows; use 9 (GLES) on this platform"
 #endif
 
@@ -104,7 +104,13 @@
 //#define ENABLE_OPENGL_LIBJPEGPNG		//!< OpenGLにおいてlibjpeg・libpngを使用する
 
 #include <ctype.h>
-#include <windows.h>
+#ifdef OPENXOPS_PORTABLE_GL
+ using HWND=void*; using HGLRC=void*; using HFONT=void*; using WCHAR=wchar_t;
+ struct PAINTSTRUCT { int unused; };
+ #define ZeroMemory(p,n) memset((p),0,(n))
+#else
+ #include <windows.h>
+#endif
 #include <GL/gl.h>
 #include <GL/glu.h>
 

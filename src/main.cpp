@@ -57,6 +57,9 @@ WindowControl MainWindow;
 //[OpenXOPS-web] The body of upstream WinMain() now lives in GameEntry(), shared by
 //WinMain() (Windows) and main() (other platforms). __argc/__argv became argc/argv;
 //the Win32-only parts (MessageBox in _DEBUG, SetParam) stay behind _WIN32.
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
 static int GameEntry(int argc, char **argv);
 
 #ifdef _WIN32
@@ -163,7 +166,10 @@ static int GameEntry(int argc, char **argv)
 	}
 
 	// Mount game data only after -Dir has selected the working directory.
-	vfs_init_from_args(NULL);
+#ifdef __EMSCRIPTEN__
+ setenv("OPENXOPS_DATA_ZIP","/xops096.zip",1);
+#endif
+ vfs_init_from_args(NULL);
 
 #ifdef ENABLE_DEBUGLOG
 	//ファイル作成
@@ -274,11 +280,11 @@ static int GameEntry(int argc, char **argv)
 		return 1;
 	}
 
-	opening Opening;
-	mainmenu MainMenu;
-	briefing Briefing;
-	maingame MainGame;
-	result Result;
+ static opening Opening;
+ static mainmenu MainMenu;
+ static briefing Briefing;
+ static maingame MainGame;
+ static result Result;
 	InitScreen(&MainWindow, &Opening, &MainMenu, &Briefing, &MainGame, &Result);
 
 #ifdef ENABLE_AUTOLOADMIF
@@ -292,9 +298,21 @@ static int GameEntry(int argc, char **argv)
 	OutputLog.WriteLog(LOG_CHECK, "Startup", "Start main loop");
 #endif
 
-	unsigned int framecnt = 0;
-
-	for(int flag = 0; flag != -1; flag = MainWindow.CheckMainLoop()){
+#ifdef __EMSCRIPTEN__
+ emscripten_set_main_loop([](){
+   static unsigned int framecnt=0;
+   static double last=0;
+   double now=emscripten_get_now();
+   if(now-last<GAMEFRAMEMS)return;
+   last=now;
+   int flag=MainWindow.CheckMainLoop();
+   if(flag<0){emscripten_cancel_main_loop();CleanupGame();return;}
+   if(flag==1)ProcessScreen(&MainWindow,&Opening,&MainMenu,&Briefing,&MainGame,&Result,framecnt++);
+ },0,1);
+ return 0;
+#else
+ unsigned int framecnt = 0;
+ for(int flag = 0; flag != -1; flag = MainWindow.CheckMainLoop()){
 		if( flag == 1 ){
 			//メイン処理
 			ProcessScreen(&MainWindow, &Opening, &MainMenu, &Briefing, &MainGame, &Result, framecnt);
@@ -306,6 +324,7 @@ static int GameEntry(int argc, char **argv)
 		}
 	}
 
+#endif // native main loop
 #ifdef ENABLE_DEBUGLOG
 	//ログに出力
 	OutputLog.WriteLog(LOG_CHECK, "Exit", "Exit main loop");

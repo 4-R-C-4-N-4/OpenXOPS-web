@@ -196,3 +196,22 @@ Active three Luna/low workers:
 Parent will merge components and test the actual game in browser. Existing
 triangle smoke is not acceptance evidence for this milestone. No promise of
 playability until mission rendering and controls have been exercised.
+
+## Working browser gameplay preview
+
+Milestone: original game now boots locally in Chromium through Emscripten
+LEGACY_GL_EMULATION and an adapted upstream GL backend. Shader rewrite is
+no longer a prerequisite for first play. Build: tools/build-playable-web.sh;
+serve only build-web at localhost8766; player selects own xops096.zip.
+
+Parent verified real opening -> mission menu -> Training Yard briefing ->
+first-person mission, original textures/models/HUD, keyboard look response and
+~30FPS. Rebuilt after guarding native SwapInterval browser timing warning;
+second startup reaches Game running with only expected GL-emulation warning.
+Native regression CTest5/5 passes. README/docs/RUNNING.md now document the
+GAME preview and original controls, not the triangle demo.
+
+Limitations: Japanese text uses '?' placeholder, some title/UI artifacts,
+archive/settings not persisted, no complete mission/audio/performance parity
+claim. No original assets or derived screenshots shipped. Independent Luna
+critical-runtime/privacy review pending; local server running for user testing.

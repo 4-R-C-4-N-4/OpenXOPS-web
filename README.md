@@ -1,26 +1,29 @@
 # OpenXOPS-web (unofficial fork)
 
 A work-in-progress port of OpenXOPS 1.080 to the browser (WebAssembly) and Linux.
-**The browser game is not playable yet.** Native window/input, ZIP data loading
-and audio are implemented; game rendering and browser integration remain.
+**An early browser game preview now boots the original game.** Bring your own
+`xops096.zip`; opening, mission selection and Training Yard gameplay have been
+exercised in Chromium. Japanese text and some UI rendering remain incomplete.
 
-## Boot something now
+## Play the browser preview
 
-See **[Running and browser quickstart](docs/RUNNING.md)** for verified commands.
-The browser target currently shows a toolchain-test triangle, not the game.
+See **[Running and browser quickstart](docs/RUNNING.md)** for controls, verified
+behaviour and known limitations. This runs the game, not the triangle smoke test.
 
 ```sh
 cd ~/Work/OpenXOPS-web
 source ~/programs/emsdk/emsdk_env.sh
-bash tools/toolchain-smoke/build.sh web
-python3 -m http.server 8765 --bind 127.0.0.1 \
-  --directory tools/toolchain-smoke/build-web
+bash tools/build-playable-web.sh
+python3 -m http.server 8766 --bind 127.0.0.1 --directory build-web
 ```
 
-Open http://127.0.0.1:8765/smoke.html. Expect a triangle and
-`SMOKE SUMMARY: frames=120 gl=yes failures=0`. No original assets needed.
-SDK installation, native developer builds and remaining browser-game milestones
-are documented in [docs/RUNNING.md](docs/RUNNING.md).
+Open http://127.0.0.1:8766/, select your original `xops096.zip`, then click
+**Start game**. Enter skips the opening; select a mission and left-click its
+briefing to begin. The archive stays local to your browser and is not uploaded.
+
+The preview uses the original OpenGL renderer via Emscripten legacy-GL
+compatibility. The experimental shader rewrite is separate and does not block
+this build. Native developer builds still use stub graphics.
 
 - Goals: [docs/GOALS.md](docs/GOALS.md)
 - Scope and plan: [docs/SCOPE-OF-WORK.md](docs/SCOPE-OF-WORK.md)
