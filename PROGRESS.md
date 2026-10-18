@@ -229,3 +229,15 @@ handling. Chromium: source ZIP rejected with explanation and retry enabled;
 selecting verified xops096.zip on same page then boots original opening scene.
 Three synthetic regressions (wrong->correct retry, wrapping folder, corrupt ZIP)
 and existing21tests pass (24 total). WASM rebuilt; RUNNING.md explains archives.
+
+### Fingerprinted preview deployment and actual Downloads archive test
+
+User reported missing Module._openxops_prepare_archive: served engine currently
+exports it, consistent with new HTML plus stale cached unversioned JS. Added
+shared JS/WASM content fingerprint filenames, explicit locateFile mapping,
+atomic page packaging and startup API guard. No longer copy raw HTML on edits.
+Two regression tests verify fingerprint changes for either binary and preserve
+working page if template invalid. Parent tested EXACT /home/ivy/Downloads/xops096.zip
+in Chromium with fingerprinted script3adad08bbb6b42a9: preflight function exists,
+opening renders, Enter menu, Training Yard click/briefing, gameplay, arrow look
+and W key state verified; no missing-function/data-dir error. User archive valid.

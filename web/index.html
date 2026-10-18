@@ -31,10 +31,15 @@ let engineError='', enteredMain=false;
 function reportError(message){status.textContent=message;status.dataset.error='true';}
 var Module={
  canvas,noInitialRun:true,
+ locateFile:path=>path.endsWith('.wasm')?'__ENGINE_WASM__':path,
  print:s=>{logElement.textContent+=s+'\n';console.log(s)},
  printErr:s=>{logElement.textContent+=s+'\n';console.error(s);
    if(s.includes('[sdl] error:'))engineError=s;},
- onRuntimeInitialized(){play.disabled=false;play.textContent='Start game';
+ onRuntimeInitialized(){
+   if(typeof Module._openxops_prepare_archive!=='function'||typeof Module._openxops_archive_error!=='function'){
+     reportError('Engine/page version mismatch. Reload this page to load the current engine.');return;
+   }
+   play.disabled=false;play.textContent='Start game';
    status.textContent='Select xops096.zip (original game data), then Start game.'}
 };
 play.onclick=async()=>{
@@ -64,5 +69,5 @@ play.onclick=async()=>{
 canvas.onclick=()=>{canvas.focus();canvas.requestPointerLock?.();
  if(typeof SDL2!=='undefined'&&SDL2.audioContext)SDL2.audioContext.resume();};
 </script>
-<script src="openxops.js"></script>
+<script src="__ENGINE_SCRIPT__"></script>
 </html>

@@ -115,3 +115,12 @@ ctest --test-dir build-native --output-on-failure
 ```
 
 See [PROGRESS.md](../PROGRESS.md) for the development history and remaining work.
+
+## Engine/page version mismatch
+
+The build packages JavaScript and WASM using a shared content fingerprint in
+both filenames. The HTML references that exact pair, avoiding stale cached
+engine APIs after updates. After HTML-only changes run
+`python3 tools/package_web.py`; do not copy web/index.html directly into the
+build directory (it contains build tokens). If an already-open older page
+reports a missing Module function, reload to obtain the packaged page.
