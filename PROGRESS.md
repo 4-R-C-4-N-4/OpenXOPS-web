@@ -430,3 +430,22 @@ an upload-free mission in browser before any deploy.
   STARTER → mission starts. Found: player falls through floor and dies, weapon NONE.
   Note: blur pause blocked earlier workers' synthetic input — click Resume first.
 - Active: open-fix2 (floor collision/spawn/weapon), open-tex (Codex P0 textures).
+
+### Rate-limit recovery and CI repair
+
+Both Sonnet workers stopped on Anthropic 429s. Parent checked live delegation:
+none remained running. Preserved uncommitted work in open-fix2 and open-tex;
+re-dispatched bounded recovery tasks and verified both live models are
+`gpt-6-luna` via `openai-codex`. Delegation defaults updated with Hermes CLI.
+
+Failed Actions run39155547977: `test_char_atlas` could not import `PIL` because
+Pillow was installed locally but undeclared/uninstalled in CI. Fix9ecc53c in
+PR https://github.com/4-R-C-4-N-4/OpenXOPS-web/pull/1 adds Python3.12 setup,
+pinned tools/requirements-ci.txt (Pillow12.3.0), and asset/test path triggers.
+Fresh isolated Python3.12 environment:133 tests pass. Real branch Actions
+run39159423647 succeeded through tests, WASM build, free-pack staging/original
+hash guards and artifact upload; deploy deliberately skipped for non-main refs.
+PR held pending actual STARTER ground/movement/weapon regression gate: merging
+CI onto main would automatically publish the still-unverified free starter.
+No live-game replacement claimed. Parent owns merge/deploy after recovery gates.
+
