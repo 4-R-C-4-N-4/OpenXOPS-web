@@ -13,7 +13,7 @@ class BrowserControlsTests(unittest.TestCase):
             "KEY_MOVEFORWARD": 54, "KEY_MOVEBACKWARD": 50,
             "KEY_MOVELEFT": 32, "KEY_MOVERIGHT": 35, "KEY_WALK": 20,
             "KEY_JUMP": 17, "KEY_RELOAD": 49, "KEY_DROPWEAPON": 38,
-            "KEY_ZOOMSCOPE": 20, "KEY_SHOTMODE": 55,
+            "KEY_ZOOMSCOPE": 19, "KEY_SHOTMODE": 55,
             "KEY_SWITCHWEAPON": 48, "KEY_WEAPON1": 23,
             "KEY_WEAPON2": 24, "KEY_SHOT": 18,
         }
@@ -50,7 +50,9 @@ class BrowserControlsTests(unittest.TestCase):
         self.assertIn("Module._openxops_reset_input", page)
         self.assertIn("SDL_FlushEvents(SDL_KEYDOWN, SDL_MOUSEWHEEL)", (ROOT / "src/platform/sdl/input-sdl.cpp").read_text())
         self.assertNotIn("mouse button 3", page)
-        self.assertNotIn("right mouse aims", page)
+        self.assertIn("right mouse aims", page)
+        self.assertIn("Home toggles arms/held-weapon visibility", page)
+        self.assertNotIn("Tab walks and toggles", page)
 
 
 if __name__ == "__main__":

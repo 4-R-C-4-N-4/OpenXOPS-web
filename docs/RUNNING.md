@@ -21,10 +21,10 @@ Open **http://127.0.0.1:8766/** while the preview server is running.
    Click the canvas to capture the mouse. Esc releases it.
 
 Classic (the original default configuration): W/S forward/back, A/D strafe,
-arrow keys look, left mouse fires, Space jumps, Tab walks and toggles arm
+arrow keys look, left mouse fires, Space jumps, Tab walks, Home toggles arm
 visibility, R reloads, Left Shift aims/zooms the scope, X changes fire mode,
 Z switches weapon, and 1/2 select weapon slots. A custom config may change
-these defaults. The optional Modern preset uses Shift for both walk and scope,
+these defaults. The optional Modern preset uses Shift for walking and right mouse for scope,
 left mouse to fire, Q to switch weapon, plus R, Space, X, G and 1/2 as shown
 in its in-game guide. Presets apply next game start; the selected value applies
 for the current page even if browser storage is unavailable, but will not
