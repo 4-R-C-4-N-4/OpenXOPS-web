@@ -340,9 +340,12 @@ Correction pass completed; parent performed the missing runtime gates below.
   tracked C++ and exact Downloads ZIP.92 references:90 present,2 dynamic paths
   unverified,0 missing,0 empty.23 weapon slots include intentional empty NONE;
   all22 normal model/texture pairs present. Full JSON stays in private scratch.
-- Combined tooling suite now35 tests passing; no new engine/renderer change from
-  asset audit. Independent bounded release review still active. Local integration
-  notyetpushed; existing livepreview unchanged.
+- Combined tooling suite35 tests passing; no engine/renderer change from asset
+  audit. Independent review approved with no concrete release blockers.
+- Published7157280 through successful Pages run39139280261. Parent verified live
+  fingerprint16bda66006a22893, no QA exports, exact Downloads ZIP through Training
+  Yard, corrected Modern guide, and help pause/focus at the public origin.
+  Live: https://4-r-c-4-n-4.github.io/OpenXOPS-web/
 - Remaining parity work notdeclared complete: other maps/assets and Japanese text
   questionmarks; no claim that allvisualbugs arefixed by controls help.
 
