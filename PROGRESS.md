@@ -481,6 +481,27 @@ hashes and pinned source URLs; no provenance/known-original-match failures.
 The legacy all-missions validator still fails33 missing-P0 checks, expected
 for the unfinished starter profile (classic demo maps and placeholder skins/
 effects); not reported as a complete353-slot pack.142 tooling tests pass.
-Production build/staging pass with no QA exports. Pending final CI and deployment.
+Production build/staging passed with no QA exports. Final release checks follow.
 This is an unfinished free starter prototype, not all353 asset slots or final art.
+
+### First no-ZIP public starter — deployed and verified
+
+PR #2 merged at aa0cb90d6f5aa045913d64486014947fafd03b50; CI fix PR #1
+was included and is also marked merged. Main Actions run 39161129776 passed
+142 tests, WASM build, pack staging and Pages deployment.
+
+Parent exercised the public URL in an isolated clean browser with no selected
+or remembered original ZIP: opening -> STARTER briefing -> actual gameplay;
+30 seconds alive/unpaused, ground-level W movement, empty-slot pickup and M92F
+firing. Verified loaded engine d21d1fc40c59f582 and data pack
+065f76408b36ef23, with QA exports absent. A separate public-origin test loaded
+the exact Downloads/xops096.zip and verified Training Yard textures/movement.
+
+Live: https://4-r-c-4-n-4.github.io/OpenXOPS-web/
+Existing users with a remembered classic ZIP can use Forget saved ZIP to try
+the bundled starter. Original classic data remains optional and browser-local.
+
+Remaining: replace procedural placeholder skins/effects, extend free weapon/
+character coverage, refine mission balance/patrol/objective behavior and verify
+a full victory play-through. Do not call the full free-data-pack SOW finished.
 
