@@ -1,0 +1,102 @@
+{
+  "schema": 1,
+  "textures": ["wall.bmp", "floor.bmp", "crate.bmp"],
+  "blocks": [
+    {
+      "comment": "floor slab",
+      "min": [-20, -1, -20],
+      "max": [20, 0, 20],
+      "texture": "floor.bmp",
+      "uv_scale": [8, 8]
+    },
+    {
+      "comment": "north wall",
+      "min": [-20, 0, -20],
+      "max": [20, 8, -19],
+      "texture": "wall.bmp",
+      "uv_scale": [8, 1]
+    },
+    {
+      "comment": "south wall",
+      "min": [-20, 0, 19],
+      "max": [20, 8, 20],
+      "texture": "wall.bmp",
+      "uv_scale": [8, 1]
+    },
+    {
+      "comment": "east wall",
+      "min": [19, 0, -20],
+      "max": [20, 8, 20],
+      "texture": "wall.bmp",
+      "uv_scale": [8, 1]
+    },
+    {
+      "comment": "west wall",
+      "min": [-20, 0, -20],
+      "max": [-19, 8, 20],
+      "texture": "wall.bmp",
+      "uv_scale": [8, 1]
+    },
+    {
+      "comment": "crate 1",
+      "min": [-3, 0, 4],
+      "max": [-1, 2, 6],
+      "texture": "crate.bmp",
+      "uv_scale": [1, 1]
+    },
+    {
+      "comment": "crate 2",
+      "min": [1, 0, 4],
+      "max": [3, 2, 6],
+      "texture": "crate.bmp",
+      "uv_scale": [1, 1]
+    }
+  ],
+  "points": [
+    {
+      "comment": "player spawn, facing north",
+      "type": "player_spawn",
+      "pos": [0.0, 0.0, 10.0],
+      "rotation": 3.14159,
+      "human_type": 0,
+      "ai_path": 0
+    },
+    {
+      "comment": "enemy 1 near the crates",
+      "type": "human",
+      "pos": [-2.0, 0.0, 2.0],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 1,
+      "team": 2
+    },
+    {
+      "comment": "enemy 2 by the north wall",
+      "type": "human",
+      "pos": [0.0, 0.0, -15.0],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 2,
+      "team": 2
+    },
+    {
+      "comment": "enemy patrol waypoint",
+      "type": "waypoint",
+      "pos": [5.0, 0.0, -15.0],
+      "mode": 1
+    },
+    {
+      "comment": "weapon pickup near spawn",
+      "type": "weapon_pickup",
+      "pos": [0.0, 0.0, 6.0],
+      "weapon_id": 1,
+      "ammo": 60
+    },
+    {
+      "comment": "mission goal event at the far wall",
+      "type": "event",
+      "pos": [0.0, 0.0, -18.0],
+      "event_id": 10
+    }
+  ]
+}
