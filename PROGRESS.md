@@ -505,3 +505,21 @@ Remaining: replace procedural placeholder skins/effects, extend free weapon/
 character coverage, refine mission balance/patrol/objective behavior and verify
 a full victory play-through. Do not call the full free-data-pack SOW finished.
 
+### User-reported visual defects — corrective pass active
+
+User reports checkerboard people and incorrect geometry. Parent reproduced the
+live free pack and found concrete asset issues, not just an unfinished style:
+- Active human skins are missing and replaced by checkerboard build fallbacks.
+- Generated upper arms and forearms are coplanar: every vertex has y=-0.02.
+  `_one_arm` used the Y-oriented tapered_box with equal base/top Y and differing
+  Z. Numeric mesh bounds confirm zero vertical thickness.
+- Starter world was rescaled, but menu/opening demo still has a 36-unit floor
+  and 5-unit walls around 20-unit-tall people. Separate demo correction needed.
+- Starter briefing requests sky0; the engine accepts only1..5. Black background
+  is not evidence the generated sky1 texture was actually displayed.
+Three isolated Luna workers: visual-geometry (volumetric meshes/joints/tests),
+visual-skins (actual active UV-aligned human skins, Codex image generation),
+visual-map (demo scale/framing, sky, world texture density). UV rectangle
+contract frozen between mesh and skin streams. Parent owns provenance updates
+and combined close-up/browser review before publication. No new deployment yet.
+
