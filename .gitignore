@@ -14,3 +14,4 @@ tools/toolchain-smoke/build-native/
 
 # python
 __pycache__/
+tools/fonts/.cache/
