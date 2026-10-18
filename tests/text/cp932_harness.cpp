@@ -92,6 +92,53 @@ int main() {
            ok ? 1 : 0, w, h, rgba.size(), opaque);
   }
 
+  // Real kana/kanji glyph coverage (not outline-box placeholders): "あ",
+  // "ア", "日本" (two kanji), a level-2 kanji "鬱" (U+9B31, CP932 0xEA,0x9D),
+  // and full-width "！" (U+FF01, CP932 0x81,0x49) must each render at least
+  // one opaque pixel AND not match the generic outline-box pattern (which
+  // only ever lights up the border row/column of the glyph cell).
+  {
+    auto opaque_count = [](const char* bytes) {
+      std::vector<unsigned char> rgba;
+      int w, h;
+      text_bitmap(bytes, 16, rgba, &w, &h);
+      size_t n = 0;
+      for (size_t k = 3; k < rgba.size(); k += 4) if (rgba[k] != 0) n++;
+      return n;
+    };
+    auto interior_opaque = [](const char* bytes) {
+      // An outline-box placeholder only paints the 1px border; a real glyph
+      // paints interior pixels too. Count opaque pixels strictly inside the
+      // 16x16 cell border.
+      std::vector<unsigned char> rgba;
+      int w, h;
+      text_bitmap(bytes, 16, rgba, &w, &h);
+      size_t n = 0;
+      for (int y = 1; y < h - 1; y++) {
+        for (int x = 1; x < w - 1; x++) {
+          size_t k = ((size_t)y * w + x) * 4 + 3;
+          if (rgba[k] != 0) n++;
+        }
+      }
+      return n;
+    };
+    const char hiragana_a[] = {(char)0x82, (char)0xa0, 0};        // あ
+    const char katakana_a[] = {(char)0x83, (char)0x41, 0};        // ア
+    const char nihon[] = {(char)0x93, (char)0xfa, (char)0x96, (char)0x7b, 0};  // 日本
+    const char level2_kanji[] = {(char)0xea, (char)0x9d, 0};      // 鬱 (U+9B31)
+    const char fullwidth_bang[] = {(char)0x81, (char)0x49, 0};    // ！(U+FF01)
+    printf("glyph_hiragana_a_opaque=%zu glyph_hiragana_a_interior=%zu\n",
+           opaque_count(hiragana_a), interior_opaque(hiragana_a));
+    printf("glyph_katakana_a_opaque=%zu glyph_katakana_a_interior=%zu\n",
+           opaque_count(katakana_a), interior_opaque(katakana_a));
+    printf("glyph_nihon_opaque=%zu glyph_nihon_interior=%zu\n",
+           opaque_count(nihon), interior_opaque(nihon));
+    printf("glyph_level2_kanji_opaque=%zu glyph_level2_kanji_interior=%zu\n",
+           opaque_count(level2_kanji), interior_opaque(level2_kanji));
+    printf("glyph_fullwidth_bang_opaque=%zu glyph_fullwidth_bang_interior=%zu\n",
+           opaque_count(fullwidth_bang), interior_opaque(fullwidth_bang));
+  }
+
   // text_bitmap/text_measure invalid-argument handling.
   {
     int w, h;

@@ -76,6 +76,18 @@ class TestTextRendering(unittest.TestCase):
         self.assertEqual(self.values["bitmap_size"], str(8 * 16 * 4))
         self.assertGreater(int(self.values["bitmap_opaque"]), 0)
 
+    def test_real_kana_kanji_glyphs_not_outline_boxes(self):
+        # Real Shinonome glyph data must paint interior pixels, not just the
+        # 1px outline-box placeholder border, for hiragana, katakana, a
+        # multi-kanji string, a JIS level-2 kanji, and full-width '!'.
+        for name in (
+            "glyph_hiragana_a", "glyph_katakana_a", "glyph_nihon",
+            "glyph_level2_kanji", "glyph_fullwidth_bang",
+        ):
+            with self.subTest(name=name):
+                self.assertGreater(int(self.values[f"{name}_opaque"]), 0)
+                self.assertGreater(int(self.values[f"{name}_interior"]), 0)
+
     def test_invalid_arguments_rejected(self):
         self.assertEqual(self.values["invalid_null"], "0")
         self.assertEqual(self.values["invalid_px"], "0")
