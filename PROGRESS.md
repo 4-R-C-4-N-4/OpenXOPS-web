@@ -523,3 +523,13 @@ visual-map (demo scale/framing, sky, world texture density). UV rectangle
 contract frozen between mesh and skin streams. Parent owns provenance updates
 and combined close-up/browser review before publication. No new deployment yet.
 
+Map worker returned an uncommitted partial. Parent completed the map component
+on visual-map (f0be894): eight-times demo geometry/points, synchronized menu
+copies, valid starter sky1, per-face texture_world_units option so tileable
+surfaces do not stretch one image across a whole courtyard, four regressions,
+source/binary/hash provenance refreshed.146 tests pass and WASM builds.
+Local browser confirms clouds appear instead of black sky. Skybox face seams
+remain visible; not declared visually finished. Character skins/meshes are still
+separate pending streams. Branch pushed for reproducible source links, NOT merged
+or deployed. Combined character and map visual acceptance remains required.
+
