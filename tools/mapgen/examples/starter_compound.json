@@ -738,9 +738,9 @@
         20.0
       ],
       "rotation": 3.14159,
-      "human_type": 0,
+      "human_type": 2,
       "ai_path": 0,
-      "comment": "player spawn, just inside the south gate, facing the compound"
+      "comment": "player spawn, just inside the south gate, facing the compound; human_type=2 -> Human[2].Weapon[0]=3 (M92F, src/parameter.cpp), the player's always-populated weapon slot (see objectmanager.cpp AddHumanIndex)"
     },
     {
       "type": "weapon_pickup",

@@ -109,11 +109,20 @@ class StarterMapContentTests(unittest.TestCase):
         self.assertTrue(zmin <= spawn.z <= zmax, "spawn.z outside map bounds")
 
     def test_player_spawn_on_or_above_floor(self):
-        # The ground slab's top face sits at y=0 (see "ground slab"
-        # block in starter_compound.json); the spawn point must not
-        # be below it.
+        # The authored slab spans y=-1..0; keep the player's feet above it.
         spawn = _player_spawn(self.pd1_file.points)
         self.assertGreaterEqual(spawn.y, 0.0)
+
+    def test_player_has_configured_nonempty_default_weapon(self):
+        # HUMANINFO resolves Human[2], whose slot 0 is the equipped M92F.
+        spawn = _player_spawn(self.pd1_file.points)
+        self.assertIsNotNone(spawn)
+        self.assertEqual(spawn.p2, 1)
+        info = next(p for p in self.pd1_file.points if p.p1 == pd1.P1_HUMANINFO and p.p4 == spawn.p2)
+        self.assertEqual((info.p2, info.p3), (2, 0))
+        parameter_cpp = (SRC_DIR / "parameter.cpp").read_text()
+        self.assertIn("Human[2].Weapon[0] = 3;", parameter_cpp)
+        self.assertIn('Weapon[3].name = "M92F"', parameter_cpp)
 
     def test_has_multiple_enemies_with_waypoints(self):
         enemies = [p for p in self.pd1_file.points if p.p1 == pd1.P1_HUMAN2 and p.p4 != 0]
