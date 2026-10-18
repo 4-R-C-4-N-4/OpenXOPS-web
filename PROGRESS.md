@@ -560,3 +560,16 @@ visual-skins, plus parent fixes found during engine-composed close-up review:
   _qa_* exports never reach production; add stage guard + test).
 Remaining before deploy: merge workers, full no-ZIP starter pass (move, fire,
 enemies visible), classic ZIP overlay smoke, PR to main, CI green, deploy.
+
+Worker results merged (Sonnet): vp-guard 991cd4e (stage_pages rejects any
+`_qa_` export; previously only checked a stale symbol name), vp-meta 5c46ac8
+(28 provenance hashes refreshed, procedural sky1-5 records, sky2-5 generated,
+cloud mask widened to remove a corner sub-texel artefact on skies 2/5,
+manifest sky slots generated, docs). Parent found and fixed a gameplay defect
+during QA: the starter's open south gate let players back off the floor edge
+and fall to death; gate closed + perimeter regression (4652fea).
+Release acceptance on a clean production build (no QA exports, 0 `_qa_`
+symbols): opening shows the procedural sky; no-ZIP STARTER briefing -> play,
+strafing and firing work (ammo 15->14), enemies render as uniformed soldiers;
+classic ZIP overlay loads the original opening. 161 tests pass, 0 provenance
+failures (32 pre-existing missing-P0-slot gaps unchanged). PR to main next.
