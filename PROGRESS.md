@@ -316,4 +316,28 @@ archiveaudit. No rendererchanges accepted fromthisstream.
 Reticle worker didnotproducepixelrepro and onlyadded End2DRenderalphaenable,
 not its claimeddisable; blackalpha1 vsGREATER0 explanationunproven. No merge.
 Followup requires productionline/box pixelproof beforeanyreticlefix.
-Three low-reasoningLuna correctionworkers active; livepreviewunchanged.
+Correction pass completed; parent performed the missing runtime gates below.
+
+### Parent-verified cleanup slice (local integration)
+
+- Corrected guides AGAIN: Home arms; Classic Shift scope and Tab walk. Modern
+  now has right-mouse scope, independently from Shift walk. Optional, saved
+  preset; Classic defaults preserved. Storage denial retains page-session choice.
+- Actual Downloads/xops096.zip: Training Yard, Modern W movement, help pauses
+  simulation, key release while help open, Escape/focus restoration, no persistent
+  movement after resume. Fullscreen help visible; resume renders full scene with
+  640x480 backing. Production build has no QA exports.
+- Parent built diagnostic seam explicitly behind OPENXOPS_TEST_HOOKS=1. Production
+  Draw2DLine/Box test returns 360/360 dark row pixels with fog off AND on.
+  Actual PSG1 scoped crosshair visibly works against sky in unmodified renderer.
+  All22 normal weapon model/texture handle pairs valid; Home-on held geometry
+  and HUD models visibly render forMP5,PSG1,M4,AK47,M249. No speculative alpha fix.
+- Public staging refuses QA engine BEFORE touching an existing destination;
+  normal production build and allowlisted staging pass.31 tooling tests pass.
+- New reproducible protocol: docs/RENDERING-BUGS-RETICLES.md. Original-derived
+  screenshot evidence stays in private browser workspace, notrepo/public files.
+- Independent bounded release review active; asset-audit comment false-positive
+  correction active. Local integration notyetpushed; existing livepreview unchanged.
+- Remaining parity work notdeclared complete: other maps/assets and Japanese text
+  questionmarks; no claim that allvisualbugs arefixed by controls help.
+
