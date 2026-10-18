@@ -413,3 +413,12 @@ an upload-free mission in browser before any deploy.
   into assets/pack — discarded; must stage separately). Re-dispatched as
   open-engine2 with full Phase A spec. Parallel: open-starter authors original
   starter compound mission, menu demo map, missions.txt and a Codex texture list.
+- Phase A done by parent (7f649e5) after two partial worker attempts: free pack
+  bundled (fingerprinted, placeholders staged outside assets/pack, zip-member
+  original-MD5 guard), VFS layering free→classic, data-driven mission list
+  (docs/MISSIONS.md), page Start works with no file. Browser-verified: no file →
+  opening + menu (free map10 demo) + STARTER mission loads; with xops096.zip the
+  classic menu/58 missions unchanged. 125 tests pass. NOT deployed yet.
+- Blockers before deploy: STARTER ends instantly with no movement (worker
+  open-fix root-causing); placeholder char.dds makes all text unreadable (worker
+  open-font generating CC0 atlas from Shinonome).
