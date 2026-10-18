@@ -1,27 +1,31 @@
 #!/usr/bin/env python3
 """Build the free (CC0) data pack for OpenXOPS-web.
 
-Two jobs:
-  1. ``--placeholders``: fill every P0 manifest slot missing from
-     assets/pack with a minimal, engine-valid generated file (checkerboard
-     BMP/DDS, silent WAV, a unit-cube .x model, a one-block .bd1 floor, a
-     one-spawn .pd1, a one-line mission .txt). Every generated file is
-     recorded in assets/pack/PROVENANCE-PLACEHOLDERS.json as
-     ``generator: build_pack.py``, ``license: CC0-1.0``, ``placeholder: true``.
-     These are scaffolding so the engine boots with zero original data; they
-     are not meant to ship as "final" art (docs/OPEN-ASSETS-SOW.md Phase C).
-  2. Default (no flag): zip assets/pack/data into a deterministic archive
+assets/pack/data is the curated, committed source of truth and is NEVER
+written to by this script. The build pipeline is:
+
+  1. Copy assets/pack/data -> a staging directory (default build-pack/data).
+  2. With ``--placeholders``: fill every P0 manifest slot still missing from
+     the STAGING copy with a minimal, engine-valid generated file
+     (checkerboard BMP/DDS, silent WAV, a unit-cube .x model, a one-block
+     .bd1 floor, a one-spawn .pd1, a one-line mission .txt). A real pack file
+     (copied in step 1) always wins over a placeholder: placeholders only
+     fill gaps. Provenance for generated files is recorded in staging at
+     build-pack/PROVENANCE-PLACEHOLDERS.json (generator/license/placeholder).
+  3. Zip the staging data dir into a deterministic archive
      ``openxops-data.<sha16>.zip`` (sorted names, fixed per-entry timestamp,
      stored/deflate only) written to --out (default build-web/).
 
 Usage:
-  python3 tools/build_pack.py --placeholders    # fill missing P0 slots
-  python3 tools/build_pack.py --out build-web    # build the zip
+  python3 tools/build_pack.py                         # copy+zip, no placeholders
+  python3 tools/build_pack.py --placeholders           # copy+fill P0 gaps+zip
+  python3 tools/build_pack.py --placeholders --out build-web
 """
 import argparse
 import hashlib
 import json
 import os
+import shutil
 import struct
 import zipfile
 
@@ -30,7 +34,7 @@ ROOT = os.path.normpath(os.path.join(HERE, ".."))
 PACK_DIR = os.path.join(ROOT, "assets", "pack")
 DATA_DIR = os.path.join(PACK_DIR, "data")
 MANIFEST_PATH = os.path.join(ROOT, "assets", "manifest.json")
-PROVENANCE_PATH = os.path.join(PACK_DIR, "PROVENANCE-PLACEHOLDERS.json")
+DEFAULT_STAGING_DIR = os.path.join(ROOT, "build-pack")
 
 FIXED_DATETIME = (1980, 1, 1, 0, 0, 0)  # deterministic zip timestamps
 
@@ -252,12 +256,24 @@ def load_manifest():
         return json.load(fh)
 
 
-def generate_placeholders(dry_run=False):
+def stage_data(staging_dir):
+    """Copy assets/pack/data into staging_dir/data. Never touches assets/pack."""
+    staged_data = os.path.join(staging_dir, "data")
+    if os.path.exists(staged_data):
+        shutil.rmtree(staged_data)
+    os.makedirs(staging_dir, exist_ok=True)
+    shutil.copytree(DATA_DIR, staged_data)
+    return staged_data
+
+
+def generate_placeholders(staged_data_dir, staging_dir, dry_run=False):
+    """Fill missing P0 slots in the STAGING copy. assets/pack is untouched."""
     manifest = load_manifest()
     slots = manifest["slots"]
+    provenance_path = os.path.join(staging_dir, "PROVENANCE-PLACEHOLDERS.json")
     provenance = []
-    if os.path.exists(PROVENANCE_PATH):
-        with open(PROVENANCE_PATH, "r", encoding="utf-8") as fh:
+    if os.path.exists(provenance_path):
+        with open(provenance_path, "r", encoding="utf-8") as fh:
             provenance = json.load(fh)
     existing_paths = {p["path"] for p in provenance}
     written = []
@@ -265,17 +281,17 @@ def generate_placeholders(dry_run=False):
         if slot.get("priority") != "P0":
             continue
         rel = slot["path"]
-        # Manifest paths are rooted at the game's "data/" dir; DATA_DIR already
-        # points at assets/pack/data, so strip that one shared prefix.
+        # Manifest paths are rooted at the game's "data/" dir; staged_data_dir
+        # already points at <staging>/data, so strip that one shared prefix.
         rel_under_data = rel[len("data/"):] if rel.startswith("data/") else rel
         if rel.endswith("/"):
-            dest = os.path.join(DATA_DIR, rel_under_data)
+            dest = os.path.join(staged_data_dir, rel_under_data)
             if not dry_run:
                 os.makedirs(dest, exist_ok=True)
             continue
-        dest = os.path.join(DATA_DIR, rel_under_data)
+        dest = os.path.join(staged_data_dir, rel_under_data)
         if os.path.exists(dest):
-            continue  # already authored/generated; never overwrite
+            continue  # real pack file (copied from assets/pack) always wins
         key = (slot["kind"], slot.get("ref_format"))
         gen = PLACEHOLDER_GENERATORS.get(key)
         if gen is None:
@@ -297,7 +313,7 @@ def generate_placeholders(dry_run=False):
             })
     if not dry_run and written:
         provenance.sort(key=lambda p: p["path"])
-        with open(PROVENANCE_PATH, "w", encoding="utf-8") as fh:
+        with open(provenance_path, "w", encoding="utf-8") as fh:
             json.dump(provenance, fh, indent=1, sort_keys=True)
             fh.write("\n")
     return written
@@ -348,20 +364,28 @@ def build_zip(data_dir, out_dir):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--placeholders", action="store_true", help="fill missing P0 slots with generated stubs")
+    parser.add_argument("--placeholders", action="store_true", help="fill missing P0 slots with generated stubs (staging copy only)")
     parser.add_argument("--check", action="store_true", help="with --placeholders: report what would be written, do not write")
     parser.add_argument("--out", default=os.path.join(ROOT, "build-web"), help="output directory for the pack zip")
+    parser.add_argument("--staging", default=DEFAULT_STAGING_DIR, help="staging directory (never assets/pack)")
     args = parser.parse_args()
 
+    staging_dir = os.path.abspath(args.staging)
+    if os.path.commonpath([staging_dir, os.path.abspath(PACK_DIR)]) == os.path.abspath(PACK_DIR):
+        raise SystemExit("--staging must not be inside assets/pack")
+
+    staged_data = stage_data(staging_dir)
+
     if args.placeholders:
-        written = generate_placeholders(dry_run=args.check)
+        written = generate_placeholders(staged_data, staging_dir, dry_run=args.check)
         verb = "Would generate" if args.check else "Generated"
-        print(f"{verb} {len(written)} placeholder file(s):")
+        print(f"{verb} {len(written)} placeholder file(s) in staging ({staging_dir}):")
         for rel in written:
             print(" ", rel)
-        return
+        if args.check:
+            return
 
-    out_path, digest = build_zip(DATA_DIR, args.out)
+    out_path, digest = build_zip(staged_data, args.out)
     print(f"Built {out_path} (sha16 {digest})")
 
 
