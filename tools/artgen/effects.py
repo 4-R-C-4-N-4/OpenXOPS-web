@@ -110,18 +110,26 @@ def blood_image(seed=20261018):
     c = CENTER * scale
     # Central blob plus scattered satellite droplets, symmetric in expectation
     # (random angles cover the full circle -> no preferred roll direction).
-    main_r = SIZE * scale * 0.22
-    draw.ellipse((c - main_r, c - main_r, c + main_r, c + main_r), fill=255)
-    for i in range(14):
-        ang = (2 * math.pi * i) / 14 + rng.uniform(-0.2, 0.2)
-        dist = rng.uniform(main_r * 0.6, SIZE * scale * 0.42)
-        rad = rng.uniform(SIZE * scale * 0.02, SIZE * scale * 0.07)
+    # Irregular core: overlapping lumps of different sizes, not one circle.
+    main_r = SIZE * scale * 0.16
+    for _ in range(7):
+        ang = rng.uniform(0, 2 * math.pi)
+        off = rng.uniform(0, main_r * 0.7)
+        rr = main_r * rng.uniform(0.55, 1.05)
+        x0, y0 = c + off * math.cos(ang), c + off * math.sin(ang)
+        draw.ellipse((x0 - rr, y0 - rr * rng.uniform(0.7, 1.0), x0 + rr, y0 + rr), fill=255)
+    # Uneven spray: random angles (clumped, not evenly spaced), mostly tiny
+    # droplets, a few elongated streaks. Avoids a symmetric "germ" look.
+    for i in range(26):
+        ang = rng.uniform(0, 2 * math.pi)
+        dist = main_r * rng.uniform(0.9, 2.5)
+        rad = SIZE * scale * rng.choice((0.008, 0.012, 0.018, 0.03))
         cx = c + dist * math.cos(ang)
         cy = c + dist * math.sin(ang)
+        if rng.random() < 0.3:
+            ex, ey = c + dist * 0.75 * math.cos(ang), c + dist * 0.75 * math.sin(ang)
+            draw.line((ex, ey, cx, cy), fill=255, width=max(1, int(rad * 1.2)))
         draw.ellipse((cx - rad, cy - rad, cx + rad, cy + rad), fill=255)
-        # thin connecting streak toward the centre (splatter trail)
-        mx, my = c + (dist * 0.3) * math.cos(ang), c + (dist * 0.3) * math.sin(ang)
-        draw.line((mx, my, cx, cy), fill=255, width=max(1, int(rad * 0.5)))
     big = big.filter(ImageFilter.GaussianBlur(radius=scale * 1.5))
     mask = big.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
     # Force alpha to 0 at the border regardless of blur bleed.
