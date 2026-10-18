@@ -302,6 +302,43 @@ role, and unused cells are hatched. The data comes from `char_layout.json`. The
 output is our own diagram, so **do not commit a rendered template that has been
 painted over with original art**.
 
+### 2.4 Generator (`tools/artgen/char_atlas.py`)
+
+Produces `assets/pack/data/char.dds` (and `data/title.dds`) deterministically
+from §2.1/§2.2 above, reading the same facts from `tools/contract/char_layout.json`
+rather than re-deriving them:
+
+- **Glyphs** (0x20–0x7E): rasterised from the public-domain Shinonome 8x16
+  JIS X 0201 BDF (`shnm8x16r.bdf`, the same pinned/checksummed tarball
+  `tools/fonts/gen_font_atlas.py` downloads — see `assets/fonts/README.md` /
+  `SHINONOME-LICENSE.txt`), nearest-neighbour upscaled ×2 (16×32), centred in
+  the 32×32 cell with a horizontal margin to satisfy the no-bleed note in
+  §2.1. White RGB with the glyph shape carried in alpha; 0x20 (space) is left
+  fully transparent, matching the "cell is always drawn as a quad" rule.
+  Codes with no ASCII mapping (everything outside 0x20–0x7E) are left
+  transparent — §2.1 marks them not required by the engine.
+- **HUD cells** (0xB0–0xD2, the 27 cells in `char_layout.json.hud_cells`):
+  original Pillow-drawn geometry, since §2.2/Q-2 only fix position, tiling
+  role and draw alpha, not appearance. `corner`/`edge`/`tile-x`/`transition`
+  roles get a light-top/left, dark-bottom/right bevel on a flat mid-grey fill
+  so adjacent tiles read as one continuous beveled panel; `tile-xy` (0xC1,
+  the weapon-panel centre fill) is a plain fill so it tiles on all four
+  sides. The four `icon` cells get distinct shapes: 0xBA/0xBB (ammo) a
+  filled vs. outlined dot, 0xBD/0xBE (crosshair) a `[`/`]` bracket.
+- Output format: 512×512 A4R4G4B4 DDS via `tools/artgen/dds.py`
+  (`dds_argb4`), matching FREE-DATA-PACK.md F-4 and `assets/manifest.json`'s
+  `ref_format` for `data/char.dds`.
+- `data/title.dds` (480×80 A8R8G8B8, FREE-DATA-PACK.md F-4 / §3 below) is a
+  simple original wordmark built from the same glyph rasters, upscaled ×4,
+  transparent background — not derived from any original title art (none
+  exists in this pack).
+- Deterministic: no RNG, no network beyond the cached/checksummed Shinonome
+  tarball; re-running produces byte-identical output (`tools/tests/test_char_atlas.py::test_determinism`).
+- PNG previews (checkerboard-composited, matching `tools/artgen/scope.py`'s
+  convention) go to `assets/work/char_preview.png` / `title_preview.png`
+  (git-ignored). Provenance is appended to `assets/provenance.jsonl`
+  (`license: CC0-1.0`).
+
 ---
 
 ## 3. Other 2D and effect textures

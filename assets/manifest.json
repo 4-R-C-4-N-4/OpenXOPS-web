@@ -502,7 +502,7 @@
    "uv_layout": null,
    "summary": "Font and HUD atlas, loaded once at D3D/GL init (InitD3D TextureFontFname).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -7148,7 +7148,7 @@
    "uv_layout": null,
    "summary": "Title logo drawn over the menu demo and briefing screens (gametitle).",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
