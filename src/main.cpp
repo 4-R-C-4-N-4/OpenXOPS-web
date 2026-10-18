@@ -35,6 +35,10 @@
 #include "main.h"
 #include "platform/vfs.h"
 
+#ifdef __EMSCRIPTEN__
+extern "C" void openxops_apply_controls(int preset);
+#endif
+
 #if defined(_DEBUG) && defined(_WIN32)
  #include <shlwapi.h>
  #pragma comment(lib, "Shlwapi.lib")
@@ -249,6 +253,14 @@ static int GameEntry(int argc, char **argv)
 	GameConfig.LoadExtFile(NULL);
 #endif
 
+#ifdef __EMSCRIPTEN__
+	// Apply browser choice only after both original and extension config loaded.
+	openxops_apply_controls(EM_ASM_INT({
+		try { return localStorage.getItem('openxops-input-preset') === 'modern' ? 1 : 0; }
+		catch (e) { return 0; }
+	}));
+#endif
+
 #ifdef ENABLE_DEBUGLOG
 	//ログに出力
 	sprintf(infostr, "Display resolution : %d x %d", GameConfig.GetScreenWidth(), GameConfig.GetScreenHeight());
@@ -302,6 +314,7 @@ static int GameEntry(int argc, char **argv)
  emscripten_set_main_loop([](){
    static unsigned int framecnt=0;
    static double last=0;
+   if(EM_ASM_INT({ return !!document.getElementById('controls-dialog')?.open; })) return;
    double now=emscripten_get_now();
    if(now-last<GAMEFRAMEMS)return;
    last=now;

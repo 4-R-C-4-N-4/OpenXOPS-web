@@ -10,6 +10,7 @@ em++ -std=c++17 -O1 -g2 -Isrc -DGRAPHIC_ENGINE=8 -DINPUT_INTERFACE=3 -DSOUND_ENG
  "${sources[@]}" src/platform/common.cpp src/platform/input-common.cpp src/platform/vfs.cpp \
  src/platform/sdl/window-sdl.cpp src/platform/sdl/input-sdl.cpp src/platform/openal/sound-openal.cpp \
  src/platform/portable/d3dgraphics-portable.cpp src/platform/portable/browser-archive.cpp \
+ src/platform/portable/browser-controls.cpp \
  -sUSE_SDL=2 -sUSE_ZLIB=1 -lopenal -sLEGACY_GL_EMULATION=1 -sGL_UNSAFE_OPTS=0 -sALLOW_MEMORY_GROWTH=1 \
  -sINITIAL_MEMORY=128MB -sSTACK_SIZE=8MB -sEXPORTED_RUNTIME_METHODS=FS,callMain,UTF8ToString -sINVOKE_RUN=0 \
  -sASSERTIONS=1 -sEXIT_RUNTIME=0 -o build-web/openxops.js
