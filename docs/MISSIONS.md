@@ -25,3 +25,8 @@ Data layering in the browser (src/platform/portable/browser-archive.cpp):
 bundled free pack `/openxops-data.zip` first, optional classic `/xops096.zip`
 over it (classic files override free ones), exported to the engine via
 `OPENXOPS_DATA_ZIP`.
+
+Menu background: the main menu loads a random classic demo
+(`data\map{2,4,5,7,8,16}\temp.bd1` + `demo.pd1`). If none is present it falls
+back to `data\menu\temp.bd1` + `data\menu\demo.pd1`, which the free pack
+provides (currently a copy of the map10 opening scene).

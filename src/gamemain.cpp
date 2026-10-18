@@ -31,6 +31,7 @@
 // ※メニュー内のライセンス文章は mainmenu::CreateOptions() 内で定義されている。
 
 #include "gamemain.h"
+#include "platform/vfs.h"
 
 D3DGraphics d3dg;			//!< 描画クラス
 InputControl inputCtrl;		//!< 入力取得クラス
@@ -555,6 +556,27 @@ int mainmenu::Create()
 		case 5:
 			strcpy(demopath, "data\\map16\\");
 			break;
+	}
+	// OpenXOPS-web: data packs may lack the classic demo maps (free pack).
+	// Try the random pick first, then the other classic demos, then the
+	// pack-provided data\menu\ demo (docs/MISSIONS.md).
+	{
+		const char *demos[] = { demopath, "data\\map2\\", "data\\map4\\", "data\\map5\\", "data\\map7\\", "data\\map8\\", "data\\map16\\", "data\\menu\\" };
+		char picked[MAX_PATH];
+		strcpy(picked, demopath);
+		for(int i=0; i<(int)(sizeof(demos)/sizeof(demos[0])); i++){
+			strcpy(bdata, demos[i]);
+			strcat(bdata, "temp.bd1");
+			strcpy(pdata, demos[i]);
+			strcat(pdata, "demo.pd1");
+			FILE *bf = vfs_fopen(bdata, "rb");
+			FILE *pf = vfs_fopen(pdata, "rb");
+			const bool ok = (bf != NULL) && (pf != NULL);
+			if( bf != NULL ){ fclose(bf); }
+			if( pf != NULL ){ fclose(pf); }
+			if( ok ){ strcpy(picked, demos[i]); break; }
+		}
+		strcpy(demopath, picked);
 	}
 	strcpy(bdata, demopath);
 	strcat(bdata, "temp.bd1");

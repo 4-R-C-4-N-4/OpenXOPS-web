@@ -292,6 +292,11 @@ def generate_placeholders(staged_data_dir, staging_dir, dry_run=False):
         dest = os.path.join(staged_data_dir, rel_under_data)
         if os.path.exists(dest):
             continue  # real pack file (copied from assets/pack) always wins
+        # Never stub maps/points/missions: a stub temp.bd1 + .pd1 would make the
+        # data-driven mission list (docs/MISSIONS.md) advertise classic missions
+        # that are not really there. Only authored content defines missions.
+        if slot["kind"] in ("map", "points", "mission"):
+            continue
         key = (slot["kind"], slot.get("ref_format"))
         gen = PLACEHOLDER_GENERATORS.get(key)
         if gen is None:

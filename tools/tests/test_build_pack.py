@@ -67,6 +67,7 @@ class TestBuildPack(unittest.TestCase):
         p0_file_slots = [
             s for s in manifest["slots"]
             if s.get("priority") == "P0" and not s["path"].endswith("/")
+            and s["kind"] not in ("map", "points", "mission")  # never stubbed
             and (s["kind"], s.get("ref_format")) in build_pack.PLACEHOLDER_GENERATORS
         ]
         self.assertTrue(p0_file_slots)
@@ -91,11 +92,14 @@ class TestBuildPack(unittest.TestCase):
         missing_before = [
             s for s in manifest["slots"]
             if s.get("priority") == "P0" and not s["path"].endswith("/")
+            and s["kind"] not in ("map", "points", "mission")  # never stubbed
             and (s["kind"], s.get("ref_format")) in build_pack.PLACEHOLDER_GENERATORS
             and not os.path.exists(os.path.join(
                 DATA_DIR, s["path"][len("data/"):] if s["path"].startswith("data/") else s["path"]))
         ]
         self.assertEqual(sorted(written), sorted(s["path"] for s in missing_before))
+        self.assertFalse([p for p in written if p.endswith((".bd1", ".pd1"))],
+                         "stub maps would advertise fake missions")
         for rel in written:
             rel_under_data = rel[len("data/"):] if rel.startswith("data/") else rel
             self.assertTrue(os.path.exists(os.path.join(staged_data, rel_under_data)))
