@@ -1,0 +1,19 @@
+{
+  "batch": "visual-skins",
+  "scope": "Active human textures used by starter_compound.json and map10_demo.json",
+  "active_human_types": {
+    "starter_compound": [
+      2
+    ],
+    "map10_demo": [
+      0,
+      1
+    ]
+  },
+  "human_texture_paths": [
+    "data/model/soldier_green.bmp",
+    "data/model/soldier_black.bmp"
+  ],
+  "result": "generated original Codex image-generation source and deterministic UV-aligned BMPs",
+  "known_unrelated_issue": "Human mesh flat-limb geometry is outside this texture task."
+}
