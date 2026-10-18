@@ -533,3 +533,30 @@ remain visible; not declared visually finished. Character skins/meshes are still
 separate pending streams. Branch pushed for reproducible source links, NOT merged
 or deployed. Combined character and map visual acceptance remains required.
 
+### Visual integration — integrate/visual-polish (parent + Sonnet workers)
+
+Branch `integrate/visual-polish` merges visual-map, visual-geometry and
+visual-skins, plus parent fixes found during engine-composed close-up review:
+- Geometry: `tapered_box` cross-sections follow the limb axis (flat-arm root
+  cause). Arms rebuilt shoulder -> elbow -> wrist with hands landing on the
+  weapon grip (two-hand rifle, one-hand pistol). Wider torso, neck, cube head,
+  soles on the ground transform, weapon length matched to the engine muzzle
+  anchor in specs. Regressions: tools/tests/test_human_assembly.py.
+- Skins: Codex-material UV-aligned soldier_green/black. Fixed BMP palette
+  written RGBA instead of BGRA (red/blue swapped); regression added. Face,
+  hair, skin-tone panels.
+- Sky: root cause of seams = one continuous picture cut into six box-face
+  quadrants. New tools/artgen/skybox.py renders a cube-projected procedural sky
+  (each texel coloured from its view direction), so shared edges match by
+  construction; horizon fades to engine fog colour. sky.x now has 6 faces
+  with texel-centre inset UVs. Regression: tools/tests/test_sky_atlas.py
+  (checks the quantized BMP).
+- Browser verified (OPENXOPS_TEST_HOOKS build, new qa_pose_preview /
+  qa_sky_preview hooks): four-view soldier close-ups read as clothed soldiers
+  holding the pistol; sky-only renders at horizon, cube corner and zenith show
+  no seams, clouds continuous. 159 tool tests pass. Commits d47283d, b1b91e1.
+- Delegation switched to anthropic claude-sonnet-5 (low reasoning). Workers:
+  vp-meta (provenance/manifest refresh, sky2-5, docs) and vp-guard (prove
+  _qa_* exports never reach production; add stage guard + test).
+Remaining before deploy: merge workers, full no-ZIP starter pass (move, fire,
+enemies visible), classic ZIP overlay smoke, PR to main, CI green, deploy.
