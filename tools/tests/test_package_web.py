@@ -12,20 +12,24 @@ class WebPackageTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as t:
             root = Path(t)
             template = root/'template.html'
-            template.write_text('__ENGINE_SCRIPT__ __ENGINE_WASM__')
+            template.write_text('__ENGINE_SCRIPT__ __ENGINE_WASM__ __DATA_PACK__')
             (root/'openxops.js').write_bytes(b'engine-v1')
             (root/'openxops.wasm').write_bytes(b'wasm-v1')
-            first = packager.package(root, template)
-            self.assertEqual(first, packager.package(root, template))
+            (root/'openxops-data.aaaaaaaaaaaaaaaa.zip').write_bytes(b'pack-v1')
+            first, pack_name = packager.package(root, template)
+            self.assertEqual(pack_name, 'openxops-data.aaaaaaaaaaaaaaaa.zip')
+            self.assertEqual((first, pack_name), packager.package(root, template))
             self.assertIn(f'openxops.{first}.js', (root/'index.html').read_text())
+            self.assertIn(pack_name, (root/'index.html').read_text())
             (root/'openxops.js').write_bytes(b'engine-v2')
-            second = packager.package(root, template)
+            second, _ = packager.package(root, template)
             self.assertNotEqual(first, second)
             (root/'openxops.wasm').write_bytes(b'wasm-v2')
-            third = packager.package(root, template)
+            third, _ = packager.package(root, template)
             self.assertNotEqual(second, third)
             html = (root/'index.html').read_text()
             self.assertNotIn('__ENGINE_', html)
+            self.assertNotIn('__DATA_PACK__', html)
             self.assertIn(f'openxops.{third}.js', html)
             self.assertIn(f'openxops.{third}.wasm', html)
             self.assertEqual((root/f'openxops.{first}.js').read_bytes(), b'engine-v1')
@@ -36,9 +40,32 @@ class WebPackageTests(unittest.TestCase):
             root = Path(t)
             (root/'openxops.js').write_bytes(b'js')
             (root/'openxops.wasm').write_bytes(b'wasm')
+            (root/'openxops-data.bbbbbbbbbbbbbbbb.zip').write_bytes(b'pack')
             (root/'index.html').write_text('working page')
             template = root/'template.html'
             template.write_text('missing tokens')
             with self.assertRaises(ValueError):
                 packager.package(root, template)
             self.assertEqual((root/'index.html').read_text(), 'working page')
+
+    def test_missing_pack_zip_raises(self):
+        with tempfile.TemporaryDirectory() as t:
+            root = Path(t)
+            (root/'openxops.js').write_bytes(b'js')
+            (root/'openxops.wasm').write_bytes(b'wasm')
+            template = root/'template.html'
+            template.write_text('__ENGINE_SCRIPT__ __ENGINE_WASM__ __DATA_PACK__')
+            with self.assertRaises(FileNotFoundError):
+                packager.package(root, template)
+
+    def test_multiple_pack_zips_raises(self):
+        with tempfile.TemporaryDirectory() as t:
+            root = Path(t)
+            (root/'openxops.js').write_bytes(b'js')
+            (root/'openxops.wasm').write_bytes(b'wasm')
+            (root/'openxops-data.cccccccccccccccc.zip').write_bytes(b'pack1')
+            (root/'openxops-data.dddddddddddddddd.zip').write_bytes(b'pack2')
+            template = root/'template.html'
+            template.write_text('__ENGINE_SCRIPT__ __ENGINE_WASM__ __DATA_PACK__')
+            with self.assertRaises(ValueError):
+                packager.package(root, template)

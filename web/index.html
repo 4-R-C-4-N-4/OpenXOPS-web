@@ -137,6 +137,7 @@ var Module={
  browserInputPreset:selectedPreset,
  canvas,noInitialRun:true,
  locateFile:path=>path.endsWith('.wasm')?'__ENGINE_WASM__':path,
+ dataPackUrl:'__DATA_PACK__',
  print:s=>{logElement.textContent+=s+'\n';console.log(s)},
  printErr:s=>{logElement.textContent+=s+'\n';console.error(s);
    if(s.includes('[sdl] error:'))engineError=s;},
