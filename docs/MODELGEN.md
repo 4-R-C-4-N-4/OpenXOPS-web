@@ -40,6 +40,28 @@ opened while writing it.
   `walk*`, `run*`) draw from one 256x256 atlas (`generators.HUMAN_ATLAS`),
   per ASSET-CONTRACT 5.3's recommendation that any skin should fit any
   part.
+- **Tapered cross-sections.** `tapered_box` builds its cross-section
+  perpendicular to whichever axis it tapers along (not always Y), so a
+  limb segment tapers cleanly along its own length regardless of which
+  way it is oriented in the body.
+- **Arm pose.** `human_arms` builds each arm as a shoulder -> elbow ->
+  wrist chain that reaches to the weapon grip point from `specs.py`
+  (ASSET-CONTRACT 6.1), rather than a single straight segment, so the
+  held weapon's grip lines up with the hand across every `up*`/`weapon`
+  pair.
+- **Neck and feet.** `human_upper` inserts a neck segment between torso
+  and head instead of the head floating directly off the torso top, and
+  `human_legs` keeps the foot base flush with `y=0` (the ground plane,
+  ASSET-CONTRACT 5.3) at every walk/run phase instead of letting it dip
+  or float.
+- **Weapon length.** Each weapon's `.x` length is derived from its
+  `specs.py` grip-to-muzzle vector (ASSET-CONTRACT 6.1) rather than a
+  fixed box size, so the generated mesh ends exactly at its own muzzle
+  anchor.
+- **Sky box UVs.** `sky()`'s six faces each get texel-centre-inset UVs
+  (offset by half a texel inward, see `tools/artgen/skybox.py`'s header
+  comment) rather than UVs that touch `0`/`1` exactly, so a face never
+  samples a neighbouring face's texels across the atlas seam.
 
 ## Layout
 

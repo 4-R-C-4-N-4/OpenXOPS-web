@@ -6738,7 +6738,7 @@
    "uv_layout": null,
    "summary": "Sky box mesh; every sky texture wraps this model.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6783,7 +6783,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 2 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6805,7 +6805,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 3 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6827,7 +6827,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 4 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6849,7 +6849,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 5 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {

@@ -28,3 +28,27 @@ Map-loader tests and production WASM build pass. Parent viewed the menu and
 starter in an isolated local browser with no archive. Character appearance is
 NOT validated by this branch: skin and mesh corrections are separate streams.
 Do not deploy this component alone as a fix for all reported geometry defects.
+
+## Sky
+
+`data/sky/sky1.bmp`..`sky5.bmp` are generated procedurally by
+`tools/artgen/skybox.py`, not painted or AI-image-generated: for every texel
+of the 6-face, 64px-per-face atlas it computes the ray direction from the box
+centre through that point on `data/sky/sky.x` and colours it from a smooth
+function of that direction (vertical gradient + soft fbm cloud noise). Two
+texels on the same physical cube edge always share the same direction, so
+they always get the same colour — the atlas is seam-free by construction,
+not by post-hoc touch-up. Each sky's horizon colour (`fog`, the colour at
+`elev == 0`) matches the engine's fog colour for that sky number, so the
+skybox blends into distance fog instead of showing a horizon line.
+`tools/tests/test_sky_atlas.py` enforces both properties (shared-vertex
+colour match, texel-centre UVs) for every `sky<N>.bmp` present (1-5).
+
+Regenerate all five with:
+
+```sh
+python3 -m tools.artgen.skybox --numbers 1,2,3,4,5
+```
+
+Pass `--out <dir>` to write elsewhere, or a shorter `--numbers` list to
+refresh only some.
