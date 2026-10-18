@@ -52,6 +52,30 @@ class StarterScaleTests(unittest.TestCase):
         self.assertGreaterEqual(north['max'][1] - north['min'][1], 30)
         self.assertGreaterEqual(north['max'][0] - north['min'][0], 300)
 
+    def test_pickup_models_are_in_the_free_pack(self):
+        import re
+        doc = json.loads(STARTER_JSON.read_text())
+        parameters = (SRC_DIR / 'parameter.cpp').read_text()
+        for point in doc['points']:
+            if point['type'] != 'weapon_pickup':
+                continue
+            wid = point['weapon_id']
+            match = re.search(r'Weapon\[' + str(wid) + r'\]\.model\s*=\s*"([^"]+)"', parameters)
+            self.assertIsNotNone(match, wid)
+            model = match.group(1).removeprefix('./')
+            self.assertTrue((REPO_ROOT / 'assets/pack' / model).is_file(), model)
+
+    def test_pickups_are_not_buried_in_cover(self):
+        doc = json.loads(STARTER_JSON.read_text())
+        for point in doc['points']:
+            if point['type'] != 'weapon_pickup':
+                continue
+            x, y, z = point['pos']; y += 0.1
+            for box in doc['blocks']:
+                lo, hi = box['min'], box['max']
+                inside = lo[0] < x < hi[0] and lo[1] < y < hi[1] and lo[2] < z < hi[2]
+                self.assertFalse(inside, (point, box.get('comment')))
+
     def test_spawn_has_full_height_cover_from_front(self):
         doc = json.loads(STARTER_JSON.read_text())
         spawn = next(p for p in doc['points'] if p['type'] == 'player_spawn')['pos']

@@ -745,13 +745,13 @@
     {
       "type": "weapon_pickup",
       "pos": [
-        16.0,
-        0.0,
-        144.0
+        2,
+        0,
+        160
       ],
       "weapon_id": 3,
       "ammo": 45,
-      "comment": "sidearm pickup near spawn"
+      "comment": "spare sidearm beside player, behind cover; select empty slot 2 to pick up"
     },
     {
       "type": "weapon_pickup",
@@ -760,9 +760,9 @@
         0.0,
         -104.0
       ],
-      "weapon_id": 1,
+      "weapon_id": 9,
       "ammo": 90,
-      "comment": "SMG pickup inside the building's east room"
+      "comment": "M4 rifle pickup in east room (model included in free P0 pack)"
     },
     {
       "type": "waypoint",

@@ -47,10 +47,11 @@ Points (15 authored plus 2 synthesized HUMANINFO records, well within `MAX_POINT
   south gate, holding an M92F via Human[2]'s loadout. When only one weapon
   slot is populated, the engine selects that usable slot; nearby pickups
   remain independent WEAPON points;
-* 2 `weapon_pickup` points: an **M92F** pistol (`weapon_id=3`, per
-  `src/parameter.cpp:606` — `Weapon[3].name = "M92F"`) near the gate,
-  and an **MP5** SMG (`weapon_id=1`, `src/parameter.cpp:536`) inside
-  the building's east room;
+* 2 `weapon_pickup` points: a spare **M92F** pistol (`weapon_id=3`) beside
+  the player, behind the spawn cover, and an **M4** rifle (`weapon_id=9`)
+  in the east room. Both have generated models in the free pack (the earlier
+  MP5 reference was removed because its model is not included yet). Select an
+  empty slot (keys 1/2) before picking up, as in the original game;
 * 6 `waypoint` points (AIPATH, `event.cpp:179-181`) forming a patrol
   loop around the courtyard and building;
 * 5 `human` points (enemy guards, HUMAN2 with `team=2`, `human_type=2`),
