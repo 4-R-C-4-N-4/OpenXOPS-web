@@ -395,3 +395,14 @@ Starts after the final-polish batch is integrated.
   Verified Training Yard briefing renders "訓練せよ / (説明の操作方法は標準設定の場合)"
   legibly with exact ZIP. 47 tests pass. Final polish batch complete; next: Phase A
   of docs/OPEN-ASSETS-SOW.md.
+
+### Open-assets Phase A + B — active (Sonnet workers, isolated worktrees)
+- open-engine: bundled deterministic free pack ZIP mounted via VFS, original ZIP
+  as optional overlay, data/missions.txt mission list with official fallback,
+  placeholder pack mode so the page boots to a stub mission with no original data.
+- open-mapgen: clean-room .bd1/.pd1 reader/writer from src/datafile.cpp, JSON
+  author format, original starter layout, round-trip + real-loader harness.
+- open-modelgen: procedural text .x generator for P0 model slots + UV templates
+  for Codex skin painting.
+Parent integrates, then wires mapgen/modelgen output into the pack and verifies
+an upload-free mission in browser before any deploy.
