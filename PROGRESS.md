@@ -595,3 +595,19 @@ checkerboards (real files always win). Impact puffs use smoke.dds
 (objectmanager.cpp:1032-1033), blood uses blood.dds (:638/:642).
 p0-effects done (f277ea6) + parent fix 18bbb4a (denser dusty smoke so tiny
 impact puffs read on pale walls). p0-weapons steered to also tone down faces.
+
+### Free-pack P0 complete — integrate/p0
+
+Merged p0-manifest (5509068), p0-effects (f277ea6 + parent 18bbb4a denser
+smoke), p0-weapons (a92baa6). Parent folded both PROVENANCE-ADD sidecars into
+assets/provenance.jsonl (corrected 3 stale skin hashes from the sidecar),
+ran tools/sync_manifest_status.py. validate_pack: 32 -> 0 FAIL (21 classic-only
+slots marked free_pack: not_required with source citations: menu demo fallback
+gamemain.cpp:560-579, map10 ext = official mission 33 parameter.cpp:1647,
+briefing picture only when start.txt line != "!" datafile.cpp:803-824).
+Parent replaced the evenly spaced "germ" blood splat with an irregular one.
+New QA hook qa_spawn_effects (test builds only) draws blood/smoke/flash with
+engine textures. Browser verified (test build): impact puffs are dusty clouds,
+blood is an irregular red splat (no grids), HUD weapon icon shows a real M92F,
+faces are plain skin with subtle features. 185 tests pass; production build
+has 0 _qa_ symbols.
