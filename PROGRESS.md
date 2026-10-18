@@ -614,4 +614,20 @@ has 0 _qa_ symbols.
 
 Deployed (PR #4, run 39175785257). Live: bullet impacts are dusty puffs, HUD shows the textured M92F icon; engine JS unchanged (data-only release). Next candidates: P1 skins/weapons (26+15 missing), more free missions, original SFX polish.
 
+### Briefing + pause UX bugs (user report) — active
+
+User screenshot: starter briefing body text rendered as outline boxes, white
+square picture, resume button hard to hit because the cursor is hidden.
+- Text root cause: font_atlas.inc never contained printable ASCII; the
+  generator assumed the hand-authored Latin-1 table owned 0x00-0xFF but it held
+  only 0xA1-0xFF plus 0x5C/0x7E. Japanese text passed earlier checks; English
+  briefings failed. Fix fix-font d40275f: ASCII 0x21-0x7E from Shinonome
+  shnm8x16r.bdf (additive, hand-authored entries win) + harness test counting
+  outline-box fallbacks at 12/16 px (92 -> 0). Browser: briefing readable.
+- White square: upstream draws a white box when no briefing picture.
+  Worker fix-briefpic: CC0 tactical-map picture generated from the authored
+  map JSON, start.txt references it; also rewrite text to fit above the prompt
+  and stop mentioning the now-closed south gate.
+- Pause: worker fix-pause: visible cursor while paused, large resume button,
+  click-anywhere-to-resume.
 Merged fix-font d40275f + fix-pause 5ef09a1 + fix-briefpic 748824a. Browser verified: briefing text readable, generated compound map picture, body fits above prompt; paused state shows cursor (computed cursor auto), 240x70 resume button, overlay click resumes. 194 tests, validate_pack 0 FAIL, production build 0 _qa_.
