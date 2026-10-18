@@ -46,7 +46,9 @@
 #include "../../d3dgraphics.h"
 #include "../vfs.h"
 #include "../gl_present.h"
+#include "../text/text.h"
 #include <string>
+#include <vector>
 #include <emscripten.h>
 // Copy legacy client attributes into immediate-mode vertices. This avoids
 // Emscripten's unsafe separate-array packing assumptions for stack/heap arrays.
@@ -2194,14 +2196,71 @@ int D3DGraphics::StrMaxLineLen(const char *str)
 //! @todo 1文字目が欠ける場合がある。
 void D3DGraphics::Draw2DMSFontText(int x, int y, const char *str, int color)
 {
- if(!str)return;
- std::string line;int row=y;
- for(const unsigned char* c=(const unsigned char*)str;*c;c++){
-  if(*c=='\n'){Draw2DTextureFontText(x,row,line.c_str(),color,9,18);line.clear();row+=18;}
-  else if(*c<128)line+=(char)*c;
-  else {line+='?'; if(((*c>=0x81&&*c<=0x9f)||(*c>=0xe0&&*c<=0xfc))&&c[1])c++;}
- }
- Draw2DTextureFontText(x,row,line.c_str(),color,9,18);
+	if( str == NULL ){ return; }
+
+	//CP932(Windows-31J)の文字列をShinonomeビットマップフォントのRGBAアトラスへ変換
+	//（NOTICE.mdのShinonome節を参照。パブリックドメインのビットマップフォント）
+	const int px = 16;
+	std::vector<unsigned char> rgba;
+	int w = 0, h = 0;
+	if( !text_bitmap(str, px, rgba, &w, &h) || w <= 0 || h <= 0 ){ return; }
+
+	Start2DRender();
+
+	glEnable(GL_TEXTURE_2D);
+
+	GLuint tex = 0;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, rgba.data());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+	float VertexAry[12];
+	unsigned char ColorAry[24];
+	float TexCoordAry[12];
+
+	Set4ByteBigEndian(&(ColorAry[0]), color);
+	for(int i=1; i<6; i++){
+		memcpy(&(ColorAry[i*4]), ColorAry, sizeof(unsigned char)*4);
+	}
+
+	VertexAry[0]=(float)x;		VertexAry[1]=(float)y;
+	VertexAry[2]=(float)x;		VertexAry[3]=(float)y;
+	VertexAry[4]=(float)x+w;	VertexAry[5]=(float)y;
+	VertexAry[6]=(float)x;		VertexAry[7]=(float)y+h;
+	VertexAry[8]=(float)x+w;	VertexAry[9]=(float)y+h;
+	VertexAry[10]=(float)x+w;	VertexAry[11]=(float)y+h;
+	TexCoordAry[0]=0.0f;	TexCoordAry[1]=0.0f;
+	TexCoordAry[2]=0.0f;	TexCoordAry[3]=0.0f;
+	TexCoordAry[4]=1.0f;	TexCoordAry[5]=0.0f;
+	TexCoordAry[6]=0.0f;	TexCoordAry[7]=1.0f;
+	TexCoordAry[8]=1.0f;	TexCoordAry[9]=1.0f;
+	TexCoordAry[10]=1.0f;	TexCoordAry[11]=1.0f;
+
+	portableEnableClientState(GL_VERTEX_ARRAY);
+	portableEnableClientState(GL_COLOR_ARRAY);
+	portableEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	portableVertexPointer(2, GL_FLOAT, 0, VertexAry);
+	portableColorPointer(4, GL_UNSIGNED_BYTE, 0, ColorAry);
+	portableTexCoordPointer(2, GL_FLOAT, 0, TexCoordAry);
+	portableDrawArrays(GL_TRIANGLE_STRIP, 1, 4);
+
+	portableDisableClientState(GL_VERTEX_ARRAY);
+	portableDisableClientState(GL_COLOR_ARRAY);
+	portableDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+	End2DRender();
+
+	glDeleteTextures(1, &tex);
+
+	//テクスチャフォントを使っていた場合に備えて、現在設定中のテクスチャへ復帰
+	if( TextureFont != -1 ){
+		glBindTexture(GL_TEXTURE_2D, textureobjname[TextureFont]);
+	}
 }
 
 //! @brief 文字を表示（システムフォント使用）【スケーリング機能付き】
@@ -2234,10 +2293,15 @@ void D3DGraphics::Draw2DMSFontTextCenter(int x, int y, int w, int h, const char 
 
 	if( str == NULL ){ return; }
 
-	int fonthalfsize = (int)(((float)GameConfig.GetScreenHeight() / 480) * 9);
+	float scaling = (float)GameConfig.GetScreenHeight() / 480;
+	//半角9px/全角18px相当（px=16実寸、表示は640x480換算の論理px）に対し、
+	//全角/半角混在の実ピクセル幅をtext_measure()で正確に求めてから中央揃えする
+	int textw = 0, texth = 0;
+	if( !text_measure(str, 16, &textw, &texth) ){ return; }
 
-	//Draw2DMSFontText(x + (w/2 - (StrMaxLineLen(str)*9/2)), y, str, color);
-	Draw2DMSFontText(x + (w/2 - (StrMaxLineLen(str)*fonthalfsize/2)), y, str, color);
+	int scaledTextW = (int)(scaling * ((float)textw * 9.0f / 16.0f));
+
+	Draw2DMSFontText(x + (w/2 - scaledTextW/2), y, str, color);
 }
 
 //! @brief 文字を中央揃えで表示（システムフォント使用）【スケーリング機能付き】
