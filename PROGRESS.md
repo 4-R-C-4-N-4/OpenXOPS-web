@@ -611,3 +611,5 @@ engine textures. Browser verified (test build): impact puffs are dusty clouds,
 blood is an irregular red splat (no grids), HUD weapon icon shows a real M92F,
 faces are plain skin with subtle features. 185 tests pass; production build
 has 0 _qa_ symbols.
+
+Deployed (PR #4, run 39175785257). Live: bullet impacts are dusty puffs, HUD shows the textured M92F icon; engine JS unchanged (data-only release). Next candidates: P1 skins/weapons (26+15 missing), more free missions, original SFX polish.
