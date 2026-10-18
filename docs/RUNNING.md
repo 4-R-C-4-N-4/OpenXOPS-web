@@ -10,6 +10,9 @@ Open **http://127.0.0.1:8766/** while the preview server is running.
 
 1. Select `/home/ivy/Work/OpenXOPS-web/xopsdata/xops096.zip` in the file picker.
 2. Click **Start game**. The archive is read locally, not uploaded to a server.
+   After validation it is saved in IndexedDB on this browser/device. On later
+   visits just click **Start game**, without selecting the file again. Use
+   **Forget saved ZIP** on the setup screen to delete the cached copy.
 3. Press Enter to leave the opening scene.
 4. Click **TRAINING YARD** in the mission menu.
 5. Left-click again on the briefing to begin.
@@ -76,9 +79,10 @@ been exhaustively verified. Do not interpret successful boot as full parity.
   shader rewrite remains experimental and is **not** required to boot it.
 - The compatibility renderer converts client arrays to immediate-mode draws;
   it prioritizes working output rather than optimal performance.
-- Selecting the archive is required after reload. Archive/settings persistence
-  is not yet implemented in the game shell (the separate smoke test has its
-  own persistence test).
+- The validated archive is remembered in IndexedDB for this origin (same host
+  and port). Private browsing, browser eviction or clearing site data can remove
+  it. If storage fails, the game still plays but requires selection next time.
+  Settings/save persistence is separate and not implemented yet.
 - Quit ends the game loop; reload the page to start another session.
 - Original game data is copyrighted and must not be deployed alongside the
   engine. The CC0 replacement pack is incomplete.
@@ -126,3 +130,7 @@ engine APIs after updates. After HTML-only changes run
 `python3 tools/package_web.py`; do not copy web/index.html directly into the
 build directory (it contains build tokens). If an already-open older page
 reports a missing Module function, reload to obtain the packaged page.
+
+The browser renderer guards against backing-canvas resize on every frame;
+fullscreen/DPI changes must not leave a640x480 GL viewport in a monitor-sized
+buffer. Display scaling is CSS-only and preserves the logical game resolution.

@@ -251,3 +251,18 @@ Errors restore setup view. Parent tested exact Downloads/xops096.zip: opening
 visible/centred at1280x577, fullscreen button succeeds, resized1600x1000 atDPR2
 fits1269x952 with640x480 GL viewport and no clipped canvas. Build repackaged via
 fingerprint tool; original archive remains local.
+
+### Screenshot-rooted tiny-corner fix and archive persistence
+
+User screenshot xops-web-tiny.png showed actual image in lower-left, not just
+page misalignment. Parent reproduced by forcing3832x1904 backing buffer while
+GLviewport stayed640x480. Portable StartRender now restores backing buffer to
+logical game size before rendering and refits CSS. Exact same resize now
+self-recovers to640x480/full displayed game. Tested1920x1080/DPR2 too.
+
+Validated ZIP now saved locally in IndexedDB after preflight, loaded before Start
+button enabled, and usable without picker after reload. New invalid selection
+never overwrites saved valid archive. Forget button removes persisted record;
+storage failure degrades to normal picker. No cookies or uploads. Parent tested
+real DownloadsZIP save->reload->Start(no file),forget->reload(no record),resave;
+all passed in Chromium. Settings persistence remains separate/unimplemented.

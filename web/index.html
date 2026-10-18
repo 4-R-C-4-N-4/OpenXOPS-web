@@ -25,6 +25,9 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 </ol>
 <input id="archive" type="file" accept=".zip">
 <button id="play" disabled>Loading engine…</button>
+<button id="forget" type="button" disabled>Forget saved ZIP</button>
+<p>The validated ZIP is remembered on this browser/device. Clearing site data or using private browsing can remove it. <strong>Forget saved ZIP</strong> deletes the saved copy.</p>
+<p id="saved-archive" role="status"></p>
 <p id="status" role="status">Preparing WASM…</p>
 <div id="stage">
 <canvas id="canvas" width="640" height="480" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
@@ -37,6 +40,38 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 const logElement=document.getElementById('log'),play=document.getElementById('play'),
  status=document.getElementById('status'),canvas=document.getElementById('canvas');
 let engineError='', enteredMain=false;
+const savedLabel=document.getElementById('saved-archive'),forget=document.getElementById('forget');
+let savedArchive=null;
+function archiveStore(action,value){
+ return new Promise((resolve,reject)=>{
+   const request=indexedDB.open('openxops-game-data',1);
+   request.onupgradeneeded=()=>request.result.createObjectStore('archives');
+   request.onerror=()=>reject(request.error);
+   request.onblocked=()=>reject(new Error('Browser storage is blocked.'));
+   request.onsuccess=()=>{
+     const db=request.result;
+     let result;
+     const tx=db.transaction('archives',action==='get'?'readonly':'readwrite');
+     const store=tx.objectStore('archives');
+     const op=action==='get'?store.get('original'):action==='delete'?store.delete('original'):store.put(value,'original');
+     op.onsuccess=()=>{result=op.result;};
+     tx.oncomplete=()=>{db.close();resolve(result);};
+     tx.onerror=tx.onabort=()=>{db.close();reject(tx.error||new Error('Browser storage failed.'));};
+   };
+ });
+}
+const archiveReady=archiveStore('get').then(record=>{
+ if(record&&record.bytes instanceof ArrayBuffer&&typeof record.name==='string'){
+   savedArchive=record;savedLabel.textContent='Saved locally: '+record.name+' — ready to play.';forget.disabled=false;
+ }
+}).catch(()=>{savedLabel.textContent='Browser storage unavailable. You can still select and play a ZIP.';});
+forget.onclick=async()=>{
+ forget.disabled=true;
+ try{await archiveStore('delete');savedArchive=null;
+   document.getElementById('archive').value='';savedLabel.textContent='Saved ZIP removed from this browser.';
+   if(!enteredMain)status.textContent='Select xops096.zip to play again.';
+ }catch(e){savedLabel.textContent='Could not remove saved ZIP: '+e;forget.disabled=false;}
+};
 function reportError(message){document.body.classList.remove('playing');status.textContent=message;status.dataset.error='true';}
 function fitGame(){
  const stage=document.getElementById('stage');
@@ -59,26 +94,33 @@ var Module={
  print:s=>{logElement.textContent+=s+'\n';console.log(s)},
  printErr:s=>{logElement.textContent+=s+'\n';console.error(s);
    if(s.includes('[sdl] error:'))engineError=s;},
- onRuntimeInitialized(){
+ onRuntimeInitialized:async function(){
+   await archiveReady;
    if(typeof Module._openxops_prepare_archive!=='function'||typeof Module._openxops_archive_error!=='function'){
      reportError('Engine/page version mismatch. Reload this page to load the current engine.');return;
    }
    play.disabled=false;play.textContent='Start game';
-   status.textContent='Select xops096.zip (original game data), then Start game.'}
+   status.textContent=savedArchive?'Saved game data ready. Click Start game.':'Select xops096.zip (original game data), then Start game.'}
 };
 play.onclick=async()=>{
  const file=document.getElementById('archive').files[0];
- if(!file){reportError('Select xops096.zip (original game data) first.');return;}
+ if(!file&&!savedArchive){reportError('Select xops096.zip (original game data) first.');return;}
  play.disabled=true;status.dataset.error='false';
  try{
-   if(file.size>512*1024*1024)throw new Error('ZIP exceeds the 512 MiB archive limit.');
-   status.textContent='Checking '+file.name+'…';
-   const bytes=new Uint8Array(await file.arrayBuffer());
+   if(file&&file.size>512*1024*1024)throw new Error('ZIP exceeds the 512 MiB archive limit.');
+   const record=file?{name:file.name,bytes:await file.arrayBuffer()}:savedArchive;
+   status.textContent='Checking '+record.name+'…';
+   const bytes=new Uint8Array(record.bytes);
    Module.FS.writeFile('/xops096.zip',bytes);
    Module.FS.mkdirTree('/save');Module.FS.chdir('/');
    if(Module._openxops_prepare_archive()!==0){
      reportError(Module.UTF8ToString(Module._openxops_archive_error()));
      play.disabled=false;return; // Do not enter main; another archive can be selected safely.
+   }
+   if(file){
+     try{await archiveStore('put',record);savedArchive=record;forget.disabled=false;
+       savedLabel.textContent='Saved locally: '+record.name+' — no need to select it next visit.';
+     }catch(e){savedLabel.textContent='Playing without saving the ZIP (browser storage unavailable or full).';}
    }
    status.textContent='Starting original game…';
    document.body.classList.add('playing');fitGame();canvas.focus();

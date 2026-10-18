@@ -1522,6 +1522,16 @@ int D3DGraphics::GetTotalTextures()
 //! @attention 描画処理の最初に呼び出す必要があります。
 int D3DGraphics::StartRender()
 {
+ // Fullscreen/SDL can resize the backing canvas independently of the logical
+ // 640x480 game viewport. Keep one logical buffer; scale only its CSS box.
+ // Otherwise GL draws into a tiny lower-left corner of a monitor-sized buffer.
+ EM_ASM({
+   const c=Module.canvas;
+   if(c.width!==$0 || c.height!==$1){
+     c.width=$0;c.height=$1;
+     if(typeof fitGame==='function')fitGame();
+   }
+ },width,height);
  glViewport(0,0,width,height);
  glClearColor(0,0,0,1);glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
  glEnable(GL_DEPTH_TEST);glEnable(GL_CULL_FACE);glEnable(GL_BLEND);
