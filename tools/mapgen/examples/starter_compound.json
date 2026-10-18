@@ -99,6 +99,21 @@
       "texture_world_units": 32
     },
     {
+      "comment": "closed south gate: player spawns 40 units inside; an open gate let the player walk off the floor edge into the void",
+      "min": [
+        -24.0,
+        0.0,
+        200.0
+      ],
+      "max": [
+        24.0,
+        40.0,
+        208.0
+      ],
+      "texture": "wall.bmp",
+      "texture_world_units": 32
+    },
+    {
       "comment": "building north wall",
       "min": [
         -56.0,
