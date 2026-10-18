@@ -4,6 +4,9 @@ cd "$(dirname "$0")/.."
 if ! command -v em++ >/dev/null; then source "$HOME/programs/emsdk/emsdk_env.sh"; fi
 mkdir -p build-web
 sources=()
+if [[ "${OPENXOPS_TEST_HOOKS:-0}" == 1 ]]; then
+  sources+=(tests/browser/qa_hooks.cpp)
+fi
 for n in ai collision config d3dgraphics-debugfont datafile debug event gamemain gui-object main object objectmanager parameter resource scene soundmanager statemachine; do sources+=("src/$n.cpp"); done
 em++ -std=c++17 -O1 -g2 -Isrc -DGRAPHIC_ENGINE=8 -DINPUT_INTERFACE=3 -DSOUND_ENGINE=3 \
  -DOPENXOPS_PORTABLE_GL -DOPENXOPS_WINDOW_SDL -DOPENXOPS_INPUT_SDL -DOPENXOPS_SOUND_OPENAL -DENABLE_AUTOCREATECONFIG \

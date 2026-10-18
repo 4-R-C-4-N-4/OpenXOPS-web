@@ -19,6 +19,8 @@ def stage(build, destination):
     if scripts[0].split('.')[1] != wasm[0].split('.')[1]:
         raise ValueError('Engine fingerprints differ')
     names = ['index.html', scripts[0], wasm[0], 'LICENSE']
+    if '_qa_reticle_pixels' in (build / scripts[0]).read_text():
+        raise ValueError('Refusing to publish a diagnostic/test-hook engine build')
     # Detect accidental original assets even if renamed; metadata only is committed.
     reference = json.loads((ROOT/'tools/manifest/xops096_reference.json').read_text())
     if isinstance(reference, dict):
