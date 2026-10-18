@@ -210,7 +210,7 @@ class StarterBriefingTextTests(unittest.TestCase):
 
     def test_has_picture_and_sky_header(self):
         self.assertGreaterEqual(len(self.lines), 4)
-        self.assertEqual(self.lines[0], "!")  # no picture A
+        self.assertEqual(self.lines[0], "starter")  # picture A: data/briefing/starter.bmp
         self.assertEqual(self.lines[1], "!")  # no picture B
         self.assertTrue(self.lines[2].strip().lstrip("-").isdigit())
 

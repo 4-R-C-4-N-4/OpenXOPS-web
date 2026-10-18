@@ -15,8 +15,12 @@ body.playing #stage,#stage:fullscreen{display:flex;position:fixed;inset:0;backgr
 .gamebar button{padding:5px 12px;margin:0}
 #setup-controls{display:inline-flex;align-items:center;gap:8px;margin:8px}
 #setup-controls select{padding:8px;background:#202427;color:#eee;font:inherit}
-#resume-game{display:none;position:fixed;z-index:30;top:50%;left:50%;transform:translate(-50%,-50%);font:16px monospace}
-body.paused #resume-game{display:block}
+#resume-overlay{display:none;position:fixed;inset:0;z-index:30;background:#000000cc;align-items:center;justify-content:center;cursor:pointer}
+body.paused #resume-overlay{display:flex}
+body.paused #stage canvas{cursor:auto!important}
+#resume-game{display:block;font:20px/1.2 monospace;font-weight:bold;padding:20px 40px;min-width:240px;min-height:64px;background:#2b6cff;color:#fff;border:3px solid #fff;border-radius:10px;cursor:pointer}
+#resume-game:hover{background:#1d54d6}
+#resume-game:focus-visible{outline:4px solid #ffd54f;outline-offset:3px}
 #controls-dialog{max-width:560px;background:#202427;color:#eee;border:1px solid #8aa;padding:20px;text-align:left;font:16px/1.5 monospace}
 #controls-dialog::backdrop{background:#000b}
 #controls-dialog h2{margin-top:0}
@@ -43,7 +47,7 @@ OpenXOPS engine/source downloads (1.080.zip / 1.080-src.zip) are not game data.<
 <p>The validated ZIP is remembered on this browser/device. Clearing site data or using private browsing can remove it. <strong>Forget saved ZIP</strong> deletes the saved copy.</p>
 <p id="saved-archive" role="status"></p>
 <p id="status" role="status">Preparing WASM…</p>
-<button id="resume-game" type="button" aria-label="Resume game">Resume game</button>
+<div id="resume-overlay" role="button" aria-label="Resume game" tabindex="-1"><button id="resume-game" type="button" aria-label="Resume game">Resume game</button></div>
 <div id="stage">
 <canvas id="canvas" width="640" height="480" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
 <div class="gamebar"><span>Click game for mouse · Esc releases</span><button id="controls" type="button">Controls</button><button id="fullscreen" type="button">Fullscreen</button></div>
@@ -64,7 +68,11 @@ window.browserSelectedPreset=selectedPreset;
 Module=window.Module||{};Module.browserInputPreset=selectedPreset;Module.browserPaused=false;
 const pauseReasons=new Set();
 function resetGameInput(){if(typeof Module._openxops_reset_input==='function')Module._openxops_reset_input();}
-function syncPauseState(){const paused=pauseReasons.size>0;Module.browserPaused=paused;document.body.classList.toggle('paused',paused);}
+function syncPauseState(){const paused=pauseReasons.size>0;Module.browserPaused=paused;document.body.classList.toggle('paused',paused);
+ // SDL sets canvas.style.cursor='none' while running; override it while paused
+ // so the OS pointer is visible over the overlay/button, then let gameplay
+ // input restore its own cursor state once resumed and pointer lock re-engages.
+ if(paused)canvas.style.cursor='default';else canvas.style.cursor='';}
 // Pause reasons stack (dialog, hidden tab, window blur); closing one reason
 // (e.g. the controls dialog) must not resume play while another (e.g. focus
 // loss) is still active. Reset happens on entering pause so nothing queued
@@ -75,7 +83,9 @@ function removePauseReason(reason){pauseReasons.delete(reason);syncPauseState();
 // focus or visibility alone never restarts simulation.
 document.addEventListener('visibilitychange',()=>{if(document.hidden)addPauseReason('hidden');});
 window.addEventListener('blur',()=>addPauseReason('blur'));
-document.getElementById('resume-game').addEventListener('click',()=>{if(document.hidden||!document.hasFocus())return;pauseReasons.clear();syncPauseState();canvas.focus();});
+function resumeGame(){if(document.hidden||!document.hasFocus())return;pauseReasons.clear();syncPauseState();canvas.focus();canvas.requestPointerLock?.();}
+document.getElementById('resume-game').addEventListener('click',resumeGame);
+document.getElementById('resume-overlay').addEventListener('click',event=>{if(event.target.id==='resume-game')return;resumeGame();});
 presetSelect.addEventListener('change',()=>{selectedPreset=presetSelect.value==='modern'?'modern':'classic';window.browserSelectedPreset=selectedPreset;Module.browserInputPreset=selectedPreset;const saved=savePreset(selectedPreset);status.textContent=saved?'Preset saved; it applies on the next game start.':'Preset selected for this page; browser storage is unavailable, so it will not persist after reload.';});
 function showControls(event){controlsOpener=event.currentTarget;const modern=selectedPreset==='modern';document.getElementById('controls-description').textContent=modern?'Selected preset: Modern. Move with W/A/S/D; left mouse button fires; R reloads; Space jumps; Shift walks; right mouse aims/zooms the scope; Q switches weapon; X changes fire mode; G drops weapon; 1 and 2 select weapon slots; Home toggles arms/held-weapon visibility. To pick up a weapon, select an empty slot (1/2) first. Arrow keys turn the camera. This preset applies on the next game start, not immediately.':'Selected preset: Classic. Original default bindings (a custom config may differ): W/S/A/D move; Tab walks; Home toggles arms/held-weapon visibility; Space jumps; R reloads; Left Shift aims/zooms the scope; X changes fire mode; Z switches weapon; 1 and 2 select weapon slots; left mouse button fires. To pick up a weapon, select an empty slot (1/2) first. Arrow keys turn the camera. This preset applies on the next game start, not immediately.';addPauseReason('dialog');if(!controlsDialog.open)controlsDialog.showModal();document.getElementById('close-controls').focus();}
 function closeControls(){if(controlsDialog.open)controlsDialog.close();}

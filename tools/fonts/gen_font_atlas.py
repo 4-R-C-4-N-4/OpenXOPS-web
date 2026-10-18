@@ -206,11 +206,20 @@ def main():
         glyphs[cp] = pack_rows(rows, bbw or 16, bbh or 16, hexw)
         count_full += 1
 
-    # Half-width katakana (JIS X 0201), mapped to the Unicode half-width
-    # katakana block U+FF61-U+FF9F. ASCII range intentionally skipped: the
-    # existing Latin-1 atlas already owns 0x00-0xFF and must stay unchanged.
+    # Half-width (JIS X 0201) font: printable ASCII 0x21-0x7E plus half-width
+    # katakana (U+FF61-U+FF9F). The hand-authored table only ever covered the
+    # Latin-1 Supplement and two symbols, so ASCII used to be missing and
+    # every English letter rendered as the outline-box fallback. Hand-authored
+    # entries (e.g. 0x5C, 0x7E) still win over the BDF.
     count_half = 0
+    count_ascii = 0
     for encoding, bbw, bbh, rows in parse_bdf(half_text):
+        if 0x21 <= encoding <= 0x7E:
+            if encoding not in latin1:
+                hexw = max(1, (bbw + 3) // 4) if bbw else 2
+                glyphs[encoding] = pack_rows(rows, bbw or 8, bbh or 16, hexw)
+                count_ascii += 1
+            continue
         cp = half_katakana_to_unicode(encoding)
         if cp is None:
             continue
@@ -230,7 +239,7 @@ def main():
         "// Codepoints absent from this table fall back to a visible",
         "// outline box in text_bitmap() rather than being silently dropped.",
         f"// {len(ordered)} glyphs total ({count_full} full-width kana/kanji,",
-        f"// {count_half} half-width katakana, {len(latin1)} Latin-1).",
+        f"// {count_half} half-width katakana, {count_ascii} ASCII, {len(latin1)} Latin-1).",
         "static const FontGlyph kFontGlyphs[] = {",
     ]
     for cp, data in ordered:
@@ -240,7 +249,7 @@ def main():
     with open(out_path, "w", newline="\n") as f:
         f.write("\n".join(lines) + "\n")
     print(f"wrote {out_path}: {len(ordered)} glyphs "
-          f"({count_full} full-width, {count_half} half-width katakana, {len(latin1)} Latin-1), "
+          f"({count_full} full-width, {count_half} half-width katakana, {count_ascii} ASCII, {len(latin1)} Latin-1), "
           f"{os.path.getsize(out_path)} bytes")
 
 

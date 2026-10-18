@@ -5,8 +5,29 @@
 #include "../../src/platform/text/text.h"
 #include <cstdio>
 #include <cstring>
+#include <vector>
 
 int main() {
+  // Printable ASCII must have real glyphs: text_bitmap draws a hollow
+  // outline box for codepoints missing from the atlas. Count, at both sizes,
+  // how many of 0x21-0x7E render exactly as that fallback box.
+  for (int px : {12, 16}) {
+    int missing = 0;
+    for (int c = 0x21; c <= 0x7e; c++) {
+      char s[2] = {(char)c, 0};
+      std::vector<unsigned char> rgba;
+      int w = 0, h = 0;
+      if (!text_bitmap(s, px, rgba, &w, &h)) { missing++; continue; }
+      bool box = true;
+      for (int y = 0; y < h && box; y++)
+        for (int x = 0; x < w; x++) {
+          bool edge = x == 0 || y == 0 || x == w - 1 || y == h - 1;
+          if ((rgba[(y * w + x) * 4 + 3] != 0) != edge) { box = false; break; }
+        }
+      missing += box;
+    }
+    printf("ascii_missing_%d=%d\n", px, missing);
+  }
   // CRLF lines (as in original briefing .txt files): '\r' takes no width.
   {
     int w = 0, h = 0;

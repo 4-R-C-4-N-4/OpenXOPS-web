@@ -92,6 +92,12 @@ class TestTextRendering(unittest.TestCase):
                 self.assertGreater(int(self.values[f"{name}_opaque"]), 0)
                 self.assertGreater(int(self.values[f"{name}_interior"]), 0)
 
+    def test_printable_ascii_has_real_glyphs(self):
+        # English briefings (the free starter mission) are plain ASCII; a
+        # missing ASCII range renders every letter as the outline box.
+        self.assertEqual(self.values["ascii_missing_12"], "0")
+        self.assertEqual(self.values["ascii_missing_16"], "0")
+
     def test_invalid_arguments_rejected(self):
         self.assertEqual(self.values["invalid_null"], "0")
         self.assertEqual(self.values["invalid_px"], "0")
