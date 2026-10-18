@@ -52,6 +52,10 @@ class TestTextRendering(unittest.TestCase):
         self.assertEqual(self.values["malformed_ok"], "0")
         self.assertEqual(self.values["malformed_used"], "1")  # only the lead byte
 
+    def test_crlf_carriage_return_is_invisible(self):
+        self.assertEqual(self.values["crlf_w"], "16")  # "AB" only
+        self.assertEqual(self.values["crlf_h"], "32")
+
     def test_empty_input(self):
         self.assertEqual(self.values["empty_ok"], "0")
         self.assertEqual(self.values["empty_used"], "0")

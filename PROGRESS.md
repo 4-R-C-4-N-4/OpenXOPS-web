@@ -389,3 +389,9 @@ Starts after the final-polish batch is integrated.
 - Text: polish-text 9a817a7 has CP932 decode/measure/render pipeline but atlas has
   only Latin-1, so Japanese shows boxes. Follow-up worker generating Shinonome
   JIS X 0208 glyph atlas; not merged until legible text verified in browser.
+- Text merged (polish-text 11a25a9 + parent fix): Shinonome PD atlas, 7,028 glyphs
+  (JIS X 0208 L1+L2, half-width kana, Latin-1), WASM +230 KB. Parent found CRLF
+  briefing lines drew tofu boxes for '\r'; C0 controls now zero-width (+test).
+  Verified Training Yard briefing renders "訓練せよ / (説明の操作方法は標準設定の場合)"
+  legibly with exact ZIP. 47 tests pass. Final polish batch complete; next: Phase A
+  of docs/OPEN-ASSETS-SOW.md.

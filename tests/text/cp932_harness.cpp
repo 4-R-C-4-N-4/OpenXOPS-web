@@ -7,6 +7,12 @@
 #include <cstring>
 
 int main() {
+  // CRLF lines (as in original briefing .txt files): '\r' takes no width.
+  {
+    int w = 0, h = 0;
+    text_measure("AB\r\nC\r", 16, &w, &h);
+    printf("crlf_w=%d crlf_h=%d\n", w, h);
+  }
   // ASCII round trip: single-byte decode must equal the input byte.
   {
     const unsigned char a = 'A';

@@ -63,6 +63,8 @@ void scan_text(const char* bytes, int px, int* out_cols, int* out_lines, Cb cb) 
       ++lines;
       continue;
     }
+    // CRLF briefing files and other C0 controls occupy no space (no tofu box).
+    if (cp < 0x20 || cp == 0x7f) continue;
     const bool wide = cp >= 0x100;
     cb(cp, wide, x, lines - 1);
     x += wide ? px : cw;
