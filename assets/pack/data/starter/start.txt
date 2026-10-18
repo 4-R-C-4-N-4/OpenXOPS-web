@@ -1,19 +1,15 @@
-!
+starter
 !
 1
 Mission: STARTER COMPOUND
 
-Scouts spotted a small walled compound south of
-the river, used as a supply point by hostiles.
+Hostiles hold a small walled compound used
+as a supply point. You start inside the south
+wall, behind cover.
 
-Move in through the south gate, clear the yard
-and the building, and secure the inner room.
-
-Pick up the spare sidearm, or the M4 rifle
-inside the building's east room.
-
-Guards patrol the courtyard, the watchtower by
-the gate, and the building interior.
+Clear the yard and the building, and secure
+the inner room. A spare sidearm lies beside
+you; an M4 rifle waits in the east room.
 
 Objective: eliminate all hostiles.
 Select an empty slot (1/2) to pick up weapons.
