@@ -172,6 +172,14 @@ class TestPresence(PackFixture):
         self.assertNotIn(("a", "data/b.bmp"), self.checks(rep))
         self.assertIn(("a", "data/b.bmp"), self.checks(self.run_validate(strict=True)))
 
+    def test_missing_p0_not_required_warns_not_fails(self):
+        s = slot("data/map2/temp.bd1", prio="P0")
+        s["free_pack"] = "not_required"
+        self.write_manifest([s])
+        rep = self.run_validate()
+        self.assertNotIn(("a", "data/map2/temp.bd1"), self.checks(rep))
+        self.assertIn(("a", "data/map2/temp.bd1"), self.checks(rep, "WARN"))
+
     def test_empty_pack_exits_1(self):
         with redirect_stdout(io.StringIO()):
             code = vp.main([self.pack, "--manifest", self.manifest, "--reference", self.reference,

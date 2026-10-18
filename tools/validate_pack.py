@@ -350,6 +350,8 @@ def validate(pack_dir, manifest_path=DEF_MANIFEST, reference_path=DEF_REFERENCE,
             msg = "missing %s slot" % s.get("priority", "P?")
             if s.get("_implicit"):
                 rep.warn("a", s["path"], "map tile named by %s is missing" % s["_implicit"])
+            elif s.get("free_pack") == "not_required":
+                rep.warn("a", s["path"], msg + " (free_pack: not_required, see manifest note)")
             elif s.get("priority") == "P0":
                 rep.fail("a", s["path"], msg)
             else:
