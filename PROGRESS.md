@@ -336,8 +336,13 @@ Correction pass completed; parent performed the missing runtime gates below.
   normal production build and allowlisted staging pass.31 tooling tests pass.
 - New reproducible protocol: docs/RENDERING-BUGS-RETICLES.md. Original-derived
   screenshot evidence stays in private browser workspace, notrepo/public files.
-- Independent bounded release review active; asset-audit comment false-positive
-  correction active. Local integration notyetpushed; existing livepreview unchanged.
+- Asset audit integrated after comment-aware correction: parent reran against
+  tracked C++ and exact Downloads ZIP.92 references:90 present,2 dynamic paths
+  unverified,0 missing,0 empty.23 weapon slots include intentional empty NONE;
+  all22 normal model/texture pairs present. Full JSON stays in private scratch.
+- Combined tooling suite now35 tests passing; no new engine/renderer change from
+  asset audit. Independent bounded release review still active. Local integration
+  notyetpushed; existing livepreview unchanged.
 - Remaining parity work notdeclared complete: other maps/assets and Japanese text
   questionmarks; no claim that allvisualbugs arefixed by controls help.
 
