@@ -22,6 +22,33 @@ def _fabric(image: Image.Image, size: tuple[int, int], tint: tuple[int, int, int
     return Image.blend(crop, Image.new("RGB", size, tint), 0.68)
 
 
+def _shade(color: tuple[int, int, int], delta: int) -> tuple[int, int, int]:
+    return tuple(max(0, min(255, c + delta)) for c in color)
+
+
+def _paint_head_front(draw: ImageDraw.ImageDraw, box: tuple[int, int, int, int],
+                       skin: tuple[int, int, int]) -> None:
+    """Low-key, non-cartoon face: hair band, soft brow shading, faint low-
+    contrast eye slits, a subtle nose shadow. No eyebrow strokes, no round
+    cartoon eyes, no mouth line."""
+    x0, y0, x1, y1 = box
+    w, h = x1 - x0, y1 - y0
+    # Hair band at the top.
+    draw.rectangle((x0, y0, x1 - 1, y0 + h // 6), fill=(66, 55, 43))
+    # Soft brow band: a thin strip a few shades darker than skin, low contrast.
+    brow_y = y0 + h * 4 // 10
+    draw.rectangle((x0 + w // 6, brow_y, x1 - 1 - w // 6, brow_y + max(1, h // 24)),
+                    fill=_shade(skin, -16))
+    # Faint, low-contrast eye slits (thin horizontal strokes, not round eyes).
+    eye_y = brow_y + max(2, h // 12)
+    eye_w = max(2, w // 7)
+    draw.line((x0 + w // 5, eye_y, x0 + w // 5 + eye_w, eye_y), fill=_shade(skin, -46))
+    draw.line((x1 - w // 5 - eye_w, eye_y, x1 - w // 5, eye_y), fill=_shade(skin, -46))
+    # Faint nose shadow: a very soft single-shade vertical stroke, no outline.
+    nose_x = x0 + w // 2
+    draw.line((nose_x, eye_y + 2, nose_x, eye_y + h // 5), fill=_shade(skin, 14))
+
+
 def make_atlas(source: Image.Image, variant: str = "green") -> Image.Image:
     palettes = {
         "green": ((91, 105, 66), (94, 112, 74), (205, 177, 143), (73, 78, 62)),
@@ -51,13 +78,7 @@ def make_atlas(source: Image.Image, variant: str = "green") -> Image.Image:
         atlas.paste(material,box[:2])
         draw = ImageDraw.Draw(atlas)
         if name == "head_front":
-            draw.rectangle((box[0],box[1],box[2]-1,box[1]+5),fill=(66,55,43))
-            draw.line((box[0]+7,box[1]+10,box[0]+12,box[1]+10),fill=(87,66,47))
-            draw.line((box[0]+20,box[1]+10,box[0]+25,box[1]+10),fill=(87,66,47))
-            draw.line((box[0]+16,box[1]+15,box[0]+16,box[1]+19),fill=(178,137,104))
-            draw.ellipse((box[0] + 8, box[1] + 12, box[0] + 10, box[1] + 14), fill=(36, 34, 30))
-            draw.ellipse((box[0] + 21, box[1] + 12, box[0] + 23, box[1] + 14), fill=(36, 34, 30))
-            draw.line((box[0] + 12, box[1] + 22, box[0] + 20, box[1] + 22), fill=(105, 65, 56), width=1)
+            _paint_head_front(draw, box, skin)
         elif name == "torso_front":
             draw.rectangle((box[0] + 22, box[1], box[0] + 25, box[1] + 63), fill=(46, 53, 43))
             for yy in (22, 39, 54):

@@ -47,7 +47,9 @@ class HumanSkinTests(unittest.TestCase):
             face = HUMAN_ATLAS.rects["head_front"]
             crop = image.crop((face.x0, face.y0, face.x1, face.y1))
             self.assertGreater(len(set(crop.getdata())), 4)
-            self.assertNotEqual(crop.getpixel((9, 13)), crop.getpixel((16, 22)))
+            # Subtle low-contrast face (no cartoon eyes/mouth): hair band at
+            # the very top must still differ from the brow-shaded skin area.
+            self.assertNotEqual(crop.getpixel((16, 2)), crop.getpixel((16, 13)))
 
     def test_saved_bmp_colors_match_rgb_atlas(self):
         import tempfile

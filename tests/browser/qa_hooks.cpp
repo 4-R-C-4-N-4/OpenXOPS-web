@@ -7,6 +7,16 @@ extern ObjectManager ObjMgr;
 extern ResourceManager Resource;
 // Draw one actual engine-composed human, with live pose and game transforms.
 // A local visual-inspection helper only; normal builds never compile this file.
+// Spawn the engine's own blood + impact-smoke effects a few units in front of
+// the player so effect textures can be inspected without a firefight.
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_spawn_effects(float x, float y, float z) {
+    // Same textures/alpha as SetHumanBlood (objectmanager.cpp:638), the map-hit
+    // impact puff (:1032) and the muzzle flash (:2118); long-lived and larger.
+    ObjMgr.AddEffect(x,y,z,0,0,0,0,0,0,4.0f,0,Resource.GetEffectBloodTexture(),10,0,1.0f,0,EFFECT_NORMAL,600);
+    ObjMgr.AddEffect(x,y-5,z,0,0,0,0,0,0,4.0f,0,Resource.GetEffectSmokeTexture(),10,0,0.625f,0,EFFECT_NORMAL,600);
+    ObjMgr.AddEffect(x,y+5,z,0,0,0,0,0,0,4.0f,0,Resource.GetEffectMflashTexture(),0,0,0.63f,0,EFFECT_NORMAL,600);
+    return 1;
+}
 extern "C" EMSCRIPTEN_KEEPALIVE void qa_resume_game() {
     emscripten_resume_main_loop();
 }
