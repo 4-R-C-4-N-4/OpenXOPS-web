@@ -10,6 +10,22 @@ extern ResourceManager Resource;
 extern "C" EMSCRIPTEN_KEEPALIVE void qa_resume_game() {
     emscripten_resume_main_loop();
 }
+// Render only the sky box, exactly as gamemain does (camera-centred, scale 2),
+// looking along yaw/pitch. Used to inspect face seams and cloud layout.
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_sky_preview(float yaw, float pitch) {
+    int model=-1,texture=-1;
+    Resource.GetSkyModelTexture(&model,&texture);
+    if(model==-1||texture==-1)return 0;
+    emscripten_pause_main_loop();
+    d3dg.StartRender();
+    d3dg.SetFog(false,0);
+    glClearColor(1,0,1,1);glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    d3dg.SetCamera(0,0,0,yaw,pitch,VIEWANGLE_NORMAL);
+    d3dg.SetWorldTransform(0.0f,0.0f,0.0f,0.0f,0.0f,2.0f);
+    d3dg.RenderModel(model,texture,false,false,false);
+    d3dg.EndRender();
+    return 1;
+}
 extern "C" EMSCRIPTEN_KEEPALIVE int qa_pose_preview(int id, int view) {
     human* p=ObjMgr.GetHumanObject(id);
     if(!p || !p->GetEnableFlag())return 0;
