@@ -349,3 +349,18 @@ Correction pass completed; parent performed the missing runtime gates below.
 - Remaining parity work notdeclared complete: other maps/assets and Japanese text
   questionmarks; no claim that allvisualbugs arefixed by controls help.
 
+### Final polish before original-free starter pack — active
+
+User approved clearing remaining refinements before custom graphics. Scope:
+docs/FINAL-POLISH.md. Three isolated workers verified running gpt-6-luna:
+- polish-text: real Japanese text, CP932 boundaries, freely redistributable font,
+  actual menu/briefing rendering; sole renderer owner.
+- polish-lifecycle: explicit input-safe pause/resume on blur/hidden, compose with
+  Controls help and fullscreen without unintended firing or stuck movement.
+- polish-audit: concrete remaining release issues and validator-backed smallest
+  original-free starter-mission gate; no art generation or original asset study.
+Parent owns integration, independent review, exact-ZIP browser regression and
+live verification. Existing public build stays unchanged during this work.
+Replacement pack must cover maps/points, models, audio and UI as well as textures;
+CC0/public-domain provenance required, not merely absent licensing notices.
+
