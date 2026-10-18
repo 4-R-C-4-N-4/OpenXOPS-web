@@ -5147,8 +5147,8 @@
    "uv_layout": "data/model/up0.x",
    "summary": "Character skin: general in uniform (HumanTexturePath[7]).",
    "priority": "P1",
-   "status": "missing",
-   "note": null
+   "status": "generated",
+   "note": "Original Codex image-generated material deterministically composed into the frozen HUMAN_ATLAS UV regions; provenance: assets/provenance.jsonl; details: docs/HUMAN-SKINS.md."
   },
   {
    "path": "data/model/leg.x",
@@ -5504,8 +5504,8 @@
    "uv_layout": "data/model/up5.x",
    "summary": "Character skin: special forces black A; special forces black B (HumanTexturePath[14]).",
    "priority": "P1",
-   "status": "missing",
-   "note": null
+   "status": "generated",
+   "note": "Original Codex image-generated material deterministically composed into the frozen HUMAN_ATLAS UV regions; provenance: assets/provenance.jsonl; details: docs/HUMAN-SKINS.md."
   },
   {
    "path": "data/model/soldier_blue.bmp",
@@ -5546,8 +5546,8 @@
    "uv_layout": "data/model/up0.x",
    "summary": "Character skin: special forces green A; special forces green B; special forces green C (HumanTexturePath[16]).",
    "priority": "P0",
-   "status": "missing",
-   "note": null
+   "status": "generated",
+   "note": "Original Codex image-generated material deterministically composed into the frozen HUMAN_ATLAS UV regions; provenance: assets/provenance.jsonl; details: docs/HUMAN-SKINS.md."
   },
   {
    "path": "data/model/soldier_violet.bmp",
@@ -6738,7 +6738,7 @@
    "uv_layout": null,
    "summary": "Sky box mesh; every sky texture wraps this model.",
    "priority": "P0",
-   "status": "missing",
+   "status": "generated",
    "note": null
   },
   {
@@ -6783,7 +6783,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 2 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6805,7 +6805,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 3 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6827,7 +6827,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 4 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {
@@ -6849,7 +6849,7 @@
    "uv_layout": "data/sky/sky.x",
    "summary": "Sky texture 5 of 5, wraps the sky box mesh.",
    "priority": "P1",
-   "status": "missing",
+   "status": "generated",
    "note": "Expanded from sprintf pattern data/sky/sky%d.bmp."
   },
   {

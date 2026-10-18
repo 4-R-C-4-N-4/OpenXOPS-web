@@ -52,8 +52,8 @@ def _r(name):
 UP_HIP_Y = 1.223
 UP_SHOULDER_Y = 1.809
 UP_HEAD_TOP_Y = 2.277
-TORSO_HALF_W = 0.20   # <= radius limit 0.255
-HEAD_HALF_W = 0.14    # <= radius limit 0.16
+TORSO_HALF_W = 0.255   # <= radius limit 0.255
+HEAD_HALF_W = 0.155    # <= radius limit 0.16
 
 
 def human_upper(backpack: bool = False, cap: bool = False, label: str = "") -> Tuple[Mesh, Atlas]:
@@ -64,20 +64,24 @@ def human_upper(backpack: bool = False, cap: bool = False, label: str = "") -> T
         uv={
             "front": _r("torso_front"), "back": _r("torso_back"),
             "left": _r("torso_left"), "right": _r("torso_right"),
-            "top": _r("torso_top"),
+            "top": _r("torso_top"), "bottom": _r("torso_back"),
         },
     )
-    head_h = UP_HEAD_TOP_Y - UP_SHOULDER_Y
+    head_base_y = 1.947  # neck top; shoulder transform remains world y=16
+    head_h = UP_HEAD_TOP_Y - head_base_y
     head = box(
-        center=(0, (UP_SHOULDER_Y + UP_HEAD_TOP_Y) / 2, 0),
+        center=(0, (head_base_y + UP_HEAD_TOP_Y) / 2, 0),
         size=(HEAD_HALF_W * 2, head_h, HEAD_HALF_W * 2),
         uv={
             "front": _r("head_front"), "back": _r("head_back"),
             "left": _r("head_left"), "right": _r("head_right"),
-            "top": _r("head_top"),
+            "top": _r("head_top"), "bottom": _r("hand"),
         },
     )
-    parts = [torso, head]
+    neck = box(center=(0,(UP_SHOULDER_Y+head_base_y)/2,0),
+               size=(.13,head_base_y-UP_SHOULDER_Y,.12),
+               uv={k:_r("hand") for k in ("front","back","left","right","top","bottom")})
+    parts = [torso, head, neck]
     if backpack:
         bp = box(
             center=(0, (UP_HIP_Y + UP_SHOULDER_Y) / 2, TORSO_HALF_W * 0.6 + 0.07),
@@ -96,43 +100,43 @@ def human_upper(backpack: bool = False, cap: bool = False, label: str = "") -> T
 
 
 # Arm pivot = origin (shoulder line), per ASSET-CONTRACT 5.3.
-ARM_SHOULDER_HALF_W = 0.14
+ARM_SHOULDER_HALF_W = 0.31
 ARM_UPPER_LEN = 0.30
 ARM_LOWER_LEN = 0.28
 ARM_HAND_LEN = 0.12
 
 
-def _one_arm(side: float, spacing: float) -> Mesh:
-    """``side`` = -1 (left) or +1 (right). Arm extends along -Z (forward,
-    pitch 0) from the shoulder pivot at the origin's y=0 plane."""
+def _one_arm(side: float, spacing: float, wrist=None, elbow_x=None) -> Mesh:
+    """Volumetric upper/forearm segments from shoulder to a grip target."""
     x = side * spacing
+    wrist = wrist or (side*.02,.06,-.63)
+    elbow = (side*.23 if elbow_x is None else elbow_x,-.02,-ARM_UPPER_LEN)
     upper = tapered_box(
-        base_center=(x, -0.02, 0), base_size=(0.09, 0.09),
-        top_center=(x, -0.02, -ARM_UPPER_LEN), top_size=(0.07, 0.07),
-        uv={k: _r("arm_upper") for k in ("front", "back", "left", "right", "top", "bottom")},
-    )
+        base_center=(x,-.02,0),base_size=(.13,.13),
+        top_center=elbow,top_size=(.10,.10),
+        uv={k:_r("arm_upper") for k in ("front","back","left","right","top","bottom")})
     lower = tapered_box(
-        base_center=(x, -0.02, -ARM_UPPER_LEN), base_size=(0.07, 0.07),
-        top_center=(x, -0.02, -ARM_UPPER_LEN - ARM_LOWER_LEN), top_size=(0.055, 0.055),
-        uv={k: _r("arm_lower") for k in ("front", "back", "left", "right", "top", "bottom")},
-    )
-    hand = box(
-        center=(x, -0.02, -ARM_UPPER_LEN - ARM_LOWER_LEN - ARM_HAND_LEN / 2),
-        size=(0.06, 0.05, ARM_HAND_LEN),
-        uv={k: _r("hand") for k in ("front", "back", "left", "right", "top", "bottom")},
-    )
-    return merge(upper, lower, hand)
+        base_center=elbow,base_size=(.10,.10),
+        top_center=(wrist[0],wrist[1],wrist[2]+.04),top_size=(.07,.07),
+        uv={k:_r("arm_lower") for k in ("front","back","left","right","top","bottom")})
+    hand = box(center=wrist,size=(.08,.075,.12),
+        uv={k:_r("hand") for k in ("front","back","left","right","top","bottom")})
+    return merge(upper,lower,hand)
 
 
 def human_arms(pose: str = "down", label: str = "") -> Tuple[Mesh, Atlas]:
-    # pose only changes the shoulder spacing (a crude stand-in for
-    # open-hand vs. gripping poses); the mesh itself always points along
-    # -Z, matching the shoulder-pivot convention (ASSET-CONTRACT 5.2-5.3).
-    spacing = {"down": ARM_SHOULDER_HALF_W, "twohand": ARM_SHOULDER_HALF_W * 0.6,
-               "onehand": ARM_SHOULDER_HALF_W}.get(pose, ARM_SHOULDER_HALF_W)
-    left = _one_arm(-1, spacing)
-    right = _one_arm(1, spacing)
-    return merge(left, right), HUMAN_ATLAS
+    # World shoulder origin/pitch still come from human::Render; no engine
+    # animation or hitbox changes. Neutral model points forward because the
+    # engine rotates it -70 degrees for the unarmed/case pose.
+    if pose == "twohand":
+        left=_one_arm(-1,ARM_SHOULDER_HALF_W,(.10,.04,-.70))
+        right=_one_arm(1,ARM_SHOULDER_HALF_W,(.10,.06,-.411))
+    else:
+        left=_one_arm(-1,ARM_SHOULDER_HALF_W,(-ARM_SHOULDER_HALF_W,-.02,-.63),elbow_x=-ARM_SHOULDER_HALF_W)
+        right=_one_arm(1,ARM_SHOULDER_HALF_W,(.022,.077,-.633))
+        if pose == "onehand":
+            rotate_x_about(left,(-ARM_SHOULDER_HALF_W,0,0),math.radians(-65))
+    return merge(left,right),HUMAN_ATLAS
 
 
 # Legs: file-y 0.022 (soles) .. 1.189 (hip), ASSET-CONTRACT 5.3.
@@ -156,7 +160,7 @@ def _one_leg(side: float) -> Mesh:
         uv={k: _r("leg_lower") for k in ("front", "back", "left", "right", "top", "bottom")},
     )
     foot = box(
-        center=(x, LEG_SOLE_Y, -0.08), size=(LEG_HALF_W * 1.4, 0.05, 0.22),
+        center=(x, LEG_SOLE_Y + .025, -0.08), size=(LEG_HALF_W * 1.4, 0.05, 0.22),
         uv={k: _r("foot") for k in ("front", "back", "left", "right", "top", "bottom")},
     )
     return merge(thigh, shin, foot)
@@ -210,15 +214,22 @@ def weapon(name: str = "", size: float = 1.0, grip=(0, 0, 0), muzzle=(0, 0, 0),
     body_len = {"pistol": 0.22, "smg": 0.32, "rifle": 0.40}.get(kind, 0.25)
     stock_len = {"pistol": 0.0, "smg": 0.18, "rifle": 0.32}.get(kind, 0.0)
 
-    gripb = box(center=(0, -0.08, 0.04), size=(0.05, 0.16, 0.08),
+    # The source muzzle/ejection contract is not decorative metadata: match
+    # the generated muzzle to the engine's effect anchor instead of giving
+    # every pistol a rifle-length barrel.
+    extent = -muzzle[2] if muzzle[2] < -.01 else body_len + barrel_len
+    body_len = extent * (.65 if kind == "pistol" else .45)
+    barrel_len = extent - body_len
+    barrel_y = muzzle[1]
+    gripb = box(center=(0, barrel_y - .10, 0.04), size=(0.07, 0.16, 0.10),
                 uv={k: rect("grip") for k in all_faces})
-    body = box(center=(0, 0.02, -body_len / 2), size=(0.06, 0.08, body_len),
+    body = box(center=(0, barrel_y - .025, -body_len / 2), size=(0.08, 0.10, body_len),
                uv={k: rect("body") for k in all_faces})
-    barrel = cylinder(center=(0, -0.02, 0), radius=0.018,
+    barrel = cylinder(center=(0, 0, 0), radius=0.018,
                        height=barrel_len, segments=6, side_uv=rect("barrel"))
     # cylinder() builds its axis along Y; swap y/z so the barrel points
     # along -Z (muzzle direction) instead of standing upright.
-    barrel.verts = [(x, 0.02 - z, -body_len - barrel_len / 2 + y) for x, y, z in barrel.verts]
+    barrel.verts = [(x, barrel_y - z, -body_len - barrel_len / 2 + y) for x, y, z in barrel.verts]
     parts = [gripb, body, barrel]
     if stock_len:
         stock = tapered_box(
@@ -256,12 +267,14 @@ def sky() -> Tuple[Mesh, Atlas]:
     atlas = Atlas(256)
     atlas.pack([
         ("front", 64, 64), ("back", 64, 64), ("left", 64, 64),
-        ("right", 64, 64), ("top", 64, 64),
+        ("right", 64, 64), ("top", 64, 64), ("bottom", 64, 64),
     ])
     half = 30.0
+    def inset(name):
+        rect=atlas.rects[name]
+        return ((rect.x0+.5)/256,(rect.y0+.5)/256,(rect.x1-.5)/256,(rect.y1-.5)/256)
     m = box(center=(0, half * 0.3, 0), size=(half * 2, half * 2, half * 2), uv={
-        "front": atlas.uv("front"), "back": atlas.uv("back"),
-        "left": atlas.uv("left"), "right": atlas.uv("right"), "top": atlas.uv("top"),
+        name:inset(name) for name in ("front","back","left","right","top","bottom")
     })
     flip_mesh(m)
     return m, atlas

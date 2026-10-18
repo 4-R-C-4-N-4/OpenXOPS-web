@@ -11,248 +11,209 @@
     {
       "comment": "ground slab",
       "min": [
-        -18,
-        -1,
-        -18
+        -144,
+        -8,
+        -144
       ],
       "max": [
-        18,
+        1152,
         0,
-        18
+        1152
       ],
       "texture": "ground.bmp",
-      "uv_scale": [
-        9,
-        9
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "north wall",
       "min": [
-        -18,
+        -144,
         0,
-        -19
+        -152
       ],
       "max": [
-        18,
-        5,
-        -18
+        144,
+        40,
+        -144
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        9,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "east wall",
       "min": [
-        18,
+        144,
         0,
-        -18
+        -144
       ],
       "max": [
-        19,
-        5,
-        18
+        152,
+        40,
+        144
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        9,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "west wall",
       "min": [
-        -19,
+        -152,
         0,
-        -18
+        -144
       ],
       "max": [
-        -18,
-        5,
-        18
+        -144,
+        40,
+        144
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        9,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "south wall (left of opening)",
       "min": [
-        -18,
+        -144,
         0,
-        18
+        144
       ],
       "max": [
-        -2,
-        5,
-        19
+        -16,
+        40,
+        152
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        8,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "south wall (right of opening)",
       "min": [
-        2,
+        16,
         0,
-        18
+        144
       ],
       "max": [
-        18,
-        5,
-        19
+        144,
+        40,
+        152
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        8,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building north wall",
       "min": [
-        -6,
+        -48,
         0,
-        -10
+        -80
       ],
       "max": [
-        6,
-        5,
-        -9
+        48,
+        40,
+        -72
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        6,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building south wall (left of doorway)",
       "min": [
-        -6,
+        -48,
         0,
-        -3
+        -24
       ],
       "max": [
-        -1.5,
-        5,
-        -2
+        -12.0,
+        40,
+        -16
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        4,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building south wall (right of doorway)",
       "min": [
-        1.5,
+        12.0,
         0,
-        -3
+        -24
       ],
       "max": [
-        6,
-        5,
-        -2
+        48,
+        40,
+        -16
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        4,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building east wall",
       "min": [
-        6,
+        48,
         0,
-        -9
+        -72
       ],
       "max": [
-        7,
-        5,
-        -2
+        56,
+        40,
+        -16
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        1,
-        5
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building west wall",
       "min": [
-        -7,
+        -56,
         0,
-        -9
+        -72
       ],
       "max": [
-        -6,
-        5,
-        -2
+        -48,
+        40,
+        -16
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        1,
-        5
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building roof",
       "min": [
-        -7,
-        5,
-        -10
+        -56,
+        40,
+        -80
       ],
       "max": [
-        7,
-        5.5,
-        -2
+        56,
+        44.0,
+        -16
       ],
       "texture": "roof.bmp",
-      "uv_scale": [
-        7,
-        4
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "demo building floor",
       "min": [
-        -6,
-        -1,
-        -9
+        -48,
+        -8,
+        -72
       ],
       "max": [
-        6,
+        48,
         0,
-        -2
+        -16
       ],
       "texture": "floor.bmp",
-      "uv_scale": [
-        6,
-        3
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "crate 1",
       "min": [
-        -9,
+        -72,
         0,
-        5
+        40
       ],
       "max": [
-        -7,
-        2,
-        7
+        -56,
+        16,
+        56
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -263,14 +224,14 @@
     {
       "comment": "crate 2",
       "min": [
-        7,
+        56,
         0,
-        5
+        40
       ],
       "max": [
-        9,
-        2,
-        7
+        72,
+        16,
+        56
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -281,14 +242,14 @@
     {
       "comment": "crate 3",
       "min": [
-        -3,
+        -24,
         0,
-        8
+        64
       ],
       "max": [
-        -1,
-        2,
-        10
+        -8,
+        16,
+        80
       ],
       "texture": "crate.bmp",
       "uv_scale": [
@@ -301,9 +262,9 @@
     {
       "type": "waypoint",
       "pos": [
-        -10.0,
+        -80.0,
         0.0,
-        10.0
+        80.0
       ],
       "mode": 1,
       "p3": 0,
@@ -312,9 +273,9 @@
     {
       "type": "waypoint",
       "pos": [
-        10.0,
+        80.0,
         0.0,
-        10.0
+        80.0
       ],
       "mode": 1,
       "p3": 1,
@@ -325,7 +286,7 @@
       "pos": [
         0.0,
         0.0,
-        -1.0
+        -8.0
       ],
       "mode": 1,
       "p3": 2,
@@ -334,9 +295,9 @@
     {
       "type": "human",
       "pos": [
-        -8.0,
+        -64.0,
         0.0,
-        8.0
+        64.0
       ],
       "rotation": 0.0,
       "human_type": 0,
@@ -349,7 +310,7 @@
       "pos": [
         0.0,
         0.0,
-        -4.0
+        -32.0
       ],
       "rotation": 3.14159,
       "human_type": 1,
