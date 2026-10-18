@@ -65,6 +65,49 @@ Points (15 total, well within `MAX_POINTS` = 256, `src/datafile.h:39`):
   parallel per the task brief, so this point is a grounded placeholder
   consistent with the documented range, not a guessed payload.
 
+### Bug fix: mission ended instantly with no player control
+
+The mission used to end (result/statistics screen) within ~2 seconds
+of starting, with movement keys having no effect. Root cause, from
+engine source:
+
+* `ObjectManager::CheckGameOverorComplete()` (`objectmanager.cpp:2575`)
+  declares "mission complete" the moment the live total HP of every
+  human whose team differs from the player's reaches 0 — i.e. zero
+  *counted* enemies, not necessarily zero living humans.
+* A human's in-game team comes from its `HUMANINFO` companion point's
+  `p3` field, resolved by `ObjectManager::AddHumanIndex(pointdata,
+  pointdata, bool)` (`objectmanager.cpp:171-236`, team set at line 215
+  via `SetParamData(infodata.p2, ..., infodata.p3, true)`), found via
+  `PointData->SearchPointdata(&humaninfodata, 0x01+0x08,
+  POINT_P1TYPE_HUMANINFO, 0, 0, data.p2, 0)` (`objectmanager.cpp:1465`)
+  — a `p1==HUMANINFO && p4==<the HUMAN2 point's own p2>` lookup.
+* The original `starter_compound.json` (and `tools/mapgen/author.py`)
+  never emitted any `HUMANINFO` points, so that lookup always failed
+  and every human (player and all 5 enemies) fell into the "mystery
+  human" fallback (`objectmanager.cpp:1468-1491`), which calls
+  `AddHumanIndex(..., TeamID=0, ...)` with team **hardcoded to 0**
+  regardless of the authored `team`/p4 value. Player and enemies thus
+  shared team 0, `CheckGameOverorComplete()` counted zero hostile HP,
+  and the mission "completed" on the very first processed frame —
+  before any movement input mattered.
+
+Fix: `tools/mapgen/author.py` now auto-synthesizes one `HUMANINFO`
+point per distinct `(human_type, team)` pair used by `player_spawn`/
+`human` points (`_synthesize_human_info()`), and rewrites each
+HUMAN2 point's `p2` into the matching HUMANINFO foreign key. This is
+transparent to the authored JSON (field names/values unchanged;
+`author.dump_pd1()` resolves the foreign key back to a plain
+`human_type` for round-tripping) and applies to every mapgen-built
+mission, not just this one. `assets/pack/data/starter/start.pd1` and
+`assets/pack/data/map10/op.pd1` were rebuilt from their JSON sources
+to pick up the fix; see "Rebuild commands" above.
+
+Verified in the browser build (`tools/build-playable-web.sh`): the
+mission now stays in "Game running" state (no result/statistics
+screen) for 30+ seconds after the briefing, versus ~2 seconds before
+the fix.
+
 All five generic texture names used (`wall.bmp`, `floor.bmp`,
 `crate.bmp`, `roof.bmp`, `ground.bmp`) are listed in
 `assets/batches/starter_textures.json` for the next Codex image-gen

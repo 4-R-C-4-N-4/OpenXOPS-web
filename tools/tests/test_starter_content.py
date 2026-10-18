@@ -216,17 +216,19 @@ class EngineLoaderProofTests(unittest.TestCase):
 
     def test_engine_loader_reads_starter_compound(self):
         doc = json.loads(STARTER_JSON.read_text())
+        result = author.build(doc)
+        point_count = len(pd1.loads(result.pd1_bytes).points)
         lines = self._run(STARTER_BD1, STARTER_PD1)
         block_count = len(doc["blocks"])
-        point_count = len(doc["points"])
         self.assertIn(f"BLOCKS {block_count}", lines)
         self.assertIn(f"POINTS {point_count}", lines)
 
     def test_engine_loader_reads_map10_demo(self):
         doc = json.loads(MAP10_JSON.read_text())
+        result = author.build(doc)
+        point_count = len(pd1.loads(result.pd1_bytes).points)
         lines = self._run(MAP10_BD1, MAP10_PD1)
         block_count = len(doc["blocks"])
-        point_count = len(doc["points"])
         self.assertIn(f"BLOCKS {block_count}", lines)
         self.assertIn(f"POINTS {point_count}", lines)
 

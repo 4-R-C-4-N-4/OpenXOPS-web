@@ -188,7 +188,11 @@ class AuthorFormatTests(unittest.TestCase):
         self.assertEqual(len(f.blocks), 7)
         self.assertEqual(f.textures[:3], ["wall.bmp", "floor.bmp", "crate.bmp"])
         p = pd1.loads(result.pd1_bytes)
-        self.assertEqual(len(p.points), 6)
+        # 6 authored points + 2 synthesized HUMANINFO companions, one
+        # per distinct (human_type, team) pair: player (0,0) and the
+        # two enemies sharing (2,2) (see author._synthesize_human_info).
+        self.assertEqual(len(p.points), 8)
+        self.assertEqual(sum(1 for pt in p.points if pt.p1 == pd1.P1_HUMANINFO), 2)
 
     def test_build_dump_build_is_byte_stable(self):
         doc = json.loads(STARTER_JSON.read_text())
@@ -215,8 +219,18 @@ class AuthorFormatTests(unittest.TestCase):
         result = author.build(doc)
         p = pd1.loads(result.pd1_bytes)
         self.assertEqual((p.points[0].p1, p.points[0].p4), (pd1.P1_HUMAN2, 0))
-        self.assertEqual((p.points[1].p1, p.points[1].p2, p.points[1].p3, p.points[1].p4),
-                          (pd1.P1_HUMAN2, 5, 3, 2))
+        self.assertEqual((p.points[1].p1, p.points[1].p3, p.points[1].p4),
+                          (pd1.P1_HUMAN2, 3, 2))
+        # p2 is now a HUMANINFO foreign key, not the raw human_type;
+        # resolve it through the synthesized companion point
+        # (objectmanager.cpp:1465's p1==HUMANINFO && p4==HUMAN2.p2 lookup).
+        info = next(pt for pt in p.points if pt.p1 == pd1.P1_HUMANINFO
+                    and pt.p4 == p.points[1].p2)
+        self.assertEqual((info.p2, info.p3), (5, 2))
+        # And the decompiled JSON round-trips back to the authored human_type.
+        dumped = author.dump_pd1(result.pd1_bytes)
+        human_entry = next(e for e in dumped["points"] if e["type"] == "human")
+        self.assertEqual(human_entry["human_type"], 5)
 
     def test_human_team_zero_rejected(self):
         doc = {"points": [{"type": "human", "pos": [0, 0, 0], "team": 0}]}
@@ -307,7 +321,8 @@ class EngineLoaderProofTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stderr)
         lines = proc.stdout.strip().splitlines()
         self.assertIn("BLOCKS 7", lines)
-        self.assertIn("POINTS 6", lines)
+        # 6 authored points + 2 synthesized HUMANINFO companions.
+        self.assertIn("POINTS 8", lines)
 
 
 if __name__ == "__main__":
