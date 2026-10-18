@@ -185,7 +185,7 @@ def sky_color(dx: float, dy: float, dz: float, pal: SkyPalette) -> Tuple[float, 
         t = elev ** 0.75
         base = _lerp3(fog, zenith, t)
         noise = _fbm(dx, dy, dz, pal.seed)
-        mask = _smoothstep(_clamp01((noise - 0.46) / 0.24))
+        mask = _smoothstep(_clamp01((noise - 0.46) / 0.40))
         # fade clouds out at the horizon and at the zenith so they never hard-stop
         horizon_fade = _smoothstep(_clamp01(elev / 0.22))
         zenith_fade = 1.0 - _smoothstep(_clamp01((elev - 0.62) / 0.38))
