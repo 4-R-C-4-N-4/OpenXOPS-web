@@ -33,6 +33,10 @@
 // 　Mandaさん　（2014年12月）
 
 #include "parameter.h"
+#include "platform/vfs.h"
+#include <string>
+#include <vector>
+#include <cstdio>
 
 //! @brief コンストラクタ
 ParameterInfo::ParameterInfo()
@@ -2022,16 +2026,75 @@ int ParameterInfo::GetBullet(int id, BulletParameter *out_data)
 //! @param screenflag 画面を暗くするフラグを受け取るポインタ　（NULL可）
 //! @return 成功：0　失敗：1
 //! @note ファイル名・・・ミッション情報ファイル（.txt）とポイントデータファイル（.pd1）に使われる名前
+// ---- Data-driven mission list (OpenXOPS-web; docs/MISSIONS.md) ----
+// Visible list = official entries whose temp.bd1 and <txt>.pd1 exist in the
+// mounted data, followed by entries from data/missions.txt. With only the
+// original archive this is exactly the 58 official missions; with only the
+// free pack it is the free missions.
+namespace {
+struct MissionEntry { std::string name, fullname, directory, txt; bool collision, screen; };
+std::vector<MissionEntry> g_missions;
+bool g_missions_built = false;
+bool MissionFileExists(const std::string& path){
+	FILE *fp = vfs_fopen(path.c_str(), "rb");
+	if( fp == NULL ){ return false; }
+	fclose(fp);
+	return true;
+}
+bool MissionPlayable(const MissionEntry& m){
+	return MissionFileExists(m.directory + "temp.bd1") && MissionFileExists(m.directory + m.txt + ".pd1");
+}
+void ParseMissionList(){
+	FILE *fp = vfs_fopen("data\\missions.txt", "rb");
+	if( fp == NULL ){ return; }
+	char line[512];
+	while( fgets(line, sizeof(line), fp) != NULL ){
+		std::string s(line);
+		while( !s.empty() && (s.back() == '\n' || s.back() == '\r' || s.back() == ' ') ){ s.pop_back(); }
+		if( s.empty() || s[0] == '#' || s[0] == ';' ){ continue; }
+		std::vector<std::string> f;
+		size_t start = 0;
+		for(;;){
+			size_t bar = s.find('|', start);
+			f.push_back(s.substr(start, bar == std::string::npos ? std::string::npos : bar - start));
+			if( bar == std::string::npos ){ break; }
+			start = bar + 1;
+		}
+		if( f.size() != 6 || f[0].empty() || f[2].empty() || f[3].empty() ){ continue; }
+		if( f[0].size() > 30 || f[1].size() > 60 || f[2].size() > 200 || f[3].size() > 30 ){ continue; }
+		if( f[2].back() != '\\' && f[2].back() != '/' ){ f[2] += "\\"; }
+		MissionEntry m = { f[0], f[1], f[2], f[3], f[4] == "1", f[5] == "1" };
+		if( MissionPlayable(m) ){ g_missions.push_back(m); }
+	}
+	fclose(fp);
+}
+}
+
+int ParameterInfo::GetOfficialMissionCount()
+{
+	if( g_missions_built == false ){
+		g_missions_built = true;
+		g_missions.clear();
+		for(int i=0; i<TOTAL_OFFICIALMISSION; i++){
+			MissionEntry m = { MissionData[i].name, MissionData[i].fullname, MissionData[i].directory, MissionData[i].txt, MissionData[i].collision, MissionData[i].screen };
+			if( MissionPlayable(m) ){ g_missions.push_back(m); }
+		}
+		ParseMissionList();
+	}
+	return (int)g_missions.size();
+}
+
 int ParameterInfo::GetOfficialMission(int id, char *name, char *fullname, char* directory, char *txt, bool *collisionflag, bool *screenflag)
 {
-	if( (id < 0)||(TOTAL_OFFICIALMISSION <= id ) ){ return 1; }
+	if( (id < 0)||(GetOfficialMissionCount() <= id ) ){ return 1; }
+	const MissionEntry& m = g_missions[id];
 
-	if( name != NULL ){ strcpy(name, MissionData[id].name); }
-	if( fullname != NULL ){ strcpy(fullname, MissionData[id].fullname); }
-	if( directory != NULL ){ strcpy(directory, MissionData[id].directory); }
-	if( txt != NULL ){ strcpy(txt, MissionData[id].txt); }
-	if( collisionflag != NULL ){ *collisionflag = MissionData[id].collision; }
-	if( screenflag != NULL ){ *screenflag = MissionData[id].screen; }
+	if( name != NULL ){ strcpy(name, m.name.c_str()); }
+	if( fullname != NULL ){ strcpy(fullname, m.fullname.c_str()); }
+	if( directory != NULL ){ strcpy(directory, m.directory.c_str()); }
+	if( txt != NULL ){ strcpy(txt, m.txt.c_str()); }
+	if( collisionflag != NULL ){ *collisionflag = m.collision; }
+	if( screenflag != NULL ){ *screenflag = m.screen; }
 	return 0;
 }
 

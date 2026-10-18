@@ -24,14 +24,17 @@ body.paused #resume-game{display:block}
 #controls-dialog{z-index:20}
 </style>
 <h2>OpenXOPS — browser preview</h2>
-<p>Select <strong>xops096.zip — the original X operations 0.96 game data</strong>.
-OpenXOPS engine/source downloads (1.080.zip / 1.080-src.zip) are not game data.</p>
-<ol style="display:inline-block;text-align:left;max-width:800px">
+<p><strong>Click Start game to play</strong> with the bundled free (CC0) data pack — no download needed.
+The free pack is an early work in progress: placeholder art, one original starter mission.</p>
+<details style="display:inline-block;text-align:left;max-width:800px"><summary>Optional: play with the classic X operations 0.96 data</summary>
+<ol>
 <li><a href="https://ftp.vector.co.jp/39/89/3471/xops096.zip" target="_blank" rel="noopener noreferrer"><strong>Download X operations 0.96 — xops096.zip (about 5 MB)</strong></a>
-from the original Vector distribution. <a href="https://www.vector.co.jp/soft/win95/game/se284467.html" target="_blank" rel="noopener noreferrer">Download page / fallback</a>.</li>
+from the original Vector distribution. <a href="https://www.vector.co.jp/soft/win95/game/se284467.html" target="_blank" rel="noopener noreferrer">Download page / fallback</a>.
+OpenXOPS engine/source downloads (1.080.zip / 1.080-src.zip) are not game data.</li>
 <li>Keep the ZIP as downloaded; do not extract it.</li>
-<li>Select that ZIP below, then click <strong>Start game</strong>. Your file stays in this browser; it is not uploaded.</li>
-</ol>
+<li>Load it below. It layers over the free pack, adds the 58 classic missions and stays in this browser; it is not uploaded.</li>
+</ol></details><br>
+<label for="archive">Load classic X operations data (optional):</label>
 <input id="archive" type="file" accept=".zip">
 <button id="play" disabled>Loading engine…</button>
 <button id="forget" type="button" disabled>Forget saved ZIP</button>
@@ -113,7 +116,7 @@ forget.onclick=async()=>{
  forget.disabled=true;
  try{await archiveStore('delete');savedArchive=null;
    document.getElementById('archive').value='';savedLabel.textContent='Saved ZIP removed from this browser.';
-   if(!enteredMain)status.textContent='Select xops096.zip to play again.';
+   if(!enteredMain)status.textContent='Saved classic data removed. Start game uses the free pack.';
  }catch(e){savedLabel.textContent='Could not remove saved ZIP: '+e;forget.disabled=false;}
 };
 function reportError(message){document.body.classList.remove('playing');status.textContent=message;status.dataset.error='true';}
@@ -147,29 +150,31 @@ var Module={
      reportError('Engine/page version mismatch. Reload this page to load the current engine.');return;
    }
    play.disabled=false;play.textContent='Start game';
-   status.textContent=savedArchive?'Saved game data ready. Click Start game.':'Select xops096.zip (original game data), then Start game.'}
+   status.textContent=savedArchive?'Saved classic data ready. Click Start game.':'Ready. Click Start game (free data), or load classic data first.'}
 };
 play.onclick=async()=>{
  const file=document.getElementById('archive').files[0];
- if(!file&&!savedArchive){reportError('Select xops096.zip (original game data) first.');return;}
  play.disabled=true;status.dataset.error='false';
  try{
    if(file&&file.size>512*1024*1024)throw new Error('ZIP exceeds the 512 MiB archive limit.');
    const record=file?{name:file.name,bytes:await file.arrayBuffer()}:savedArchive;
-   status.textContent='Checking '+record.name+'…';
-   const bytes=new Uint8Array(record.bytes);
-   Module.FS.writeFile('/xops096.zip',bytes);
+   status.textContent='Loading game data…';
+   const pack=await fetch(Module.dataPackUrl);
+   if(!pack.ok)throw new Error('Free data pack download failed ('+pack.status+')');
+   Module.FS.writeFile('/openxops-data.zip',new Uint8Array(await pack.arrayBuffer()));
+   try{Module.FS.unlink('/xops096.zip');}catch(_){}
+   if(record){status.textContent='Checking '+record.name+'…';Module.FS.writeFile('/xops096.zip',new Uint8Array(record.bytes));}
    Module.FS.mkdirTree('/save');Module.FS.chdir('/');
    if(Module._openxops_prepare_archive()!==0){
      reportError(Module.UTF8ToString(Module._openxops_archive_error()));
      play.disabled=false;return; // Do not enter main; another archive can be selected safely.
    }
-   if(file){
+   if(file&&record){
      try{await archiveStore('put',record);savedArchive=record;forget.disabled=false;
        savedLabel.textContent='Saved locally: '+record.name+' — no need to select it next visit.';
      }catch(e){savedLabel.textContent='Playing without saving the ZIP (browser storage unavailable or full).';}
    }
-   status.textContent='Starting original game…';
+   status.textContent=record?'Starting with classic data…':'Starting with free data…';
    document.body.classList.add('playing');fitGame();canvas.focus();
    engineError='';enteredMain=true;
    const code=Module.callMain(['-Dir','/']);

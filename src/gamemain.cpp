@@ -603,7 +603,7 @@ int mainmenu::Create()
 	mainmenu_mouseY_old = mainmenu_mouseY;
 
 	//ミッションのスクロールバーの設定
-	scrollbar_official.Create(MAINMENU_X+341, MAINMENU_Y+1, 19, MAINMENU_H-1-24, TOTAL_OFFICIALMISSION, TOTAL_MENUITEMS, scrollbar_official.GetScrollItem());
+	scrollbar_official.Create(MAINMENU_X+341, MAINMENU_Y+1, 19, MAINMENU_H-1-24, GameParamInfo.GetOfficialMissionCount(), TOTAL_MENUITEMS, scrollbar_official.GetScrollItem());
 	scrollbar_official.SetColor(d3dg->GetColorCode(0.5f,0.5f,0.5f,0.5f), d3dg->GetColorCode(0.6f,0.6f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.8f,0.25f,1.0f),
 		d3dg->GetColorCode(0.4f,0.67f,0.57f,1.0f), d3dg->GetColorCode(0.38f,0.77f,0.64f,1.0f), d3dg->GetColorCode(0.6f,0.3f,0.25f,1.0f), d3dg->GetColorCode(0.8f,0.3f,0.25f,1.0f));
 	scrollbar_addon.Create(MAINMENU_X+341, MAINMENU_Y+1, 19, MAINMENU_H-1-24, GameAddon.GetTotaldatas(), TOTAL_MENUITEMS, scrollbar_addon.GetScrollItem());
@@ -652,7 +652,7 @@ void mainmenu::Input()
 		if( GameInfoData.selectmission_id >= 0 ){
 			scrollbar_official.Input(mainmenu_mouseX, mainmenu_mouseY, inputCtrl->CheckMouseButtonNowL(), mainmenu_mouseY - mainmenu_mouseY_old);
 			scrollitems = scrollbar_official.GetScrollItem();
-			totalmission = TOTAL_OFFICIALMISSION;
+			totalmission = GameParamInfo.GetOfficialMissionCount();
 		}
 		else{
 			scrollbar_addon.Input(mainmenu_mouseX, mainmenu_mouseY, inputCtrl->CheckMouseButtonNowL(), mainmenu_mouseY - mainmenu_mouseY_old);
@@ -810,7 +810,7 @@ void mainmenu::Render2D()
 		bool scrolling;
 		if( GameInfoData.selectmission_id >= 0 ){
 			scrollitems = scrollbar_official.GetScrollItem();
-			totalmission = TOTAL_OFFICIALMISSION;
+			totalmission = GameParamInfo.GetOfficialMissionCount();
 			scrolling = scrollbar_official.CheckScrolling();
 		}
 		else{

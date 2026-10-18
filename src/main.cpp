@@ -171,7 +171,8 @@ static int GameEntry(int argc, char **argv)
 
 	// Mount game data only after -Dir has selected the working directory.
 #ifdef __EMSCRIPTEN__
- setenv("OPENXOPS_DATA_ZIP","/xops096.zip",1);
+ // browser-archive.cpp set OPENXOPS_DATA_ZIP to the validated layer list.
+ setenv("OPENXOPS_DATA_ZIP","/xops096.zip",0);
 #endif
  vfs_init_from_args(NULL);
 
