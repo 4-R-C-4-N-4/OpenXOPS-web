@@ -301,3 +301,19 @@ Three low-reasoning gpt-6-luna workers, isolated worktrees, cap3:
 Current live preview stays unchanged until local runtime gates and independent
 review pass. Parent will integrate, rebuild packagedWASM and verify actual
 repaired states; source-only reviews do not establish rendered correctness.
+
+### Cleanup first-pass review
+
+Controls branch03c261d implemented UI/presets but no actual selected-ZIP gameplay
+test. Parent found guide errors (Home notTab forarms; ClassicShift notrightmouse
+foraim) and preset mismatch whenlocalStorage fails. Followup task correcting
+these and testing dialog pause/resume with inputflush and real DownloadsZIP.
+
+Asset-audit draft only scannedliteralLoadcalls, missingdynamicweaponparameter
+paths; followup adds realweapon-tablecoverage,syntheticregressions and actual
+archiveaudit. No rendererchanges accepted fromthisstream.
+
+Reticle worker didnotproducepixelrepro and onlyadded End2DRenderalphaenable,
+not its claimeddisable; blackalpha1 vsGREATER0 explanationunproven. No merge.
+Followup requires productionline/box pixelproof beforeanyreticlefix.
+Three low-reasoningLuna correctionworkers active; livepreviewunchanged.
