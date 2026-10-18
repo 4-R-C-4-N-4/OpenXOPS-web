@@ -364,3 +364,15 @@ live verification. Existing public build stays unchanged during this work.
 Replacement pack must cover maps/points, models, audio and UI as well as textures;
 CC0/public-domain provenance required, not merely absent licensing notices.
 
+
+### Open-assets overhaul (no original ZIP) — scoped, not started
+
+Scope: docs/OPEN-ASSETS-SOW.md. 353 manifest slots; P0 = 2 HUD/font, 5 effects,
+1 sky, 2 skins, 6 weapon skins, 27 models, 14 SFX, 7 maps + 8 point files +
+mission text (incl. menu demo map). Images via Codex image gen; models, maps and
+points need new tooling (modelgen, mapgen .bd1, pointgen .pd1).
+Phases: A engine seams (data-driven mission list, bundled fingerprinted free pack
+mounted via VFS, ZIP becomes optional overlay) → B authoring tools → C P0 starter
+pack = first upload-free public release → D full roster → E stretch: new maps,
+campaign, in-browser editor. Official mission layouts are not remade.
+Starts after the final-polish batch is integrated.
