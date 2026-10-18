@@ -266,3 +266,22 @@ never overwrites saved valid archive. Forget button removes persisted record;
 storage failure degrades to normal picker. No cookies or uploads. Parent tested
 real DownloadsZIP save->reload->Start(no file),forget->reload(no record),resave;
 all passed in Chromium. Settings persistence remains separate/unimplemented.
+
+## Minimal demo live on GitHub Pages
+
+Live: https://4-r-c-4-n-4.github.io/OpenXOPS-web/
+Portfolio Games cabinet added in root-site commit920ee5f, embedfalse and
+standalone url; existing5manifest games remain intact. Browser click verified
+new tab at project URL. Root Pages deployment39134293797 succeeded.
+
+Engine deployment39134157979 succeeded (commit7e5c875). Independent project
+Pages workflow builds on source/web/tool changes, pins emsdk6.0.12, runs26tooling
+tests and uploads allowlisted page/fingerprintedJS+WASM/LICENSE/NOTICE only.
+Downloaded actual artifact inspected: no original archives/assets or local data.
+Public Chromium test used exact Downloads/xops096.zip: opening, menu,briefing,
+Training Yard gameplay; cache record saved at public origin. Relative engine
+asset URLs work at /OpenXOPS-web/ and fullscreen viewport remains640x480.
+
+Root site deployment remains branch-based; tiny-games workflow/manifest left
+unchanged. Future OpenXOPS pushes deploy independently without root-site edits
+or crossrepo secrets. See docs/DEPLOYMENT.md and README live link.

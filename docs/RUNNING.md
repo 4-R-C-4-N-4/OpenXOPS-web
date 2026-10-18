@@ -86,7 +86,8 @@ been exhaustively verified. Do not interpret successful boot as full parity.
 - Quit ends the game loop; reload the page to start another session.
 - Original game data is copyrighted and must not be deployed alongside the
   engine. The CC0 replacement pack is incomplete.
-- No public hosted game release is claimed by this local preview guide.
+- Public demo: https://4-r-c-4-n-4.github.io/OpenXOPS-web/ (automatically deployed
+  from this repository; see DEPLOYMENT.md).
 
 ## Wrong ZIP / “Data directory not exist”
 

@@ -7,6 +7,11 @@ exercised in Chromium. Japanese text and some UI rendering remain incomplete.
 
 ## Play the browser preview
 
+**Live:** https://4-r-c-4-n-4.github.io/OpenXOPS-web/
+
+Listed in the portfolio's Games section; opens in a new tab. Engine updates
+build and deploy automatically from this repo. See [deployment details](docs/DEPLOYMENT.md).
+
 See **[Running and browser quickstart](docs/RUNNING.md)** for controls, verified
 behaviour and known limitations. This runs the game, not the triangle smoke test.
 
