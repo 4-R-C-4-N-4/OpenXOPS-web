@@ -21,10 +21,7 @@
         200.0
       ],
       "texture": "ground.bmp",
-      "uv_scale": [
-        12,
-        12
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "perimeter north wall",
@@ -39,10 +36,7 @@
         -200.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        10,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "perimeter east wall",
@@ -57,10 +51,7 @@
         200.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        10,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "perimeter west wall",
@@ -75,10 +66,7 @@
         200.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        10,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "perimeter south wall (left of gate)",
@@ -93,10 +81,7 @@
         208.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        8,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "perimeter south wall (right of gate)",
@@ -111,10 +96,7 @@
         208.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        8,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building north wall",
@@ -129,10 +111,7 @@
         -152.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        6,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building south wall (left of doorway)",
@@ -147,10 +126,7 @@
         -80.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        4,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building south wall (right of doorway)",
@@ -165,10 +141,7 @@
         -80.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        4,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building east wall",
@@ -183,10 +156,7 @@
         -88.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        1,
-        6
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building west wall",
@@ -201,10 +171,7 @@
         -88.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        1,
-        6
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building interior partition (left of inner doorway)",
@@ -219,10 +186,7 @@
         -112.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        3,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building interior partition (right of inner doorway)",
@@ -237,10 +201,7 @@
         -112.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        3,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building floor",
@@ -255,10 +216,7 @@
         -88.0
       ],
       "texture": "floor.bmp",
-      "uv_scale": [
-        6,
-        4
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "building roof",
@@ -273,10 +231,7 @@
         -80.0
       ],
       "texture": "roof.bmp",
-      "uv_scale": [
-        7,
-        5
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "watchtower leg 1",
@@ -363,10 +318,7 @@
         -124.0
       ],
       "texture": "floor.bmp",
-      "uv_scale": [
-        2,
-        2
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "watchtower rail north",
@@ -381,10 +333,7 @@
         -144.8
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        2,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "watchtower rail south",
@@ -399,10 +348,7 @@
         -124.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        2,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "watchtower rail west",
@@ -417,10 +363,7 @@
         -124.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        2,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "watchtower rail east",
@@ -435,10 +378,7 @@
         -124.0
       ],
       "texture": "wall.bmp",
-      "uv_scale": [
-        2,
-        1
-      ]
+      "texture_world_units": 32
     },
     {
       "comment": "cover crate 1",

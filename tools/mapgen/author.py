@@ -54,7 +54,21 @@ def _build_block(entry: Dict[str, Any], textures: List[str]) -> bd1.Block:
             spec = faces_spec.get(name, entry.get("texture"))
             face_tex.append(_texture_index(spec, textures))
         uv_scale = entry.get("uv_scale", [1.0, 1.0])
-        return bd1.box_block(vmin, vmax, face_tex, uv_scale=uv_scale)
+        block = bd1.box_block(vmin, vmax, face_tex, uv_scale=uv_scale)
+        if 'texture_world_units' in entry:
+            import math
+            units = float(entry['texture_world_units'])
+            if not math.isfinite(units) or units <= 0:
+                raise AuthorError('texture_world_units must be positive and finite')
+            dx, dy, dz = (vmax[i] - vmin[i] for i in range(3))
+            # Box faces have different extents; do not stretch one square
+            # texture across a long wall or a whole courtyard floor.
+            dimensions = ((dx,dz),(dx,dz),(dx,dy),(dz,dy),(dx,dy),(dz,dy))
+            normalized = bd1.box_block(vmin, vmax, face_tex)
+            for face, base, (width,height) in zip(block.faces, normalized.faces, dimensions):
+                face.u = tuple(value * width / units for value in base.u)
+                face.v = tuple(value * height / units for value in base.v)
+        return block
 
     raise AuthorError("block entry needs either 'min'/'max' (box) or 'vertices' (raw)")
 
