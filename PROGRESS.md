@@ -406,3 +406,10 @@ Starts after the final-polish batch is integrated.
   for Codex skin painting.
 Parent integrates, then wires mapgen/modelgen output into the pack and verifies
 an upload-free mission in browser before any deploy.
+- Merged: mapgen (e4718ae; real loader reads starter as 7 blocks/6 points; 27 tests)
+  and modelgen (de2e4f7; all 27 P0 models, 0 model-slot validator failures).
+  Validator P0 failures 66 → 39 (textures/maps/sounds remain).
+- open-engine was partial: only tools/build_pack.py kept (its placeholders wrote
+  into assets/pack — discarded; must stage separately). Re-dispatched as
+  open-engine2 with full Phase A spec. Parallel: open-starter authors original
+  starter compound mission, menu demo map, missions.txt and a Codex texture list.
