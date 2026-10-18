@@ -588,3 +588,10 @@ statuses stale. Three bounded workers (deleg_0e72af80):
   sync tool + test.
 Asset workers write PROVENANCE-ADD.jsonl sidecars; parent merges provenance,
 then browser-verifies weapons/HUD icon/effects before PR + deploy.
+User played the live starter end-to-end. Feedback: bullet impacts and blood
+splatter render as grids; faces look silly. Root cause: build-playable-web.sh
+runs build_pack.py --placeholders, which fills missing P0 slots with 2x2 grey
+checkerboards (real files always win). Impact puffs use smoke.dds
+(objectmanager.cpp:1032-1033), blood uses blood.dds (:638/:642).
+p0-effects done (f277ea6) + parent fix 18bbb4a (denser dusty smoke so tiny
+impact puffs read on pale walls). p0-weapons steered to also tone down faces.
