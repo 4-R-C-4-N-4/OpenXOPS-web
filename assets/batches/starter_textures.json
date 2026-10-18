@@ -1,0 +1,25 @@
+{
+  "batch": "starter_textures",
+  "description": "Generic map tiles needed by the starter mission map (assets/pack/data/starter/) and the title-screen demo map (assets/pack/data/map10/). Both .bd1 files reference the same 5 texture names (wall.bmp, floor.bmp, crate.bmp, roof.bmp, ground.bmp) per docs/MAPGEN.md's 10-slot texture table, but D3DGraphics::LoadMapdata(&BlockData, directory) (src/d3dgraphics-directx.cpp:1384, src/d3dgraphics-opengl.cpp:2041, called with \"data\\\\starter\\\\\" / \"data\\\\map10\\\\\" at src/gamemain.cpp:238,284 for map10) resolves texture files relative to the map's own directory, so each directory needs its own copy of every file it uses -- not generated yet, no images produced by this task.",
+  "defaults": {
+    "kind": "texture",
+    "class": "map_tile",
+    "ref_size": [256, 256],
+    "ref_format": "bmp8",
+    "alpha": "none",
+    "tileable": true
+  },
+  "slots": [
+    {"path": "data/starter/wall.bmp", "summary": "a weathered grey cast-concrete compound wall, faint formwork lines and light water staining spread evenly, seamless for 8x repeats along a wide wall"},
+    {"path": "data/starter/floor.bmp", "summary": "a plain worn grey-beige concrete floor slab seen from directly above, fine aggregate texture and faint hairline cracks, evenly lit"},
+    {"path": "data/starter/crate.bmp", "summary": "the face of a wooden storage crate: horizontal pine planks framed by a plank border, visible nail heads, no stencils or markings"},
+    {"path": "data/starter/roof.bmp", "summary": "a flat corrugated grey-brown sheet-metal roof panel seen from above, regular shallow ribbing running one direction, light surface rust spots"},
+    {"path": "data/starter/ground.bmp", "summary": "packed brown earth courtyard ground seen from directly above, small pebbles and fine soil grain, faint dry cracks spread evenly"},
+    {"path": "data/map10/wall.bmp", "summary": "a weathered grey cast-concrete compound wall, faint formwork lines and light water staining spread evenly, seamless for 8x repeats along a wide wall"},
+    {"path": "data/map10/floor.bmp", "summary": "a plain worn grey-beige concrete floor slab seen from directly above, fine aggregate texture and faint hairline cracks, evenly lit"},
+    {"path": "data/map10/crate.bmp", "summary": "the face of a wooden storage crate: horizontal pine planks framed by a plank border, visible nail heads, no stencils or markings"},
+    {"path": "data/map10/roof.bmp", "summary": "a flat corrugated grey-brown sheet-metal roof panel seen from above, regular shallow ribbing running one direction, light surface rust spots"},
+    {"path": "data/map10/ground.bmp", "summary": "packed brown earth courtyard ground seen from directly above, small pebbles and fine soil grain, faint dry cracks spread evenly"},
+    {"path": "data/sky/sky1.bmp", "summary": "an even, slightly hazy overcast daytime sky, pale grey-blue with soft diffuse cloud banding and no sun glare, for the sky box used by the opening/title screen and the starter mission (src/resource.cpp:751-764, mission skynumber field)", "class": "sky", "tileable": false}
+  ]
+}
