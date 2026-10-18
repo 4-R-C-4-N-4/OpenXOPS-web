@@ -215,3 +215,5 @@ Limitations: Japanese text uses '?' placeholder, some title/UI artifacts,
 archive/settings not persisted, no complete mission/audio/performance parity
 claim. No original assets or derived screenshots shipped. Independent Luna
 critical-runtime/privacy review pending; local server running for user testing.
+
+Browser preview Luna review completed: no critical runtime/privacy blocker found. Local archive is read into browser memory/VFS only; no upload endpoint or asset publication path. Static screen lifetimes and browser-yielding loop reviewed. Japanese placeholder text remains a known limitation.
