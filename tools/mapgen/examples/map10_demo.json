@@ -1,0 +1,361 @@
+{
+  "schema": 1,
+  "textures": [
+    "wall.bmp",
+    "floor.bmp",
+    "crate.bmp",
+    "roof.bmp",
+    "ground.bmp"
+  ],
+  "blocks": [
+    {
+      "comment": "ground slab",
+      "min": [
+        -18,
+        -1,
+        -18
+      ],
+      "max": [
+        18,
+        0,
+        18
+      ],
+      "texture": "ground.bmp",
+      "uv_scale": [
+        9,
+        9
+      ]
+    },
+    {
+      "comment": "north wall",
+      "min": [
+        -18,
+        0,
+        -19
+      ],
+      "max": [
+        18,
+        5,
+        -18
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        9,
+        1
+      ]
+    },
+    {
+      "comment": "east wall",
+      "min": [
+        18,
+        0,
+        -18
+      ],
+      "max": [
+        19,
+        5,
+        18
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        9,
+        1
+      ]
+    },
+    {
+      "comment": "west wall",
+      "min": [
+        -19,
+        0,
+        -18
+      ],
+      "max": [
+        -18,
+        5,
+        18
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        9,
+        1
+      ]
+    },
+    {
+      "comment": "south wall (left of opening)",
+      "min": [
+        -18,
+        0,
+        18
+      ],
+      "max": [
+        -2,
+        5,
+        19
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        8,
+        1
+      ]
+    },
+    {
+      "comment": "south wall (right of opening)",
+      "min": [
+        2,
+        0,
+        18
+      ],
+      "max": [
+        18,
+        5,
+        19
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        8,
+        1
+      ]
+    },
+    {
+      "comment": "demo building north wall",
+      "min": [
+        -6,
+        0,
+        -10
+      ],
+      "max": [
+        6,
+        5,
+        -9
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        6,
+        1
+      ]
+    },
+    {
+      "comment": "demo building south wall (left of doorway)",
+      "min": [
+        -6,
+        0,
+        -3
+      ],
+      "max": [
+        -1.5,
+        5,
+        -2
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        4,
+        1
+      ]
+    },
+    {
+      "comment": "demo building south wall (right of doorway)",
+      "min": [
+        1.5,
+        0,
+        -3
+      ],
+      "max": [
+        6,
+        5,
+        -2
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        4,
+        1
+      ]
+    },
+    {
+      "comment": "demo building east wall",
+      "min": [
+        6,
+        0,
+        -9
+      ],
+      "max": [
+        7,
+        5,
+        -2
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        1,
+        5
+      ]
+    },
+    {
+      "comment": "demo building west wall",
+      "min": [
+        -7,
+        0,
+        -9
+      ],
+      "max": [
+        -6,
+        5,
+        -2
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        1,
+        5
+      ]
+    },
+    {
+      "comment": "demo building roof",
+      "min": [
+        -7,
+        5,
+        -10
+      ],
+      "max": [
+        7,
+        5.5,
+        -2
+      ],
+      "texture": "roof.bmp",
+      "uv_scale": [
+        7,
+        4
+      ]
+    },
+    {
+      "comment": "demo building floor",
+      "min": [
+        -6,
+        -1,
+        -9
+      ],
+      "max": [
+        6,
+        0,
+        -2
+      ],
+      "texture": "floor.bmp",
+      "uv_scale": [
+        6,
+        3
+      ]
+    },
+    {
+      "comment": "crate 1",
+      "min": [
+        -9,
+        0,
+        5
+      ],
+      "max": [
+        -7,
+        2,
+        7
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "crate 2",
+      "min": [
+        7,
+        0,
+        5
+      ],
+      "max": [
+        9,
+        2,
+        7
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "crate 3",
+      "min": [
+        -3,
+        0,
+        8
+      ],
+      "max": [
+        -1,
+        2,
+        10
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    }
+  ],
+  "points": [
+    {
+      "type": "waypoint",
+      "pos": [
+        -10.0,
+        0.0,
+        10.0
+      ],
+      "mode": 1,
+      "p3": 0,
+      "comment": "demo waypoint A"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        10.0,
+        0.0,
+        10.0
+      ],
+      "mode": 1,
+      "p3": 1,
+      "comment": "demo waypoint B"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "mode": 1,
+      "p3": 2,
+      "comment": "demo waypoint C"
+    },
+    {
+      "type": "human",
+      "pos": [
+        -8.0,
+        0.0,
+        8.0
+      ],
+      "rotation": 0.0,
+      "human_type": 0,
+      "ai_path": 0,
+      "team": 1,
+      "comment": "demo figure 1, patrolling the yard"
+    },
+    {
+      "type": "human",
+      "pos": [
+        0.0,
+        0.0,
+        -4.0
+      ],
+      "rotation": 3.14159,
+      "human_type": 1,
+      "ai_path": 2,
+      "team": 1,
+      "comment": "demo figure 2, patrolling near the building"
+    }
+  ]
+}

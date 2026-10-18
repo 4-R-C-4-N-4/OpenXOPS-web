@@ -1,0 +1,912 @@
+{
+  "schema": 1,
+  "textures": [
+    "wall.bmp",
+    "floor.bmp",
+    "crate.bmp",
+    "roof.bmp",
+    "ground.bmp"
+  ],
+  "blocks": [
+    {
+      "comment": "ground slab",
+      "min": [
+        -25,
+        -1,
+        -25
+      ],
+      "max": [
+        25,
+        0,
+        25
+      ],
+      "texture": "ground.bmp",
+      "uv_scale": [
+        12,
+        12
+      ]
+    },
+    {
+      "comment": "perimeter north wall",
+      "min": [
+        -25,
+        0,
+        -26
+      ],
+      "max": [
+        25,
+        5,
+        -25
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        10,
+        1
+      ]
+    },
+    {
+      "comment": "perimeter east wall",
+      "min": [
+        25,
+        0,
+        -25
+      ],
+      "max": [
+        26,
+        5,
+        25
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        10,
+        1
+      ]
+    },
+    {
+      "comment": "perimeter west wall",
+      "min": [
+        -26,
+        0,
+        -25
+      ],
+      "max": [
+        -25,
+        5,
+        25
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        10,
+        1
+      ]
+    },
+    {
+      "comment": "perimeter south wall (left of gate)",
+      "min": [
+        -25,
+        0,
+        25
+      ],
+      "max": [
+        -3,
+        5,
+        26
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        8,
+        1
+      ]
+    },
+    {
+      "comment": "perimeter south wall (right of gate)",
+      "min": [
+        3,
+        0,
+        25
+      ],
+      "max": [
+        25,
+        5,
+        26
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        8,
+        1
+      ]
+    },
+    {
+      "comment": "building north wall",
+      "min": [
+        -7,
+        0,
+        -20
+      ],
+      "max": [
+        7,
+        6,
+        -19
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        6,
+        1
+      ]
+    },
+    {
+      "comment": "building south wall (left of doorway)",
+      "min": [
+        -7,
+        0,
+        -11
+      ],
+      "max": [
+        -1.5,
+        6,
+        -10
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        4,
+        1
+      ]
+    },
+    {
+      "comment": "building south wall (right of doorway)",
+      "min": [
+        1.5,
+        0,
+        -11
+      ],
+      "max": [
+        7,
+        6,
+        -10
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        4,
+        1
+      ]
+    },
+    {
+      "comment": "building east wall",
+      "min": [
+        6,
+        0,
+        -19
+      ],
+      "max": [
+        7,
+        6,
+        -11
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        1,
+        6
+      ]
+    },
+    {
+      "comment": "building west wall",
+      "min": [
+        -7,
+        0,
+        -19
+      ],
+      "max": [
+        -6,
+        6,
+        -11
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        1,
+        6
+      ]
+    },
+    {
+      "comment": "building interior partition (left of inner doorway)",
+      "min": [
+        -6,
+        0,
+        -15
+      ],
+      "max": [
+        -1,
+        6,
+        -14
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        3,
+        1
+      ]
+    },
+    {
+      "comment": "building interior partition (right of inner doorway)",
+      "min": [
+        1,
+        0,
+        -15
+      ],
+      "max": [
+        6,
+        6,
+        -14
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        3,
+        1
+      ]
+    },
+    {
+      "comment": "building floor",
+      "min": [
+        -6,
+        -1,
+        -19
+      ],
+      "max": [
+        6,
+        0,
+        -11
+      ],
+      "texture": "floor.bmp",
+      "uv_scale": [
+        6,
+        4
+      ]
+    },
+    {
+      "comment": "building roof",
+      "min": [
+        -7,
+        6,
+        -20
+      ],
+      "max": [
+        7,
+        6.5,
+        -10
+      ],
+      "texture": "roof.bmp",
+      "uv_scale": [
+        7,
+        5
+      ]
+    },
+    {
+      "comment": "watchtower leg 1",
+      "min": [
+        -18,
+        0,
+        -18
+      ],
+      "max": [
+        -17.4,
+        4,
+        -17.4
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        2
+      ]
+    },
+    {
+      "comment": "watchtower leg 2",
+      "min": [
+        -16,
+        0,
+        -18
+      ],
+      "max": [
+        -15.4,
+        4,
+        -17.4
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        2
+      ]
+    },
+    {
+      "comment": "watchtower leg 3",
+      "min": [
+        -18,
+        0,
+        -16
+      ],
+      "max": [
+        -17.4,
+        4,
+        -15.4
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        2
+      ]
+    },
+    {
+      "comment": "watchtower leg 4",
+      "min": [
+        -16,
+        0,
+        -16
+      ],
+      "max": [
+        -15.4,
+        4,
+        -15.4
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        2
+      ]
+    },
+    {
+      "comment": "watchtower platform",
+      "min": [
+        -18.5,
+        4,
+        -18.5
+      ],
+      "max": [
+        -15.5,
+        4.4,
+        -15.5
+      ],
+      "texture": "floor.bmp",
+      "uv_scale": [
+        2,
+        2
+      ]
+    },
+    {
+      "comment": "watchtower rail north",
+      "min": [
+        -18.5,
+        4.4,
+        -18.5
+      ],
+      "max": [
+        -15.5,
+        5.4,
+        -18.1
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        2,
+        1
+      ]
+    },
+    {
+      "comment": "watchtower rail south",
+      "min": [
+        -18.5,
+        4.4,
+        -15.9
+      ],
+      "max": [
+        -15.5,
+        5.4,
+        -15.5
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        2,
+        1
+      ]
+    },
+    {
+      "comment": "watchtower rail west",
+      "min": [
+        -18.5,
+        4.4,
+        -18.5
+      ],
+      "max": [
+        -18.1,
+        5.4,
+        -15.5
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        2,
+        1
+      ]
+    },
+    {
+      "comment": "watchtower rail east",
+      "min": [
+        -15.9,
+        4.4,
+        -18.5
+      ],
+      "max": [
+        -15.5,
+        5.4,
+        -15.5
+      ],
+      "texture": "wall.bmp",
+      "uv_scale": [
+        2,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 1",
+      "min": [
+        -11,
+        0,
+        13
+      ],
+      "max": [
+        -9,
+        2,
+        15
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 2",
+      "min": [
+        9,
+        0,
+        13
+      ],
+      "max": [
+        11,
+        2,
+        15
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 3",
+      "min": [
+        -15,
+        0,
+        5
+      ],
+      "max": [
+        -13,
+        2,
+        7
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 4",
+      "min": [
+        13,
+        0,
+        5
+      ],
+      "max": [
+        15,
+        2,
+        7
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 5",
+      "min": [
+        -9,
+        0,
+        -3
+      ],
+      "max": [
+        -7,
+        2,
+        -1
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 6",
+      "min": [
+        7,
+        0,
+        -3
+      ],
+      "max": [
+        9,
+        2,
+        -1
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 7",
+      "min": [
+        -17,
+        0,
+        -7
+      ],
+      "max": [
+        -15,
+        2,
+        -5
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 8",
+      "min": [
+        15,
+        0,
+        -7
+      ],
+      "max": [
+        17,
+        2,
+        -5
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 9",
+      "min": [
+        -1,
+        0,
+        17
+      ],
+      "max": [
+        1,
+        2,
+        19
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 10",
+      "min": [
+        -7,
+        0,
+        15
+      ],
+      "max": [
+        -5,
+        2,
+        17
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 11",
+      "min": [
+        5,
+        0,
+        15
+      ],
+      "max": [
+        7,
+        2,
+        17
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 12",
+      "min": [
+        -1,
+        0,
+        1
+      ],
+      "max": [
+        1,
+        2,
+        3
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 13",
+      "min": [
+        -21,
+        0,
+        1
+      ],
+      "max": [
+        -19,
+        2,
+        3
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 14",
+      "min": [
+        19,
+        0,
+        1
+      ],
+      "max": [
+        21,
+        2,
+        3
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 15",
+      "min": [
+        -5,
+        0,
+        7
+      ],
+      "max": [
+        -3,
+        2,
+        9
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    },
+    {
+      "comment": "cover crate 16",
+      "min": [
+        3,
+        0,
+        7
+      ],
+      "max": [
+        5,
+        2,
+        9
+      ],
+      "texture": "crate.bmp",
+      "uv_scale": [
+        1,
+        1
+      ]
+    }
+  ],
+  "points": [
+    {
+      "type": "player_spawn",
+      "pos": [
+        0.0,
+        0.0,
+        20.0
+      ],
+      "rotation": 3.14159,
+      "human_type": 0,
+      "ai_path": 0,
+      "comment": "player spawn, just inside the south gate, facing the compound"
+    },
+    {
+      "type": "weapon_pickup",
+      "pos": [
+        2.0,
+        0.0,
+        18.0
+      ],
+      "weapon_id": 3,
+      "ammo": 45,
+      "comment": "sidearm pickup near spawn"
+    },
+    {
+      "type": "weapon_pickup",
+      "pos": [
+        4.0,
+        0.0,
+        -13.0
+      ],
+      "weapon_id": 1,
+      "ammo": 90,
+      "comment": "SMG pickup inside the building's east room"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -12.0,
+        0.0,
+        14.0
+      ],
+      "mode": 1,
+      "p3": 0,
+      "comment": "patrol waypoint 0"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -14.0,
+        0.0,
+        -4.0
+      ],
+      "mode": 1,
+      "p3": 1,
+      "comment": "patrol waypoint 1"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -3.0,
+        0.0,
+        -13.0
+      ],
+      "mode": 1,
+      "p3": 2,
+      "comment": "patrol waypoint 2"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        3.0,
+        0.0,
+        -13.0
+      ],
+      "mode": 1,
+      "p3": 3,
+      "comment": "patrol waypoint 3"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        14.0,
+        0.0,
+        -4.0
+      ],
+      "mode": 1,
+      "p3": 4,
+      "comment": "patrol waypoint 4"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        12.0,
+        0.0,
+        14.0
+      ],
+      "mode": 1,
+      "p3": 5,
+      "comment": "patrol waypoint 5"
+    },
+    {
+      "type": "human",
+      "pos": [
+        -10.0,
+        0.0,
+        10.0
+      ],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 0,
+      "team": 2,
+      "comment": "enemy guard 1"
+    },
+    {
+      "type": "human",
+      "pos": [
+        -16.0,
+        0.0,
+        -2.0
+      ],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 1,
+      "team": 2,
+      "comment": "enemy guard 2"
+    },
+    {
+      "type": "human",
+      "pos": [
+        0.0,
+        0.0,
+        -13.5
+      ],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 2,
+      "team": 2,
+      "comment": "enemy guard 3"
+    },
+    {
+      "type": "human",
+      "pos": [
+        10.0,
+        0.0,
+        -2.0
+      ],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 4,
+      "team": 2,
+      "comment": "enemy guard 4"
+    },
+    {
+      "type": "human",
+      "pos": [
+        10.0,
+        0.0,
+        10.0
+      ],
+      "rotation": 0.0,
+      "human_type": 2,
+      "ai_path": 5,
+      "team": 2,
+      "comment": "enemy guard 5"
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        -17.0
+      ],
+      "event_id": 10,
+      "p2": 0,
+      "p3": 0,
+      "p4": 0,
+      "comment": "mission goal marker in the building's inner room"
+    }
+  ]
+}

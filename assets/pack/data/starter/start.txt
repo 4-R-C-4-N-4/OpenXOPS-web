@@ -1,0 +1,19 @@
+!
+!
+0
+Mission: STARTER COMPOUND
+
+Scouts spotted a small walled compound south of
+the river, used as a supply point by hostiles.
+
+Move in through the south gate, clear the yard
+and the building, and secure the inner room.
+
+Pick up the sidearm near the gate, or the SMG
+inside the building's east room.
+
+Guards patrol the courtyard, the watchtower by
+the gate, and the building interior.
+
+Objective: eliminate all hostiles and reach the
+marker in the building's inner room.
