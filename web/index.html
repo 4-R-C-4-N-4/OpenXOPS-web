@@ -13,6 +13,13 @@ body.playing #stage,#stage:fullscreen{display:flex;position:fixed;inset:0;backgr
 #stage canvas{display:block;margin:0;outline:none;flex:none;width:auto;height:auto;max-width:none}
 .gamebar{position:absolute;bottom:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:center;gap:16px;background:#151719;color:#ddd;font-size:13px}
 .gamebar button{padding:5px 12px;margin:0}
+#setup-controls{display:inline-flex;align-items:center;gap:8px;margin:8px}
+#setup-controls select{padding:8px;background:#202427;color:#eee;font:inherit}
+#controls-dialog{max-width:560px;background:#202427;color:#eee;border:1px solid #8aa;padding:20px;text-align:left;font:16px/1.5 monospace}
+#controls-dialog::backdrop{background:#000b}
+#controls-dialog h2{margin-top:0}
+#controls-dialog button{margin:8px 0}
+#controls-dialog{z-index:20}
 </style>
 <h2>OpenXOPS — browser preview</h2>
 <p>Select <strong>xops096.zip — the original X operations 0.96 game data</strong>.
@@ -26,20 +33,39 @@ from the original Vector distribution. <a href="https://www.vector.co.jp/soft/wi
 <input id="archive" type="file" accept=".zip">
 <button id="play" disabled>Loading engine…</button>
 <button id="forget" type="button" disabled>Forget saved ZIP</button>
+<button id="controls-setup" type="button">Controls</button>
+<p id="setup-controls"><label for="preset">Input preset (applies next start):</label><select id="preset"><option value="classic">Classic — original bindings</option><option value="modern">Modern — WASD + mouse</option></select></p>
 <p>The validated ZIP is remembered on this browser/device. Clearing site data or using private browsing can remove it. <strong>Forget saved ZIP</strong> deletes the saved copy.</p>
 <p id="saved-archive" role="status"></p>
 <p id="status" role="status">Preparing WASM…</p>
 <div id="stage">
 <canvas id="canvas" width="640" height="480" tabindex="0" oncontextmenu="event.preventDefault()"></canvas>
-<div class="gamebar"><span>Click game for mouse · Esc releases</span><button id="fullscreen" type="button">Fullscreen</button></div>
+<div class="gamebar"><span>Click game for mouse · Esc releases</span><button id="controls" type="button">Controls</button><button id="fullscreen" type="button">Fullscreen</button></div>
 </div>
-<p>Click canvas to capture mouse. Esc releases it. Original key bindings apply.
+<dialog id="controls-dialog" aria-labelledby="controls-title" aria-describedby="controls-description"><h2 id="controls-title">Controls</h2><p id="controls-description"></p><button id="close-controls" type="button">Close</button></dialog>
+<p>Click canvas to capture mouse. Esc releases it. Choose a preset above; Classic preserves original key bindings.
 <a href="LICENSE">Engine license</a></p>
 <pre id="log"></pre>
 <script>
 const logElement=document.getElementById('log'),play=document.getElementById('play'),
  status=document.getElementById('status'),canvas=document.getElementById('canvas');
-let engineError='', enteredMain=false;
+let engineError='', enteredMain=false, controlsOpener=null;
+const presetSelect=document.getElementById('preset'), controlsDialog=document.getElementById('controls-dialog');
+function loadPreset(){try{const saved=localStorage.getItem('openxops-input-preset');return saved==='modern'?'modern':'classic';}catch(_){return 'classic';}}
+function savePreset(value){try{localStorage.setItem('openxops-input-preset',value);return true;}catch(_){return false;}}
+let selectedPreset=loadPreset();presetSelect.value=selectedPreset;
+window.browserSelectedPreset=selectedPreset;
+Module=window.Module||{};Module.browserInputPreset=selectedPreset;
+presetSelect.addEventListener('change',()=>{selectedPreset=presetSelect.value==='modern'?'modern':'classic';window.browserSelectedPreset=selectedPreset;Module.browserInputPreset=selectedPreset;const saved=savePreset(selectedPreset);status.textContent=saved?'Preset saved; it applies on the next game start.':'Preset selected for this page; browser storage is unavailable, so it will not persist after reload.';});
+function resetGameInput(){if(typeof Module._openxops_reset_input==='function')Module._openxops_reset_input();}
+function showControls(event){controlsOpener=event.currentTarget;const modern=selectedPreset==='modern';document.getElementById('controls-description').textContent=modern?'Selected preset: Modern. Move with W/A/S/D; left mouse button fires; R reloads; Space jumps; Shift walks; right mouse aims/zooms the scope; Q switches weapon; X changes fire mode; G drops weapon; 1 and 2 select weapon slots; Home toggles arms/held-weapon visibility. Arrow keys turn the camera. This preset applies on the next game start, not immediately.':'Selected preset: Classic. Original default bindings (a custom config may differ): W/S/A/D move; Tab walks; Home toggles arms/held-weapon visibility; Space jumps; R reloads; Left Shift aims/zooms the scope; X changes fire mode; Z switches weapon; 1 and 2 select weapon slots; left mouse button fires. Arrow keys turn the camera. This preset applies on the next game start, not immediately.';if(document.body.classList.contains('playing'))resetGameInput();document.exitPointerLock?.();if(!controlsDialog.open)controlsDialog.showModal();document.getElementById('close-controls').focus();}
+function closeControls(){if(controlsDialog.open)controlsDialog.close();}
+document.getElementById('controls').addEventListener('click',showControls);
+document.getElementById('controls-setup').addEventListener('click',showControls);
+document.getElementById('close-controls').addEventListener('click',closeControls);
+controlsDialog.addEventListener('cancel',event=>{event.preventDefault();closeControls();});
+controlsDialog.addEventListener('close',()=>{if(document.body.classList.contains('playing'))resetGameInput();if(controlsOpener?.isConnected)controlsOpener.focus();});
+for(const type of ['keydown','keyup','keypress'])controlsDialog.addEventListener(type,event=>{event.stopPropagation();});
 const savedLabel=document.getElementById('saved-archive'),forget=document.getElementById('forget');
 let savedArchive=null;
 function archiveStore(action,value){
@@ -76,6 +102,7 @@ function reportError(message){document.body.classList.remove('playing');status.t
 function fitGame(){
  const stage=document.getElementById('stage');
  if(!document.body.classList.contains('playing'))return;
+ if(controlsDialog.open)return;
  const width=stage.clientWidth,height=Math.max(1,stage.clientHeight-48);
  const ratio=canvas.width/canvas.height;
  const displayWidth=Math.min(width,height*ratio);
@@ -89,6 +116,7 @@ document.getElementById('fullscreen').onclick=async()=>{
  catch(e){console.warn('Fullscreen unavailable:',e);}
 };
 var Module={
+ browserInputPreset:selectedPreset,
  canvas,noInitialRun:true,
  locateFile:path=>path.endsWith('.wasm')?'__ENGINE_WASM__':path,
  print:s=>{logElement.textContent+=s+'\n';console.log(s)},
