@@ -1,0 +1,52 @@
+name: Deploy browser preview
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'web/**'
+      - 'tools/**'
+      - 'LICENSE'
+      - 'NOTICE.md'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: mymindstorm/setup-emsdk@v16
+        with:
+          version: '6.0.12'
+          actions-cache-folder: emsdk-cache
+      - name: Test archive validation and packaging
+        run: python3 -m unittest discover -s tools/tests -v
+      - name: Build original-game browser preview
+        run: bash tools/build-playable-web.sh
+      - name: Stage allowlisted public files (no game data)
+        run: python3 tools/stage_pages.py
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: build-pages
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
