@@ -481,9 +481,33 @@
       "uv_layout": null,
       "summary": "Briefing picture directory; mission scripts name the pictures inside it.",
       "priority": "P0",
-      "status": "missing",
-      "note": "free_pack: not required. src/datafile.cpp:803-824 skips loading data/briefing/<name>.bmp whenever a mission script's picture line is literal \"!\"; the free pack's only mission, data/starter/start.txt lines 1-2, is \"!\"/\"!\", so no briefing picture is ever requested.",
-      "free_pack": "not_required"
+      "status": "generated",
+      "note": "free_pack: covered by data/briefing/starter.bmp (free_only). src/datafile.cpp:803-824 skips loading data/briefing/<name>.bmp whenever a mission script's picture line is literal \"!\"; the starter mission's picture A line (data/starter/start.txt line 1) now names \"starter\", so the engine loads and draws data/briefing/starter.bmp instead of the blank white placeholder box (src/gamemain.cpp:1727).",
+      "free_pack": "satisfied"
+    },
+    {
+      "path": "data/briefing/starter.bmp",
+      "kind": "texture",
+      "class": "briefing",
+      "hard": false,
+      "source_refs": [
+        "src/datafile.cpp:822",
+        "src/gamemain.cpp:1667",
+        "src/gamemain.cpp:1728"
+      ],
+      "ref_size": [
+        256,
+        256
+      ],
+      "ref_format": "bmp8",
+      "alpha": "none",
+      "tileable": false,
+      "uv_layout": null,
+      "summary": "Starter mission briefing picture: procedural top-down tactical map of the compound (walls, player spawn, enemy guards, weapon pickups), drawn into the 160x150 briefing box.",
+      "priority": "P0",
+      "status": "generated",
+      "note": "free_only: rendered by tools/artgen/briefing_pictures.py directly from tools/mapgen/examples/starter_compound.json, named by data/starter/start.txt line 1.",
+      "free_pack": "satisfied"
     },
     {
       "path": "data/char.dds",
