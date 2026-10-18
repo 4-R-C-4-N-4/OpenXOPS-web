@@ -40,6 +40,22 @@ Weapon[1].name = "Test"; Weapon[1].model = ".\\data\\model\\gun.x"; Weapon[1].te
     def test_source_double_backslash_cstring(self):
         self.assertEqual(audit.c_string(r'"data\\model\\a.x"'), 'data\\model\\a.x')
 
+    def test_load_calls_ignore_comments_but_keep_strings_and_real_missing_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); source = root / 'resource.cpp'
+            source.write_text(r'''/* LoadTexture("data/block.bmp");
+LoadSound("data/block.wav"); */
+// LoadTexture("data/line.bmp"); LoadSound("data/line.wav");
+const char *text = "not a comment: // LoadTexture(\\\"data/string.bmp\\\")";
+LoadTexture("data/missing.bmp");
+''', encoding='utf-8')
+            archive = root / 'game.zip'
+            with zipfile.ZipFile(archive, 'w'):
+                pass
+            refs = audit.audit(archive, [source])['references']
+            self.assertEqual([r['path'] for r in refs], ['data/missing.bmp'])
+            self.assertEqual([r['status'] for r in refs], ['missing'])
+
 
 if __name__ == '__main__':
     unittest.main()

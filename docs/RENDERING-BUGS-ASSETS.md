@@ -4,7 +4,7 @@
 
 - `TOTAL_PARAMETERINFO_WEAPON` is 23 (including ID 0, the intentionally empty “none” entry). The source/ZIP auditor examined 22 normal weapon definitions in `/home/ivy/Downloads/xops096.zip`; all 44 nonempty weapon model/texture paths were present. This establishes archive presence only, not successful runtime loading or rendering. Do not count absence of weapon 0 as a missing asset.
 - The reviewed model set has 19 `xof 0302txt 0064` headers and 3 `xof 0302txt 0032` headers. Header class alone does not establish parser compatibility; geometry must be exercised.
-- The committed `assets/pack` is not the original game-data archive. Run `tools/audit_original_assets.py <original.zip> src/resource.cpp` (and other source files as needed) against the actual distribution ZIP; no proprietary source archive or copyright asset data is included here.
+- The committed `assets/pack` is not the original game-data archive. Auditing all tracked C++ headers/sources in `/home/ivy/Work/OpenXOPS-web-wt/cleanup-assets/src` against `/home/ivy/Downloads/xops096.zip` found 46 non-commented literal load calls: 44 paths present and 2 unverified dynamic paths (not reported missing); zero missing load-call assets. The full reference report also includes 46 weapon-field references, of which two intentionally empty weapon-0 fields are unverified. This is archive presence only, not proof of runtime loading or rendering. No proprietary source archive or copyright asset data is included here.
 
 ## Visibility is not a load/render failure
 

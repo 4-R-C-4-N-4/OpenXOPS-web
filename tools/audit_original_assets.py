@@ -29,14 +29,57 @@ def normalize(path):
     return '/'.join(parts).casefold()
 
 
+def strip_cpp_comments(text):
+    """Replace C++ comments with spaces, preserving quoted literals and newlines."""
+    out = list(text)
+    i = 0
+    state = 'code'
+    while i < len(text):
+        ch = text[i]
+        nxt = text[i + 1] if i + 1 < len(text) else ''
+        if state == 'code':
+            if ch == '"':
+                state = 'string'
+            elif ch == "'":
+                state = 'char'
+            elif ch == '/' and nxt == '/':
+                out[i] = out[i + 1] = ' '
+                i += 1
+                state = 'line-comment'
+            elif ch == '/' and nxt == '*':
+                out[i] = out[i + 1] = ' '
+                i += 1
+                state = 'block-comment'
+        elif state in ('string', 'char'):
+            if ch == '\\' and i + 1 < len(text):
+                i += 1
+            elif (state == 'string' and ch == '"') or (state == 'char' and ch == "'"):
+                state = 'code'
+        elif state == 'line-comment':
+            if ch == '\n':
+                state = 'code'
+            else:
+                out[i] = ' '
+        elif state == 'block-comment':
+            if ch == '*' and nxt == '/':
+                out[i] = out[i + 1] = ' '
+                i += 1
+                state = 'code'
+            elif ch != '\n':
+                out[i] = ' '
+        i += 1
+    return ''.join(out)
+
+
 def source_literals(text):
     out = []
-    for match in CALL.finditer(text):
+    code = strip_cpp_comments(text)
+    for match in CALL.finditer(code):
         decoded = c_string(match.group(1))
         if decoded is not None:
             out.append({'path': decoded, 'source': 'load-call'})
     weapons = {}
-    for match in WEAPON.finditer(text):
+    for match in WEAPON.finditer(code):
         idx, field = int(match.group(1)), match.group(2)
         value = c_string(match.group(3))
         weapons.setdefault(idx, {})[field] = value
@@ -62,7 +105,7 @@ def audit(archive, sources):
         for source in sources:
             text = source.read_text(encoding='utf-8', errors='replace')
             refs.extend(source_literals(text))
-            for m in WEAPON.finditer(text):
+            for m in WEAPON.finditer(strip_cpp_comments(text)):
                 idx, field = int(m.group(1)), m.group(2)
                 val = c_string(m.group(3))
                 weapons.setdefault(idx, {'id': idx, 'name': None, 'model': None, 'texture': None})[field] = val
