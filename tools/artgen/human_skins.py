@@ -45,9 +45,16 @@ def make_atlas(source: Image.Image, variant: str = "green") -> Image.Image:
             color = boot
         else:
             color = (65, 68, 58)
-        atlas.paste(_fabric(source, size, color, index + (0 if variant == "green" else 31)), box[:2])
+        material = Image.new("RGB",size,color) if name.startswith("head") or name=="hand" else _fabric(source,size,color,index+(0 if variant=="green" else 31))
+        if name in ("head_back","head_left","head_right"):
+            ImageDraw.Draw(material).rectangle((0,0,size[0]-1,size[1]//3),fill=(66,55,43))
+        atlas.paste(material,box[:2])
         draw = ImageDraw.Draw(atlas)
         if name == "head_front":
+            draw.rectangle((box[0],box[1],box[2]-1,box[1]+5),fill=(66,55,43))
+            draw.line((box[0]+7,box[1]+10,box[0]+12,box[1]+10),fill=(87,66,47))
+            draw.line((box[0]+20,box[1]+10,box[0]+25,box[1]+10),fill=(87,66,47))
+            draw.line((box[0]+16,box[1]+15,box[0]+16,box[1]+19),fill=(178,137,104))
             draw.ellipse((box[0] + 8, box[1] + 12, box[0] + 10, box[1] + 14), fill=(36, 34, 30))
             draw.ellipse((box[0] + 21, box[1] + 12, box[0] + 23, box[1] + 14), fill=(36, 34, 30))
             draw.line((box[0] + 12, box[1] + 22, box[0] + 20, box[1] + 22), fill=(105, 65, 56), width=1)
@@ -65,7 +72,7 @@ def save_bmp8(image: Image.Image, path: Path) -> None:
     palette = image.getpalette()[:768]
     palette += [0] * (768 - len(palette))
     dib = struct.pack("<IiiHHIIiiII", 40, 256, 256, 1, 8, 0, 65536, 2835, 2835, 256, 256)
-    palette_bytes = b"".join(bytes((palette[i], palette[i + 1], palette[i + 2], 0)) for i in range(0, 768, 3))
+    palette_bytes = b"".join(bytes((palette[i + 2], palette[i + 1], palette[i], 0)) for i in range(0, 768, 3))
     rows = b"".join(image.crop((0, y, 256, y + 1)).tobytes() for y in range(255, -1, -1))
     offset = 14 + len(dib) + len(palette_bytes)
     path.parent.mkdir(parents=True, exist_ok=True)

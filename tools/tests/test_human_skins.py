@@ -49,6 +49,18 @@ class HumanSkinTests(unittest.TestCase):
             self.assertGreater(len(set(crop.getdata())), 4)
             self.assertNotEqual(crop.getpixel((9, 13)), crop.getpixel((16, 22)))
 
+    def test_saved_bmp_colors_match_rgb_atlas(self):
+        import tempfile
+        from tools.artgen.human_skins import save_bmp8
+        image = make_atlas(Image.open(SOURCE).convert('RGB'), 'green')
+        expected = image.convert('P', palette=Image.Palette.ADAPTIVE, colors=256,
+                                 dither=Image.Dither.NONE).convert('RGB')
+        with tempfile.TemporaryDirectory(prefix='human_skin_bmp_') as temp:
+            path = Path(temp) / 'skin.bmp'
+            save_bmp8(image, path)
+            self.assertEqual(Image.open(path).convert('RGB').tobytes(), expected.tobytes(),
+                             'BMP palettes must be BGRA, not RGBA')
+
     def test_deterministic_from_retained_image_source(self):
         image = Image.open(SOURCE).convert("RGB")
         first, second = make_atlas(image, "green"), make_atlas(image, "green")

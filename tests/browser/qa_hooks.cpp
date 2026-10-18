@@ -5,6 +5,26 @@
 extern D3DGraphics d3dg;
 extern ObjectManager ObjMgr;
 extern ResourceManager Resource;
+// Draw one actual engine-composed human, with live pose and game transforms.
+// A local visual-inspection helper only; normal builds never compile this file.
+extern "C" EMSCRIPTEN_KEEPALIVE void qa_resume_game() {
+    emscripten_resume_main_loop();
+}
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_pose_preview(int id, int view) {
+    human* p=ObjMgr.GetHumanObject(id);
+    if(!p || !p->GetEnableFlag())return 0;
+    emscripten_pause_main_loop();
+    float x,y,z,rx;p->GetPosData(&x,&y,&z,&rx);
+    const float angle=view * (float)M_PI / 2;
+    d3dg.StartRender();
+    d3dg.SetFog(false,0);
+    glClearColor(.18f,.20f,.23f,1);glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    d3dg.SetCamera(x+sinf(angle)*36,y+11,z+cosf(angle)*36,
+                  -(float)M_PI/2-angle,0,VIEWANGLE_NORMAL);
+    p->Render(&d3dg,&Resource,false,false,false);
+    d3dg.EndRender();
+    return 1;
+}
 extern "C" EMSCRIPTEN_KEEPALIVE int qa_weapon_resources() {
     int valid=0;
     for(int i=1;i<TOTAL_PARAMETERINFO_WEAPON;i++) {
