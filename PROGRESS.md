@@ -470,6 +470,17 @@ Verified local production artifact, no selected ZIP and no QA exports:
 -137 tests pass, including actual engine collision harness and map-scale tests.
   Production WASM build and allowlisted staging/original-hash guards pass.
 - README/RUNNING now describe no-file STARTER and optional classic data.
-Independent release review in progress; no deployment from staging branch.
+Release review resolved: original pickup selects an empty slot (1/2), not an
+occupied slot. Real browser QA read slots[3,-1]→[3,3] on key2; a C++ test runs
+the exact production PickupWeapon body and verifies a different second weapon
+without replacing the first. No auto-pickup redesign. Fixed a buried spare
+pistol (spawn barricade overlap), changed indoor MP5 to included M4, and added
+model-presence / unobstructed-pickup tests. Updated guide and briefing.
+Canonical provenance now has one current record per path, correct rebuilt
+hashes and pinned source URLs; no provenance/known-original-match failures.
+The legacy all-missions validator still fails33 missing-P0 checks, expected
+for the unfinished starter profile (classic demo maps and placeholder skins/
+effects); not reported as a complete353-slot pack.142 tooling tests pass.
+Production build/staging pass with no QA exports. Pending final CI and deployment.
 This is an unfinished free starter prototype, not all353 asset slots or final art.
 

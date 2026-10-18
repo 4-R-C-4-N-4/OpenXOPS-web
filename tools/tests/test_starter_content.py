@@ -44,6 +44,23 @@ def _player_spawn(points):
     return None
 
 
+class StarterProvenanceTests(unittest.TestCase):
+    def test_asset_ledger_has_one_current_record_per_path(self):
+        records = [json.loads(line) for line in (REPO_ROOT / 'assets/provenance.jsonl').read_text().splitlines() if line.strip()]
+        paths = [record['path'].replace('\\\\', '/').lower() for record in records]
+        self.assertEqual(len(paths), len(set(paths)), 'stale duplicate asset records')
+
+    def test_current_map_and_briefing_hashes_match_provenance(self):
+        import hashlib
+        records = {record['path']: record for line in (REPO_ROOT / 'assets/provenance.jsonl').read_text().splitlines() if line.strip() for record in [json.loads(line)]}
+        for slot in ('data/starter/temp.bd1','data/starter/start.pd1','data/starter/start.txt',
+                     'data/map10/temp.bd1','data/map10/op.pd1','data/menu/temp.bd1','data/menu/demo.pd1'):
+            record = records[slot]
+            self.assertEqual(record['sha256'], hashlib.sha256((REPO_ROOT / 'assets/pack' / slot).read_bytes()).hexdigest(), slot)
+            self.assertEqual(record['license'], 'CC0-1.0')
+            self.assertTrue(record.get('source_url') or record.get('prompt'), slot)
+
+
 class StarterScaleTests(unittest.TestCase):
     def test_geometry_matches_twenty_unit_humans(self):
         doc = json.loads(STARTER_JSON.read_text())
