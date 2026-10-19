@@ -253,6 +253,43 @@ class PathIdTests(unittest.TestCase):
                     cur = hits[0].p3
 
 
+class LabLayoutTests(unittest.TestCase):
+    """Playtest regressions: vats clipped into the catwalk, the lab had no
+    exit to the processing hall, and the low ceiling crowded the catwalk."""
+
+    def setUp(self):
+        self.blocks = json.loads(JSON_SRC.read_text())["blocks"]
+
+    def _bounds(self, b):
+        if "min" in b:
+            return b["min"], b["max"]
+        vs = b["vertices"]
+        return [min(v[i] for v in vs) for i in range(3)], [max(v[i] for v in vs) for i in range(3)]
+
+    def test_vats_clear_of_catwalk_and_ramp(self):
+        vats = [b for b in self.blocks if b["comment"].startswith("vat ")]
+        walks = [b for b in self.blocks if "catwalk" in b["comment"]]
+        self.assertTrue(vats and len(walks) >= 3)
+        for v in vats:
+            vmin, vmax = self._bounds(v)
+            for w in walks:
+                wmin, wmax = self._bounds(w)
+                overlap = all(vmin[i] < wmax[i] and wmin[i] < vmax[i] for i in (0, 2))
+                self.assertFalse(overlap, (v["comment"], w["comment"]))
+
+    def test_lab_east_door_lines_up_with_hall(self):
+        def wall_pieces(prefix):
+            return [self._bounds(b) for b in self.blocks if b["comment"].startswith(prefix)]
+        for prefix in ("lab east wall", "hall west wall"):
+            for lo, hi in wall_pieces(prefix):
+                self.assertFalse(lo[2] < -5.0 < hi[2] and lo[1] < 10.0, prefix + " blocks the doorway")
+
+    def test_lab_headroom_over_catwalk(self):
+        ceiling = [self._bounds(b) for b in self.blocks if b["comment"] == "lab ceiling"][0]
+        catwalk = [self._bounds(b) for b in self.blocks if b["comment"] == "lab catwalk west"][0]
+        self.assertGreaterEqual(ceiling[0][1] - catwalk[1][1], 30.0)
+
+
 class GuardOneTests(unittest.TestCase):
     """Engine facing convention (gamemain.cpp first-person camera:
     crx = pi/2 - r): a rotation r looks along (sin r, cos r) in x/z, so

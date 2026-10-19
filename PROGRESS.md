@@ -679,3 +679,14 @@ Laser blob root cause: laser.x was built from a Y-up cylinder and never laid alo
 Engine (parent): throwaway weapon flag (no reserve, leaves the hand when empty via the grenade path), MOON ROCK weapon 27 (45 dmg: headshot 90+ kills an 80 HP drone; body/leg do not; real-engine tested 32 trials each), rock bullet type 5, throw sound id 33, captive rancher type 47 (rock only, 300 HP after playtest). Workers (Sonnet): tools/escapegen assets (10 ship textures, rock, specimen tube, throw/glass sounds; 717238a) and the map generator/points/events/mission files/tests (2ebf055). Parent integration fixes: guard and spawn rotations used the wrong facing convention (guard faced the cell; player faced a wall) -> engine convention documented and tested. New real-engine void probe found 2890 view rays escaping the ship (missing ceilings/wall joints, ramp shaft); a worker sealed it (c98f78b): 0 leaks over 1920 interior samples.
 
 Browser: menu lists UFO ESCAPE second; briefing renders; real rock throw through ObjectManager::ShotWeapon killed guard 1 by headshot; empty hand; ZAP looted; lab arrival -> ALARM + group 1; pod-bay arrival -> ambush group 2; reaching the pod -> mission successful. Exposed fairness check at 200 HP: lab entrance cost 125 HP in 10 s, bridge 57, pod bay 116, crawlway/hall 0 -> captive HP raised to 300.
+
+### UFO ESCAPE playtest fixes (lab, ramp, textures)
+
+Playtest: aliens stuck inside vats in the lab, no exit from the lab, catwalk ramp backwards, vats clipping the catwalk, wall textures upside down, low lab ceiling.
+
+- No exit: the lab's east wall was solid while the hall's west wall had the doorway; the lab wall now has a matching gap with a lintel. A shin-height pipe also crossed the crawlway doorway.
+- Lab: ceiling raised 40 -> 64, catwalk 28, vats moved clear of the catwalk and ramp, ramp now rises north to a landing on the north catwalk.
+- Stuck actors: lab/hall/crawl patrol legs cut through vats, baffles and corners; lab patrol now loops around the vats, crawl patrol follows corridor centrelines, hall guards hold the serpentine bays, pod-bay ambushers moved off the walls.
+- Switchback: the second flight was too steep (35 deg+lag) and started 2 units up behind a rail; rebuilt as two gentle flights ending at a doorway in the bridge's west wall.
+- Textures: mapgen box_block mapped side faces with v=0 at the bottom and u mirrored, so every generated wall (all free maps) showed textures upside down and mirrored; now upright, with a unit test against blockdataface() order. Starter, menu, map10, UFO FIELD and UFO ESCAPE .bd1 regenerated.
+- New real-engine gates in the harness: collision-ray flood fill spawn -> pod, catwalk reachable, every human/staged/waypoint standable and reachable, every patrol leg a clear straight line, and the player's own movement code walking the lab door, the catwalk ramp and the switchback.

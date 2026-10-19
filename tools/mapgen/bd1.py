@@ -290,13 +290,19 @@ def box_block(vmin: Sequence[float], vmax: Sequence[float],
     # choice; the loader only cares that slot k == vertex k's UV via
     # FACE_UVSLOT_MAP (fixed by blockdataface(), not a free choice).
     per_vertex_uv = ((0.0, 0.0), (su, 0.0), (su, sv), (0.0, sv))
+    # Side faces list their vertices bottom-right, bottom-left, top-left,
+    # top-right as seen from outside, and v=0 is the top row of the image.
+    # Rotating the square 180 degrees puts the image upright and unmirrored
+    # (the plain square showed every wall texture upside down and mirrored).
+    side_uv = ((su, sv), (0.0, sv), (0.0, 0.0), (su, 0.0))
     faces = []
     for j in range(6):
         tid = face_textures[j]
+        uvs = side_uv if j >= 2 else per_vertex_uv
         u_slots = [0.0, 0.0, 0.0, 0.0]
         v_slots = [0.0, 0.0, 0.0, 0.0]
         for vertex_pos in range(4):
             slot = FACE_UVSLOT_MAP[vertex_pos]
-            u_slots[slot], v_slots[slot] = per_vertex_uv[vertex_pos]
+            u_slots[slot], v_slots[slot] = uvs[vertex_pos]
         faces.append(FaceMaterial(texture_id=tid, u=tuple(u_slots), v=tuple(v_slots)))
     return Block(x=xs, y=ys, z=zs, faces=faces)

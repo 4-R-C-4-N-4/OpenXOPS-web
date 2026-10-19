@@ -37,6 +37,25 @@ def make_simple_pd1():
     return pd1.PD1File(points=pts)
 
 
+class WallTextureOrientationTests(unittest.TestCase):
+    """Side faces must show textures upright and unmirrored: v=0 (the top
+    row of the image) on the top edge, u increasing to the viewer's right."""
+
+    # blockdataface(): side face -> vertex ids in listed order and uv slots
+    SIDE_FACES = {2: (5, 4, 0, 1), 3: (6, 5, 1, 2), 4: (7, 6, 2, 3), 5: (4, 7, 3, 0)}
+
+    def test_side_faces_upright(self):
+        block = bd1.box_block((0, 0, 0), (10, 20, 30), [1] * 6, uv_scale=(2.0, 3.0))
+        for face, vids in self.SIDE_FACES.items():
+            mat = block.faces[face]
+            for pos, vid in enumerate(vids):
+                slot = bd1.FACE_UVSLOT_MAP[pos]
+                top = block.y[vid] == 20
+                self.assertEqual(mat.v[slot], 0.0 if top else 3.0, (face, vid))
+            # listed order is bottom-right then bottom-left seen from outside
+            self.assertGreater(mat.u[bd1.FACE_UVSLOT_MAP[0]], mat.u[bd1.FACE_UVSLOT_MAP[1]])
+
+
 class BD1RoundTripTests(unittest.TestCase):
     def test_round_trip_bytes_exact(self):
         f = make_simple_bd1()

@@ -6,6 +6,12 @@
 #include "../../src/gamemain.h"
 #include <cassert>
 #include <initializer_list>
+#include <map>
+#include <array>
+#include <set>
+#include <tuple>
+#include <vector>
+#include <algorithm>
 #include <cstdio>
 
 static int kill_hostiles(ObjectManager& objects) {
@@ -301,6 +307,127 @@ int main(int argc, char** argv) {
         std::printf("ESCAPE SHIP: %d interior samples, %d leaking rays\n",inside,leaks);
         assert(inside>1000 && leaks==0);
         std::puts("ESCAPE SHIP SEALED OK");
+
+        // Walkability on the real collision geometry. A node is a standing
+        // spot: floor found by a downward ray, 20 units of headroom, and the
+        // body column (floor+2..+19) not inside any block. Neighbours (4-unit
+        // grid) connect when the floor step is small enough to walk and
+        // body-height rays between them are clear.
+        const float G=4.0f;
+        auto floorAt=[&](float x,float top,float z,float* fy)->bool{
+            float d; if(!shipcoll.CheckALLBlockIntersectRay(x,top,z,0,-1,0,NULL,NULL,&d,top+50)) return false;
+            *fy=top-d; return true;
+        };
+        auto standable=[&](float x,float fy,float z)->bool{
+            float d;
+            for(float h : {2.0f,10.0f,19.0f}) if(shipcoll.CheckALLBlockInside(x,fy+h,z)) return false;
+            if(shipcoll.CheckALLBlockIntersectRay(x,fy+2,z,0,1,0,NULL,NULL,&d,20.0f)) return false;
+            for(int a=0;a<8;a++){ float yaw=a*(float)M_PI/4;
+                if(shipcoll.CheckALLBlockIntersectRay(x,fy+10,z,cosf(yaw),0,sinf(yaw),NULL,NULL,&d,2.8f)) return false; }
+            return true;
+        };
+        auto clearBetween=[&](float x0,float y0,float z0,float x1,float y1,float z1)->bool{
+            float dx=x1-x0,dz=z1-z0,len=sqrtf(dx*dx+dz*dz),d; if(len<1e-3f) return true;
+            for(float h : {6.0f,12.0f,18.0f}){
+                float yh=std::max(y0,y1)+h;
+                if(shipcoll.CheckALLBlockIntersectRay(x0,yh,z0,dx/len,0,dz/len,NULL,NULL,&d,len)) return false;
+            }
+            return true;
+        };
+        struct Node{int i,j;float y;};
+        std::map<std::tuple<int,int,int>,float> nodes; // (i,j,level)->floor y
+        auto key=[&](int i,int j,float y){ return std::make_tuple(i,j,(int)floorf(y/6.0f)); };
+        for(int i=-20;i<=145;i++) for(int j=-50;j<=103;j++){
+            float x=i*G,z=j*G,top=120.0f,fy;
+            for(int layer=0;layer<6 && floorAt(x,top,z,&fy);layer++){
+                if(standable(x,fy,z)) nodes[key(i,j,fy)]=fy;
+                top=fy-0.5f; // continue below this surface (through its slab)
+                float d; while(top>-10 && shipcoll.CheckALLBlockInside(x,top,z)) top-=1.0f;
+                (void)d;
+            }
+        }
+        auto nearest=[&](float x,float y,float z)->std::tuple<int,int,int>{
+            std::tuple<int,int,int> best; float bd=1e9f;
+            for(auto& kv : nodes){ int i,j,l; std::tie(i,j,l)=kv.first;
+                float d=fabsf(i*G-x)+fabsf(j*G-z)+fabsf(kv.second-y)*2; if(d<bd){bd=d;best=kv.first;} }
+            assert(bd<12.0f); return best;
+        };
+        std::set<std::tuple<int,int,int>> seen; std::vector<std::tuple<int,int,int>> stack;
+        auto start=nearest(-42,0,390); seen.insert(start); stack.push_back(start);
+        while(!stack.empty()){
+            auto k=stack.back(); stack.pop_back(); int i,j,l; std::tie(i,j,l)=k; float y=nodes[k];
+            for(int n=0;n<4;n++){ int ni=i+(n==0)-(n==1), nj=j+(n==2)-(n==3);
+                for(int nl=l-1;nl<=l+1;nl++){ auto nk=std::make_tuple(ni,nj,nl); auto it=nodes.find(nk);
+                    if(it==nodes.end()||seen.count(nk)) continue;
+                    if(fabsf(it->second-y)>3.5f) continue;
+                    if(!clearBetween(i*G,y,j*G,ni*G,it->second,nj*G)) continue;
+                    seen.insert(nk); stack.push_back(nk); } }
+        }
+        auto reachable=[&](float x,float y,float z){ return seen.count(nearest(x,y,z))>0; };
+        if(getenv("ROUTE_DETAIL")){
+            std::map<int,int> maxx; for(auto& k : seen){ int i,j,l; std::tie(i,j,l)=k; int lvl=(int)nodes[k]; maxx[lvl/10]=std::max(maxx[lvl/10],i*(int)G); }
+            for(auto& kv:maxx) std::printf("REACHED floor~%d0: max x %d\n",kv.first,kv.second);
+            std::printf("nodes %zu seen %zu\n",nodes.size(),seen.size());
+            int minz=99999; for(auto& k : seen){ int i,j,l; std::tie(i,j,l)=k; minz=std::min(minz,j*(int)G); }
+            std::printf("seen min z %d\n",minz);
+            for(int i=-5;i<=8;i++){ int jj=minz/(int)G-1; for(int l=-1;l<=1;l++){ auto k=std::make_tuple(i,jj,l); if(nodes.count(k)) std::printf("node beyond (%d,%d) y %.1f\n",i*(int)G,jj*(int)G,nodes[k]); } }
+        }
+        assert(reachable(502,46,-174));  // escape pod
+        std::puts("ESCAPE ROUTE WALKABLE OK");
+        int catwalk=0; for(auto& k : seen) if(nodes[k]>18 && nodes[k]<36){ int i,j,l; std::tie(i,j,l)=k; if(i*G<=180 && j*G<=80 && j*G>=-60) catwalk++; }
+        assert(catwalk>20); // the lab catwalk is reachable by its ramp
+        std::puts("LAB CATWALK REACHABLE OK");
+
+        // Every human, staged human and waypoint stands on a reachable spot,
+        // and each patrol leg is a straight walkable line (AI walks straight).
+        PointDataInterface shippoints; assert(shippoints.LoadFiledata("data/ufoescape/escape.pd1")==0);
+        std::map<int,pointdata> waypoints;
+        for(int n=0;n<shippoints.GetTotaldatas();n++){ pointdata p; shippoints.Getdata(&p,n); if(p.p1==3) waypoints[p.p4]=p; }
+        int bad=0;
+        for(int n=0;n<shippoints.GetTotaldatas();n++){
+            pointdata p; shippoints.Getdata(&p,n);
+            if(!(p.p1==1||p.p1==6||p.p1==50||p.p1==3)) continue;
+            float fy; floorAt(p.x,p.y+8,p.z,&fy);
+            if(!standable(p.x,fy,p.z) || !reachable(p.x,fy,p.z)){
+                std::printf("STUCK POINT p1=%d at (%.0f,%.0f,%.0f)\n",p.p1,p.x,p.y,p.z); bad++; }
+            if(p.p1==3 && waypoints.count(p.p3) && p.p3!=p.p4){
+                pointdata q=waypoints[p.p3]; float qy; floorAt(q.x,q.y+8,q.z,&qy);
+                if(!clearBetween(p.x,fy,p.z,q.x,qy,q.z)){
+                    std::printf("BLOCKED PATROL LEG %d->%d (%.0f,%.0f)->(%.0f,%.0f)\n",p.p4,p.p3,p.x,p.z,q.x,q.z); bad++; }
+            }
+        }
+        assert(bad==0);
+        std::puts("ESCAPE ACTORS NOT STUCK OK");
+
+        // Real human physics (the player's own movement code): walk the
+        // lab exit, climb the catwalk ramp and the switchback to the bridge.
+        BlockDataInterface* oldblocks=&blocks; (void)oldblocks;
+        assert(blocks.LoadFiledata("data/ufoescape/temp.bd1")==0);
+        blocks.CalculationBlockdata(false); collision.InitCollision(&blocks);
+        assert(points.LoadFiledata("data/ufoescape/escape.pd1")==0);
+        objects.LoadPointData();
+        auto walk=[&](float sx,float sy,float sz,std::vector<std::array<float,2>> legs,float wantY,const char* name){
+            human* p=objects.GetPlayerHumanObject();
+            p->SetPosData(sx,sy,sz,0);
+            for(int t=0;t<20;t++) objects.Process(-1,false,false);
+            size_t leg=0; float x,y,z;
+            for(int tick=0;tick<1200 && leg<legs.size();tick++){
+                p->GetPosData(&x,&y,&z,NULL);
+                float dx=legs[leg][0]-x, dz=legs[leg][1]-z;
+                if(dx*dx+dz*dz<9.0f){ leg++; continue; }
+                if(getenv("WALK_DETAIL") && tick%10==0) std::printf("  t%d (%.1f,%.2f,%.1f)\n",tick,x,y,z);
+                p->SetRxRy(atan2f(dx,dz),0); p->SetMoveForward();
+                objects.Process(-1,false,false);
+            }
+            p->GetPosData(&x,&y,&z,NULL);
+            std::printf("WALK %s: reached leg %zu/%zu at (%.1f,%.1f,%.1f)\n",name,leg,legs.size(),x,y,z);
+            assert(leg==legs.size() && fabsf(y-wantY)<3.0f);
+        };
+        walk(150,1,-15,{{{175,-15}},{{196,-15}},{{204,-30}}},0,"LAB EAST DOOR");
+        walk(26,1,70,{{{26,-6}},{{26,-30}},{{26,-50}},{{100,-50}}},28,"LAB CATWALK RAMP");
+        walk(370,1,-22,{{{392,-22}},{{430,-22}},{{460,-22}},{{470,-50}}},44,"SWITCHBACK TO BRIDGE");
+        std::puts("ESCAPE ROUTE CLIMBABLE OK");
+        objects.Cleanup();
     }
     return 0;
 }
