@@ -73,6 +73,12 @@ P1_RAND_WEAPON = 7
 P1_RAND_AIPATH = 8
 P1_EVENT_MIN = 10
 P1_EVENT_MAX = 19
+# POINT_P1TYPE_STAGED_HUMAN: a held/disabled human (not drawn, not
+# simulated, not counted alive) with the same parameter layout as
+# P1_HUMAN (p2=HUMANINFO id, p3=AI path, p4=wave group id). Added by the
+# concurrent engine worker per docs/MISSION-UFO-FIELD.md E5; classic data
+# never uses p1=50.
+P1_STAGED_HUMAN = 50
 
 
 class PD1Error(ValueError):

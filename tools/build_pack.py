@@ -33,6 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
 PACK_DIR = os.path.join(ROOT, "assets", "pack")
 DATA_DIR = os.path.join(PACK_DIR, "data")
+ADDON_DIR = os.path.join(PACK_DIR, "addon")
 MANIFEST_PATH = os.path.join(ROOT, "assets", "manifest.json")
 DEFAULT_STAGING_DIR = os.path.join(ROOT, "build-pack")
 
@@ -257,12 +258,20 @@ def load_manifest():
 
 
 def stage_data(staging_dir):
-    """Copy assets/pack/data into staging_dir/data. Never touches assets/pack."""
+    """Copy assets/pack/data (and addon, if present) into staging_dir.
+
+    assets/pack is never touched by this function.
+    """
     staged_data = os.path.join(staging_dir, "data")
     if os.path.exists(staged_data):
         shutil.rmtree(staged_data)
     os.makedirs(staging_dir, exist_ok=True)
     shutil.copytree(DATA_DIR, staged_data)
+    if os.path.isdir(ADDON_DIR):
+        staged_addon = os.path.join(staging_dir, "addon")
+        if os.path.exists(staged_addon):
+            shutil.rmtree(staged_addon)
+        shutil.copytree(ADDON_DIR, staged_addon)
     return staged_data
 
 
@@ -338,18 +347,28 @@ def collect_files(data_dir):
     return sorted(files)
 
 
-def build_zip(data_dir, out_dir):
+def build_zip(data_dir, out_dir, addon_dir=None):
     files = collect_files(data_dir)
     if not files:
         raise SystemExit("assets/pack/data is empty; nothing to pack")
+    addon_files = collect_files(addon_dir) if addon_dir and os.path.isdir(addon_dir) else []
+    addon_dir = addon_dir or ""
     # First pass: content hash over sorted (name, bytes) for a stable fingerprint.
     hasher = hashlib.sha256()
     blobs = []
     for rel in files:
         with open(os.path.join(data_dir, rel), "rb") as fh:
             data = fh.read()
-        blobs.append((rel, data))
-        hasher.update(rel.encode("utf-8"))
+        blobs.append(("data/" + rel, data))
+        hasher.update(("data/" + rel).encode("utf-8"))
+        hasher.update(b"\0")
+        hasher.update(data)
+    addon_blobs = []
+    for rel in addon_files:
+        with open(os.path.join(addon_dir, rel), "rb") as fh:
+            data = fh.read()
+        addon_blobs.append(("addon/" + rel, data))
+        hasher.update(("addon/" + rel).encode("utf-8"))
         hasher.update(b"\0")
         hasher.update(data)
     digest = hasher.hexdigest()[:16]
@@ -358,8 +377,11 @@ def build_zip(data_dir, out_dir):
     out_path = os.path.join(out_dir, out_name)
     tmp_path = out_path + ".tmp"
     with zipfile.ZipFile(tmp_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        for rel, data in blobs:
-            info = zipfile.ZipInfo("data/" + rel, date_time=FIXED_DATETIME)
+        # Deterministic ordering: all "data/" entries first (sorted), then
+        # all "addon/" entries (sorted) -- both lists are already sorted by
+        # collect_files(), and zip names overall stay in a stable order.
+        for name, data in blobs + addon_blobs:
+            info = zipfile.ZipInfo(name, date_time=FIXED_DATETIME)
             info.external_attr = 0o644 << 16
             info.compress_type = zipfile.ZIP_DEFLATED
             zf.writestr(info, data)
@@ -390,7 +412,7 @@ def main():
         if args.check:
             return
 
-    out_path, digest = build_zip(staged_data, args.out)
+    out_path, digest = build_zip(staged_data, args.out, addon_dir=os.path.join(staging_dir, "addon"))
     print(f"Built {out_path} (sha16 {digest})")
 
 
