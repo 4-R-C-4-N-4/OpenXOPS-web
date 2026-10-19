@@ -113,6 +113,14 @@ class ObjectManager
 
 	class ObjectManagerLog *ObjectLog;	//!< オブジェクトログクラス
 
+	//[OpenXOPS-web] Staged humans (point type POINT_P1TYPE_STAGED_HUMAN):
+	//held out of the world until an event deploys their group (p4).
+	pointdata StagedPoint[MAX_HUMAN];		//!< staged human point
+	pointdata StagedInfo[MAX_HUMAN];		//!< its HUMANINFO point
+	bool StagedPending[MAX_HUMAN];			//!< not yet deployed
+	int StagedTotal;						//!< number of staged entries
+	bool Human_NeedAIInit[MAX_HUMAN];		//!< slot deployed this frame; AI must Init()
+
 	int AddHumanIndex(pointdata data, pointdata infodata, bool RandomFlag);
 	int AddWeaponIndex(pointdata data);
 	int AddSmallObjectIndex(pointdata data);
@@ -141,6 +149,10 @@ public:
 	int AddEffect(float pos_x, float pos_y, float pos_z, float move_x, float move_y, float move_z, float addmove_y, float rotation, float addrotation, float size, float addsize, int texture, int brightness, int addbrightness, float alpha, float addalpha, int settype, int count);
 	int AddMapEffect(int id, int face, float pos_x, float pos_y, float pos_z, float size, float rotation, int texture, int brightness, int addbrightness, float alpha, float addalpha, int count);
 	void LoadPointData();
+	int GetStagedCount();										//[OpenXOPS-web]
+	int CountLivingHostiles();									//[OpenXOPS-web]
+	int DeployStagedGroup(signed short int group);				//[OpenXOPS-web]
+	bool TakeAIInitFlag(int human_id);							//[OpenXOPS-web]
 	void Recovery();
 	void SetAddCollisionFlag(bool flag);
 	bool GetFriendlyFireFlag(int id);

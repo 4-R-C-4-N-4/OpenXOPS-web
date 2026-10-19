@@ -1,6 +1,6 @@
 # Mission spec: "UFO FIELD" (wave swarm)
 
-Status: approved idea from the user, implementation in progress.
+Status: implemented; local native and browser gates passed, publication in progress.
 Engine background: docs/ARCHITECTURE.md (the section numbers below refer to it).
 
 ## 1. Concept
@@ -68,12 +68,14 @@ weapons never use. Existing ids 0-5 and 13 keep their meaning.
 
 - New point type `POINT_P1TYPE_STAGED_HUMAN = 50`, with the same parameters as
   type 1 (p2 = HUMANINFO point id, p3 = AI path, p4 = identifier = **wave
-  group id**). It loads as a held human: allocated but disabled (not drawn,
-  not simulated, not counted as alive). Classic data never uses p1 = 50.
+  group id**). It loads as a held spawn record (not drawn, simulated or
+  counted as alive), with its skin preloaded. A human/weapon slot is allocated
+  only when deployed. Classic data never uses p1 = 50.
 - Event 40, "wait for hostiles": continue only when the number of living,
   enabled humans on a team other than the player's is at most p2.
 - Event 41, "deploy wave": enable every held human with p4 == p2, re-init its
-  AI, then play a teleport flash + sound at its position. The event range
+  AI, then play a teleport flash + sound at its position. A failed allocation
+  stays pending and cannot count as a kill. The event range
   check at event.cpp:274 is extended for 40/41.
 - `CheckGameOverorComplete`: completion also requires that **no held humans
   remain**. The order inside one frame (completion check before events) is

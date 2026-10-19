@@ -271,7 +271,7 @@ int EventControl::ProcessEventPoint(bool SkipFlag, EventParameter *Param)
 		if( Point->SearchPointdata(&data, 0x08, 0, 0, 0, nextp4, 0) == 0 ){ return cnt; }
 
 		//無効な番号なら処理しない
-		if( (data.p1 < 10)||(19 < data.p1) ){
+		if( ( (data.p1 < 10)||(19 < data.p1) )&&(data.p1 != 40)&&(data.p1 != 41) ){	//[OpenXOPS-web] 40/41 = waves
 #ifdef ENABLE_CHECKOPENXOPSEVENT
 			if( data.p1 != 29 ){ return cnt; }
 #else
@@ -343,6 +343,18 @@ int EventControl::ProcessEventPoint(bool SkipFlag, EventParameter *Param)
 				nextp4 = data.p3;
 				break;
 #endif
+
+			//[OpenXOPS-web] 40: wait until living hostiles <= p2
+			case 40:
+				if( ObjMgr->CountLivingHostiles() > PointParamToInt(data.p2) ){ return cnt; }
+				nextp4 = data.p3;
+				break;
+
+			//[OpenXOPS-web] 41: deploy staged human group p2
+			case 41:
+				ObjMgr->DeployStagedGroup(data.p2);
+				nextp4 = data.p3;
+				break;
 
 			//新たなイベントポイントを追加する場合、ここに書く。
 			//　※ 種類番号の競合 厳禁

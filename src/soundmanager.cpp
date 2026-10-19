@@ -273,6 +273,16 @@ bool SoundManager::SetFootsteps(float x, float y, float z, int id, int MoveMode,
 //! @param z 音源のZ座標
 //! @param teamID チーム番号
 //! @return 成功：true　失敗：false
+// [OpenXOPS-web] Queue a positional arrival sound via the normal sound pipeline.
+bool SoundManager::Teleport(float x, float y, float z, int teamID)
+{
+	soundlist *plist = NULL;
+	if( GetNewList(&plist) == false ){ return false; }
+	plist->paramid = WAVE_TELEPORT;
+	plist->x = x; plist->y = y; plist->z = z; plist->teamid = teamID;
+	return true;
+}
+
 bool SoundManager::ReloadWeapon(float x, float y, float z, int teamID)
 {
 	soundlist *plist = NULL;
@@ -659,6 +669,11 @@ void SoundManager::PlaySound(soundlist *plist, float camera_x, float camera_y, f
 			//　plist->dataid（足音の種類番号）も参照できる。
 			//break;
 			return;	//何も再生せずに返す
+
+		case WAVE_TELEPORT: // [OpenXOPS-web]
+			id = Resource->GetTeleportSound();
+			volume = 90;
+			break;
 
 		case WEAPON_RELOAD:			//リロード音
 			id = Resource->GetWeaponSound(-1);

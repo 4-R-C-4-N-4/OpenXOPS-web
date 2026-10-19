@@ -34,6 +34,8 @@
 //! @brief コンストラクタ
 ObjectManager::ObjectManager()
 {
+	StagedTotal = 0;	//[OpenXOPS-web]
+	for(int i=0; i<MAX_HUMAN; i++){ StagedPending[i] = false; Human_NeedAIInit[i] = false; }
 	HumanIndex = new human[MAX_HUMAN];
 	WeaponIndex = new weapon[MAX_WEAPON];
 	SmallObjectIndex = new smallobject[MAX_SMALLOBJECT];
@@ -1387,6 +1389,8 @@ void ObjectManager::PickupWeapon(human *in_human, weapon *in_weapon)
 //! @brief オブジェクトを解放
 void ObjectManager::CleanupPointDataToObject()
 {
+	StagedTotal = 0; // [OpenXOPS-web] no waves or queued AI initialisations survive teardown.
+	for(int i=0; i<MAX_HUMAN; i++){ StagedPending[i] = false; Human_NeedAIInit[i] = false; }
 	for(int i=0; i<MAX_HUMAN; i++){
 		HumanIndex[i].SetEnableFlag(false);
 	}
@@ -1422,6 +1426,13 @@ void ObjectManager::LoadPointData()
 {
 	AddCollisionFlag = false;
 	Player_HumanID = 0;
+
+	//[OpenXOPS-web] reset staged humans
+	StagedTotal = 0;
+	for(int i=0; i<MAX_HUMAN; i++){
+		StagedPending[i] = false;
+		Human_NeedAIInit[i] = false;
+	}
 
 	//発砲フラグ初期化
 	for(int i=0; i<MAX_HUMAN; i++){
@@ -1496,6 +1507,20 @@ void ObjectManager::LoadPointData()
 
 				//人として追加
 				AddHumanIndex(data, humaninfodata, true);
+			}
+		}
+
+		//[OpenXOPS-web] Staged human: remember it, preload its texture, spawn later.
+		//Group 0 is rejected (p4 == 0 marks the player in upstream code).
+		if( (data.p1 == POINT_P1TYPE_STAGED_HUMAN)&&(data.p4 != 0)&&(StagedTotal < MAX_HUMAN) ){
+			pointdata humaninfodata;
+			if( PointData->SearchPointdata(&humaninfodata, 0x01 + 0x08, POINT_P1TYPE_HUMANINFO, 0, 0, data.p2, 0) != 0 ){
+				Resource->AddHumanTexture(humaninfodata.p2);
+				StagedPoint[StagedTotal] = data;
+				StagedPoint[StagedTotal].p1 = POINT_P1TYPE_HUMAN;
+				StagedInfo[StagedTotal] = humaninfodata;
+				StagedPending[StagedTotal] = true;
+				StagedTotal += 1;
 			}
 		}
 
@@ -2041,6 +2066,22 @@ int ObjectManager::ShotWeapon(int human_id)
 			newbullet->SetParamData(attacks, ParamData.penetration, (float)ParamData.speed * BULLET_SPEEDSCALE, teamid, human_id, ontargetcnt, true);
 			newbullet->SetEnableFlag(true);
 
+			//[OpenXOPS-web] Per-weapon bolt visuals (pooled bullets are reused, so
+			//set the visual on every shot). Type 0 = upstream bullet; missing
+			//laser files fall back to it.
+			{
+				int bt = ParamData.bullettype;
+				int bmodel, btexture;
+				BulletParameter bdata;
+				if( (bt <= 0)||(bt == 1)||(Resource->GetBulletModelTexture(bt, &bmodel, &btexture) != 0)||(bmodel == -1)||(btexture == -1)||(GameParamInfo->GetBullet(bt, &bdata) != 0) ){
+					bt = 0;
+					Resource->GetBulletModelTexture(0, &bmodel, &btexture);
+					GameParamInfo->GetBullet(0, &bdata);
+				}
+				newbullet->SetModel(bmodel, bdata.size);
+				newbullet->SetTexture(btexture);
+			}
+
 			//対人判定用リスト初期化
 			BulletObj_HumanIndex[ GetBulletObjectID(newbullet) ].Init();
 		}
@@ -2152,6 +2193,8 @@ void ObjectManager::ShotWeaponYakkyou(int humanid)
 	weapon_paramid = HumanIndex[humanid].GetMainWeaponTypeNO();
 	if( GameParamInfo->GetWeapon(weapon_paramid, &ParamData) != 0 ){ return; }
 
+	//[OpenXOPS-web] Lasers eject no casings; do not allocate invisible effects.
+	if( ParamData.yakkyou_size == 0.0f ){ return; }
 	//マズルフラッシュと煙のサイズを決定
 	if( ParamData.yakkyou_size >= 0.0f ){ yakkyousize = ParamData.yakkyou_size/10; }
 	else{ yakkyousize = 0.012f * ParamData.attacks; }
@@ -2572,6 +2615,64 @@ bool ObjectManager::HumanResuscitation(int id)
 //! @brief ゲームクリアー・ゲームオーバーの判定
 //! @return ゲームクリアー：1　ゲームオーバー：2　判定なし：0
 //! @attention ゲームクリア―とゲームオーバーが同時に成立する条件では、本家XOPSと同様に「ゲームクリアー」と判定されます。
+//! @brief [OpenXOPS-web] Number of staged humans not yet deployed
+int ObjectManager::GetStagedCount()
+{
+	int cnt = 0;
+	for(int i=0; i<StagedTotal; i++){
+		if( StagedPending[i] == true ){ cnt += 1; }
+	}
+	return cnt;
+}
+
+//! @brief [OpenXOPS-web] Living, enabled humans on a team other than the player's
+int ObjectManager::CountLivingHostiles()
+{
+	int MyTeamid, teamid;
+	int cnt = 0;
+	HumanIndex[Player_HumanID].GetParamData(NULL, NULL, NULL, &MyTeamid);
+	for(int i=0; i<MAX_HUMAN; i++){
+		if( HumanIndex[i].GetEnableFlag() == false ){ continue; }
+		HumanIndex[i].GetParamData(NULL, NULL, NULL, &teamid);
+		if( (teamid != MyTeamid)&&(HumanIndex[i].GetHP() > 0) ){ cnt += 1; }
+	}
+	return cnt;
+}
+
+//! @brief [OpenXOPS-web] Bring every staged human of a group into the world
+//! @return number of humans deployed
+int ObjectManager::DeployStagedGroup(signed short int group)
+{
+	int cnt = 0;
+	for(int i=0; i<StagedTotal; i++){
+		if( StagedPending[i] == false ){ continue; }
+		if( StagedPoint[i].p4 != group ){ continue; }
+		int id = AddHumanIndex(StagedPoint[i], StagedInfo[i], true);
+		if( id < 0 ){ continue; } // Keep pending: a failed spawn must not count as a kill.
+		StagedPending[i] = false;
+		Human_NeedAIInit[id] = true;
+		cnt += 1;
+
+		//teleport flash: bright burst plus a rising shimmer (engine effect textures)
+		float x = StagedPoint[i].x;
+		float y = StagedPoint[i].y;
+		float z = StagedPoint[i].z;
+		GameSound->Teleport(x, y + 10.0f, z, StagedInfo[i].p3); // [OpenXOPS-web]
+		AddEffect(x, y + 10.0f, z, 0.0f, 0.0f, 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 24.0f, -0.8f, Resource->GetEffectMflashTexture(), 20, 0, 1.0f, -0.05f, EFFECT_NORMAL, 20);
+		AddEffect(x, y + 4.0f, z, 0.0f, 0.12f, 0.0f, 0.0f, DegreeToRadian(10)*GetRand(36), 0.0f, 10.0f, 0.4f, Resource->GetEffectSmokeTexture(), 20, 0, 0.7f, -0.02f, EFFECT_NORMAL, 35);
+	}
+	return cnt;
+}
+
+//! @brief [OpenXOPS-web] Read and clear the "AI must re-initialise" flag of a slot
+bool ObjectManager::TakeAIInitFlag(int human_id)
+{
+	if( (human_id < 0)||(MAX_HUMAN <= human_id) ){ return false; }
+	bool flag = Human_NeedAIInit[human_id];
+	Human_NeedAIInit[human_id] = false;
+	return flag;
+}
+
 int ObjectManager::CheckGameOverorComplete()
 {
 	//メモ：
@@ -2600,7 +2701,8 @@ int ObjectManager::CheckGameOverorComplete()
 			}
 		}
 	}
-	if( TotalEnemyHP == 0 ){	//全敵のHPが 0 ならば
+	//[OpenXOPS-web] staged (not yet deployed) waves keep the mission running
+	if( (TotalEnemyHP == 0)&&(GetStagedCount() == 0) ){	//全敵のHPが 0 ならば
 		return 1;
 	}
 

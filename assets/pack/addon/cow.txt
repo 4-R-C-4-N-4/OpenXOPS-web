@@ -1,0 +1,6 @@
+data\model\cow.x
+data\model\cow.bmp
+9
+60
+data\sound\moo.wav
+0

@@ -104,6 +104,7 @@ typedef struct
 #define POINT_P1TYPE_HUMAN2			6	//!< Param1 type
 #define POINT_P1TYPE_RAND_WEAPON	7	//!< Param1 type
 #define POINT_P1TYPE_RAND_AIPATH	8	//!< Param1 type
+#define POINT_P1TYPE_STAGED_HUMAN	50	//!< [OpenXOPS-web] human held until event 41 deploys group p4 (docs/MISSION-UFO-FIELD.md)
 
 //! 追加小物用の構造体
 typedef struct

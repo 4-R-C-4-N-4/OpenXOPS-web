@@ -49,17 +49,19 @@ GRID = (58, 62, 36)
 SPAWN = (235, 230, 90)
 ENEMY = (198, 42, 36)
 PICKUP = (72, 168, 210)
+COW = (235, 235, 235)
+HATCH = (170, 90, 220)
 TEXT = (230, 226, 210)
 
 
-def world_to_px(x: float, z: float) -> Tuple[int, int]:
+def world_to_px(x: float, z: float, world_min=WORLD_MIN, world_max=WORLD_MAX) -> Tuple[int, int]:
     """Map world XZ to image pixels.
 
     North (-Z, away from the player) is up; south (+Z, the player's
     spawn side) is down, matching the in-game spawn-facing-north view.
     """
-    wx0, wz0 = WORLD_MIN
-    wx1, wz1 = WORLD_MAX
+    wx0, wz0 = world_min
+    wx1, wz1 = world_max
     u = (x - wx0) / (wx1 - wx0)
     v = (z - wz0) / (wz1 - wz0)
     px = int(round(u * (SIZE - 1)))
@@ -79,14 +81,17 @@ def draw_grid(draw: ImageDraw.ImageDraw, step: int = 32) -> None:
         draw.line([(0, y), (SIZE - 1, y)], fill=GRID, width=1)
 
 
-def draw_blocks(draw: ImageDraw.ImageDraw, blocks: List[Dict]) -> None:
+def draw_blocks(draw: ImageDraw.ImageDraw, blocks: List[Dict],
+                 world_min=WORLD_MIN, world_max=WORLD_MAX) -> None:
     for i, blk in enumerate(blocks):
+        if "min" not in blk or "max" not in blk:
+            continue  # raw-vertex (non-box) blocks, e.g. the UFO hull, are skipped
         mn = blk["min"]
         mx = blk["max"]
         x0, z0 = mn[0], mn[2]
         x1, z1 = mx[0], mx[2]
-        p0 = world_to_px(x0, z0)
-        p1 = world_to_px(x1, z1)
+        p0 = world_to_px(x0, z0, world_min, world_max)
+        p1 = world_to_px(x1, z1, world_min, world_max)
         rect = [min(p0[0], p1[0]), min(p0[1], p1[1]),
                 max(p0[0], p1[0]), max(p0[1], p1[1])]
         if i == 0:
@@ -128,7 +133,8 @@ def _text(draw: ImageDraw.ImageDraw, xy, s: str, color) -> None:
     draw.text(xy, s, fill=color)
 
 
-def render_briefing_picture(map_json: Path, label: str) -> Image.Image:
+def render_briefing_picture(map_json: Path, label: str,
+                             world_min=WORLD_MIN, world_max=WORLD_MAX) -> Image.Image:
     data = load_map(map_json)
     blocks = data["blocks"]
     points = data.get("points", [])
@@ -137,18 +143,22 @@ def render_briefing_picture(map_json: Path, label: str) -> Image.Image:
     draw = ImageDraw.Draw(img)
 
     draw_grid(draw)
-    draw_blocks(draw, blocks)
+    draw_blocks(draw, blocks, world_min, world_max)
 
     for pt in points:
         t = pt.get("type")
         pos = pt.get("pos", [0.0, 0.0, 0.0])
-        px, py = world_to_px(pos[0], pos[2])
+        px, py = world_to_px(pos[0], pos[2], world_min, world_max)
         if t == "player_spawn":
             draw_marker_arrow(draw, px, py, pt.get("rotation", 0.0), SPAWN)
         elif t == "human" and pt.get("team") == 2:
             draw_dot(draw, px, py, ENEMY)
         elif t == "weapon_pickup":
             draw_pickup(draw, px, py, PICKUP)
+        elif t == "small_object":
+            draw_dot(draw, px, py, COW, r=3)
+        elif t == "staged_human":
+            draw_dot(draw, px, py, HATCH, r=2)
 
     draw.rectangle([0, 0, SIZE - 1, SIZE - 1], outline=(0, 0, 0), width=2)
     _text(draw, (8, 6), label, TEXT)
@@ -171,10 +181,30 @@ def generate_starter(out_dir: Path) -> Path:
     return out_path
 
 
+def generate_for(map_json: Path, label: str, out_path: Path,
+                  world_min=WORLD_MIN, world_max=WORLD_MAX) -> Path:
+    """Generic entry point: any mapgen author JSON -> a briefing .bmp."""
+    img = render_briefing_picture(map_json, label, world_min, world_max)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    write_bmp8(img, out_path)
+    return out_path
+
+
+def generate_ufofield(out_dir: Path) -> Path:
+    map_json = ROOT / "tools" / "mapgen" / "examples" / "ufo_field.json"
+    # Field is 480x480 (+/-240) and the barn pad extends to z=-360; pad the
+    # bounds a little beyond that so the whole scene (UFO, fence, barn,
+    # bales, cows, spawn, hatch) fits in frame.
+    return generate_for(map_json, "UFO FIELD", out_dir / "ufofield.bmp",
+                         world_min=(-260.0, -380.0), world_max=(260.0, 260.0))
+
+
 def main() -> int:
     out_dir = ROOT / "assets" / "pack" / "data" / "briefing"
     path = generate_starter(out_dir)
     print(f"wrote {path}")
+    path2 = generate_ufofield(out_dir)
+    print(f"wrote {path2}")
     return 0
 
 

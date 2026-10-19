@@ -46,8 +46,8 @@
 #ifndef D3DGRAPHICS_H
 #define D3DGRAPHICS_H
 
-#define MAX_MODEL 72		//!< 最大モデル数
-#define MAX_TEXTURE 72		//!< 最大テクスチャ数
+#define MAX_MODEL 128	//[OpenXOPS-web] was 72		//!< 最大モデル数
+#define MAX_TEXTURE 128	//[OpenXOPS-web] was 72		//!< 最大テクスチャ数
 
 #define CLIPPINGPLANE_NEAR 1.0f		//!< 近クリップ面（≒描画する最小距離）
 #define CLIPPINGPLANE_FAR 800.0f	//!< 遠クリップ面（≒描画する最大距離）
