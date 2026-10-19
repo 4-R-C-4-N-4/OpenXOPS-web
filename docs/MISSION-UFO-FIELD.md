@@ -1,6 +1,7 @@
 # Mission spec: "UFO FIELD" (wave swarm)
 
-Status: implemented; local native and browser gates passed, publication in progress.
+Status: implemented and published. PRs #6/#7; live browser verified, 236 tests pass.
+Play: https://4-r-c-4-n-4.github.io/OpenXOPS-web/ → ADD-ON MISSIONS → UFO FIELD.
 Engine background: docs/ARCHITECTURE.md (the section numbers below refer to it).
 
 ## 1. Concept
