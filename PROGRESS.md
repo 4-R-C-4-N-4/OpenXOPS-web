@@ -637,3 +637,7 @@ Deployed (PR #5, run 39177059234, main 44fba99). Live verified: readable briefin
 ### Architecture documentation
 
 Added docs/ARCHITECTURE.md (linked from README): module map with line counts, boot/frame/mission-load/shot-to-hit sequence diagrams, scene and AI state diagrams, VFS layering, rendering model, ten "feel invariants" (F1-F10) with source locations, an injection-point table rated by feel risk, and change rules. All 9 mermaid diagrams validated by rendering with mermaid 11.
+
+### UFO FIELD wave mission — spec written, implementation dispatched
+
+User idea: UFO lands in a fenced pasture, 3 alien waves, cows + hay bales as cover, alien laser weapons pick-up-able, player gets a scoped lever-action rifle (AK/AUG-class damage). Spec docs/MISSION-UFO-FIELD.md. Engine gaps found in source: no wave/spawn event (single-human death waits only; completion check runs before events), one shared bullet visual, fixed weapon/human tables, MAX_TEXTURE 72 budget. Additive extensions: weapons 23-26, bullet types 2-4, laser sounds, human types 43-46, staged-human point p1=50 + events 40/41, completion waits for staged humans. Mission ships as addon/ufo.mif (cow = MIF addon small object). Workers: ufo-engine, ufo-assets, ufo-map.
