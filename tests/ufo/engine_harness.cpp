@@ -22,6 +22,7 @@ static int kill_hostiles(ObjectManager& objects) {
 
 int main(int argc, char** argv) {
     assert(argc==2);
+    std::setvbuf(stdout,nullptr,_IONBF,0);
     InitRand();
     vfs_init_from_args(argv[1]);
     ParameterInfo params; params.InitInfo();
@@ -41,7 +42,8 @@ int main(int argc, char** argv) {
 
     D3DGraphics graphics;
     ResourceManager resources; resources.SetParameterInfo(&params); resources.SetD3DGraphics(&graphics);
-    SoundManager sound;
+    SoundControl device;
+    SoundManager sound(&device,&resources,&params);
     BlockDataInterface blocks; PointDataInterface points; Collision collision; MIFInterface mif;
     ObjectManager objects;
     objects.SetClass(&params,&graphics,&resources,&blocks,&points,&collision,&sound,&mif);
@@ -84,6 +86,41 @@ int main(int argc, char** argv) {
     assert(kill_hostiles(objects)>0);
     assert(objects.CheckGameOverorComplete()==1);
     std::puts("CLASSIC NO-STAGING COMPLETION OK");
+    objects.Cleanup();
+
+    // Arrival cues must never make aliens investigate their own spawn.
+    sound.InitWorldSound();
+    sound.Teleport(0,32,-112,1);
+    sound.PlayWorldSound(0,32,-112,0,1);
+    soundlist heard[MAX_SOUNDMGR_LIST];
+    assert(sound.GetWorldSound(0,32,-112,1,heard)==0);
+    std::puts("ARRIVAL SOUND DOES NOT ALERT AI OK");
+
+    // Exercise real AI navigation and collision, not just parsed waypoint ids.
+    assert(blocks.LoadFiledata("data/ufofield/temp.bd1")==0);
+    blocks.CalculationBlockdata(false);
+    collision.InitCollision(&blocks);
+    assert(points.LoadFiledata("data/ufofield/ufo.pd1")==0);
+    objects.LoadPointData();
+    assert(objects.DeployStagedGroup(1)==6);
+    AIcontrol bots[6];
+    for(int i=0;i<6;i++) {
+        bots[i].SetClass(&objects,i+1,&blocks,&points,&params,&collision,&sound);
+        bots[i].Init(); bots[i].SetNoFightFlag(true);
+    }
+    for(int tick=0;tick<400;tick++) {
+        objects.Process(-1,false,false);
+        for(auto& bot:bots) bot.Process();
+        sound.PlayWorldSound(0,20,200,0,0);
+    }
+    int descended=0;
+    for(int i=1;i<=6;i++) {
+        float x,y,z;objects.GetHumanObject(i)->GetPosData(&x,&y,&z,nullptr);
+        std::printf("ALIEN %d POS %.1f %.1f %.1f\n",i,x,y,z);
+        if(y<5 && z>-40) descended++;
+    }
+    assert(descended>=4);
+    std::puts("RAMP DESCENT OK");
     objects.Cleanup();
     return 0;
 }
