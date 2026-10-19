@@ -163,6 +163,25 @@ def _build_point(entry: Dict[str, Any]) -> pd1.Point:
         return pd1.Point(x, y, z, r,
                           p1=entry["p1"], p2=entry.get("p2", 0),
                           p3=entry.get("p3", 0), p4=entry.get("p4", 0))
+    if kind == "staged_human":
+        # POINT_P1TYPE_STAGED_HUMAN = 50 (pd1.P1_STAGED_HUMAN):
+        # docs/MISSION-UFO-FIELD.md E5 -- "same parameters as type 1":
+        # p2 = HUMANINFO point id, p3 = AI path, p4 = wave group id.
+        # p2 here is still the raw authored human_type; like player_spawn
+        # / human it gets rewritten to a HUMANINFO foreign key by
+        # _synthesize_human_info(), keyed on (human_type, team). 'team'
+        # is not one of p1..p4 for this point kind (p4 is the wave group
+        # id instead), so it is stashed as a plain Python attribute on
+        # the Point until synthesis resolves it.
+        team = entry.get("team", 1)
+        if team == 0:
+            raise AuthorError("staged_human 'team' must be non-zero")
+        pt = pd1.Point(x, y, z, r, p1=pd1.P1_STAGED_HUMAN,
+                        p2=entry.get("human_type", 0),
+                        p3=entry.get("ai_path", 0),
+                        p4=entry.get("wave", 1))
+        setattr(pt, "_pending_team", team)  # consumed by _synthesize_human_info
+        return pt
 
     raise AuthorError(f"unknown point type {kind!r}")
 
@@ -196,24 +215,41 @@ def _synthesize_human_info(points: List[pd1.Point]) -> List[pd1.Point]:
     """
     key_to_id: Dict[Any, int] = {}
     next_id = 1
-    extra: List[pd1.Point] = []
+
+    extra_keys: List[Any] = []
+    extra_pos: Dict[Any, Any] = {}
     out: List[pd1.Point] = []
     for p in points:
         if p.p1 == pd1.P1_HUMAN2:
             key = (p.p2, p.p4)
             if key not in key_to_id:
-                if not (-128 <= next_id <= 127):
-                    raise AuthorError("too many distinct human_type/team "
-                                       "combinations for HUMANINFO ids (max 255)")
                 key_to_id[key] = next_id
-                human_type, team = key
-                extra.append(pd1.Point(p.x, p.y, p.z, 0.0, p1=pd1.P1_HUMANINFO,
-                                        p2=human_type, p3=team, p4=next_id))
+                extra_keys.append(key)
+                extra_pos[key] = (p.x, p.y, p.z)
+                next_id += 1
+            out.append(pd1.Point(p.x, p.y, p.z, p.r, p1=p.p1,
+                                  p2=key_to_id[key], p3=p.p3, p4=p.p4))
+        elif p.p1 == pd1.P1_STAGED_HUMAN:
+            # p2 is still the raw human_type; team came through as a
+            # stashed attribute (see _build_point's "staged_human" case)
+            # since p3/p4 are already taken by ai_path/wave group.
+            team = getattr(p, "_pending_team", 1)
+            key = (p.p2, team)
+            if key not in key_to_id:
+                key_to_id[key] = next_id
+                extra_keys.append(key)
+                extra_pos[key] = (p.x, p.y, p.z)
                 next_id += 1
             out.append(pd1.Point(p.x, p.y, p.z, p.r, p1=p.p1,
                                   p2=key_to_id[key], p3=p.p3, p4=p.p4))
         else:
             out.append(p)
+    extra = []
+    for (human_type, team) in extra_keys:
+        ex, ey, ez = extra_pos[(human_type, team)]
+        extra.append(pd1.Point(ex, ey, ez, 0.0, p1=pd1.P1_HUMANINFO,
+                                p2=human_type, p3=team,
+                                p4=key_to_id[(human_type, team)]))
     return out + extra
 
 
@@ -239,6 +275,13 @@ def _point_to_json(p: pd1.Point, info_by_id: Optional[Dict[int, pd1.Point]] = No
     if p.p1 == pd1.P1_SMALLOBJ:
         return {"type": "small_object", "pos": pos, "rotation": p.r,
                 "object_type": p.p2, "map_collision": bool(p.p3), "p4": p.p4}
+    if p.p1 == pd1.P1_STAGED_HUMAN:
+        info = (info_by_id or {}).get(p.p2)
+        human_type = info.p2 if info is not None else p.p2
+        team = info.p3 if info is not None else 1
+        return {"type": "staged_human", "pos": pos, "rotation": p.r,
+                "human_type": human_type, "team": team,
+                "ai_path": p.p3, "wave": p.p4}
     if pd1.P1_EVENT_MIN <= p.p1 <= pd1.P1_EVENT_MAX:
         return {"type": "event", "pos": pos, "rotation": p.r,
                 "event_id": p.p1, "p2": p.p2, "p3": p.p3, "p4": p.p4}
