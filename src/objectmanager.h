@@ -120,6 +120,7 @@ class ObjectManager
 	bool StagedPending[MAX_HUMAN];			//!< not yet deployed
 	int StagedTotal;						//!< number of staged entries
 	bool Human_NeedAIInit[MAX_HUMAN];		//!< slot deployed this frame; AI must Init()
+	bool Bullet_LaserBolt[MAX_BULLET];		//!< [OpenXOPS-web] laser bolt (types 2-4), hidden for its own shooter in first person
 
 	int AddHumanIndex(pointdata data, pointdata infodata, bool RandomFlag);
 	int AddWeaponIndex(pointdata data);
@@ -152,7 +153,8 @@ public:
 	int GetStagedCount();										//[OpenXOPS-web]
 	int CountLivingHostiles();									//[OpenXOPS-web]
 	int DeployStagedGroup(signed short int group);				//[OpenXOPS-web]
-	bool TakeAIInitFlag(int human_id);							//[OpenXOPS-web]
+	bool TakeAIInitFlag(int human_id);
+	bool IsBulletHiddenInFirstPerson(int id);					//[OpenXOPS-web]							//[OpenXOPS-web]
 	void Recovery();
 	void SetAddCollisionFlag(bool flag);
 	bool GetFriendlyFireFlag(int id);

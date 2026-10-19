@@ -50,7 +50,8 @@ TOTAL_PARAMETERINFO_WEAPON 27 -> 28, TOTAL_PARAMETERINFO_BULLET 5 -> 6.
 
 ### E8b. Captive rancher (human 47)
 Same skin as type 43 (rancher.bmp), Weapon[0] = 27, Weapon[1] = none. HP tuned
-by the pressure probe (start: 200). TOTAL_PARAMETERINFO_HUMAN 47 -> 48.
+by playtest: 300 (a long route with no healing; standing exposed at the lab
+entrance cost 125 HP in 10 s at 200). TOTAL_PARAMETERINFO_HUMAN 47 -> 48.
 
 ### E9. Laser crosshair fix (UFO FIELD feedback)
 The player's own laser bolts fly straight down the line of sight. They are

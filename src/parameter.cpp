@@ -472,11 +472,11 @@ void ParameterInfo::InitInfo()
 
 	//[OpenXOPS-web] Free-pack human types 43-46 (docs/MISSION-UFO-FIELD.md E4).
 	{
-		const int tex[4] = {30, 31, 32, 33};
-		const int hp[4] = {200, 80, 100, 120}; // [OpenXOPS-web] lever's minimum headshot is 128; rancher survives a few hits
-		const int ai[4] = {2, 0, 0, 0}; // [OpenXOPS-web] measured exposed-player pressure; see engine harness
-		const int w0[4] = {23, 24, 25, 26};
-		for(int i=0; i<4; i++){
+		const int tex[5] = {30, 31, 32, 33, 30};
+		const int hp[5] = {200, 80, 100, 120, 300};	// 47: long escape with no healing // [OpenXOPS-web] lever's minimum headshot is 128; rancher survives a few hits
+		const int ai[5] = {2, 0, 0, 0, 2}; // [OpenXOPS-web] measured exposed-player pressure; see engine harness
+		const int w0[5] = {23, 24, 25, 26, 27};	// 47: captive rancher, MOON ROCK only
+		for(int i=0; i<5; i++){
 			Human[43+i] = Human[2];
 			Human[43+i].texture = tex[i];
 			Human[43+i].model = 0;
@@ -1335,7 +1335,7 @@ void ParameterInfo::InitInfo()
 	//shell positions, equip mode), then overrides the combat stats. Upstream
 	//weapons 0-22 are unchanged; classic data never references ids >= 23.
 	for(int i=0; i<TOTAL_PARAMETERINFO_WEAPON; i++){
-		if( i < 23 ){ Weapon[i].bullettype = 0; }
+		if( i < 23 ){ Weapon[i].bullettype = 0; Weapon[i].throwaway = false; }
 	}
 	//LEVER 30-30: scoped lever-action rifle, AK47/AUG-class damage, M1 hold.
 	Weapon[23] = Weapon[19];
@@ -1413,6 +1413,28 @@ void ParameterInfo::InitInfo()
 	Weapon[26].ChangeWeaponID = -1;
 	Weapon[26].ChangeWeaponCnt = 0;
 	Weapon[26].bullettype = 4;
+	//[OpenXOPS-web] MOON ROCK: a single thrown rock (docs/MISSION-UFO-ESCAPE.md E8).
+	//Headshot 90..105 kills an 80 HP drone; body (<= 52) and leg hits do not.
+	Weapon[27] = Weapon[3];
+	Weapon[27].name = "MOON ROCK";
+	Weapon[27].model = "./data/model/weapon/rock.x";
+	Weapon[27].texture = "./data/model/weapon/rock.bmp";
+	Weapon[27].attacks = 45;
+	Weapon[27].penetration = 0;
+	Weapon[27].blazings = 20;
+	Weapon[27].speed = 6;
+	Weapon[27].nbsmax = 1;
+	Weapon[27].reloads = 0;
+	Weapon[27].ErrorRangeMIN = 0;
+	Weapon[27].ErrorRangeMAX = 2;
+	Weapon[27].yakkyou_size = 0.0f;
+	Weapon[27].soundid = 33;
+	Weapon[27].silencer = true;
+	Weapon[27].pellet = 1;
+	Weapon[27].ChangeWeaponID = -1;
+	Weapon[27].ChangeWeaponCnt = 0;
+	Weapon[27].bullettype = 5;
+	Weapon[27].throwaway = true;
 
 #ifdef ENABLE_BUG_HUMANWEAPON
 	//特殊なバグ武器用データ
@@ -1451,7 +1473,8 @@ void ParameterInfo::InitInfo()
 	BugWeapon[0].ChangeWeaponID = -1;
 	BugWeapon[0].ChangeWeaponCnt = 0;
 	BugWeapon[0].pellet = 0;
-	BugWeapon[0].bullettype = 0; // [OpenXOPS-web] initialise added field on the legacy fallback, too.
+	BugWeapon[0].bullettype = 0;
+	BugWeapon[0].throwaway = false; // [OpenXOPS-web] initialise added field on the legacy fallback, too.
 #endif
 
 
@@ -1559,6 +1582,9 @@ void ParameterInfo::InitInfo()
 	Bullet[4].model = "./data/model/laser.x";
 	Bullet[4].texture = "./data/model/laser_lime.bmp";
 	Bullet[4].size = 3.0f; // [OpenXOPS-web] visible low-poly bolt, ~3.4 world units
+	Bullet[5].model = "./data/model/weapon/rock.x";	//[OpenXOPS-web] thrown MOON ROCK
+	Bullet[5].texture = "./data/model/weapon/rock.bmp";
+	Bullet[5].size = 4.0f;
 
 
 	MissionData[0].name			= "TRAINING YARD";

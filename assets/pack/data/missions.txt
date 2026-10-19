@@ -1,2 +1,3 @@
 UFO FIELD|UFO FIELD - alien wave defence|data\ufofield\|ufo.mif|0|0
+UFO ESCAPE|UFO ESCAPE - break out of the ship|data\ufoescape\|escape.mif|0|0
 STARTER|STARTER compound|data\starter\|start|0|0

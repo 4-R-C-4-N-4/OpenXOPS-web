@@ -5,6 +5,7 @@
 #undef main
 #include "../../src/gamemain.h"
 #include <cassert>
+#include <initializer_list>
 #include <cstdio>
 
 static int kill_hostiles(ObjectManager& objects) {
@@ -50,16 +51,35 @@ int main(int argc, char** argv) {
         }
     }
     std::puts("ONE-SHOT LEVER HEADSHOTS OK");
+
+    // UFO ESCAPE: a single thrown MOON ROCK kills the first guard only with a headshot.
+    assert(params.GetWeapon(27,&w)==0 && strcmp(w.name,"MOON ROCK")==0);
+    assert(w.throwaway && w.nbsmax==1 && w.bullettype==5 && w.attacks==45);
+    assert(params.GetHuman(47,&h)==0 && h.Weapon[0]==27 && h.Weapon[1]==ID_WEAPON_NONE && h.texture==30 && h.hp==300);
+    BulletParameter rockbolt;
+    assert(params.GetBullet(5,&rockbolt)==0 && strcmp(rockbolt.model,"./data/model/weapon/rock.x")==0);
+    for(int trial=0;trial<32;trial++) {
+        human guard(&params);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletHead(w.attacks); assert(guard.GetHP()<=0);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletUp(w.attacks); assert(guard.GetHP()>0);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletLeg(w.attacks); assert(guard.GetHP()>0);
+    }
+    for(int i=0;i<=26;i++){ assert(params.GetWeapon(i,&w)==0 && w.throwaway==false); }
+    std::puts("MOON ROCK PARAMETERS OK");
     std::puts("PARAMETERS OK");
 
     // Free missions belong in the main list, including MIF-backed missions.
     char missionname[64], briefingpath[MAX_PATH];
-    assert(params.GetOfficialMissionCount()==2);
+    assert(params.GetOfficialMissionCount()==3);
     assert(params.GetOfficialMission(0,missionname,NULL,NULL,NULL,NULL,NULL)==0);
     assert(strcmp(missionname,"UFO FIELD")==0);
     assert(params.GetOfficialMissionBriefingPath(0,briefingpath)==0);
     assert(strcmp(briefingpath,"data\\ufofield\\ufo.mif")==0);
+    assert(params.GetOfficialMission(1,missionname,NULL,NULL,NULL,NULL,NULL)==0);
+    assert(strcmp(missionname,"UFO ESCAPE")==0);
     assert(params.GetOfficialMissionBriefingPath(1,briefingpath)==0);
+    assert(strcmp(briefingpath,"data\\ufoescape\\escape.mif")==0);
+    assert(params.GetOfficialMissionBriefingPath(2,briefingpath)==0);
     assert(strcmp(briefingpath,"data\\starter\\start.txt")==0);
     std::puts("UFO FIELD IN MAIN MISSION LIST OK");
 
@@ -212,5 +232,75 @@ int main(int argc, char** argv) {
     assert(mif.GetAddSmallobjectCover(0)==nullptr); // No hull leaks into classic data.
     std::puts("COW BODY STOPS LASERS OK");
     objects.Cleanup();
+
+    // A thrown rock empties the hand: no reserve, slot freed for a laser pickup.
+    objects.LoadPointData();
+    int rockonly[2]={27,ID_WEAPON_NONE};
+    int captive=objects.AddHumanIndex(0,0,180,0,47,0,rockonly,7,false);
+    assert(captive>=0);
+    weapon* held[TOTAL_HAVEWEAPON]; int loaded[TOTAL_HAVEWEAPON], total[TOTAL_HAVEWEAPON], selected=0;
+    objects.GetHumanObject(captive)->GetWeapon(&selected,held,loaded,total);
+    int rockid=-1,rockloaded=-1,rocktotal=-1;
+    assert(held[0]!=nullptr); held[0]->GetParamData(&rockid,&rockloaded,&rocktotal);
+    assert(rockid==27 && rockloaded==1 && rocktotal==1);
+    for(int i=0;i<MAX_BULLET;i++) objects.GetBulletObject(i)->SetEnableFlag(false);
+    objects.ShotWeapon(captive);
+    objects.GetHumanObject(captive)->GetWeapon(&selected,held,loaded,total);
+    assert(held[0]==nullptr && held[1]==nullptr);
+    int flying=-1;
+    for(int i=0;i<MAX_BULLET;i++) if(objects.GetBulletObject(i)->GetEnableFlag()) flying=i;
+    assert(flying>=0 && objects.IsBulletHiddenInFirstPerson(flying)==false); // The rock stays visible.
+    std::puts("THROWN ROCK EMPTIES HAND OK");
+
+    // The player's own lasers are seen end-on in first person and cover the
+    // crosshair, so they are hidden there; other shooters' lasers are not.
+    int zap[2]={24,ID_WEAPON_NONE};
+    int alien=objects.AddHumanIndex(30,0,180,0,44,1,zap,8,false);
+    human* me=objects.GetPlayerHumanObject();
+    me->SetWeapon(held,loaded,total); // drop whatever the map gave; give a zap
+    assert(objects.CheatNewWeapon(objects.GetPlayerID(),24));
+    { int s; weapon* hw[TOTAL_HAVEWEAPON]; me->GetWeapon(&s,hw,NULL,NULL); assert(hw[s]); hw[s]->SetParamData(24,12,36,false); }
+    auto fired=[&](int shooter){
+        for(int i=0;i<MAX_BULLET;i++) objects.GetBulletObject(i)->SetEnableFlag(false);
+        for(int t=0;t<40;t++){ if(objects.ShotWeapon(shooter)) break; objects.Process(-1,false,false); }
+        for(int i=0;i<MAX_BULLET;i++) if(objects.GetBulletObject(i)->GetEnableFlag()) return i;
+        return -1;
+    };
+    int mine=fired(objects.GetPlayerID());
+    assert(mine>=0 && objects.IsBulletHiddenInFirstPerson(mine));
+    int theirs=fired(alien); assert(theirs>=0 && objects.IsBulletHiddenInFirstPerson(theirs)==false);
+    std::puts("OWN LASER HIDDEN IN FIRST PERSON OK");
+    objects.Cleanup();
+
+    // UFO ESCAPE must be sealed: from any point a player could stand (floor
+    // below, ceiling above), every view ray hits geometry. A ray that
+    // escapes shows the black void in game.
+    {
+        BlockDataInterface ship; Collision shipcoll;
+        assert(ship.LoadFiledata("data/ufoescape/temp.bd1")==0);
+        ship.CalculationBlockdata(false); shipcoll.InitCollision(&ship);
+        int inside=0, leaks=0;
+        for(float y0 : {0.0f, 44.0f}) for(float x=-80;x<=580;x+=6) for(float z=-200;z<=410;z+=6){
+            float ey=y0+16, d;
+            if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,0,-1,0,NULL,NULL,&d,24.0f)) continue;
+            if(d<10.0f) continue; // inside a solid block or on a raised prop
+            if(shipcoll.CheckALLBlockInside(x,ey,z)) continue;
+            if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,0,1,0,NULL,NULL,&d,80.0f)) continue;
+            inside++;
+            int here=0;
+            for(int a=0;a<16;a++) for(int e=-1;e<=2;e++){
+                float yaw=a*(float)M_PI/8, pitch=e*0.45f;
+                float vx=cosf(yaw)*cosf(pitch), vy=sinf(pitch), vz=sinf(yaw)*cosf(pitch);
+                if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,vx,vy,vz,NULL,NULL,&d,2000.0f)){
+                    if(getenv("VOID_DETAIL")) std::printf("VOID RAY %.0f %.0f %.0f %.2f %.2f %.2f\n",x,ey,z,vx,vy,vz);
+                    leaks++; here++;
+                }
+            }
+            if(here && leaks-here<200) std::printf("VOID LEAK at (%.0f,%.0f,%.0f): %d rays\n",x,ey,z,here);
+        }
+        std::printf("ESCAPE SHIP: %d interior samples, %d leaking rays\n",inside,leaks);
+        assert(inside>1000 && leaks==0);
+        std::puts("ESCAPE SHIP SEALED OK");
+    }
     return 0;
 }

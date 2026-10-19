@@ -52,6 +52,41 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_teleport_to_drop(int type) {
     }
     return -1;
 }
+// Render the live mission from an arbitrary camera (paused; resume with
+// qa_resume_game). Camera yaw uses the engine's first-person convention:
+// the player-facing rotation r maps to camera_rx = pi/2 - r.
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_view(float x, float y, float z, float r, float pitch) {
+    emscripten_pause_main_loop();
+    d3dg.StartRender();
+    d3dg.SetFog(true,1);
+    d3dg.SetCamera(x,y,z,(float)M_PI/2-r,pitch,VIEWANGLE_NORMAL);
+    d3dg.ResetZbuffer();
+    d3dg.ResetWorldTransform();
+    d3dg.RenderMapdata(false);
+    ObjMgr.Render(x,y,z,(float)M_PI/2-r,pitch,0,false);
+    d3dg.EndRender();
+    return 1;
+}
+extern "C" EMSCRIPTEN_KEEPALIVE void qa_teleport(float x, float y, float z) {
+    float ox,oy,oz,rx; human* me=ObjMgr.GetPlayerHumanObject(); me->GetPosData(&ox,&oy,&oz,&rx);
+    me->SetPosData(x,y,z,rx);
+}
+// Aim the player's real weapon at a body height on a human and fire once
+// through ObjectManager::ShotWeapon (real projectile, hit zones, damage).
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_aim_fire_at(int id, float height) {
+    human* me=ObjMgr.GetPlayerHumanObject(); human* t=ObjMgr.GetHumanObject(id);
+    if(!t || !t->GetEnableFlag())return -1;
+    float x,y,z,tx,ty,tz; me->GetPosData(&x,&y,&z,nullptr); t->GetPosData(&tx,&ty,&tz,nullptr);
+    float dx=tx-x, dz=tz-z, dy=(ty+height)-(y+VIEW_HEIGHT);
+    me->SetRxRy(atan2f(dx,dz), atan2f(dy,sqrtf(dx*dx+dz*dz)));
+    return ObjMgr.ShotWeapon(ObjMgr.GetPlayerID());
+}
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_human_hp(int id) {
+    human* h=ObjMgr.GetHumanObject(id); return (h && h->GetEnableFlag()) ? h->GetHP() : -9999;
+}
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_player_fire() {
+    return ObjMgr.ShotWeapon(ObjMgr.GetPlayerID());
+}
 extern "C" EMSCRIPTEN_KEEPALIVE void qa_wave_state() {
     EM_ASM({Module.qaWave=Array.of($0,$1);},ObjMgr.GetStagedCount(),ObjMgr.CountLivingHostiles());
 }

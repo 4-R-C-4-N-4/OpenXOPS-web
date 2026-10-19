@@ -1,0 +1,3612 @@
+{
+  "schema": 1,
+  "textures": [
+    "hull.bmp",
+    "floor.bmp",
+    "ceiling.bmp",
+    "goo.bmp",
+    "vat.bmp",
+    "labpanel.bmp",
+    "lightstrip.bmp",
+    "hazard.bmp",
+    "console.bmp",
+    "bulkhead.bmp"
+  ],
+  "blocks": [
+    {
+      "comment": "cellblock floor",
+      "min": [
+        -72.0,
+        -2.0,
+        256.0
+      ],
+      "max": [
+        24.0,
+        0.0,
+        404.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "cellblock ceiling",
+      "min": [
+        -72.0,
+        40.0,
+        256.0
+      ],
+      "max": [
+        24.0,
+        42.0,
+        404.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "cellblock south wall [0]",
+      "min": [
+        -72.0,
+        0.0,
+        402.0
+      ],
+      "max": [
+        24.0,
+        40.0,
+        406.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cellblock east wall [0]",
+      "min": [
+        22.0,
+        0.0,
+        256.0
+      ],
+      "max": [
+        26.0,
+        40.0,
+        404.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cellblock west wall [0]",
+      "min": [
+        -74.0,
+        0.0,
+        256.0
+      ],
+      "max": [
+        -70.0,
+        40.0,
+        404.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 0 corridor wall [0]",
+      "min": [
+        -14.0,
+        0.0,
+        360.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        371.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 0 corridor wall [1]",
+      "min": [
+        -14.0,
+        0.0,
+        393.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        404.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 1 corridor wall [0]",
+      "min": [
+        -14.0,
+        0.0,
+        312.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        321.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 1 corridor wall [1]",
+      "min": [
+        -14.0,
+        0.0,
+        343.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        352.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 2 corridor wall [0]",
+      "min": [
+        -14.0,
+        0.0,
+        264.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        273.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell 2 corridor wall [1]",
+      "min": [
+        -14.0,
+        0.0,
+        295.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        304.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell divider [0]",
+      "min": [
+        -72.0,
+        0.0,
+        310.0
+      ],
+      "max": [
+        -12.0,
+        40.0,
+        314.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cell divider [0]",
+      "min": [
+        -72.0,
+        0.0,
+        358.0
+      ],
+      "max": [
+        -12.0,
+        40.0,
+        362.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cellblock north wall of cell row [0]",
+      "min": [
+        -72.0,
+        0.0,
+        254.0
+      ],
+      "max": [
+        -12.0,
+        40.0,
+        258.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cellblock north corridor wall [0]",
+      "min": [
+        -12.0,
+        0.0,
+        254.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        258.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "cellblock north corridor wall [1]",
+      "min": [
+        10.0,
+        0.0,
+        254.0
+      ],
+      "max": [
+        24.0,
+        40.0,
+        258.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg A floor",
+      "min": [
+        -12.0,
+        -2.0,
+        176.0
+      ],
+      "max": [
+        24.0,
+        0.0,
+        256.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "crawl seg A ceiling",
+      "min": [
+        -12.0,
+        40.0,
+        176.0
+      ],
+      "max": [
+        24.0,
+        42.0,
+        256.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "crawl seg A west wall [0]",
+      "min": [
+        -14.0,
+        0.0,
+        176.0
+      ],
+      "max": [
+        -10.0,
+        40.0,
+        256.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg A east wall [0]",
+      "min": [
+        22.0,
+        0.0,
+        176.0
+      ],
+      "max": [
+        26.0,
+        40.0,
+        188.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg A east wall [1]",
+      "min": [
+        22.0,
+        0.0,
+        208.0
+      ],
+      "max": [
+        26.0,
+        40.0,
+        256.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg A north wall [0]",
+      "min": [
+        -12.0,
+        0.0,
+        174.0
+      ],
+      "max": [
+        24.0,
+        40.0,
+        178.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg B floor",
+      "min": [
+        24.0,
+        -2.0,
+        180.0
+      ],
+      "max": [
+        96.0,
+        0.0,
+        208.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "crawl seg B ceiling",
+      "min": [
+        24.0,
+        40.0,
+        180.0
+      ],
+      "max": [
+        96.0,
+        42.0,
+        208.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "crawl seg B south wall [0]",
+      "min": [
+        24.0,
+        0.0,
+        206.0
+      ],
+      "max": [
+        96.0,
+        40.0,
+        210.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg B north wall [0]",
+      "min": [
+        24.0,
+        0.0,
+        178.0
+      ],
+      "max": [
+        72.0,
+        40.0,
+        182.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg B north wall [1]",
+      "min": [
+        92.0,
+        0.0,
+        178.0
+      ],
+      "max": [
+        96.0,
+        40.0,
+        182.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg B east wall [0]",
+      "min": [
+        94.0,
+        0.0,
+        180.0
+      ],
+      "max": [
+        98.0,
+        40.0,
+        208.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg C floor",
+      "min": [
+        68.0,
+        -2.0,
+        80.0
+      ],
+      "max": [
+        96.0,
+        0.0,
+        180.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "crawl seg C ceiling",
+      "min": [
+        68.0,
+        40.0,
+        80.0
+      ],
+      "max": [
+        96.0,
+        42.0,
+        180.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "crawl seg C west wall [0]",
+      "min": [
+        66.0,
+        0.0,
+        80.0
+      ],
+      "max": [
+        70.0,
+        40.0,
+        180.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl seg C east wall [0]",
+      "min": [
+        94.0,
+        0.0,
+        80.0
+      ],
+      "max": [
+        98.0,
+        40.0,
+        180.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "crawl pipe trim",
+      "min": [
+        20.0,
+        4.0,
+        180.0
+      ],
+      "max": [
+        22.0,
+        10.0,
+        254.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "lab floor",
+      "min": [
+        0.0,
+        -2.0,
+        -60.0
+      ],
+      "max": [
+        180.0,
+        0.0,
+        80.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "lab ceiling",
+      "min": [
+        0.0,
+        40.0,
+        -60.0
+      ],
+      "max": [
+        180.0,
+        42.0,
+        80.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "lab south wall [0]",
+      "min": [
+        0.0,
+        0.0,
+        78.0
+      ],
+      "max": [
+        68.0,
+        40.0,
+        82.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "labpanel.bmp"
+    },
+    {
+      "comment": "lab south wall [1]",
+      "min": [
+        96.0,
+        0.0,
+        78.0
+      ],
+      "max": [
+        180.0,
+        40.0,
+        82.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "labpanel.bmp"
+    },
+    {
+      "comment": "lab north wall (far door) [0]",
+      "min": [
+        0.0,
+        0.0,
+        -62.0
+      ],
+      "max": [
+        180.0,
+        40.0,
+        -58.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "labpanel.bmp"
+    },
+    {
+      "comment": "lab west wall [0]",
+      "min": [
+        -2.0,
+        0.0,
+        -60.0
+      ],
+      "max": [
+        2.0,
+        40.0,
+        80.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "labpanel.bmp"
+    },
+    {
+      "comment": "lab east wall [0]",
+      "min": [
+        178.0,
+        0.0,
+        -60.0
+      ],
+      "max": [
+        182.0,
+        40.0,
+        80.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "vat A centre",
+      "vertices": [
+        [
+          34.0,
+          26.0,
+          -8.8
+        ],
+        [
+          66.0,
+          26.0,
+          -8.8
+        ],
+        [
+          66.0,
+          26.0,
+          8.8
+        ],
+        [
+          34.0,
+          26.0,
+          8.8
+        ],
+        [
+          34.0,
+          0.0,
+          -8.8
+        ],
+        [
+          66.0,
+          0.0,
+          -8.8
+        ],
+        [
+          66.0,
+          0.0,
+          8.8
+        ],
+        [
+          34.0,
+          0.0,
+          8.8
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat A north cap",
+      "vertices": [
+        [
+          41.2,
+          26.0,
+          -16.0
+        ],
+        [
+          58.8,
+          26.0,
+          -16.0
+        ],
+        [
+          58.8,
+          26.0,
+          -8.8
+        ],
+        [
+          41.2,
+          26.0,
+          -8.8
+        ],
+        [
+          41.2,
+          0.0,
+          -16.0
+        ],
+        [
+          58.8,
+          0.0,
+          -16.0
+        ],
+        [
+          58.8,
+          0.0,
+          -8.8
+        ],
+        [
+          41.2,
+          0.0,
+          -8.8
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat A south cap",
+      "vertices": [
+        [
+          41.2,
+          26.0,
+          8.8
+        ],
+        [
+          58.8,
+          26.0,
+          8.8
+        ],
+        [
+          58.8,
+          26.0,
+          16.0
+        ],
+        [
+          41.2,
+          26.0,
+          16.0
+        ],
+        [
+          41.2,
+          0.0,
+          8.8
+        ],
+        [
+          58.8,
+          0.0,
+          8.8
+        ],
+        [
+          58.8,
+          0.0,
+          16.0
+        ],
+        [
+          41.2,
+          0.0,
+          16.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat B centre",
+      "vertices": [
+        [
+          84.0,
+          26.0,
+          -38.8
+        ],
+        [
+          116.0,
+          26.0,
+          -38.8
+        ],
+        [
+          116.0,
+          26.0,
+          -21.2
+        ],
+        [
+          84.0,
+          26.0,
+          -21.2
+        ],
+        [
+          84.0,
+          0.0,
+          -38.8
+        ],
+        [
+          116.0,
+          0.0,
+          -38.8
+        ],
+        [
+          116.0,
+          0.0,
+          -21.2
+        ],
+        [
+          84.0,
+          0.0,
+          -21.2
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat B north cap",
+      "vertices": [
+        [
+          91.2,
+          26.0,
+          -46.0
+        ],
+        [
+          108.8,
+          26.0,
+          -46.0
+        ],
+        [
+          108.8,
+          26.0,
+          -38.8
+        ],
+        [
+          91.2,
+          26.0,
+          -38.8
+        ],
+        [
+          91.2,
+          0.0,
+          -46.0
+        ],
+        [
+          108.8,
+          0.0,
+          -46.0
+        ],
+        [
+          108.8,
+          0.0,
+          -38.8
+        ],
+        [
+          91.2,
+          0.0,
+          -38.8
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat B south cap",
+      "vertices": [
+        [
+          91.2,
+          26.0,
+          -21.2
+        ],
+        [
+          108.8,
+          26.0,
+          -21.2
+        ],
+        [
+          108.8,
+          26.0,
+          -14.0
+        ],
+        [
+          91.2,
+          26.0,
+          -14.0
+        ],
+        [
+          91.2,
+          0.0,
+          -21.2
+        ],
+        [
+          108.8,
+          0.0,
+          -21.2
+        ],
+        [
+          108.8,
+          0.0,
+          -14.0
+        ],
+        [
+          91.2,
+          0.0,
+          -14.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat C centre",
+      "vertices": [
+        [
+          124.0,
+          26.0,
+          11.2
+        ],
+        [
+          156.0,
+          26.0,
+          11.2
+        ],
+        [
+          156.0,
+          26.0,
+          28.8
+        ],
+        [
+          124.0,
+          26.0,
+          28.8
+        ],
+        [
+          124.0,
+          0.0,
+          11.2
+        ],
+        [
+          156.0,
+          0.0,
+          11.2
+        ],
+        [
+          156.0,
+          0.0,
+          28.8
+        ],
+        [
+          124.0,
+          0.0,
+          28.8
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat C north cap",
+      "vertices": [
+        [
+          131.2,
+          26.0,
+          4.0
+        ],
+        [
+          148.8,
+          26.0,
+          4.0
+        ],
+        [
+          148.8,
+          26.0,
+          11.2
+        ],
+        [
+          131.2,
+          26.0,
+          11.2
+        ],
+        [
+          131.2,
+          0.0,
+          4.0
+        ],
+        [
+          148.8,
+          0.0,
+          4.0
+        ],
+        [
+          148.8,
+          0.0,
+          11.2
+        ],
+        [
+          131.2,
+          0.0,
+          11.2
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "vat C south cap",
+      "vertices": [
+        [
+          131.2,
+          26.0,
+          28.8
+        ],
+        [
+          148.8,
+          26.0,
+          28.8
+        ],
+        [
+          148.8,
+          26.0,
+          36.0
+        ],
+        [
+          131.2,
+          26.0,
+          36.0
+        ],
+        [
+          131.2,
+          0.0,
+          28.8
+        ],
+        [
+          148.8,
+          0.0,
+          28.8
+        ],
+        [
+          148.8,
+          0.0,
+          36.0
+        ],
+        [
+          131.2,
+          0.0,
+          36.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "goo.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "vat.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "lab catwalk west",
+      "min": [
+        2.0,
+        22.0,
+        -58.0
+      ],
+      "max": [
+        18.0,
+        24.0,
+        78.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "lab catwalk north",
+      "min": [
+        2.0,
+        22.0,
+        -58.0
+      ],
+      "max": [
+        178.0,
+        24.0,
+        -42.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "lab catwalk access ramp",
+      "vertices": [
+        [
+          18.0,
+          2.0,
+          60.0
+        ],
+        [
+          38.0,
+          24.0,
+          60.0
+        ],
+        [
+          38.0,
+          24.0,
+          76.0
+        ],
+        [
+          18.0,
+          2.0,
+          76.0
+        ],
+        [
+          18.0,
+          -2.0,
+          60.0
+        ],
+        [
+          38.0,
+          20.0,
+          60.0
+        ],
+        [
+          38.0,
+          20.0,
+          76.0
+        ],
+        [
+          18.0,
+          -2.0,
+          76.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "hall floor",
+      "min": [
+        180.0,
+        -2.0,
+        -50.0
+      ],
+      "max": [
+        380.0,
+        0.0,
+        10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "hall ceiling",
+      "min": [
+        180.0,
+        40.0,
+        -50.0
+      ],
+      "max": [
+        380.0,
+        42.0,
+        10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "hall south wall [0]",
+      "min": [
+        180.0,
+        0.0,
+        8.0
+      ],
+      "max": [
+        380.0,
+        40.0,
+        12.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall north wall [0]",
+      "min": [
+        180.0,
+        0.0,
+        -52.0
+      ],
+      "max": [
+        380.0,
+        40.0,
+        -48.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall west wall (from lab) [0]",
+      "min": [
+        178.0,
+        0.0,
+        -50.0
+      ],
+      "max": [
+        182.0,
+        40.0,
+        -30.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall west wall (from lab) [1]",
+      "min": [
+        178.0,
+        0.0,
+        0.0
+      ],
+      "max": [
+        182.0,
+        40.0,
+        10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall east wall (to ramp) [0]",
+      "min": [
+        378.0,
+        0.0,
+        -50.0
+      ],
+      "max": [
+        382.0,
+        40.0,
+        -33.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall east wall (to ramp) [1]",
+      "min": [
+        378.0,
+        0.0,
+        -12.0
+      ],
+      "max": [
+        382.0,
+        40.0,
+        10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "hall baffle 0",
+      "min": [
+        210.0,
+        0.0,
+        -20.0
+      ],
+      "max": [
+        220.0,
+        40.0,
+        10.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "hall baffle 1",
+      "min": [
+        250.0,
+        0.0,
+        -50.0
+      ],
+      "max": [
+        260.0,
+        40.0,
+        -20.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "hall baffle 2",
+      "min": [
+        290.0,
+        0.0,
+        -20.0
+      ],
+      "max": [
+        300.0,
+        40.0,
+        10.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "hall baffle 3",
+      "min": [
+        330.0,
+        0.0,
+        -50.0
+      ],
+      "max": [
+        340.0,
+        40.0,
+        -20.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "hall trough 0",
+      "min": [
+        230.0,
+        0.0,
+        -26.0
+      ],
+      "max": [
+        250.0,
+        12.0,
+        -14.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "goo.bmp"
+    },
+    {
+      "comment": "hall trough 1",
+      "min": [
+        270.0,
+        0.0,
+        -26.0
+      ],
+      "max": [
+        290.0,
+        12.0,
+        -14.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "goo.bmp"
+    },
+    {
+      "comment": "hall trough 2",
+      "min": [
+        310.0,
+        0.0,
+        -26.0
+      ],
+      "max": [
+        330.0,
+        12.0,
+        -14.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "goo.bmp"
+    },
+    {
+      "comment": "ramp shaft south wall [0]",
+      "min": [
+        380.0,
+        0.0,
+        -37.0
+      ],
+      "max": [
+        476.0,
+        88.0,
+        -33.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "ramp shaft north wall [0]",
+      "min": [
+        380.0,
+        0.0,
+        -12.0
+      ],
+      "max": [
+        476.0,
+        88.0,
+        -8.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "ramp shaft ceiling",
+      "min": [
+        380.0,
+        88.0,
+        -35.0
+      ],
+      "max": [
+        476.0,
+        90.0,
+        -10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "ramp/hall seam attic filler",
+      "min": [
+        340.0,
+        40.0,
+        -35.0
+      ],
+      "max": [
+        380.0,
+        88.0,
+        -10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "switchback ramp A",
+      "vertices": [
+        [
+          380.0,
+          2.0,
+          -32.0
+        ],
+        [
+          428.0,
+          22.0,
+          -32.0
+        ],
+        [
+          428.0,
+          22.0,
+          -13.0
+        ],
+        [
+          380.0,
+          2.0,
+          -13.0
+        ],
+        [
+          380.0,
+          -2.0,
+          -32.0
+        ],
+        [
+          428.0,
+          18.0,
+          -32.0
+        ],
+        [
+          428.0,
+          18.0,
+          -13.0
+        ],
+        [
+          380.0,
+          -2.0,
+          -13.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "ramp A low rail [0]",
+      "min": [
+        378.0,
+        0.0,
+        -32.0
+      ],
+      "max": [
+        382.0,
+        4.0,
+        -13.0
+      ],
+      "texture_world_units": 8.0,
+      "texture": "hazard.bmp"
+    },
+    {
+      "comment": "ramp landing floor",
+      "min": [
+        428.0,
+        20.0,
+        -35.0
+      ],
+      "max": [
+        448.0,
+        22.0,
+        -10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "switchback ramp B",
+      "vertices": [
+        [
+          448.0,
+          24.0,
+          -32.0
+        ],
+        [
+          476.0,
+          44.0,
+          -32.0
+        ],
+        [
+          476.0,
+          44.0,
+          -13.0
+        ],
+        [
+          448.0,
+          24.0,
+          -13.0
+        ],
+        [
+          448.0,
+          20.0,
+          -32.0
+        ],
+        [
+          476.0,
+          40.0,
+          -32.0
+        ],
+        [
+          476.0,
+          40.0,
+          -13.0
+        ],
+        [
+          448.0,
+          20.0,
+          -13.0
+        ]
+      ],
+      "faces": [
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "floor.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "texture": "hazard.bmp",
+          "u": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "v": [
+            0.0,
+            0.0,
+            1.0,
+            1.0
+          ]
+        }
+      ]
+    },
+    {
+      "comment": "ramp B low rail [0]",
+      "min": [
+        474.0,
+        22.0,
+        -32.0
+      ],
+      "max": [
+        478.0,
+        26.0,
+        -13.0
+      ],
+      "texture_world_units": 8.0,
+      "texture": "hazard.bmp"
+    },
+    {
+      "comment": "bridge floor",
+      "min": [
+        448.0,
+        42.0,
+        -70.0
+      ],
+      "max": [
+        560.0,
+        44.0,
+        40.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "bridge ceiling",
+      "min": [
+        448.0,
+        88.0,
+        -70.0
+      ],
+      "max": [
+        560.0,
+        90.0,
+        40.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "bridge south wall [0]",
+      "min": [
+        448.0,
+        44.0,
+        38.0
+      ],
+      "max": [
+        560.0,
+        88.0,
+        42.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "bridge north wall [0]",
+      "min": [
+        448.0,
+        44.0,
+        -72.0
+      ],
+      "max": [
+        495.0,
+        88.0,
+        -68.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "bridge north wall [1]",
+      "min": [
+        525.0,
+        44.0,
+        -72.0
+      ],
+      "max": [
+        560.0,
+        88.0,
+        -68.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "bridge west wall [0]",
+      "min": [
+        446.0,
+        44.0,
+        -70.0
+      ],
+      "max": [
+        450.0,
+        88.0,
+        40.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "lightstrip.bmp"
+    },
+    {
+      "comment": "bridge east wall [0]",
+      "min": [
+        558.0,
+        44.0,
+        -70.0
+      ],
+      "max": [
+        562.0,
+        88.0,
+        40.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "lightstrip.bmp"
+    },
+    {
+      "comment": "bridge holo pillar",
+      "min": [
+        498.0,
+        44.0,
+        -19.0
+      ],
+      "max": [
+        506.0,
+        74.0,
+        -11.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "bridge console 0",
+      "min": [
+        469.0,
+        44.0,
+        -39.0
+      ],
+      "max": [
+        481.0,
+        50.0,
+        -31.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "bridge console 1",
+      "min": [
+        524.0,
+        44.0,
+        -39.0
+      ],
+      "max": [
+        536.0,
+        50.0,
+        -31.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "bridge console 2",
+      "min": [
+        469.0,
+        44.0,
+        6.0
+      ],
+      "max": [
+        481.0,
+        50.0,
+        14.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "bridge console 3",
+      "min": [
+        524.0,
+        44.0,
+        6.0
+      ],
+      "max": [
+        536.0,
+        50.0,
+        14.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "captains dais",
+      "min": [
+        490.0,
+        46.0,
+        18.0
+      ],
+      "max": [
+        516.0,
+        48.0,
+        34.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "console.bmp"
+    },
+    {
+      "comment": "pod bay floor",
+      "min": [
+        448.0,
+        42.0,
+        -190.0
+      ],
+      "max": [
+        560.0,
+        44.0,
+        -70.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "floor.bmp"
+    },
+    {
+      "comment": "pod bay ceiling",
+      "min": [
+        448.0,
+        88.0,
+        -190.0
+      ],
+      "max": [
+        560.0,
+        90.0,
+        -70.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "pod bay south wall (from bridge) [0]",
+      "min": [
+        448.0,
+        44.0,
+        -72.0
+      ],
+      "max": [
+        495.0,
+        88.0,
+        -68.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "pod bay south wall (from bridge) [1]",
+      "min": [
+        525.0,
+        44.0,
+        -72.0
+      ],
+      "max": [
+        560.0,
+        88.0,
+        -68.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "pod bay north wall [0]",
+      "min": [
+        448.0,
+        44.0,
+        -192.0
+      ],
+      "max": [
+        560.0,
+        88.0,
+        -188.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "pod bay west wall [0]",
+      "min": [
+        446.0,
+        44.0,
+        -190.0
+      ],
+      "max": [
+        450.0,
+        88.0,
+        -70.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "pod bay east wall [0]",
+      "min": [
+        558.0,
+        44.0,
+        -190.0
+      ],
+      "max": [
+        562.0,
+        88.0,
+        -70.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "escape pod 0",
+      "min": [
+        462.0,
+        44.0,
+        -194.0
+      ],
+      "max": [
+        478.0,
+        64.0,
+        -174.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "escape pod 1",
+      "min": [
+        494.0,
+        44.0,
+        -194.0
+      ],
+      "max": [
+        510.0,
+        64.0,
+        -174.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    },
+    {
+      "comment": "escape pod 2",
+      "min": [
+        526.0,
+        44.0,
+        -194.0
+      ],
+      "max": [
+        542.0,
+        64.0,
+        -174.0
+      ],
+      "texture_world_units": 16.0,
+      "texture": "bulkhead.bmp"
+    }
+  ],
+  "points": [
+    {
+      "type": "player_spawn",
+      "pos": [
+        -42.0,
+        2.0,
+        390.0
+      ],
+      "rotation": 1.8313987185422376,
+      "human_type": 47
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        -42.0,
+        2.0,
+        332.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        2.0,
+        2.0,
+        352.0
+      ],
+      "rotation": 3.141592653589793,
+      "mode": 2,
+      "p3": 20,
+      "p4": 20
+    },
+    {
+      "type": "human",
+      "pos": [
+        2.0,
+        2.0,
+        352.0
+      ],
+      "rotation": 3.141592653589793,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 20
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0.0,
+        2.0,
+        230.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 22,
+      "p4": 21
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        60.0,
+        2.0,
+        194.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 23,
+      "p4": 22
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        82.0,
+        2.0,
+        110.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 21,
+      "p4": 23
+    },
+    {
+      "type": "human",
+      "pos": [
+        0.0,
+        2.0,
+        230.0
+      ],
+      "rotation": 0.0,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 21
+    },
+    {
+      "type": "staged_human",
+      "pos": [
+        145.0,
+        2.0,
+        -50.0
+      ],
+      "rotation": 3.14159,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 0,
+      "wave": 1
+    },
+    {
+      "type": "staged_human",
+      "pos": [
+        155.0,
+        2.0,
+        -50.0
+      ],
+      "rotation": 3.14159,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 0,
+      "wave": 1
+    },
+    {
+      "type": "weapon_pickup",
+      "pos": [
+        60.0,
+        2.0,
+        35.0
+      ],
+      "rotation": 0.0,
+      "weapon_id": 25,
+      "ammo": 120
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        8.0,
+        2.0,
+        -40.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        8.0,
+        2.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        8.0,
+        2.0,
+        40.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        172.0,
+        2.0,
+        -40.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        172.0,
+        2.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "small_object",
+      "pos": [
+        172.0,
+        2.0,
+        40.0
+      ],
+      "rotation": 0.0,
+      "object_type": 12
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        30.0,
+        2.0,
+        -30.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 31,
+      "p4": 30
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        80.0,
+        2.0,
+        50.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 32,
+      "p4": 31
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        120.0,
+        2.0,
+        -10.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 33,
+      "p4": 32
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        160.0,
+        2.0,
+        60.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 34,
+      "p4": 33
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        40.0,
+        2.0,
+        55.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 35,
+      "p4": 34
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        130.0,
+        2.0,
+        -45.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 30,
+      "p4": 35
+    },
+    {
+      "type": "human",
+      "pos": [
+        30.0,
+        2.0,
+        -30.0
+      ],
+      "rotation": 0.0,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 30
+    },
+    {
+      "type": "human",
+      "pos": [
+        80.0,
+        2.0,
+        50.0
+      ],
+      "rotation": 0.0,
+      "human_type": 45,
+      "team": 2,
+      "ai_path": 31
+    },
+    {
+      "type": "human",
+      "pos": [
+        120.0,
+        2.0,
+        -10.0
+      ],
+      "rotation": 0.0,
+      "human_type": 44,
+      "team": 2,
+      "ai_path": 32
+    },
+    {
+      "type": "human",
+      "pos": [
+        160.0,
+        2.0,
+        60.0
+      ],
+      "rotation": 0.0,
+      "human_type": 45,
+      "team": 2,
+      "ai_path": 33
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        210.0,
+        2.0,
+        -20.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 41,
+      "p4": 40
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        270.0,
+        2.0,
+        -42.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 42,
+      "p4": 41
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        330.0,
+        2.0,
+        -20.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 43,
+      "p4": 42
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        270.0,
+        2.0,
+        2.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 40,
+      "p4": 43
+    },
+    {
+      "type": "human",
+      "pos": [
+        210.0,
+        2.0,
+        -20.0
+      ],
+      "rotation": 0.0,
+      "human_type": 45,
+      "team": 2,
+      "ai_path": 40
+    },
+    {
+      "type": "human",
+      "pos": [
+        270.0,
+        2.0,
+        -42.0
+      ],
+      "rotation": 0.0,
+      "human_type": 45,
+      "team": 2,
+      "ai_path": 41
+    },
+    {
+      "type": "human",
+      "pos": [
+        330.0,
+        2.0,
+        -20.0
+      ],
+      "rotation": 0.0,
+      "human_type": 45,
+      "team": 2,
+      "ai_path": 42
+    },
+    {
+      "type": "weapon_pickup",
+      "pos": [
+        502.0,
+        50.0,
+        -36.0
+      ],
+      "rotation": 0.0,
+      "weapon_id": 26,
+      "ammo": 80
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        470.0,
+        46.0,
+        -50.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 51,
+      "p4": 50
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        540.0,
+        46.0,
+        -50.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 52,
+      "p4": 51
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        502.0,
+        46.0,
+        20.0
+      ],
+      "rotation": 0.0,
+      "mode": 0,
+      "p3": 50,
+      "p4": 52
+    },
+    {
+      "type": "human",
+      "pos": [
+        470.0,
+        46.0,
+        -50.0
+      ],
+      "rotation": 0.0,
+      "human_type": 46,
+      "team": 2,
+      "ai_path": 50
+    },
+    {
+      "type": "human",
+      "pos": [
+        540.0,
+        46.0,
+        -50.0
+      ],
+      "rotation": 0.0,
+      "human_type": 46,
+      "team": 2,
+      "ai_path": 51
+    },
+    {
+      "type": "staged_human",
+      "pos": [
+        449.0,
+        46.0,
+        -121.0
+      ],
+      "rotation": 1.5708,
+      "human_type": 46,
+      "team": 2,
+      "ai_path": 0,
+      "wave": 2
+    },
+    {
+      "type": "staged_human",
+      "pos": [
+        559.0,
+        46.0,
+        -121.0
+      ],
+      "rotation": -1.5708,
+      "human_type": 46,
+      "team": 2,
+      "ai_path": 0,
+      "wave": 2
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        470.0,
+        46.0,
+        -150.0
+      ],
+      "rotation": 0.0,
+      "mode": 2,
+      "p3": 60,
+      "p4": 60
+    },
+    {
+      "type": "human",
+      "pos": [
+        470.0,
+        46.0,
+        -150.0
+      ],
+      "rotation": 3.14159,
+      "human_type": 46,
+      "team": 2,
+      "ai_path": 60
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "event_id": 17,
+      "p2": 2,
+      "p3": -1,
+      "p4": -100
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "event_id": 18,
+      "p2": 0,
+      "p3": -2,
+      "p4": -1
+    },
+    {
+      "type": "event",
+      "pos": [
+        82.0,
+        2.0,
+        70.0
+      ],
+      "rotation": 0.0,
+      "event_id": 13,
+      "p2": 0,
+      "p3": -3,
+      "p4": -2
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "event_id": 18,
+      "p2": 1,
+      "p3": -4,
+      "p4": -3
+    },
+    {
+      "type": "raw",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "p1": 41,
+      "p2": 1,
+      "p3": -5,
+      "p4": -4
+    },
+    {
+      "type": "event",
+      "pos": [
+        502.0,
+        46.0,
+        -75.0
+      ],
+      "rotation": 0.0,
+      "event_id": 13,
+      "p2": 0,
+      "p3": -6,
+      "p4": -5
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "event_id": 18,
+      "p2": 2,
+      "p3": -7,
+      "p4": -6
+    },
+    {
+      "type": "raw",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "p1": 41,
+      "p2": 2,
+      "p3": -8,
+      "p4": -7
+    },
+    {
+      "type": "event",
+      "pos": [
+        502.0,
+        46.0,
+        -174.0
+      ],
+      "rotation": 0.0,
+      "event_id": 13,
+      "p2": 0,
+      "p3": -9,
+      "p4": -8
+    },
+    {
+      "type": "event",
+      "pos": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotation": 0.0,
+      "event_id": 10,
+      "p2": 0,
+      "p3": 0,
+      "p4": -9
+    }
+  ]
+}

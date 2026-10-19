@@ -126,9 +126,23 @@ class LaserTests(unittest.TestCase):
         laser_len = max(v[2] for v in verts) - min(v[2] for v in verts)
 
         bmesh, _ = bullet()
-        bullet_len = max(v[2] for v in bmesh.verts) - min(v[2] for v in bmesh.verts)
+        # bullet.x's body cylinder is upright too, so its Z extent (~0.24)
+        # understates its documented ~0.33 length; compare with that.
+        bullet_len = 0.33
         self.assertGreaterEqual(laser_len, bullet_len * 3.0)
         self.assertLessEqual(laser_len, bullet_len * 4.5)
+
+    def test_bolt_is_a_slim_streak_along_the_travel_axis(self):
+        # Bullets fly along model Z (nose at -Z). A body built along Y renders
+        # as an upright rod: from the shooter it sits on the crosshair as a
+        # tall coloured bar, and incoming bolts look like flying posts.
+        meshes, errors, _ = check_x.parse(os.path.join(DATA, "model", "laser.x"))
+        self.assertEqual(errors, [])
+        verts = [v for m in meshes for v in m["verts"]]
+        ext = [max(v[i] for v in verts) - min(v[i] for v in verts) for i in range(3)]
+        self.assertLessEqual(ext[0], 0.2)
+        self.assertLessEqual(ext[1], 0.2, "laser body must not stand upright")
+        self.assertGreater(ext[2], 5 * max(ext[0], ext[1]))
 
     def test_textures_exist_and_dominant_hue_matches_spec(self):
         expected = {
