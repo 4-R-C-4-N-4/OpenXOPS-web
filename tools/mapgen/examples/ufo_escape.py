@@ -179,18 +179,23 @@ floor_slab("crawl seg A floor", -12.0, 24.0, 176.0, 256.0, Y0)
 ceiling_slab("crawl seg A ceiling", -12.0, 24.0, 176.0, 256.0, Y1)
 wall_x("crawl seg A west wall", -12.0, 176.0, 256.0, Y0, Y1)
 wall_x("crawl seg A east wall", 24.0, 176.0, 256.0, Y0, Y1, gap=(188.0, 208.0))
+# Seal the north end of segment A for x < 24: the only connection onward is
+# the east-wall gap above into segment B; without this wall the corner
+# between A's north edge (z=176) and B's start (x=24) is open to the void.
+wall_z("crawl seg A north wall", 176.0, -12.0, 24.0, Y0, Y1)
 
 # Dogleg 1: turn east.
 floor_slab("crawl seg B floor", 24.0, 96.0, 180.0, 208.0, Y0)
 ceiling_slab("crawl seg B ceiling", 24.0, 96.0, 180.0, 208.0, Y1)
 wall_z("crawl seg B south wall", 208.0, 24.0, 96.0, Y0, Y1)
 wall_z("crawl seg B north wall", 180.0, 24.0, 96.0, Y0, Y1, gap=(72.0, 92.0))
+wall_x("crawl seg B east wall", 96.0, 180.0, 208.0, Y0, Y1)
 
 # Dogleg 2: turn north toward the lab's south entrance.
-floor_slab("crawl seg C floor", 68.0, 96.0, 84.0, 180.0, Y0)
-ceiling_slab("crawl seg C ceiling", 68.0, 96.0, 84.0, 180.0, Y1)
-wall_x("crawl seg C west wall", 68.0, 84.0, 180.0, Y0, Y1)
-wall_x("crawl seg C east wall", 96.0, 84.0, 180.0, Y0, Y1)
+floor_slab("crawl seg C floor", 68.0, 96.0, 80.0, 180.0, Y0)
+ceiling_slab("crawl seg C ceiling", 68.0, 96.0, 80.0, 180.0, Y1)
+wall_x("crawl seg C west wall", 68.0, 80.0, 180.0, Y0, Y1)
+wall_x("crawl seg C east wall", 96.0, 80.0, 180.0, Y0, Y1)
 
 # Low non-blocking pipe trim on the east wall of seg A (decorative; thin
 # enough to never obstruct a 2.8-radius player).
@@ -210,8 +215,8 @@ LAB_Z0, LAB_Z1 = -60.0, 80.0
 
 floor_slab("lab floor", LAB_X0, LAB_X1, LAB_Z0, LAB_Z1, Y0)
 ceiling_slab("lab ceiling", LAB_X0, LAB_X1, LAB_Z0, LAB_Z1, Y1)
-wall_z("lab south wall", LAB_Z1, LAB_X0, LAB_X1, Y0, Y1, gap=(64.0, 100.0), texture="labpanel.bmp")
-wall_z("lab north wall (far door)", LAB_Z0, LAB_X0, LAB_X1, Y0, Y1, gap=(130.0, 160.0), texture="labpanel.bmp")
+wall_z("lab south wall", LAB_Z1, LAB_X0, LAB_X1, Y0, Y1, gap=(68.0, 96.0), texture="labpanel.bmp")
+wall_z("lab north wall (far door)", LAB_Z0, LAB_X0, LAB_X1, Y0, Y1, texture="labpanel.bmp")
 wall_x("lab west wall", LAB_X0, LAB_Z0, LAB_Z1, Y0, Y1, texture="labpanel.bmp")
 wall_x("lab east wall", LAB_X1, LAB_Z0, LAB_Z1, Y0, Y1)
 
@@ -261,7 +266,7 @@ ceiling_slab("hall ceiling", HALL_X0, HALL_X1, HALL_Z0, HALL_Z1, Y1)
 wall_z("hall south wall", HALL_Z1, HALL_X0, HALL_X1, Y0, Y1)
 wall_z("hall north wall", HALL_Z0, HALL_X0, HALL_X1, Y0, Y1)
 wall_x("hall west wall (from lab)", HALL_X0, HALL_Z0, HALL_Z1, Y0, Y1, gap=(-30.0, 0.0))
-wall_x("hall east wall (to ramp)", HALL_X1, HALL_Z0, HALL_Z1, Y0, Y1, gap=(-35.0, -10.0))
+wall_x("hall east wall (to ramp)", HALL_X1, HALL_Z0, HALL_Z1, Y0, Y1, gap=(-33.0, -12.0))
 
 # Serpentine baffle walls: each spans from one long wall partway across
 # the hall (full height Y0-Y1), alternating sides, so the path zig-zags
@@ -294,17 +299,27 @@ for pid, pos in list(zip(HALL_PATROL_IDS, hall_patrol_pts))[:3]:
 # 5. Switchback ramp: y 0 -> y 44 across two ramps + a landing.
 # ---------------------------------------------------------------------------
 RAMP_X0, RAMP_X1 = 380.0, 428.0
-floor_slab("ramp approach floor", HALL_X1, RAMP_X0, -35.0, -10.0, Y0)
-ceiling_slab("ramp approach ceiling", HALL_X1, RAMP_X0, -35.0, -10.0, Y1)
-wall_z("ramp approach south wall", -35.0, HALL_X1, RAMP_X0, Y0, Y1)
-wall_z("ramp approach north wall", -10.0, HALL_X1, RAMP_X0, Y0, Y1)
+RAMP_SHAFT_X1 = RAMP_X1 + 48.0  # 476.0: east end of the whole switchback shaft
+# The switchback ramp is a single two-deck-tall shaft (y 0..88, matching the
+# hull/bridge ceiling) rather than three separately-capped segments: capping
+# each segment individually left thin uncapped slivers wherever the ramp's
+# footprint (z -32..-13) didn't exactly match an approach/landing footprint
+# (z -35..-10). One full-height perimeter + one ceiling at the top avoids
+# that class of seam gap entirely.
+RAMP_SHAFT_X0 = RAMP_X0 - 4.0  # extra ceiling margin kept for hall overlap
+wall_z("ramp shaft south wall", -35.0, RAMP_X0, RAMP_SHAFT_X1, Y0, 88.0)
+wall_z("ramp shaft north wall", -10.0, RAMP_X0, RAMP_SHAFT_X1, Y0, 88.0)
+ceiling_slab("ramp shaft ceiling", RAMP_X0, RAMP_SHAFT_X1, -35.0, -10.0, 88.0)
+# Attic filler: closes the vertical gap above the hall's own low ceiling
+# (y40) right at the seam where the hall's roof height (40) meets the
+# switchback shaft's roof height (88); without it a ray at shaft height can
+# graze west over the hall's ceiling top and escape through unenclosed
+# airspace above the hall before the shaft's own walls would catch it.
+_box("ramp/hall seam attic filler", (HALL_X1 - 40.0, Y1, -35.0), (RAMP_X0, 88.0, -10.0), "hull.bmp")
 
 ramp_block("switchback ramp A", RAMP_X0, RAMP_X1, -32.0, -13.0, Y0 + 2.0, 22.0)
 wall_x("ramp A low rail", RAMP_X0, -32.0, -13.0, 0.0, 4.0, "hazard.bmp", units=8.0)
 floor_slab("ramp landing floor", RAMP_X1, RAMP_X1 + 20.0, -35.0, -10.0, 22.0)
-ceiling_slab("ramp landing ceiling", RAMP_X1, RAMP_X1 + 20.0, -35.0, -10.0, 60.0)
-wall_z("ramp landing south wall", -35.0, RAMP_X1, RAMP_X1 + 20.0, 22.0, 60.0)
-wall_z("ramp landing north wall", -10.0, RAMP_X1, RAMP_X1 + 20.0, 22.0, 60.0)
 ramp_block("switchback ramp B", RAMP_X1 + 20.0, RAMP_X1 + 48.0, -32.0, -13.0, 22.0 + 2.0, 44.0)
 wall_x("ramp B low rail", RAMP_X1 + 48.0, -32.0, -13.0, 22.0, 26.0, "hazard.bmp", units=8.0)
 
@@ -317,7 +332,7 @@ BR_Z0, BR_Z1 = -70.0, 40.0
 
 floor_slab("bridge floor", BR_X0, BR_X1, BR_Z0, BR_Z1, UY0)
 ceiling_slab("bridge ceiling", BR_X0, BR_X1, BR_Z0, BR_Z1, UY1)
-wall_z("bridge south wall", BR_Z1, BR_X0, BR_X1, UY0, UY1, gap=(BR_X0 + 8.0, BR_X0 + 28.0))
+wall_z("bridge south wall", BR_Z1, BR_X0, BR_X1, UY0, UY1)
 wall_z("bridge north wall", BR_Z0, BR_X0, BR_X1, UY0, UY1, gap=(495.0, 525.0))
 wall_x("bridge west wall", BR_X0, BR_Z0, BR_Z1, UY0, UY1, texture="lightstrip.bmp")
 wall_x("bridge east wall", BR_X1, BR_Z0, BR_Z1, UY0, UY1, texture="lightstrip.bmp")
@@ -348,8 +363,8 @@ floor_slab("pod bay floor", POD_X0, POD_X1, POD_Z0, POD_Z1, UY0)
 ceiling_slab("pod bay ceiling", POD_X0, POD_X1, POD_Z0, POD_Z1, UY1)
 wall_z("pod bay south wall (from bridge)", POD_Z1, POD_X0, POD_X1, UY0, UY1, gap=(495.0, 525.0))
 wall_z("pod bay north wall", POD_Z0, POD_X0, POD_X1, UY0, UY1, texture="bulkhead.bmp")
-wall_x("pod bay west wall", POD_X0, POD_Z0, POD_Z1, UY0, UY1, texture="bulkhead.bmp", gap=(-130.0, -112.0))
-wall_x("pod bay east wall", POD_X1, POD_Z0, POD_Z1, UY0, UY1, texture="bulkhead.bmp", gap=(-130.0, -112.0))
+wall_x("pod bay west wall", POD_X0, POD_Z0, POD_Z1, UY0, UY1, texture="bulkhead.bmp")
+wall_x("pod bay east wall", POD_X1, POD_Z0, POD_Z1, UY0, UY1, texture="bulkhead.bmp")
 
 pod_positions = [(470.0, -184.0), (502.0, -184.0), (534.0, -184.0)]
 for i, (px, pz) in enumerate(pod_positions):

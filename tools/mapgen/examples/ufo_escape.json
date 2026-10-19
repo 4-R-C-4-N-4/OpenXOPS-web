@@ -329,6 +329,21 @@
       "texture": "hull.bmp"
     },
     {
+      "comment": "crawl seg A north wall [0]",
+      "min": [
+        -12.0,
+        0.0,
+        174.0
+      ],
+      "max": [
+        24.0,
+        40.0,
+        178.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
       "comment": "crawl seg B floor",
       "min": [
         24.0,
@@ -404,11 +419,26 @@
       "texture": "hull.bmp"
     },
     {
+      "comment": "crawl seg B east wall [0]",
+      "min": [
+        94.0,
+        0.0,
+        180.0
+      ],
+      "max": [
+        98.0,
+        40.0,
+        208.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
       "comment": "crawl seg C floor",
       "min": [
         68.0,
         -2.0,
-        84.0
+        80.0
       ],
       "max": [
         96.0,
@@ -423,7 +453,7 @@
       "min": [
         68.0,
         40.0,
-        84.0
+        80.0
       ],
       "max": [
         96.0,
@@ -438,7 +468,7 @@
       "min": [
         66.0,
         0.0,
-        84.0
+        80.0
       ],
       "max": [
         70.0,
@@ -453,7 +483,7 @@
       "min": [
         94.0,
         0.0,
-        84.0
+        80.0
       ],
       "max": [
         98.0,
@@ -516,7 +546,7 @@
         78.0
       ],
       "max": [
-        64.0,
+        68.0,
         40.0,
         82.0
       ],
@@ -526,7 +556,7 @@
     {
       "comment": "lab south wall [1]",
       "min": [
-        100.0,
+        96.0,
         0.0,
         78.0
       ],
@@ -542,21 +572,6 @@
       "comment": "lab north wall (far door) [0]",
       "min": [
         0.0,
-        0.0,
-        -62.0
-      ],
-      "max": [
-        130.0,
-        40.0,
-        -58.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "labpanel.bmp"
-    },
-    {
-      "comment": "lab north wall (far door) [1]",
-      "min": [
-        160.0,
         0.0,
         -62.0
       ],
@@ -2098,7 +2113,7 @@
       "max": [
         382.0,
         40.0,
-        -35.0
+        -33.0
       ],
       "texture_world_units": 32.0,
       "texture": "hull.bmp"
@@ -2108,7 +2123,7 @@
       "min": [
         378.0,
         0.0,
-        -10.0
+        -12.0
       ],
       "max": [
         382.0,
@@ -2224,61 +2239,61 @@
       "texture": "goo.bmp"
     },
     {
-      "comment": "ramp approach floor",
-      "min": [
-        380.0,
-        -2.0,
-        -35.0
-      ],
-      "max": [
-        380.0,
-        0.0,
-        -10.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "floor.bmp"
-    },
-    {
-      "comment": "ramp approach ceiling",
-      "min": [
-        380.0,
-        40.0,
-        -35.0
-      ],
-      "max": [
-        380.0,
-        42.0,
-        -10.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "ceiling.bmp"
-    },
-    {
-      "comment": "ramp approach south wall [0]",
+      "comment": "ramp shaft south wall [0]",
       "min": [
         380.0,
         0.0,
         -37.0
       ],
       "max": [
-        380.0,
-        40.0,
+        476.0,
+        88.0,
         -33.0
       ],
       "texture_world_units": 32.0,
       "texture": "hull.bmp"
     },
     {
-      "comment": "ramp approach north wall [0]",
+      "comment": "ramp shaft north wall [0]",
       "min": [
         380.0,
         0.0,
         -12.0
       ],
       "max": [
-        380.0,
-        40.0,
+        476.0,
+        88.0,
         -8.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "hull.bmp"
+    },
+    {
+      "comment": "ramp shaft ceiling",
+      "min": [
+        380.0,
+        88.0,
+        -35.0
+      ],
+      "max": [
+        476.0,
+        90.0,
+        -10.0
+      ],
+      "texture_world_units": 32.0,
+      "texture": "ceiling.bmp"
+    },
+    {
+      "comment": "ramp/hall seam attic filler",
+      "min": [
+        340.0,
+        40.0,
+        -35.0
+      ],
+      "max": [
+        380.0,
+        88.0,
+        -10.0
       ],
       "texture_world_units": 32.0,
       "texture": "hull.bmp"
@@ -2449,51 +2464,6 @@
       ],
       "texture_world_units": 32.0,
       "texture": "floor.bmp"
-    },
-    {
-      "comment": "ramp landing ceiling",
-      "min": [
-        428.0,
-        60.0,
-        -35.0
-      ],
-      "max": [
-        448.0,
-        62.0,
-        -10.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "ceiling.bmp"
-    },
-    {
-      "comment": "ramp landing south wall [0]",
-      "min": [
-        428.0,
-        22.0,
-        -37.0
-      ],
-      "max": [
-        448.0,
-        60.0,
-        -33.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "hull.bmp"
-    },
-    {
-      "comment": "ramp landing north wall [0]",
-      "min": [
-        428.0,
-        22.0,
-        -12.0
-      ],
-      "max": [
-        448.0,
-        60.0,
-        -8.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "hull.bmp"
     },
     {
       "comment": "switchback ramp B",
@@ -2681,21 +2651,6 @@
       "comment": "bridge south wall [0]",
       "min": [
         448.0,
-        44.0,
-        38.0
-      ],
-      "max": [
-        456.0,
-        88.0,
-        42.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "hull.bmp"
-    },
-    {
-      "comment": "bridge south wall [1]",
-      "min": [
-        476.0,
         44.0,
         38.0
       ],
@@ -2942,21 +2897,6 @@
       "max": [
         450.0,
         88.0,
-        -130.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "bulkhead.bmp"
-    },
-    {
-      "comment": "pod bay west wall [1]",
-      "min": [
-        446.0,
-        44.0,
-        -112.0
-      ],
-      "max": [
-        450.0,
-        88.0,
         -70.0
       ],
       "texture_world_units": 32.0,
@@ -2968,21 +2908,6 @@
         558.0,
         44.0,
         -190.0
-      ],
-      "max": [
-        562.0,
-        88.0,
-        -130.0
-      ],
-      "texture_world_units": 32.0,
-      "texture": "bulkhead.bmp"
-    },
-    {
-      "comment": "pod bay east wall [1]",
-      "min": [
-        558.0,
-        44.0,
-        -112.0
       ],
       "max": [
         562.0,
