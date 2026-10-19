@@ -199,12 +199,21 @@ def generate_ufofield(out_dir: Path) -> Path:
                          world_min=(-260.0, -380.0), world_max=(260.0, 260.0))
 
 
+def generate_ufoescape(out_dir: Path) -> Path:
+    map_json = ROOT / "tools" / "mapgen" / "examples" / "ufo_escape.json"
+    # The route runs roughly x:[-100,580] z:[-200,420]; pad a little.
+    return generate_for(map_json, "UFO ESCAPE", out_dir / "ufoescape.bmp",
+                         world_min=(-120.0, -210.0), world_max=(600.0, 430.0))
+
+
 def main() -> int:
     out_dir = ROOT / "assets" / "pack" / "data" / "briefing"
     path = generate_starter(out_dir)
     print(f"wrote {path}")
     path2 = generate_ufofield(out_dir)
     print(f"wrote {path2}")
+    path3 = generate_ufoescape(out_dir)
+    print(f"wrote {path3}")
     return 0
 
 

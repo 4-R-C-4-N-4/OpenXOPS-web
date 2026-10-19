@@ -166,7 +166,8 @@ class MainMenuListingTests(unittest.TestCase):
                    if line and not line.startswith(("#", ";"))]
         self.assertEqual(entries[0], ["UFO FIELD", "UFO FIELD - alien wave defence",
                                       "data\\ufofield\\", "ufo.mif", "0", "0"])
-        self.assertEqual(entries[1][0], "STARTER")
+        self.assertEqual(entries[1][0], "UFO ESCAPE")
+        self.assertEqual(entries[2][0], "STARTER")
         self.assertEqual(list((ROOT / "assets/pack/addon").glob("*.mif")), [])
 
 
