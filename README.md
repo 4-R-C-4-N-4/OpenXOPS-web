@@ -34,6 +34,7 @@ The preview uses the original OpenGL renderer via Emscripten legacy-GL
 compatibility. The experimental shader rewrite is separate and does not block
 this build. Native developer builds still use stub graphics.
 
+- Architecture, sequence diagrams and where to extend: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 - Goals: [docs/GOALS.md](docs/GOALS.md)
 - Scope and plan: [docs/SCOPE-OF-WORK.md](docs/SCOPE-OF-WORK.md)
 - Status: [PROGRESS.md](PROGRESS.md)
