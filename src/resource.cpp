@@ -450,6 +450,7 @@ int ResourceManager::LoadWeaponSound()
 	laserid[0] = SoundCtrl->LoadSound("data\\sound\\laser1.wav");
 	laserid[1] = SoundCtrl->LoadSound("data\\sound\\laser2.wav");
 	laserid[2] = SoundCtrl->LoadSound("data\\sound\\laser3.wav");
+	int throwid = SoundCtrl->LoadSound("data\\sound\	hrow.wav");	//[OpenXOPS-web] soundid 33
 	//reloadid = SoundCtrl->LoadSound("reload.wav");
 	reloadid = -1;
 
@@ -477,6 +478,9 @@ int ResourceManager::LoadWeaponSound()
 			}
 			else if( (30 <= data.soundid)&&(data.soundid <= 32) ){	//[OpenXOPS-web]
 				weapon_sound[i] = laserid[data.soundid - 30];
+			}
+			else if( data.soundid == 33 ){	//[OpenXOPS-web]
+				weapon_sound[i] = throwid;
 			}
 			else{
 				weapon_sound[i] = -1;

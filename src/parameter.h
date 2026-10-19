@@ -35,11 +35,11 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 
-#define TOTAL_PARAMETERINFO_HUMAN 47	//[OpenXOPS-web] was 43; +4 free-pack types			//!< 人の設定数
+#define TOTAL_PARAMETERINFO_HUMAN 48	//[OpenXOPS-web] was 43; +5 free-pack types			//!< 人の設定数
 #define TOTAL_HUMANTEXTURE 34	//[OpenXOPS-web] was 30					//!< 人のテクスチャの合計枚数
-#define TOTAL_PARAMETERINFO_WEAPON 27	//[OpenXOPS-web] was 23; +4 free-pack weapons			//!< 武器の設定数
+#define TOTAL_PARAMETERINFO_WEAPON 28	//[OpenXOPS-web] was 23; +5 free-pack weapons			//!< 武器の設定数
 #define TOTAL_PARAMETERINFO_SMALLOBJECT 12	//!< 小物の設定数
-#define TOTAL_PARAMETERINFO_BULLET 5	//[OpenXOPS-web] was 2; +3 laser bolts		//!< 銃弾オブジェクトの設定数
+#define TOTAL_PARAMETERINFO_BULLET 6	//[OpenXOPS-web] was 2; +3 laser bolts, +1 thrown rock		//!< 銃弾オブジェクトの設定数
 #define TOTAL_OFFICIALMISSION 58			//!< 標準ミッションの数
 #define TOTAL_PARAMETERINFO_AILEVEL 6		//!< AIレベルの設定数
 #define TOTAL_PARAMETERINFO_SCOPE 4			//!< スコープの設定数
@@ -108,6 +108,7 @@ typedef struct
 	int ChangeWeaponCnt;	//!< 武器切り替え時間
 	int pellet;			//!< 発射弾数（ペレット数）
 	int bullettype;		//!< [OpenXOPS-web] bullet visual (Bullet[] index; 0 = normal)
+	bool throwaway;		//!< [OpenXOPS-web] thrown item: no reserve, leaves the hand when empty
 } WeaponParameter;
 
 //! 小物設定用の構造体

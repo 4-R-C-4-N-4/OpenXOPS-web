@@ -44,8 +44,12 @@ def laser_atlas() -> Atlas:
 def build_laser_mesh() -> Tuple[Mesh, Atlas]:
     atlas = laser_atlas()
     uv = {k: atlas.uv("skin") for k in ("front", "back", "left", "right", "top", "bottom")}
-    body = cylinder(center=(0, 0, BODY_LEN / 2 - NOSE_LEN / 2), radius=0.045, height=BODY_LEN,
+    body = cylinder(center=(0, 0, 0), radius=0.045, height=BODY_LEN,
                      segments=6, side_uv=atlas.uv("skin"), cap_uv=atlas.uv("skin"))
+    # cylinder() is Y-up; bullets travel along model Z (nose at -Z). Lay the
+    # body down along Z, otherwise the bolt is an upright 3-unit bar in game.
+    zc = TOTAL_LEN / 2 - BODY_LEN / 2  # body runs from the nose's back face to +Z
+    body.verts = [(x, -z, y + zc) for (x, y, z) in body.verts]  # rotation about X keeps winding
     nose = box(center=(0, 0, -TOTAL_LEN / 2 + NOSE_LEN / 2), size=(0.07, 0.07, NOSE_LEN), uv=uv)
     return merge(body, nose), atlas
 

@@ -2378,6 +2378,12 @@ int weapon::Shot()
 	//弾を減らす
 	Loadbullets -= 1;
 	bullets -= 1;
+
+	//[OpenXOPS-web] a thrown item leaves the hand once nothing is left (like the grenade)
+	if( (ParamData.throwaway == true)&&(bullets <= 0) ){
+		EnableFlag = false;
+		usingflag = false;
+	}
 	return 0;
 }
 

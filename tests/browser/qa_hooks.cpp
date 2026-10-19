@@ -52,6 +52,9 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_teleport_to_drop(int type) {
     }
     return -1;
 }
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_player_fire() {
+    return ObjMgr.ShotWeapon(ObjMgr.GetPlayerID());
+}
 extern "C" EMSCRIPTEN_KEEPALIVE void qa_wave_state() {
     EM_ASM({Module.qaWave=Array.of($0,$1);},ObjMgr.GetStagedCount(),ObjMgr.CountLivingHostiles());
 }

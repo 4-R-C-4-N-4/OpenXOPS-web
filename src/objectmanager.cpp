@@ -35,6 +35,7 @@
 ObjectManager::ObjectManager()
 {
 	StagedTotal = 0;	//[OpenXOPS-web]
+	for(int i=0; i<MAX_BULLET; i++){ Bullet_LaserBolt[i] = false; }
 	for(int i=0; i<MAX_HUMAN; i++){ StagedPending[i] = false; Human_NeedAIInit[i] = false; }
 	HumanIndex = new human[MAX_HUMAN];
 	WeaponIndex = new weapon[MAX_WEAPON];
@@ -458,7 +459,8 @@ int ObjectManager::AddVisualWeaponIndex(int WeaponID, bool loadbullet)
 				WeaponIndex[i].SetParamData(WeaponID, 0, 0, true);
 			}
 			else{
-				WeaponIndex[i].SetParamData(WeaponID, WeaponParam.nbsmax, WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET, true);
+				//[OpenXOPS-web] thrown items carry no reserve
+				WeaponIndex[i].SetParamData(WeaponID, WeaponParam.nbsmax, WeaponParam.throwaway ? WeaponParam.nbsmax : WeaponParam.nbsmax * TOTAL_WEAPON_AUTOBULLET, true);
 			}
 			WeaponIndex[i].SetModel(model, WeaponParam.size);
 			WeaponIndex[i].SetTexture(texture);
@@ -2097,6 +2099,7 @@ int ObjectManager::ShotWeapon(int human_id)
 				}
 				newbullet->SetModel(bmodel, bdata.size);
 				newbullet->SetTexture(btexture);
+				Bullet_LaserBolt[ GetBulletObjectID(newbullet) ] = (2 <= ParamData.bullettype)&&(ParamData.bullettype <= 4);
 			}
 
 			//対人判定用リスト初期化
@@ -2681,6 +2684,16 @@ int ObjectManager::DeployStagedGroup(signed short int group)
 	return cnt;
 }
 
+//! @brief [OpenXOPS-web] Own laser bolt of the player (hidden in first-person view)
+bool ObjectManager::IsBulletHiddenInFirstPerson(int id)
+{
+	if( (id < 0)||(MAX_BULLET <= id) ){ return false; }
+	if( (BulletIndex[id].GetEnableFlag() == false)||(Bullet_LaserBolt[id] == false) ){ return false; }
+	int shooter = -1;
+	BulletIndex[id].GetParamData(NULL, NULL, NULL, NULL, &shooter, NULL);
+	return shooter == Player_HumanID;
+}
+
 //! @brief [OpenXOPS-web] Read and clear the "AI must re-initialise" flag of a slot
 bool ObjectManager::TakeAIInitFlag(int human_id)
 {
@@ -3226,6 +3239,9 @@ void ObjectManager::Render(float camera_x, float camera_y, float camera_z, float
 
 	//弾描画
 	for(int i=0; i<MAX_BULLET; i++){
+		//[OpenXOPS-web] The player's own laser flies down the line of sight and is
+		//seen end-on as a blob over the crosshair; skip it in first person.
+		if( (HidePlayer != 0)&&(IsBulletHiddenInFirstPerson(i) == true) ){ continue; }
 		BulletIndex[i].Render(d3dg, NoModel);
 	}
 

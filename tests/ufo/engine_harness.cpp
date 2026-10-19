@@ -50,6 +50,21 @@ int main(int argc, char** argv) {
         }
     }
     std::puts("ONE-SHOT LEVER HEADSHOTS OK");
+
+    // UFO ESCAPE: a single thrown MOON ROCK kills the first guard only with a headshot.
+    assert(params.GetWeapon(27,&w)==0 && strcmp(w.name,"MOON ROCK")==0);
+    assert(w.throwaway && w.nbsmax==1 && w.bullettype==5 && w.attacks==45);
+    assert(params.GetHuman(47,&h)==0 && h.Weapon[0]==27 && h.Weapon[1]==ID_WEAPON_NONE && h.texture==30);
+    BulletParameter rockbolt;
+    assert(params.GetBullet(5,&rockbolt)==0 && strcmp(rockbolt.model,"./data/model/weapon/rock.x")==0);
+    for(int trial=0;trial<32;trial++) {
+        human guard(&params);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletHead(w.attacks); assert(guard.GetHP()<=0);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletUp(w.attacks); assert(guard.GetHP()>0);
+        guard.SetParamData(44,0,1,1,true); guard.HitBulletLeg(w.attacks); assert(guard.GetHP()>0);
+    }
+    for(int i=0;i<=26;i++){ assert(params.GetWeapon(i,&w)==0 && w.throwaway==false); }
+    std::puts("MOON ROCK PARAMETERS OK");
     std::puts("PARAMETERS OK");
 
     // Free missions belong in the main list, including MIF-backed missions.
@@ -211,6 +226,45 @@ int main(int argc, char** argv) {
     assert(mif.LoadFiledata("data/starter/start.txt",false)==0);
     assert(mif.GetAddSmallobjectCover(0)==nullptr); // No hull leaks into classic data.
     std::puts("COW BODY STOPS LASERS OK");
+    objects.Cleanup();
+
+    // A thrown rock empties the hand: no reserve, slot freed for a laser pickup.
+    objects.LoadPointData();
+    int rockonly[2]={27,ID_WEAPON_NONE};
+    int captive=objects.AddHumanIndex(0,0,180,0,47,0,rockonly,7,false);
+    assert(captive>=0);
+    weapon* held[TOTAL_HAVEWEAPON]; int loaded[TOTAL_HAVEWEAPON], total[TOTAL_HAVEWEAPON], selected=0;
+    objects.GetHumanObject(captive)->GetWeapon(&selected,held,loaded,total);
+    int rockid=-1,rockloaded=-1,rocktotal=-1;
+    assert(held[0]!=nullptr); held[0]->GetParamData(&rockid,&rockloaded,&rocktotal);
+    assert(rockid==27 && rockloaded==1 && rocktotal==1);
+    for(int i=0;i<MAX_BULLET;i++) objects.GetBulletObject(i)->SetEnableFlag(false);
+    objects.ShotWeapon(captive);
+    objects.GetHumanObject(captive)->GetWeapon(&selected,held,loaded,total);
+    assert(held[0]==nullptr && held[1]==nullptr);
+    int flying=-1;
+    for(int i=0;i<MAX_BULLET;i++) if(objects.GetBulletObject(i)->GetEnableFlag()) flying=i;
+    assert(flying>=0 && objects.IsBulletHiddenInFirstPerson(flying)==false); // The rock stays visible.
+    std::puts("THROWN ROCK EMPTIES HAND OK");
+
+    // The player's own lasers are seen end-on in first person and cover the
+    // crosshair, so they are hidden there; other shooters' lasers are not.
+    int zap[2]={24,ID_WEAPON_NONE};
+    int alien=objects.AddHumanIndex(30,0,180,0,44,1,zap,8,false);
+    human* me=objects.GetPlayerHumanObject();
+    me->SetWeapon(held,loaded,total); // drop whatever the map gave; give a zap
+    assert(objects.CheatNewWeapon(objects.GetPlayerID(),24));
+    { int s; weapon* hw[TOTAL_HAVEWEAPON]; me->GetWeapon(&s,hw,NULL,NULL); assert(hw[s]); hw[s]->SetParamData(24,12,36,false); }
+    auto fired=[&](int shooter){
+        for(int i=0;i<MAX_BULLET;i++) objects.GetBulletObject(i)->SetEnableFlag(false);
+        for(int t=0;t<40;t++){ if(objects.ShotWeapon(shooter)) break; objects.Process(-1,false,false); }
+        for(int i=0;i<MAX_BULLET;i++) if(objects.GetBulletObject(i)->GetEnableFlag()) return i;
+        return -1;
+    };
+    int mine=fired(objects.GetPlayerID());
+    assert(mine>=0 && objects.IsBulletHiddenInFirstPerson(mine));
+    int theirs=fired(alien); assert(theirs>=0 && objects.IsBulletHiddenInFirstPerson(theirs)==false);
+    std::puts("OWN LASER HIDDEN IN FIRST PERSON OK");
     objects.Cleanup();
     return 0;
 }
