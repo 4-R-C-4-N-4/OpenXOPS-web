@@ -26,7 +26,7 @@ python3 -m http.server 8766 --bind 127.0.0.1 --directory build-web
 
 Open http://127.0.0.1:8766/ and click **Start game** without selecting a file.
 Enter skips the opening; select **STARTER** and left-click its briefing to begin.
-For **UFO FIELD**, choose **ADD-ON MISSIONS >>**, then **UFO FIELD**. Survive
+**UFO FIELD** is first in the main mission list. Survive
 three alien waves in a fenced pasture with hay and static cow cover. Start with
 an 8-round scoped LEVER 30-30 (64 damage); select empty slot 2 to loot dropped
 laser weapons. Scope: right mouse in Modern, Left Shift in Classic. Kill all

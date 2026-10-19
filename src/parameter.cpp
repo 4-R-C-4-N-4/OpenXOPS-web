@@ -2158,7 +2158,14 @@ bool MissionFileExists(const std::string& path){
 	fclose(fp);
 	return true;
 }
+bool MissionUsesMIF(const MissionEntry& m){
+	const size_t n = m.txt.size();
+	return n > 4 && m.txt[n-4] == '.' && (m.txt[n-3] | 0x20) == 'm' && (m.txt[n-2] | 0x20) == 'i' && (m.txt[n-1] | 0x20) == 'f';
+}
 bool MissionPlayable(const MissionEntry& m){
+	//[OpenXOPS-web] A main-list free mission may use a full .mif (addon props, sky,
+	//custom data paths); the .mif names its own map and point files.
+	if( MissionUsesMIF(m) ){ return MissionFileExists(m.directory + m.txt); }
 	return MissionFileExists(m.directory + "temp.bd1") && MissionFileExists(m.directory + m.txt + ".pd1");
 }
 void ParseMissionList(){
@@ -2199,6 +2206,18 @@ int ParameterInfo::GetOfficialMissionCount()
 		ParseMissionList();
 	}
 	return (int)g_missions.size();
+}
+
+//! @brief [OpenXOPS-web] Briefing file for a main-list mission: <dir><txt>.txt, or <dir><txt> for .mif
+int ParameterInfo::GetOfficialMissionBriefingPath(int id, char *path)
+{
+	if( (path == NULL)||(id < 0)||(GetOfficialMissionCount() <= id) ){ return 1; }
+	const MissionEntry& m = g_missions[id];
+	std::string out = m.directory + m.txt;
+	if( MissionUsesMIF(m) == false ){ out += ".txt"; }
+	if( out.size() >= MAX_PATH ){ return 1; }
+	strcpy(path, out.c_str());
+	return 0;
 }
 
 int ParameterInfo::GetOfficialMission(int id, char *name, char *fullname, char* directory, char *txt, bool *collisionflag, bool *screenflag)

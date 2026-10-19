@@ -15,11 +15,16 @@ by free missions.
 `data/missions.txt` format (UTF-8/ASCII, `#` or `;` comments):
 
     name|fullname|directory|txtbase|collision(0/1)|screen(0/1)
+    UFO FIELD|UFO FIELD - alien wave defence|data\ufofield\|ufo.mif|0|0
     STARTER|STARTER compound|data\starter\|start|0|0
 
 - name ≤ 30 bytes (menu label), fullname ≤ 60, txtbase ≤ 30.
 - Map: `<directory>temp.bd1`; points `<directory><txtbase>.pd1`; briefing
   `<directory><txtbase>.txt`.
+- If txtbase ends in `.mif`, the entry is a full MIF mission shown in the main
+  list: `<directory><txtbase>` must exist, and the MIF supplies the map, points,
+  sky, flags, briefing pictures and optional addon prop. This keeps free
+  missions out of the ADD-ON list, which remains for player-installed addons.
 
 Data layering in the browser (src/platform/portable/browser-archive.cpp):
 bundled free pack `/openxops-data.zip` first, optional classic `/xops096.zip`

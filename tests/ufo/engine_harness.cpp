@@ -52,6 +52,17 @@ int main(int argc, char** argv) {
     std::puts("ONE-SHOT LEVER HEADSHOTS OK");
     std::puts("PARAMETERS OK");
 
+    // Free missions belong in the main list, including MIF-backed missions.
+    char missionname[64], briefingpath[MAX_PATH];
+    assert(params.GetOfficialMissionCount()==2);
+    assert(params.GetOfficialMission(0,missionname,NULL,NULL,NULL,NULL,NULL)==0);
+    assert(strcmp(missionname,"UFO FIELD")==0);
+    assert(params.GetOfficialMissionBriefingPath(0,briefingpath)==0);
+    assert(strcmp(briefingpath,"data\\ufofield\\ufo.mif")==0);
+    assert(params.GetOfficialMissionBriefingPath(1,briefingpath)==0);
+    assert(strcmp(briefingpath,"data\\starter\\start.txt")==0);
+    std::puts("UFO FIELD IN MAIN MISSION LIST OK");
+
     D3DGraphics graphics;
     ResourceManager resources; resources.SetParameterInfo(&params); resources.SetD3DGraphics(&graphics);
     SoundControl device;
@@ -59,7 +70,7 @@ int main(int argc, char** argv) {
     BlockDataInterface blocks; PointDataInterface points; Collision collision; MIFInterface mif;
     ObjectManager objects;
     objects.SetClass(&params,&graphics,&resources,&blocks,&points,&collision,&sound,&mif);
-    assert(mif.LoadFiledata("addon/ufo.mif", true)==0);
+    assert(mif.LoadFiledata("data/ufofield/ufo.mif", true)==0);
     assert(points.LoadFiledata("data/ufofield/ufo.pd1")==0);
     objects.LoadPointData();
     assert(objects.GetStagedCount()==20 && objects.CountLivingHostiles()==0);
