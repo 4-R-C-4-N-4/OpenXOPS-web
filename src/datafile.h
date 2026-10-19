@@ -187,6 +187,7 @@ class MIFInterface : public DataInterface
 	char picturefileB_path[_MAX_PATH];		//!< ブリーフィング画像B（追加分）
 	char addsmallobject_path[_MAX_PATH];	//!< 追加小物情報ファイルへのパス
 	char briefingtext[816];					//!< ブリーフィング文章・本文
+	float AddSmallObjectCover[MAX_ADDSMALLOBJECT][4] = {}; // [OpenXOPS-web] optional body hulls
 	bool collision;					//!< 当たり判定を多めに行う
 	bool screen;					//!< 画面を暗めにする
 	addsmallobject *AddSmallObjectData;		//!< 追加小物の情報
@@ -216,6 +217,7 @@ public:
 	int GetAddSmallobjectHP(int id);
 	char* GetAddSmallobjectSoundPath(int id);
 	int GetAddSmallobjectJump(int id);
+	const float* GetAddSmallobjectCover(int id); // [OpenXOPS-web] half-width, min-y, max-y, half-length
 };
 
 //! @brief ADDONリストを管理するクラス

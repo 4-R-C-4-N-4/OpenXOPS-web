@@ -63,7 +63,7 @@ weapons never use. Existing ids 0-5 and 13 keep their meaning.
 | 43 | RANCHER (player) | rancher.bmp (denim + straw hat band) | 120 | 2 | 23 lever / none |
 | 44 | ALIEN DRONE (wave 1) | alien_teal.bmp (teal skin, silver suit, big black eyes) | 80 | 1 | 24 zap |
 | 45 | ALIEN TROOPER (wave 2) | alien_violet.bmp (violet skin, orange suit) | 100 | 2 | 25 photon |
-| 46 | ALIEN BRUTE (wave 3) | alien_lime.bmp (lime skin, black and gold armour) | 160 | 3 | 26 plasma |
+| 46 | ALIEN BRUTE (wave 3) | alien_lime.bmp (lime skin, black and gold armour) | 120 | 3 | 26 plasma |
 
 ### E5. Waves: held humans + 2 event opcodes (event.cpp reserved slot)
 
@@ -91,7 +91,11 @@ ZIP plus the 4 new weapons and 3 bolt textures would exceed 72.
 
 - Mission file: `addon/ufo.mif`, which shows up in the menu's ADDON list
   (AddonList reads `addon/*.mif` through `vfs_list`). Sky 5 (dusk). The one
-  addon prop type is the **cow** (cow.x/cow.bmp, decide ≈ 9, hp 60, moo.wav).
+  addon prop type is the **cow** (cow.x/cow.bmp, decide 9, hp 127, moo.wav). Its back is 22 world units
+  tall (player 20). Optional `addon/cow.txt.cover` supplies a rotated body
+  hull (`slot halfwidth min_y max_y halflength`: `0 4.5 6 22 11`). Lasers
+  stop on the body while it lives; shots above it pass, and dead cows no
+  longer block. Without a sidecar, original prop collision is unchanged.
 - Map: `data/ufofield/temp.bd1` + `ufo.pd1` + `ufo.msg`, authored as
   `tools/mapgen/examples/ufo_field.json`. Block textures (10 max): grass,
   dirt, hay, fence wood, barn red, barn roof, white trim, UFO hull, UFO
@@ -105,8 +109,8 @@ ZIP plus the 4 new weapons and 3 bolt textures would exceed 72.
   Patrol paths fan out from the foot of the ramp.
 - Waves: wave 1 = 6 drones (p4 1), wave 2 = 8 troopers (p4 2), wave 3 =
   6 brutes (p4 3). All are held humans at the hatch top. Event line 0:
-  wait 3 s → msg "WAVE 1" → deploy 1 → wait hostiles ≤ 1 → msg "WAVE 2" →
-  deploy 2 → wait ≤ 1 → msg "FINAL WAVE" → deploy 3. Completion is automatic
+  wait 5 s → msg "WAVE 1" → deploy 1 → wait hostiles = 0 → wait 4 s →
+  msg "WAVE 2" → deploy 2 → wait = 0 → wait 4 s → msg "FINAL WAVE" → deploy 3. Completion is automatic
   (E5).
 - Briefing picture: generated from the map JSON (reuse
   tools/artgen/briefing_pictures.py). Briefing text ≤ 14 lines × 52 chars.

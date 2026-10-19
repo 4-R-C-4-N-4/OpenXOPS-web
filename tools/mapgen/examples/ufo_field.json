@@ -914,16 +914,16 @@
       ]
     },
     {
-      "comment": "hay bale single 0",
+      "comment": "hay bale full-height cover 0",
       "min": [
-        -128.0,
-        0.0,
-        -66.0
+        -136.0,
+        0,
+        -68.0
       ],
       "max": [
-        -112.0,
-        12.0,
-        -54.0
+        -104.0,
+        24,
+        -52.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -932,16 +932,16 @@
       ]
     },
     {
-      "comment": "hay bale single 1",
+      "comment": "hay bale full-height cover 1",
       "min": [
-        112.0,
-        0.0,
-        -66.0
+        104.0,
+        0,
+        -68.0
       ],
       "max": [
-        128.0,
-        12.0,
-        -54.0
+        136.0,
+        24,
+        -52.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -950,16 +950,16 @@
       ]
     },
     {
-      "comment": "hay bale single 2",
+      "comment": "hay bale full-height cover 2",
       "min": [
-        -158.0,
-        0.0,
-        34.0
+        -166.0,
+        0,
+        32.0
       ],
       "max": [
-        -142.0,
-        12.0,
-        46.0
+        -134.0,
+        24,
+        48.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -968,16 +968,16 @@
       ]
     },
     {
-      "comment": "hay bale single 3",
+      "comment": "hay bale full-height cover 3",
       "min": [
-        142.0,
-        0.0,
-        34.0
+        134.0,
+        0,
+        32.0
       ],
       "max": [
-        158.0,
-        12.0,
-        46.0
+        166.0,
+        24,
+        48.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -1004,16 +1004,16 @@
       ]
     },
     {
-      "comment": "hay bale single 5",
+      "comment": "hay bale full-height cover 5",
       "min": [
-        52.0,
-        0.0,
-        114.0
+        44.0,
+        0,
+        112.0
       ],
       "max": [
-        68.0,
-        12.0,
-        126.0
+        76.0,
+        24,
+        128.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -1483,10 +1483,10 @@
         -140.0
       ],
       "p1": 17,
-      "p2": 3,
+      "p2": 5,
       "p3": -101,
       "p4": -100,
-      "comment": "event 0: wait 3s"
+      "comment": "opening: five seconds to take cover"
     },
     {
       "type": "raw",
@@ -1522,10 +1522,10 @@
         -140.0
       ],
       "p1": 40,
-      "p2": 1,
-      "p3": -104,
+      "p2": 0,
+      "p3": -112,
       "p4": -103,
-      "comment": "event 3: wait hostiles<=1"
+      "comment": "wait until every alien in this wave is dead"
     },
     {
       "type": "raw",
@@ -1561,10 +1561,10 @@
         -140.0
       ],
       "p1": 40,
-      "p2": 1,
-      "p3": -107,
+      "p2": 0,
+      "p3": -113,
       "p4": -106,
-      "comment": "event 6: wait hostiles<=1"
+      "comment": "wait until every alien in this wave is dead"
     },
     {
       "type": "raw",
@@ -1771,6 +1771,32 @@
       "p3": 122,
       "p4": 124,
       "comment": "advance right, loop to centre"
+    },
+    {
+      "type": "raw",
+      "pos": [
+        0,
+        0,
+        -140
+      ],
+      "p1": 17,
+      "p2": 4,
+      "p3": -104,
+      "p4": -112,
+      "comment": "four seconds to reload between cleared waves"
+    },
+    {
+      "type": "raw",
+      "pos": [
+        0,
+        0,
+        -140
+      ],
+      "p1": 17,
+      "p2": 4,
+      "p3": -107,
+      "p4": -113,
+      "comment": "four seconds to reload between cleared waves"
     }
   ],
   "world_units_note": "480x480 grass field, 24-high perimeter fence on all edges, barn north beyond the fence, UFO saucer near (0,-150) with a ramp stair south, hay bales and cows for cover, 3 staged alien waves on the hatch deck."

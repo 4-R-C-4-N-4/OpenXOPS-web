@@ -8168,6 +8168,23 @@
       "status": "generated",
       "note": "free_only: ships with the free pack; not present/required in classic XOPS 0.96.",
       "free_only": true
+    },
+    {
+      "path": "addon/cow.txt.cover",
+      "kind": "mission",
+      "class": "other",
+      "hard": false,
+      "source_refs": [],
+      "ref_size": null,
+      "ref_format": null,
+      "alpha": null,
+      "tileable": false,
+      "uv_layout": null,
+      "summary": "Optional rotated body collision hull for the UFO cow; absent files retain legacy prop collisions.",
+      "priority": "P0",
+      "status": "generated",
+      "note": "free_only: ships with the free pack; not present/required in classic XOPS 0.96.",
+      "free_only": true
     }
   ]
 }

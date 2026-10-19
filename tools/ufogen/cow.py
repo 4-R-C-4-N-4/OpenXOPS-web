@@ -17,13 +17,13 @@ ROOT = Path(__file__).resolve().parents[2]
 OUT_MODEL = ROOT / "assets/pack/data/model"
 
 COW_ATLAS_SIZE = 128
-# File units: SMALLOBJECT_SCALE 5.0 -> world = file * 5. Target world
-# body length ~20, height ~10 => file length ~4.0, file height ~2.0.
-BODY_LEN = 2.6
-BODY_H = 1.1
-BODY_W = 0.9
-LEG_H = 0.9
-HEAD_LEN = 0.7
+# File units: world = file * SMALLOBJECT_SCALE (5). Back height 22,
+# body width 9 and body length 22: standing-height cover, not calf-sized.
+BODY_LEN = 4.4
+BODY_H = 3.2
+BODY_W = 1.8
+LEG_H = 1.2
+HEAD_LEN = 1.0
 
 
 def cow_atlas() -> Atlas:
@@ -51,20 +51,20 @@ def build_cow_mesh() -> Tuple[Mesh, Atlas]:
 
     neck = tapered_box(
         base_center=(0, body_y + BODY_H * 0.15, -BODY_LEN / 2), base_size=(BODY_W * 0.75, BODY_H * 0.7),
-        top_center=(0, LEG_H + HEAD_LEN * 0.55, -BODY_LEN / 2 - HEAD_LEN * 0.35), top_size=(BODY_W * 0.55, BODY_H * 0.55),
+        top_center=(0, body_y + BODY_H * 0.15, -BODY_LEN / 2 - HEAD_LEN * 0.35), top_size=(BODY_W * 0.55, BODY_H * 0.55),
         uv={k: rect("head") for k in all_faces})
-    head = box(center=(0, LEG_H + HEAD_LEN * 0.55, -BODY_LEN / 2 - HEAD_LEN * 0.75),
+    head = box(center=(0, body_y + BODY_H * 0.15, -BODY_LEN / 2 - HEAD_LEN * 0.75),
                size=(BODY_W * 0.55, HEAD_LEN * 0.8, HEAD_LEN), uv={k: rect("head") for k in all_faces})
 
     horn_z = -BODY_LEN / 2 - HEAD_LEN * 0.95
-    horn_y = LEG_H + HEAD_LEN * 0.9
+    horn_y = body_y + BODY_H * 0.15 + HEAD_LEN * 0.4
     horns = []
     for side in (-1, 1):
         horns.append(box(center=(side * BODY_W * 0.22, horn_y, horn_z), size=(0.05, 0.16, 0.05),
                           uv={k: rect("horn") for k in all_faces}))
 
     legs = []
-    leg_half_w, leg_half_d = 0.10, 0.10
+    leg_half_w, leg_half_d = 0.16, 0.16
     for sx in (-1, 1):
         for sz in (-1, 1):
             x = sx * (BODY_W / 2 - leg_half_w - 0.02)
