@@ -91,6 +91,20 @@ def ramp_block(comment, x0, x1, z0, z1, y0, y1, texture="floor.bmp", edge_textur
     BLOCKS.append({"comment": comment, "vertices": verts, "faces": faces})
 
 
+def ramp_block_z(comment, x0, x1, z0, z1, y_at_z0, y_at_z1, texture="floor.bmp", edge_texture="hazard.bmp"):
+    """Raw sloped block rising along z: walking surface at y_at_z0 on the z0
+    edge and y_at_z1 on the z1 edge (same vertex order as box_vertices)."""
+    thick = 4.0
+    verts = [
+        [x0, y_at_z0, z0], [x1, y_at_z0, z0], [x1, y_at_z1, z1], [x0, y_at_z1, z1],
+        [x0, y_at_z0 - thick, z0], [x1, y_at_z0 - thick, z0], [x1, y_at_z1 - thick, z1], [x0, y_at_z1 - thick, z1],
+    ]
+    tex = {"texture": texture, "u": [0.0, 0.0, 1.0, 1.0], "v": [0.0, 0.0, 1.0, 1.0]}
+    etex = {"texture": edge_texture, "u": [0.0, 0.0, 1.0, 1.0], "v": [0.0, 0.0, 1.0, 1.0]}
+    BLOCKS.append({"comment": comment, "vertices": verts,
+                   "faces": [dict(tex), dict(tex), dict(etex), dict(etex), dict(etex), dict(etex)]})
+
+
 def octagonal_vat(comment, cx, cz, half, y0, y1, side_tex="vat.bmp", top_tex="goo.bmp"):
     """One octagonal vat from 3 raw blocks: a centre box + two trapezoid
     end-caps, side faces vat.bmp, top goo.bmp."""
@@ -199,13 +213,17 @@ wall_x("crawl seg C east wall", 96.0, 80.0, 180.0, Y0, Y1)
 
 # Low non-blocking pipe trim on the east wall of seg A (decorative; thin
 # enough to never obstruct a 2.8-radius player).
-box_obstacle("crawl pipe trim", 20.0, 22.0, 4.0, 10.0, 180.0, 254.0, "bulkhead.bmp")
+# Stops short of the seg A -> seg B doorway (z 188..208): a pipe across the
+# door at shin height blocks walking (real-engine route test).
+box_obstacle("crawl pipe trim", 20.0, 22.0, 4.0, 10.0, 212.0, 254.0, "bulkhead.bmp")
 
 CRAWL_PATROL = 21
-point("waypoint", (0.0, 2.0, 230.0), mode=0, p3=CRAWL_PATROL + 1, p4=CRAWL_PATROL)
-point("waypoint", (60.0, 2.0, 194.0), mode=0, p3=CRAWL_PATROL + 2, p4=CRAWL_PATROL + 1)
-point("waypoint", (82.0, 2.0, 110.0), mode=0, p3=CRAWL_PATROL, p4=CRAWL_PATROL + 2)
-point("human", (0.0, 2.0, 230.0), rotation=0.0, human_type=44, team=2, ai_path=CRAWL_PATROL)
+# Patrol follows the corridor centrelines through both doglegs and back
+# (AI walks straight between waypoints, so legs must not cut corners).
+crawl_route = [(6.0, 230.0), (6.0, 196.0), (82.0, 196.0), (82.0, 120.0), (82.0, 196.0), (6.0, 196.0)]
+for i, (wx, wz) in enumerate(crawl_route):
+    point("waypoint", (wx, 2.0, wz), mode=0, p3=CRAWL_PATROL + (i + 1) % len(crawl_route), p4=CRAWL_PATROL + i)
+point("human", (6.0, 2.0, 230.0), rotation=0.0, human_type=44, team=2, ai_path=CRAWL_PATROL)
 
 # ---------------------------------------------------------------------------
 # 3. Specimen lab (lower deck, large room, staggered vats, catwalk).
@@ -213,24 +231,40 @@ point("human", (0.0, 2.0, 230.0), rotation=0.0, human_type=44, team=2, ai_path=C
 LAB_X0, LAB_X1 = 0.0, 180.0
 LAB_Z0, LAB_Z1 = -60.0, 80.0
 
+# High-ceilinged hall (64, vs 40 in the corridors) so the catwalk has
+# headroom and the vats read as big tanks. Doorways keep corridor height:
+# lintels fill the walls above them.
+LAB_Y1 = 64.0
+CAT_Y = 28.0          # catwalk walking surface
+LAB_EXIT = (-30.0, 0.0)  # east doorway to the processing hall (matches its west gap)
 floor_slab("lab floor", LAB_X0, LAB_X1, LAB_Z0, LAB_Z1, Y0)
-ceiling_slab("lab ceiling", LAB_X0, LAB_X1, LAB_Z0, LAB_Z1, Y1)
-wall_z("lab south wall", LAB_Z1, LAB_X0, LAB_X1, Y0, Y1, gap=(68.0, 96.0), texture="labpanel.bmp")
-wall_z("lab north wall (far door)", LAB_Z0, LAB_X0, LAB_X1, Y0, Y1, texture="labpanel.bmp")
-wall_x("lab west wall", LAB_X0, LAB_Z0, LAB_Z1, Y0, Y1, texture="labpanel.bmp")
-wall_x("lab east wall", LAB_X1, LAB_Z0, LAB_Z1, Y0, Y1)
+ceiling_slab("lab ceiling", LAB_X0, LAB_X1, LAB_Z0, LAB_Z1, LAB_Y1)
+wall_z("lab south wall", LAB_Z1, LAB_X0, LAB_X1, Y0, LAB_Y1, gap=(68.0, 96.0), texture="labpanel.bmp")
+_box("lab south door lintel", (68.0, Y1, LAB_Z1 - WALL_T / 2), (96.0, LAB_Y1, LAB_Z1 + WALL_T / 2), "hull.bmp")
+wall_z("lab north wall", LAB_Z0, LAB_X0, LAB_X1, Y0, LAB_Y1, texture="labpanel.bmp")
+wall_x("lab west wall", LAB_X0, LAB_Z0, LAB_Z1, Y0, LAB_Y1, texture="labpanel.bmp")
+wall_x("lab east wall", LAB_X1, LAB_Z0, LAB_Z1, Y0, LAB_Y1, gap=LAB_EXIT)
+_box("lab east door lintel", (LAB_X1 - WALL_T / 2, Y1, LAB_EXIT[0]), (LAB_X1 + WALL_T / 2, LAB_Y1, LAB_EXIT[1]), "bulkhead.bmp")
 
-# 3 staggered octagonal goo vats: no aisle runs straight through.
-octagonal_vat("vat A", 50.0, 0.0, 16.0, Y0, Y0 + 26.0)
-octagonal_vat("vat B", 100.0, -30.0, 16.0, Y0, Y0 + 26.0)
-octagonal_vat("vat C", 140.0, 20.0, 16.0, Y0, Y0 + 26.0)
+# 3 staggered goo vats, all clear of the catwalks (west x<18, north z<-42)
+# and of the access ramp, so nothing clips into them.
+octagonal_vat("vat A", 62.0, 2.0, 16.0, Y0, Y0 + 26.0)
+octagonal_vat("vat B", 104.0, -20.0, 16.0, Y0, Y0 + 26.0)
+octagonal_vat("vat C", 146.0, 30.0, 16.0, Y0, Y0 + 26.0)
 
-# Catwalk around two walls at y 24 with a short access ramp.
-floor_slab("lab catwalk west", LAB_X0 + 2.0, LAB_X0 + 18.0, LAB_Z0 + 2.0, LAB_Z1 - 2.0, Y0 + 24.0,
+# Catwalk along the west and north walls; the ramp runs north along the
+# west catwalk's edge and meets it at the top (its high end is the north end).
+floor_slab("lab catwalk west", LAB_X0 + 2.0, LAB_X0 + 18.0, LAB_Z0 + 2.0, LAB_Z1 - 2.0, CAT_Y,
             texture="floor.bmp", units=16.0)
-floor_slab("lab catwalk north", LAB_X0 + 2.0, LAB_X1 - 2.0, LAB_Z0 + 2.0, LAB_Z0 + 18.0, Y0 + 24.0,
+floor_slab("lab catwalk north", LAB_X0 + 2.0, LAB_X1 - 2.0, LAB_Z0 + 2.0, LAB_Z0 + 18.0, CAT_Y,
             texture="floor.bmp", units=16.0)
-ramp_block("lab catwalk access ramp", LAB_X0 + 18.0, LAB_X0 + 38.0, 60.0, 76.0, Y0 + 2.0, Y0 + 24.0)
+# The ramp head runs 4 units into the landing (0.4 above it): the player
+# climbs slopes with a lag and snagged on a flush edge (real-engine walk).
+ramp_block_z("lab catwalk access ramp", LAB_X0 + 18.0, LAB_X0 + 34.0, -16.0, 74.0, CAT_Y + 0.4, Y0)
+# Flat landing from the ramp head to the north catwalk: the player steps off
+# the ramp end-on (stepping sideways off a slope onto a slab snags).
+floor_slab("lab catwalk landing", LAB_X0 + 18.0, LAB_X0 + 34.0, LAB_Z0 + 18.0, -12.0, CAT_Y,
+           texture="floor.bmp", units=16.0)
 
 # Entrance faces vat A within 30 units: cover against the south doorway.
 point("event", (82.0, 2.0, 70.0), event_id=13, p2=0, p3=-999, p4=-999)  # placeholder id, fixed below
@@ -247,8 +281,10 @@ for (tx, tz) in [(8.0, -40.0), (8.0, 0.0), (8.0, 40.0), (172.0, -40.0), (172.0, 
     point("small_object", (tx, 2.0, tz), object_type=12)
 
 LAB_PATROL_IDS = [30, 31, 32, 33, 34, 35]
-lab_patrol_pts = [(30.0, 2.0, -30.0), (80.0, 2.0, 50.0), (120.0, 2.0, -10.0),
-                   (160.0, 2.0, 60.0), (40.0, 2.0, 55.0), (130.0, 2.0, -45.0)]
+# A loop around the vats (A x46-78 z-14..18, B x88-120 z-36..-4,
+# C x130-162 z14..46), clear of the vats and the catwalk ramp.
+lab_patrol_pts = [(40.0, 2.0, 45.0), (110.0, 2.0, 56.0), (172.0, 2.0, 60.0),
+                   (172.0, 2.0, -40.0), (84.0, 2.0, -40.0), (40.0, 2.0, -40.0)]
 for i, (pid, pos) in enumerate(zip(LAB_PATROL_IDS, lab_patrol_pts)):
     nxt = LAB_PATROL_IDS[(i + 1) % len(LAB_PATROL_IDS)]
     point("waypoint", pos, mode=0, p3=nxt, p4=pid)
@@ -288,10 +324,11 @@ for i, (tx, tz) in enumerate(trough_positions):
     box_obstacle(f"hall trough {i}", tx - 10.0, tx + 10.0, Y0, Y0 + 12.0, tz - 6.0, tz + 6.0, "goo.bmp", units=16.0)
 
 HALL_PATROL_IDS = [40, 41, 42, 43]
-hall_patrol_pts = [(210.0, 2.0, -20.0), (270.0, 2.0, -42.0), (330.0, 2.0, -20.0), (270.0, 2.0, 2.0)]
-for i, (pid, pos) in enumerate(zip(HALL_PATROL_IDS, hall_patrol_pts)):
-    nxt = HALL_PATROL_IDS[(i + 1) % len(HALL_PATROL_IDS)]
-    point("waypoint", pos, mode=0, p3=nxt, p4=pid)
+# Sentries holding the serpentine bays (wait waypoints facing west, toward
+# the lab door): the baffles and troughs leave no straight patrol lane.
+hall_patrol_pts = [(232.0, 2.0, -42.0), (272.0, 2.0, 2.0), (312.0, 2.0, -42.0), (352.0, 2.0, 2.0)]
+for pid, pos in zip(HALL_PATROL_IDS, hall_patrol_pts):
+    point("waypoint", pos, rotation=face(-1.0, 0.0), mode=2, p3=pid, p4=pid)
 for pid, pos in list(zip(HALL_PATROL_IDS, hall_patrol_pts))[:3]:
     point("human", pos, rotation=0.0, human_type=45, team=2, ai_path=pid)
 
@@ -299,7 +336,7 @@ for pid, pos in list(zip(HALL_PATROL_IDS, hall_patrol_pts))[:3]:
 # 5. Switchback ramp: y 0 -> y 44 across two ramps + a landing.
 # ---------------------------------------------------------------------------
 RAMP_X0, RAMP_X1 = 380.0, 428.0
-RAMP_SHAFT_X1 = RAMP_X1 + 48.0  # 476.0: east end of the whole switchback shaft
+RAMP_SHAFT_X1 = 448.0  # the shaft ends at the bridge's west wall (bridge spans x 448..560)
 # The switchback ramp is a single two-deck-tall shaft (y 0..88, matching the
 # hull/bridge ceiling) rather than three separately-capped segments: capping
 # each segment individually left thin uncapped slivers wherever the ramp's
@@ -317,11 +354,15 @@ ceiling_slab("ramp shaft ceiling", RAMP_X0, RAMP_SHAFT_X1, -35.0, -10.0, 88.0)
 # airspace above the hall before the shaft's own walls would catch it.
 _box("ramp/hall seam attic filler", (HALL_X1 - 40.0, Y1, -35.0), (RAMP_X0, 88.0, -10.0), "hull.bmp")
 
-ramp_block("switchback ramp A", RAMP_X0, RAMP_X1, -32.0, -13.0, Y0 + 2.0, 22.0)
-wall_x("ramp A low rail", RAMP_X0, -32.0, -13.0, 0.0, 4.0, "hazard.bmp", units=8.0)
-floor_slab("ramp landing floor", RAMP_X1, RAMP_X1 + 20.0, -35.0, -10.0, 22.0)
-ramp_block("switchback ramp B", RAMP_X1 + 20.0, RAMP_X1 + 48.0, -32.0, -13.0, 22.0 + 2.0, 44.0)
-wall_x("ramp B low rail", RAMP_X1 + 48.0, -32.0, -13.0, 22.0, 26.0, "hazard.bmp", units=8.0)
+# Two flights with a short landing, both gentle (~0.45-0.55 rise per unit)
+# and starting flush with the floor they leave: the old flights began 2
+# units up, had a rail across the foot of the first flight, and the second
+# flight (0.71) was too steep to walk (real-engine route test).
+floor_slab("ramp shaft floor", RAMP_X0, RAMP_SHAFT_X1, -35.0, -10.0, Y0)  # closes the space under the flights
+wall_x("ramp shaft east end (below upper deck)", RAMP_SHAFT_X1 + WALL_T / 2, -35.0, -10.0, Y0, 44.0)
+ramp_block("ramp flight A", RAMP_X0, 410.0, -32.0, -13.0, Y0, 20.0)       # ~34 degrees
+floor_slab("ramp landing floor", 410.0, 418.0, -35.0, -10.0, 20.0)
+ramp_block("ramp flight B", 418.0, RAMP_SHAFT_X1, -32.0, -13.0, 20.0, 44.0)  # ~39 degrees (limit 50)
 
 # ---------------------------------------------------------------------------
 # 6. Bridge (upper deck): ring of consoles, central pillar, dais.
@@ -334,7 +375,7 @@ floor_slab("bridge floor", BR_X0, BR_X1, BR_Z0, BR_Z1, UY0)
 ceiling_slab("bridge ceiling", BR_X0, BR_X1, BR_Z0, BR_Z1, UY1)
 wall_z("bridge south wall", BR_Z1, BR_X0, BR_X1, UY0, UY1)
 wall_z("bridge north wall", BR_Z0, BR_X0, BR_X1, UY0, UY1, gap=(495.0, 525.0))
-wall_x("bridge west wall", BR_X0, BR_Z0, BR_Z1, UY0, UY1, texture="lightstrip.bmp")
+wall_x("bridge west wall", BR_X0, BR_Z0, BR_Z1, UY0, UY1, texture="lightstrip.bmp", gap=(-32.0, -13.0))  # top of the ramp shaft
 wall_x("bridge east wall", BR_X1, BR_Z0, BR_Z1, UY0, UY1, texture="lightstrip.bmp")
 
 box_obstacle("bridge holo pillar", 498.0, 506.0, UY0, UY0 + 30.0, -19.0, -11.0, "console.bmp")
@@ -346,7 +387,7 @@ floor_slab("captains dais", 490.0, 516.0, 18.0, 34.0, UY0 + 4.0, "console.bmp", 
 point("weapon_pickup", (502.0, UY0 + 6.0, -36.0), weapon_id=26, ammo=80)
 
 BRIDGE_PATROL_IDS = [50, 51, 52]
-bridge_patrol_pts = [(470.0, UY0 + 2.0, -50.0), (540.0, UY0 + 2.0, -50.0), (502.0, UY0 + 2.0, 20.0)]
+bridge_patrol_pts = [(470.0, UY0 + 2.0, -50.0), (540.0, UY0 + 2.0, -50.0), (540.0, UY0 + 2.0, 6.0)]
 for i, (pid, pos) in enumerate(zip(BRIDGE_PATROL_IDS, bridge_patrol_pts)):
     nxt = BRIDGE_PATROL_IDS[(i + 1) % len(BRIDGE_PATROL_IDS)]
     point("waypoint", pos, mode=0, p3=nxt, p4=pid)
@@ -372,8 +413,8 @@ for i, (px, pz) in enumerate(pod_positions):
 ESCAPE_POD = (502.0, UY0 + 2.0, -174.0)
 
 # Staged group 2: 2 brutes from side hatches, triggered on bay entry.
-point("staged_human", (449.0, UY0 + 2.0, -121.0), rotation=1.5708, human_type=46, team=2, ai_path=0, wave=2)
-point("staged_human", (559.0, UY0 + 2.0, -121.0), rotation=-1.5708, human_type=46, team=2, ai_path=0, wave=2)
+point("staged_human", (458.0, UY0 + 2.0, -121.0), rotation=1.5708, human_type=46, team=2, ai_path=0, wave=2)
+point("staged_human", (550.0, UY0 + 2.0, -121.0), rotation=-1.5708, human_type=46, team=2, ai_path=0, wave=2)
 
 # A couple of brutes already standing watch near the pods (off-axis).
 point("waypoint", (470.0, UY0 + 2.0, -150.0), mode=2, p3=60, p4=60)
