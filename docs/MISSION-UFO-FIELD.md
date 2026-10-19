@@ -35,9 +35,9 @@ M1 90 / 0 / 8, DE 68 / 1 / 5, P90 42 / 1 / 4, M249 59 / 1 / 4.
 | id | name | Based on (hold, flash, model offsets) | atk | pen | blazings (rate) | speed | mag | spread min-max | scope | bolt | sound |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 23 | LEVER 30-30 | M1 rifle hold | 64 | 1 | 9 (lever cycle) | 12 | 8 | 1-14 | 1 (AUG optic) | 0 (normal bullet) | bang3 (M1/DE heavy) |
-| 24 | ZAP PISTOL | DE pistol hold | 50 | 0 | 5 | 16 | 12 | 3-22 | 0 | 2 pink | laser1.wav |
-| 25 | PHOTON SMG | P90 hold | 40 | 0 | 3 | 16 | 40 | 3-20 | 0 | 3 cyan | laser2.wav |
-| 26 | PLASMA RIFLE | M249/M4 hold | 58 | 1 | 4 | 15 | 30 | 3-19 | 0 | 4 lime | laser3.wav |
+| 24 | ZAP PISTOL | DE pistol hold | 30 | 0 | 5 | 16 | 12 | 3-30 | 0 | 2 pink | laser1.wav |
+| 25 | PHOTON SMG | P90 hold | 15 | 0 | 5 | 16 | 40 | 3-30 | 0 | 3 cyan | laser2.wav |
+| 26 | PLASMA RIFLE | M249/M4 hold | 28 | 1 | 6 | 15 | 30 | 3-28 | 0 | 4 lime | laser3.wav |
 
 The laser weapons eject no shell casings. Files go under data/model/weapon/:
 lever.x/.bmp, zap.x/.bmp, photon.x/.bmp, plasma.x/.bmp.
@@ -60,10 +60,10 @@ weapons never use. Existing ids 0-5 and 13 keep their meaning.
 
 | id | name | texture | hp | AI level | Weapon[0] / [1] |
 |---|---|---|---|---|---|
-| 43 | RANCHER (player) | rancher.bmp (denim + straw hat band) | 120 | 2 | 23 lever / none |
-| 44 | ALIEN DRONE (wave 1) | alien_teal.bmp (teal skin, silver suit, big black eyes) | 80 | 1 | 24 zap |
-| 45 | ALIEN TROOPER (wave 2) | alien_violet.bmp (violet skin, orange suit) | 100 | 2 | 25 photon |
-| 46 | ALIEN BRUTE (wave 3) | alien_lime.bmp (lime skin, black and gold armour) | 120 | 3 | 26 plasma |
+| 43 | RANCHER (player) | rancher.bmp (denim + straw hat band) | 200 | 2 | 23 lever / none |
+| 44 | ALIEN DRONE (wave 1) | alien_teal.bmp (teal skin, silver suit, big black eyes) | 80 | 0 | 24 zap |
+| 45 | ALIEN TROOPER (wave 2) | alien_violet.bmp (violet skin, orange suit) | 100 | 0 | 25 photon |
+| 46 | ALIEN BRUTE (wave 3) | alien_lime.bmp (lime skin, black and gold armour) | 120 | 0 | 26 plasma |
 
 ### E5. Waves: held humans + 2 event opcodes (event.cpp reserved slot)
 
