@@ -320,28 +320,18 @@ class SoundTests(unittest.TestCase):
             self.assertEqual(sounds.sx.wav_bytes(a), sounds.sx.wav_bytes(b))
 
 
-class ProvenanceAddTests(unittest.TestCase):
-    """PROVENANCE-ADD.jsonl must cover every new asset without touching
-    assets/provenance.jsonl or assets/manifest.json (parent merges those)."""
+class ProvenanceTests(unittest.TestCase):
+    """assets/provenance.jsonl must hold a CC0 record, with the current
+    sha256, for every UFO FIELD asset."""
 
-    PROV_PATH = os.path.join(REPO_ROOT, "PROVENANCE-ADD.jsonl")
+    PROV_PATH = os.path.join(REPO_ROOT, "assets", "provenance.jsonl")
 
     def setUp(self):
-        self.assertTrue(os.path.isfile(self.PROV_PATH), "run `python3 -m tools.ufogen.build_all` first")
         import json
         with open(self.PROV_PATH) as fh:
-            self.records = [json.loads(line) for line in fh if line.strip()]
+            self.records = {r["path"]: r for r in (json.loads(l) for l in fh if l.strip())}
 
-    def test_every_record_is_cc0_with_required_fields(self):
-        for rec in self.records:
-            with self.subTest(path=rec.get("path")):
-                self.assertEqual(rec["license"], "CC0-1.0")
-                self.assertEqual(rec["author"], "OpenXOPS-web contributors (AI-assisted procedural generation)")
-                self.assertIsNone(rec["curated_by"])
-                for field in ("path", "sha256", "generator", "date", "prompt"):
-                    self.assertIn(field, rec)
-
-    def test_covers_every_expected_new_file(self):
+    def _expected(self):
         expected = set()
         for key in weapons.UFO_WEAPON_SPECS:
             expected.add(f"data/model/weapon/{key}.x")
@@ -357,16 +347,19 @@ class ProvenanceAddTests(unittest.TestCase):
             expected.add(f"data/ufofield/{name}")
         for name in sounds.RECIPES:
             expected.add(f"data/sound/{name}.wav")
-        got = {rec["path"] for rec in self.records}
-        self.assertEqual(expected, got)
+        return expected
 
-    def test_does_not_touch_manifest_or_classic_provenance(self):
-        manifest_path = os.path.join(REPO_ROOT, "assets", "manifest.json")
-        provenance_path = os.path.join(REPO_ROOT, "assets", "provenance.jsonl")
-        # These files must exist untouched by this test suite's own build
-        # step; we only assert this test file never imports/writes them.
-        self.assertTrue(os.path.isfile(manifest_path))
-        self.assertTrue(os.path.isfile(provenance_path))
+    def test_every_new_asset_has_a_current_cc0_record(self):
+        import hashlib
+        for path in sorted(self._expected()):
+            with self.subTest(path=path):
+                rec = self.records.get(path)
+                self.assertIsNotNone(rec, "missing provenance record")
+                self.assertEqual(rec["license"], "CC0-1.0")
+                for field in ("sha256", "generator", "date"):
+                    self.assertIn(field, rec)
+                data = open(os.path.join(REPO_ROOT, "assets", "pack", path), "rb").read()
+                self.assertEqual(rec["sha256"], hashlib.sha256(data).hexdigest())
 
 
 if __name__ == "__main__":
