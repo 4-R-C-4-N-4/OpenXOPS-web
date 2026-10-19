@@ -38,6 +38,18 @@ int main(int argc, char** argv) {
     for(int i=43;i<=46;i++) {
         assert(params.GetHuman(i,&h)==0 && h.Weapon[0]==i-20 && h.Weapon[1]==ID_WEAPON_NONE);
     }
+    for(int type=44;type<=46;type++) {
+        for(int trial=0;trial<32;trial++) {
+            human alien(&params);
+            alien.SetParamData(type,0,1,1,true);
+            alien.HitBulletUp(64);
+            assert(alien.GetHP()>0); // Clean body hits still need follow-up shots.
+            alien.SetParamData(type,0,1,1,true);
+            alien.HitBulletHead(64);
+            assert(alien.GetHP()<=0); // Every alien dies to one clean lever headshot.
+        }
+    }
+    std::puts("ONE-SHOT LEVER HEADSHOTS OK");
     std::puts("PARAMETERS OK");
 
     D3DGraphics graphics;
@@ -53,11 +65,18 @@ int main(int argc, char** argv) {
     assert(objects.GetStagedCount()==20 && objects.CountLivingHostiles()==0);
     assert(objects.CheckGameOverorComplete()==0);
     EventControl events(&points,&objects); events.Reset(-100);
+    EventControl second(&points,&objects); second.Reset(-110);
+    EventControl third(&points,&objects); third.Reset(-120);
     EventParameter state={};
+    auto processEvents=[&]() {
+        events.ProcessEventPoint(false,&state);
+        second.ProcessEventPoint(false,&state);
+        third.ProcessEventPoint(false,&state);
+    };
     for(int wave=1;wave<=3;wave++) {
         const int expected=wave==2?8:6;
         for(int tick=0;tick<200 && objects.CountLivingHostiles()!=expected;tick++)
-            events.ProcessEventPoint(false,&state);
+            processEvents();
         assert(objects.CountLivingHostiles()==expected);
         assert(objects.GetStagedCount()==(wave==1?14:wave==2?6:0));
         assert(objects.CheckGameOverorComplete()==0);
@@ -69,7 +88,7 @@ int main(int argc, char** argv) {
         }
         assert(flags==expected);
         const short waiting=events.GetNextP4();
-        for(int tick=0;tick<10;tick++) events.ProcessEventPoint(false,&state);
+        for(int tick=0;tick<10;tick++) processEvents();
         assert(events.GetNextP4()==waiting); // event 40 blocks while hostiles live
         assert(kill_hostiles(objects)==expected);
         std::printf("WAVE %d OK: killed %d, pending %d\n",wave,expected,objects.GetStagedCount());
@@ -121,6 +140,36 @@ int main(int argc, char** argv) {
     }
     assert(descended>=4);
     std::puts("RAMP DESCENT OK");
+    objects.Cleanup();
+
+    // A chest-height laser must stop at a cow body, not pass through a tiny
+    // ground-level legacy sphere. Removing the cow must reopen the shot.
+    objects.LoadPointData();
+    for(int i=0;i<MAX_SMALLOBJECT;i++) objects.GetSmallObject(i)->SetEnableFlag(false);
+    smallobject* cover=objects.GetSmallObject(0);
+    cover->SetPosData(0,0,0,0); cover->SetEnableFlag(true);
+    int empty[2]={0,0};
+    int targetid=objects.AddHumanIndex(15,0,0,0,43,1,empty,30,false);
+    assert(targetid>0);
+    auto shoot=[&](int index, float z=0, float height=16) {
+        human* target=objects.GetHumanObject(targetid); target->SetHP(120);
+        target->SetPosData(15,height-16,z,0);
+        bullet* shot=objects.GetBulletObject(index);
+        shot->SetPosData(-15,height,z,0,0); shot->SetParamData(50,0,40,0,0,0,true); shot->SetEnableFlag(true);
+        objects.Process(-1,false,false);
+        return target->GetHP();
+    };
+    assert(shoot(0)==120);
+    assert(shoot(1,8)==120); // Along the cow's long body.
+    cover->SetPosData(0,0,0,(float)M_PI/2);
+    assert(shoot(2,8)<120);  // Outside the now-rotated body's narrow side.
+    assert(shoot(3)==120);
+    assert(shoot(4,0,26)<120); // A shot above the back is not blocked.
+    cover->HitBullet(1000);
+    assert(shoot(5)<120); // Destroyed cows leave no invisible cover.
+    assert(mif.LoadFiledata("data/starter/start.txt",false)==0);
+    assert(mif.GetAddSmallobjectCover(0)==nullptr); // No hull leaks into classic data.
+    std::puts("COW BODY STOPS LASERS OK");
     objects.Cleanup();
     return 0;
 }

@@ -692,6 +692,8 @@ MIFInterface::~MIFInterface()
 //! @return 成功：0　失敗：1
 int MIFInterface::LoadFiledata(const char *fname, bool addfile)
 {
+	//[OpenXOPS-web] Optional collision extensions never survive a mission switch.
+	memset(AddSmallObjectCover, 0, sizeof(AddSmallObjectCover));
 	if( fname == NULL ){ return 1; }
 
 #ifdef ENABLE_DEBUGLOG
@@ -1016,6 +1018,25 @@ int MIFInterface::LoadAddSmallObjectFiledata(const char *fname)
 		//ファイルハンドルを解放
 		fclose( fp );
 
+		//[OpenXOPS-web] Optional sibling sidecar. Preserve the original six-line
+		//prop format and its classic 8-bit parameters. World-unit body hulls are
+		//opt-in only: slot half-width min-y max-y half-length (rotated with prop).
+		char coverpath[_MAX_PATH + 16];
+		snprintf(coverpath, sizeof(coverpath), "%s.cover", fname);
+		fp = vfs_fopen(coverpath, "r");
+		if( fp != NULL ){
+			char row[160]; int slot; float hw, lo, hi, hl;
+			while( fgets(row, sizeof(row), fp) != NULL ){
+				if( sscanf(row, "%d %f %f %f %f", &slot, &hw, &lo, &hi, &hl) == 5
+				 && slot >= 0 && slot < MAX_ADDSMALLOBJECT && hw > 0 && hw <= 1000
+				 && lo >= 0 && hi > lo && hi <= 1000 && hl > 0 && hl <= 1000 ){
+					AddSmallObjectCover[slot][0]=hw; AddSmallObjectCover[slot][1]=lo;
+					AddSmallObjectCover[slot][2]=hi; AddSmallObjectCover[slot][3]=hl;
+				}
+			}
+			fclose(fp);
+		}
+
 #ifdef ENABLE_DEBUGLOG
 		//ログに出力
 		OutputLog.WriteLog(LOG_COMPLETE, "", "");
@@ -1184,6 +1205,13 @@ char* MIFInterface::GetAddSmallobjectTexturePath(int id)
 //! @brief 追加小物の当たり判定の大きさを取得
 //! @param id データ番号（通常は 0 固定）
 //! @return 当たり判定の大きさ
+//[OpenXOPS-web] Null means legacy sphere behaviour, byte-for-byte unchanged.
+const float* MIFInterface::GetAddSmallobjectCover(int id)
+{
+	if( id < 0 || id >= MAX_ADDSMALLOBJECT || AddSmallObjectCover[id][0] <= 0 ){ return NULL; }
+	return AddSmallObjectCover[id];
+}
+
 int MIFInterface::GetAddSmallobjectDecide(int id)
 {
 	if( (id < 0)||(MAX_ADDSMALLOBJECT <= id) ){ return 0; }

@@ -126,8 +126,8 @@ class PointContentTests(unittest.TestCase):
             current = p.p3
             guard += 1
         expected = [
-            (17, 3), (18, 0), (41, 1), (40, 1),
-            (18, 1), (41, 2), (40, 1), (18, 2), (41, 3),
+            (17, 5), (18, 0), (41, 1), (40, 0), (17, 4),
+            (18, 1), (41, 2), (40, 0), (17, 4), (18, 2), (41, 3),
         ]
         self.assertEqual(seen, expected)
 
@@ -152,7 +152,7 @@ class CowAddonFormatTests(unittest.TestCase):
         self.assertTrue(model.endswith(".x"))
         self.assertTrue(texture.endswith(".bmp"))
         self.assertEqual(int(decide), 9)
-        self.assertEqual(int(hp), 60)
+        self.assertEqual(int(hp), 127)
         self.assertTrue(sound.endswith(".wav"))
         self.assertEqual(int(jump), 0)
         for line in lines:
@@ -208,6 +208,7 @@ class PackIncludesAddonTests(unittest.TestCase):
                 names = zf.namelist()
                 self.assertIn("addon/ufo.mif", names)
                 self.assertIn("addon/cow.txt", names)
+                self.assertIn("addon/cow.txt.cover", names)
                 data_names = [n for n in names if n.startswith("data/")]
                 addon_names = [n for n in names if n.startswith("addon/")]
                 self.assertEqual(data_names, sorted(data_names))
@@ -239,6 +240,15 @@ class UfoPathTests(unittest.TestCase):
                     self.assertEqual(len(hits), 1, f"path id {cur} must be unique map-wide")
                     self.assertEqual(hits[0].p1, 3, f"path id {cur} must be a waypoint")
                     cur = hits[0].p3
+
+    def test_hay_cover_spread_across_both_sides(self):
+        blocks = json.loads(JSON_SRC.read_text())["blocks"]
+        for side in (-1, 1):
+            full = [b for b in blocks if b.get("texture") == "hay.bmp"
+                    and "min" in b and b["min"][1] == 0 and b["max"][1] >= 24
+                    and b["max"][0] - b["min"][0] >= 28
+                    and side * (b["min"][0]+b["max"][0])/2 > 40]
+            self.assertGreaterEqual(len(full), 2)
 
     def test_full_height_cover_in_front_of_spawn(self):
         blocks = json.loads(JSON_SRC.read_text())["blocks"]

@@ -835,6 +835,23 @@ bool ObjectManager::CollideBullet(bullet *in_bullet)
 			SmallObjectIndex[i].GetPosData(&ox, &oy, &oz, NULL);
 			SmallObjectIndex[i].GetParamData(&id, NULL);
 
+			//[OpenXOPS-web] Opt-in addon cover follows the visible body, not the
+			//legacy ground-level sphere. Disappearing/dead cover no longer blocks.
+			const float* hull = MIFdata ? MIFdata->GetAddSmallobjectCover(id - TOTAL_PARAMETERINFO_SMALLOBJECT) : NULL;
+			if( hull != NULL ){
+				if( SmallObjectIndex[i].GetHP() <= 0 ){ continue; }
+				float yaw; SmallObjectIndex[i].GetPosData(NULL,NULL,NULL,&yaw);
+				float dx=bvx-ox, dz=bvz-oz;
+				float lx=cosf(yaw)*dx-sinf(yaw)*dz;
+				float lz=sinf(yaw)*dx+cosf(yaw)*dz;
+				if( fabsf(lx)<=hull[0] && bvy>=oy+hull[1] && bvy<=oy+hull[2] && fabsf(lz)<=hull[3] ){
+					HitBulletSmallObject(i,bvx,bvy,bvz,(int)floorf(attacks*0.25f),teamid);
+					in_bullet->SetEnableFlag(false);
+					return true;
+				}
+				continue;
+			}
+
 			//当たり判定の大きさを取得
 			if( (TOTAL_PARAMETERINFO_SMALLOBJECT <= id)&&(id <= (TOTAL_PARAMETERINFO_SMALLOBJECT + MAX_ADDSMALLOBJECT -1)) ){
 				decide = (float)MIFdata->GetAddSmallobjectDecide(id - TOTAL_PARAMETERINFO_SMALLOBJECT)*SMALLOBJECT_COLLISIONSCALE;

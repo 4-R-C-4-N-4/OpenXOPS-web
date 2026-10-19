@@ -30,7 +30,9 @@ For **UFO FIELD**, choose **ADD-ON MISSIONS >>**, then **UFO FIELD**. Survive
 three alien waves in a fenced pasture with hay and static cow cover. Start with
 an 8-round scoped LEVER 30-30 (64 damage); select empty slot 2 to loot dropped
 laser weapons. Scope: right mouse in Modern, Left Shift in Classic. Kill all
-20 aliens to win. [Mission design and engine hooks](docs/MISSION-UFO-FIELD.md).
+20 aliens to win. Clean lever-rifle headshots kill every alien in one hit.
+Full-height hay and standing-height cows block laser fire; four-second reload
+breaks separate the waves. [Mission design and engine hooks](docs/MISSION-UFO-FIELD.md).
 If you want classic content instead, select your original `xops096.zip` before
 starting. A remembered classic ZIP is used until **Forget saved ZIP** removes
 it. Player archives stay local and are not uploaded.

@@ -174,8 +174,10 @@ class CowTests(unittest.TestCase):
         length_file = max(v[2] for v in verts) - min(v[2] for v in verts)
         # SMALLOBJECT_SCALE 5.0 (ASSET-CONTRACT 6.4): world = file * 5.
         world_h, world_l = height_file * 5.0, length_file * 5.0
-        self.assertAlmostEqual(world_h, 10.0, delta=3.0)
-        self.assertAlmostEqual(world_l, 20.0, delta=6.0)
+        self.assertGreaterEqual(world_h, 22.0, "cow back must cover a standing human")
+        self.assertLessEqual(world_h, 25.0)
+        self.assertGreaterEqual(world_l, 25.0)
+        self.assertLessEqual(world_l, 32.0)
 
     def test_texture_exists_and_is_bw_with_pink_nose(self):
         path = os.path.join(DATA, "model", "cow.bmp")

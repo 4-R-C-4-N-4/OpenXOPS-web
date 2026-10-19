@@ -31,6 +31,8 @@ class UfoEngineTests(unittest.TestCase):
                                  capture_output=True, text=True, timeout=30)
             self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
             self.assertIn("WAVE 3 OK", run.stdout)
+            self.assertIn("ONE-SHOT LEVER HEADSHOTS OK", run.stdout)
+            self.assertIn("COW BODY STOPS LASERS OK", run.stdout)
             self.assertIn("RAMP DESCENT OK", run.stdout)
             self.assertIn("ARRIVAL SOUND DOES NOT ALERT AI OK", run.stdout)
             self.assertIn("FINAL COMPLETION OK", run.stdout)

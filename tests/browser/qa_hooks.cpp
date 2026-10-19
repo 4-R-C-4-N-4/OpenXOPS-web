@@ -104,6 +104,21 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_bolt_preview(int type) {
     bolt.Render(&d3dg,false); d3dg.EndRender();
     return 1;
 }
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_cow_preview() {
+    smallobject* cow=ObjMgr.GetSmallObject(0);
+    if(!cow || !cow->GetEnableFlag())return 0;
+    human* player=ObjMgr.GetPlayerHumanObject();
+    float x,y,z,px,py,pz,rx;
+    cow->GetPosData(&x,&y,&z,nullptr); player->GetPosData(&px,&py,&pz,&rx);
+    emscripten_pause_main_loop();
+    player->SetPosData(x+19,y,z,0);
+    d3dg.StartRender(); d3dg.SetFog(false,0);
+    glClearColor(.18f,.20f,.23f,1); glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    d3dg.SetCamera(x+35,y+15,z+48,-2.20f,0,VIEWANGLE_NORMAL);
+    cow->Render(&d3dg,false); player->Render(&d3dg,&Resource,false,false,false);
+    d3dg.EndRender(); player->SetPosData(px,py,pz,rx);
+    return 1;
+}
 extern "C" EMSCRIPTEN_KEEPALIVE int qa_weapon_resources() {
     int valid=0;
     for(int i=1;i<TOTAL_PARAMETERINFO_WEAPON;i++) {

@@ -473,7 +473,7 @@ void ParameterInfo::InitInfo()
 	//[OpenXOPS-web] Free-pack human types 43-46 (docs/MISSION-UFO-FIELD.md E4).
 	{
 		const int tex[4] = {30, 31, 32, 33};
-		const int hp[4] = {120, 80, 100, 160};
+		const int hp[4] = {120, 80, 100, 120}; // [OpenXOPS-web] lever's minimum headshot is 128
 		const int ai[4] = {2, 1, 2, 3};
 		const int w0[4] = {23, 24, 25, 26};
 		for(int i=0; i<4; i++){
