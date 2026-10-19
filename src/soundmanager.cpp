@@ -379,6 +379,9 @@ int SoundManager::GetWorldSound(float pos_x, float pos_y, float pos_z, int teamI
 		if( getlist[i].paramid == GRE_EXPLOSION ){
 			maxdist = 80.0f;
 		}
+		//[OpenXOPS-web] Arrival is an audiovisual cue, not a tactical noise.
+		//Otherwise newly deployed aliens investigate their own spawn for 160 ticks.
+		if( getlist[i].paramid == WAVE_TELEPORT ){ continue; }
 		if( getlist[i].paramid == WEAPON_RELOAD ){
 			continue;
 		}
