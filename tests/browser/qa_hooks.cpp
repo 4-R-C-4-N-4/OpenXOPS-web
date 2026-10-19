@@ -17,6 +17,44 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_spawn_effects(float x, float y, float z) 
     ObjMgr.AddEffect(x,y+5,z,0,0,0,0,0,0,4.0f,0,Resource.GetEffectMflashTexture(),0,0,0.63f,0,EFFECT_NORMAL,600);
     return 1;
 }
+// Kill every living hostile currently in the world (wave QA). Returns the
+// number killed; staged/remaining counts are exported on Module.qaWave.
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_kill_hostiles() {
+    human* me=ObjMgr.GetPlayerHumanObject();
+    int myteam=0,team=0,n=0;
+    me->GetParamData(NULL,NULL,NULL,&myteam);
+    for(int i=0;i<MAX_HUMAN;i++){
+        human* h=ObjMgr.GetHumanObject(i);
+        if(!h||!h->GetEnableFlag()||h->GetHP()<=0)continue;
+        h->GetParamData(NULL,NULL,NULL,&team);
+        if(team!=myteam){h->SetHP(0);n++;}
+    }
+    return n;
+}
+extern "C" EMSCRIPTEN_KEEPALIVE void qa_test_health() {
+    ObjMgr.GetPlayerHumanObject()->SetHP(100000);
+}
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_teleport_to_human(int id) {
+    human* h=ObjMgr.GetHumanObject(id);
+    if(!h || !h->GetEnableFlag())return 0;
+    float x,y,z,rx;h->GetPosData(&x,&y,&z,&rx);
+    ObjMgr.GetPlayerHumanObject()->SetPosData(x,y,z,rx);
+    return 1;
+}
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_teleport_to_drop(int type) {
+    for(int i=0;i<MAX_WEAPON;i++){
+        weapon* w=ObjMgr.GetWeaponObject(i);
+        int id=-1;if(!w || !w->GetEnableFlag() || w->GetUsingFlag())continue;
+        w->GetParamData(&id,NULL,NULL);if(id!=type)continue;
+        float x,y,z,rx;w->GetPosData(&x,&y,&z,&rx);
+        ObjMgr.GetPlayerHumanObject()->SetPosData(x,y,z,rx);
+        return i;
+    }
+    return -1;
+}
+extern "C" EMSCRIPTEN_KEEPALIVE void qa_wave_state() {
+    EM_ASM({Module.qaWave=Array.of($0,$1);},ObjMgr.GetStagedCount(),ObjMgr.CountLivingHostiles());
+}
 extern "C" EMSCRIPTEN_KEEPALIVE void qa_resume_game() {
     emscripten_resume_main_loop();
 }
@@ -49,6 +87,21 @@ extern "C" EMSCRIPTEN_KEEPALIVE int qa_pose_preview(int id, int view) {
                   -(float)M_PI/2-angle,0,VIEWANGLE_NORMAL);
     p->Render(&d3dg,&Resource,false,false,false);
     d3dg.EndRender();
+    return 1;
+}
+// Inspect actual engine bullet rendering and the loaded colour textures.
+extern "C" EMSCRIPTEN_KEEPALIVE int qa_bolt_preview(int type) {
+    int model=-1,texture=-1;
+    Resource.GetBulletModelTexture(type,&model,&texture);
+    if(model<0 || texture<0)return 0;
+    bullet bolt; bolt.SetModel(model,3.0f); bolt.SetTexture(texture);
+    bolt.SetPosData(0,0,0,0,0); bolt.SetEnableFlag(true);
+    bolt.SetParamData(1,0,0,0,0,0,true); bolt.ProcessObject(); // Render skips the muzzle's first tick.
+    emscripten_pause_main_loop();
+    d3dg.StartRender(); d3dg.SetFog(false,0);
+    glClearColor(.08f,.08f,.12f,1);glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    d3dg.SetCamera(6,3,10,-2.1f,-.2f,VIEWANGLE_NORMAL);
+    bolt.Render(&d3dg,false); d3dg.EndRender();
     return 1;
 }
 extern "C" EMSCRIPTEN_KEEPALIVE int qa_weapon_resources() {

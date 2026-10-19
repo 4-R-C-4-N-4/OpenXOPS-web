@@ -444,6 +444,12 @@ int ResourceManager::LoadWeaponSound()
 	soundid[3] = SoundCtrl->LoadSound("data\\sound\\bang4.wav");
 	soundid[4] = SoundCtrl->LoadSound("data\\sound\\bang5.wav");
 	soundid[5] = SoundCtrl->LoadSound("data\\sound\\ka.wav");
+	//[OpenXOPS-web] Optional laser sounds for free-pack weapons (soundid 30-32).
+	teleport_sound = SoundCtrl->LoadSound("data/sound/teleport.wav"); // [OpenXOPS-web]
+	int laserid[3];
+	laserid[0] = SoundCtrl->LoadSound("data\\sound\\laser1.wav");
+	laserid[1] = SoundCtrl->LoadSound("data\\sound\\laser2.wav");
+	laserid[2] = SoundCtrl->LoadSound("data\\sound\\laser3.wav");
 	//reloadid = SoundCtrl->LoadSound("reload.wav");
 	reloadid = -1;
 
@@ -468,6 +474,9 @@ int ResourceManager::LoadWeaponSound()
 			}
 			else if( data.soundid == 13 ){
 				weapon_sound[i] = soundid[5];
+			}
+			else if( (30 <= data.soundid)&&(data.soundid <= 32) ){	//[OpenXOPS-web]
+				weapon_sound[i] = laserid[data.soundid - 30];
 			}
 			else{
 				weapon_sound[i] = -1;
@@ -505,6 +514,8 @@ void ResourceManager::CleanupWeaponSound()
 		SoundCtrl->CleanupSound(weapon_sound[i]);
 		weapon_sound[i] = -1;
 	}
+	SoundCtrl->CleanupSound(teleport_sound); // [OpenXOPS-web]
+	teleport_sound = -1;
 	SoundCtrl->CleanupSound(weapon_reloadsound);
 	weapon_reloadsound = -1;
 }

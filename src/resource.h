@@ -63,6 +63,7 @@ class ResourceManager
 	int human_texture_d3dg[MAX_LOADHUMANTEXTURE];		//!< 人のテクスチャのデータ番号
 	int weapon_model[TOTAL_PARAMETERINFO_WEAPON];		//!< 武器のモデルのデータ番号
 	int weapon_texture[TOTAL_PARAMETERINFO_WEAPON];		//!< 武器のテクスチャのデータ番号
+	int teleport_sound = -1; // [OpenXOPS-web] optional wave arrival sound
 	int weapon_sound[TOTAL_PARAMETERINFO_WEAPON];		//!< 武器のサウンドのデータ番号
 	int weapon_reloadsound;								//!< 武器のリロードサウンドのデータ番号
 	int smallobject_model[TOTAL_PARAMETERINFO_SMALLOBJECT + MAX_ADDSMALLOBJECT];		//!< 小物のモデルのデータ番号
@@ -109,6 +110,7 @@ public:
 	void CleanupWeaponModelTexture();
 	int LoadWeaponSound();
 	int GetWeaponSound(int id);
+	int GetTeleportSound() { return teleport_sound; } // [OpenXOPS-web]
 	void CleanupWeaponSound();
 	int LoadSmallObjectModelTexture();
 	int GetSmallObjectModelTexture(int id, int *model, int *texture);

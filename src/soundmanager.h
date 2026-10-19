@@ -66,7 +66,8 @@ enum SoundmgrID
 	FOOTSTEPS_SIDE,			//!< 足音・走る音（左右）
 	FOOTSTEPS_JUMP,			//!< 足音・ジャンプ
 	FOOTSTEPS_LANDING,		//!< 足音・着地音
-	WEAPON_RELOAD			//!< リロード音
+	WEAPON_RELOAD,			//!< リロード音
+	WAVE_TELEPORT // [OpenXOPS-web]
 };
 
 //! サウンドリスト用構造体
@@ -116,6 +117,7 @@ public:
 	bool GrenadeExplosion(float x, float y, float z, int teamID);
 	bool SetFootsteps(float x, float y, float z, int id, int MoveMode, int teamID, int cnt);
 	bool ReloadWeapon(float x, float y, float z, int teamID);
+	bool Teleport(float x, float y, float z, int teamID); // [OpenXOPS-web]
 	int GetTotalSoundList();
 	int GetWorldSound(float pos_x, float pos_y, float pos_z, int teamID, soundlist *psoundlist);
 	void PlayWorldSound(float camera_x, float camera_y, float camera_z, float camera_rx, int teamID);

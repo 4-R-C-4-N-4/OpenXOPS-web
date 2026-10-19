@@ -216,5 +216,38 @@ class PackIncludesAddonTests(unittest.TestCase):
                                   "deterministic ordering: all data/ then all addon/")
 
 
+class UfoPathTests(unittest.TestCase):
+    """AI paths are looked up by p4 across ALL points (ai.cpp ~2069,
+    SearchPointdata flag 0x08), so path ids must be unique map-wide and every
+    route must stay on waypoints."""
+
+    def test_every_route_resolves_to_unique_waypoints(self):
+        pts = pd1.loads(PD1_PATH.read_bytes()).points
+        by_p4 = {}
+        for p in pts:
+            by_p4.setdefault(p.p4, []).append(p)
+        starts = {p.p3 for p in pts if p.p1 in (1, 6, 50)}
+        starts.discard(0)  # Player has no patrol path.
+        self.assertTrue(starts)
+        for s in sorted(starts):
+            with self.subTest(route=s):
+                seen = set()
+                cur = s
+                while cur not in seen:
+                    seen.add(cur)
+                    hits = by_p4.get(cur, [])
+                    self.assertEqual(len(hits), 1, f"path id {cur} must be unique map-wide")
+                    self.assertEqual(hits[0].p1, 3, f"path id {cur} must be a waypoint")
+                    cur = hits[0].p3
+
+    def test_full_height_cover_in_front_of_spawn(self):
+        blocks = json.loads(JSON_SRC.read_text())["blocks"]
+        self.assertTrue(any(
+            b.get("texture") == "hay.bmp"
+            and b["min"][0] <= -20 and b["max"][0] >= 20
+            and b["max"][1] >= 24 and 160 <= b["min"][2] < b["max"][2] < 200
+            for b in blocks))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -2566,6 +2566,11 @@ void maingame::Process()
 	//-----------------------------------
 
 	time = GetTimeMS();
+	//[OpenXOPS-web] humans deployed by a wave event start with fresh AI
+	for(int i=0; i<MAX_HUMAN; i++){
+		if( ObjMgr.TakeAIInitFlag(i) == true ){ HumanAI[i].Init(); }
+	}
+
 	if( AIstop == false ){
 		int PlayerID = ObjMgr.GetPlayerID();
 		for(int i=0; i<MAX_HUMAN; i++){

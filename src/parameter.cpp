@@ -470,6 +470,24 @@ void ParameterInfo::InitInfo()
 	Human[42].Weapon[1] = 0;
 	Human[42].type = 0;
 
+	//[OpenXOPS-web] Free-pack human types 43-46 (docs/MISSION-UFO-FIELD.md E4).
+	{
+		const int tex[4] = {30, 31, 32, 33};
+		const int hp[4] = {120, 80, 100, 160};
+		const int ai[4] = {2, 1, 2, 3};
+		const int w0[4] = {23, 24, 25, 26};
+		for(int i=0; i<4; i++){
+			Human[43+i] = Human[2];
+			Human[43+i].texture = tex[i];
+			Human[43+i].model = 0;
+			Human[43+i].hp = hp[i];
+			Human[43+i].AIlevel = ai[i];
+			Human[43+i].AItrackability = -1;
+			Human[43+i].Weapon[0] = w0[i];
+			Human[43+i].Weapon[1] = ID_WEAPON_NONE;
+			Human[43+i].type = 0;
+		}
+	}
 	HumanTexturePath[0] = "./data/model/civ1.bmp";
 	HumanTexturePath[1] = "./data/model/civ2.bmp";
 	HumanTexturePath[2] = "./data/model/civ3.bmp";
@@ -500,6 +518,10 @@ void ParameterInfo::InitInfo()
 	HumanTexturePath[27] = "./data/model/zombie2.bmp";
 	HumanTexturePath[28] = "./data/model/zombie3.bmp";
 	HumanTexturePath[29] = "./data/model/zombie4.bmp";
+	HumanTexturePath[30] = "./data/model/rancher.bmp";	//[OpenXOPS-web]
+	HumanTexturePath[31] = "./data/model/alien_teal.bmp";	//[OpenXOPS-web]
+	HumanTexturePath[32] = "./data/model/alien_violet.bmp";	//[OpenXOPS-web]
+	HumanTexturePath[33] = "./data/model/alien_lime.bmp";	//[OpenXOPS-web]
 
 
 	Weapon[0].name = "NONE";		// ID_WEAPON_NONE 定数を要設定
@@ -1308,6 +1330,90 @@ void ParameterInfo::InitInfo()
 	Weapon[22].ChangeWeaponCnt = 0;
 	Weapon[22].pellet = 1;
 
+	//[OpenXOPS-web] Free-pack weapons 23-26 (docs/MISSION-UFO-FIELD.md E1).
+	//Each starts as a copy of an upstream template (hold offsets, muzzle and
+	//shell positions, equip mode), then overrides the combat stats. Upstream
+	//weapons 0-22 are unchanged; classic data never references ids >= 23.
+	for(int i=0; i<TOTAL_PARAMETERINFO_WEAPON; i++){
+		if( i < 23 ){ Weapon[i].bullettype = 0; }
+	}
+	//LEVER 30-30: scoped lever-action rifle, AK47/AUG-class damage, M1 hold.
+	Weapon[23] = Weapon[19];
+	Weapon[23].name = "LEVER 30-30";
+	Weapon[23].model = "./data/model/weapon/lever.x";
+	Weapon[23].texture = "./data/model/weapon/lever.bmp";
+	Weapon[23].attacks = 64;
+	Weapon[23].penetration = 1;
+	Weapon[23].blazings = 9;
+	Weapon[23].speed = 12;
+	Weapon[23].nbsmax = 8;
+	Weapon[23].ErrorRangeMIN = 1;
+	Weapon[23].ErrorRangeMAX = 14;
+	Weapon[23].burstcnt = 1;
+	Weapon[23].scopemode = 1;
+	Weapon[23].soundid = 2;
+	Weapon[23].pellet = 1;
+	Weapon[23].ChangeWeaponID = -1;
+	Weapon[23].ChangeWeaponCnt = 0;
+	Weapon[23].bullettype = 0;
+	//ZAP PISTOL: alien sidearm, Desert Eagle hold, pink bolts.
+	Weapon[24] = Weapon[5];
+	Weapon[24].name = "ZAP PISTOL";
+	Weapon[24].model = "./data/model/weapon/zap.x";
+	Weapon[24].texture = "./data/model/weapon/zap.bmp";
+	Weapon[24].attacks = 50;
+	Weapon[24].penetration = 0;
+	Weapon[24].blazings = 5;
+	Weapon[24].speed = 16;
+	Weapon[24].nbsmax = 12;
+	Weapon[24].ErrorRangeMIN = 3;
+	Weapon[24].ErrorRangeMAX = 22;
+	Weapon[24].yakkyou_size = 0.0f;
+	Weapon[24].soundid = 30;
+	Weapon[24].silencer = false;
+	Weapon[24].pellet = 1;
+	Weapon[24].ChangeWeaponID = -1;
+	Weapon[24].ChangeWeaponCnt = 0;
+	Weapon[24].bullettype = 2;
+	//PHOTON SMG: alien SMG, P90 hold, cyan bolts.
+	Weapon[25] = Weapon[8];
+	Weapon[25].name = "PHOTON SMG";
+	Weapon[25].model = "./data/model/weapon/photon.x";
+	Weapon[25].texture = "./data/model/weapon/photon.bmp";
+	Weapon[25].attacks = 40;
+	Weapon[25].penetration = 0;
+	Weapon[25].blazings = 3;
+	Weapon[25].speed = 16;
+	Weapon[25].nbsmax = 40;
+	Weapon[25].ErrorRangeMIN = 3;
+	Weapon[25].ErrorRangeMAX = 20;
+	Weapon[25].yakkyou_size = 0.0f;
+	Weapon[25].soundid = 31;
+	Weapon[25].silencer = false;
+	Weapon[25].pellet = 1;
+	Weapon[25].ChangeWeaponID = -1;
+	Weapon[25].ChangeWeaponCnt = 0;
+	Weapon[25].bullettype = 3;
+	//PLASMA RIFLE: alien heavy rifle, M249 hold, lime bolts.
+	Weapon[26] = Weapon[12];
+	Weapon[26].name = "PLASMA RIFLE";
+	Weapon[26].model = "./data/model/weapon/plasma.x";
+	Weapon[26].texture = "./data/model/weapon/plasma.bmp";
+	Weapon[26].attacks = 58;
+	Weapon[26].penetration = 1;
+	Weapon[26].blazings = 4;
+	Weapon[26].speed = 15;
+	Weapon[26].nbsmax = 30;
+	Weapon[26].ErrorRangeMIN = 3;
+	Weapon[26].ErrorRangeMAX = 19;
+	Weapon[26].yakkyou_size = 0.0f;
+	Weapon[26].soundid = 32;
+	Weapon[26].silencer = false;
+	Weapon[26].pellet = 1;
+	Weapon[26].ChangeWeaponID = -1;
+	Weapon[26].ChangeWeaponCnt = 0;
+	Weapon[26].bullettype = 4;
+
 #ifdef ENABLE_BUG_HUMANWEAPON
 	//特殊なバグ武器用データ
 	BugWeapon[0].name = "BugWeapon";
@@ -1345,6 +1451,7 @@ void ParameterInfo::InitInfo()
 	BugWeapon[0].ChangeWeaponID = -1;
 	BugWeapon[0].ChangeWeaponCnt = 0;
 	BugWeapon[0].pellet = 0;
+	BugWeapon[0].bullettype = 0; // [OpenXOPS-web] initialise added field on the legacy fallback, too.
 #endif
 
 
@@ -1442,6 +1549,16 @@ void ParameterInfo::InitInfo()
 	Bullet[1].model = Weapon[ID_WEAPON_GRENADE].model;
 	Bullet[1].texture = Weapon[ID_WEAPON_GRENADE].texture;
 	Bullet[1].size = Weapon[ID_WEAPON_GRENADE].size;
+	//[OpenXOPS-web] Laser bolts for weapons 24-26 (docs/MISSION-UFO-FIELD.md E2).
+	Bullet[2].model = "./data/model/laser.x";
+	Bullet[2].texture = "./data/model/laser_pink.bmp";
+	Bullet[2].size = 3.0f; // [OpenXOPS-web] visible low-poly bolt, ~3.4 world units
+	Bullet[3].model = "./data/model/laser.x";
+	Bullet[3].texture = "./data/model/laser_cyan.bmp";
+	Bullet[3].size = 3.0f; // [OpenXOPS-web] visible low-poly bolt, ~3.4 world units
+	Bullet[4].model = "./data/model/laser.x";
+	Bullet[4].texture = "./data/model/laser_lime.bmp";
+	Bullet[4].size = 3.0f; // [OpenXOPS-web] visible low-poly bolt, ~3.4 world units
 
 
 	MissionData[0].name			= "TRAINING YARD";

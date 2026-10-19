@@ -160,6 +160,11 @@ class CoverageTests(unittest.TestCase):
         covered = set()
         for key in P0_KEYS:
             covered.add("data/" + SPECS[key].slot)
+        # The addon uses its own generator; format and determinism coverage
+        # lives in test_ufo_assets rather than the classic modelgen registry.
+        from tools.ufogen.weapons import UFO_WEAPON_SPECS
+        covered.update("data/model/weapon/" + key + ".x" for key in UFO_WEAPON_SPECS)
+        covered.update({"data/model/cow.x", "data/model/laser.x"})
         missing = p0_model_slots - covered
         self.assertEqual(missing, set(), f"P0 manifest model slots with no modelgen spec: {sorted(missing)}")
 

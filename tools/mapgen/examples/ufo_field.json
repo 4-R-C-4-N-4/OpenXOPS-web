@@ -988,14 +988,14 @@
     {
       "comment": "hay bale single 4",
       "min": [
-        -68.0,
+        -24.0,
         0.0,
-        114.0
+        170.0
       ],
       "max": [
-        -52.0,
-        12.0,
-        126.0
+        24.0,
+        24.0,
+        182.0
       ],
       "texture": "hay.bmp",
       "uv_scale": [
@@ -1108,370 +1108,282 @@
       "comment": "rancher, facing north into the field"
     },
     {
-      "type": "waypoint",
-      "pos": [
-        0.0,
-        0.0,
-        -40.0
-      ],
-      "mode": 1,
-      "p3": 0,
-      "comment": "patrol/advance waypoint 0"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        0.0,
-        0.0,
-        10.0
-      ],
-      "mode": 1,
-      "p3": 1,
-      "comment": "patrol/advance waypoint 1"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        -70.0,
-        0.0,
-        20.0
-      ],
-      "mode": 1,
-      "p3": 2,
-      "comment": "patrol/advance waypoint 2"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        70.0,
-        0.0,
-        20.0
-      ],
-      "mode": 1,
-      "p3": 3,
-      "comment": "patrol/advance waypoint 3"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        0.0,
-        0.0,
-        90.0
-      ],
-      "mode": 1,
-      "p3": 4,
-      "comment": "patrol/advance waypoint 4"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        -90.0,
-        0.0,
-        80.0
-      ],
-      "mode": 1,
-      "p3": 5,
-      "comment": "patrol/advance waypoint 5"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        90.0,
-        0.0,
-        80.0
-      ],
-      "mode": 1,
-      "p3": 6,
-      "comment": "patrol/advance waypoint 6"
-    },
-    {
-      "type": "waypoint",
-      "pos": [
-        0.0,
-        0.0,
-        150.0
-      ],
-      "mode": 1,
-      "p3": 7,
-      "comment": "patrol/advance waypoint 7"
-    },
-    {
       "type": "staged_human",
       "pos": [
-        -24.0,
+        -40.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 100,
       "wave": 1,
       "comment": "wave 1 staged human 0"
     },
     {
       "type": "staged_human",
       "pos": [
-        -14.4,
+        -24.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 110,
       "wave": 1,
       "comment": "wave 1 staged human 1"
     },
     {
       "type": "staged_human",
       "pos": [
-        -4.800000000000001,
+        -8.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 120,
       "wave": 1,
       "comment": "wave 1 staged human 2"
     },
     {
       "type": "staged_human",
       "pos": [
-        4.800000000000001,
+        8.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 100,
       "wave": 1,
       "comment": "wave 1 staged human 3"
     },
     {
       "type": "staged_human",
       "pos": [
-        14.399999999999999,
+        24.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 110,
       "wave": 1,
       "comment": "wave 1 staged human 4"
     },
     {
       "type": "staged_human",
       "pos": [
-        24.0,
+        40.0,
         32.0,
-        -150.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 44,
       "team": 2,
-      "ai_path": 0,
+      "ai_path": 120,
       "wave": 1,
       "comment": "wave 1 staged human 5"
     },
     {
       "type": "staged_human",
       "pos": [
-        -24.0,
+        -40.0,
         32.0,
-        -156.0
+        -104.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 100,
       "wave": 2,
       "comment": "wave 2 staged human 0"
     },
     {
       "type": "staged_human",
       "pos": [
-        -17.142857142857142,
+        -28.6,
         32.0,
-        -156.0
+        -100.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 110,
       "wave": 2,
       "comment": "wave 2 staged human 1"
     },
     {
       "type": "staged_human",
       "pos": [
-        -10.285714285714286,
+        -17.1,
         32.0,
-        -156.0
+        -104.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 120,
       "wave": 2,
       "comment": "wave 2 staged human 2"
     },
     {
       "type": "staged_human",
       "pos": [
-        -3.428571428571427,
+        -5.7,
         32.0,
-        -156.0
+        -100.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 100,
       "wave": 2,
       "comment": "wave 2 staged human 3"
     },
     {
       "type": "staged_human",
       "pos": [
-        3.428571428571427,
+        5.7,
         32.0,
-        -156.0
+        -104.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 110,
       "wave": 2,
       "comment": "wave 2 staged human 4"
     },
     {
       "type": "staged_human",
       "pos": [
-        10.285714285714285,
+        17.1,
         32.0,
-        -156.0
+        -100.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 120,
       "wave": 2,
       "comment": "wave 2 staged human 5"
     },
     {
       "type": "staged_human",
       "pos": [
-        17.142857142857146,
+        28.6,
         32.0,
-        -156.0
+        -104.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 100,
       "wave": 2,
       "comment": "wave 2 staged human 6"
     },
     {
       "type": "staged_human",
       "pos": [
-        24.0,
+        40.0,
         32.0,
-        -156.0
+        -100.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 45,
       "team": 2,
-      "ai_path": 1,
+      "ai_path": 110,
       "wave": 2,
       "comment": "wave 2 staged human 7"
     },
     {
       "type": "staged_human",
       "pos": [
-        -24.0,
+        -40.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 100,
       "wave": 3,
       "comment": "wave 3 staged human 0"
     },
     {
       "type": "staged_human",
       "pos": [
-        -14.4,
+        -24.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 110,
       "wave": 3,
       "comment": "wave 3 staged human 1"
     },
     {
       "type": "staged_human",
       "pos": [
-        -4.800000000000001,
+        -8.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 120,
       "wave": 3,
       "comment": "wave 3 staged human 2"
     },
     {
       "type": "staged_human",
       "pos": [
-        4.800000000000001,
+        8.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 100,
       "wave": 3,
       "comment": "wave 3 staged human 3"
     },
     {
       "type": "staged_human",
       "pos": [
-        14.399999999999999,
+        24.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 110,
       "wave": 3,
       "comment": "wave 3 staged human 4"
     },
     {
       "type": "staged_human",
       "pos": [
-        24.0,
+        40.0,
         32.0,
-        -144.0
+        -112.0
       ],
       "rotation": 3.141592653589793,
       "human_type": 46,
       "team": 2,
-      "ai_path": 2,
+      "ai_path": 120,
       "wave": 3,
       "comment": "wave 3 staged human 5"
     },
@@ -1679,6 +1591,186 @@
       "p3": -109,
       "p4": -108,
       "comment": "event 8: deploy wave 3"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        32,
+        -100
+      ],
+      "mode": 1,
+      "p3": 101,
+      "p4": 100,
+      "comment": "top of UFO stairs"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        0,
+        -30
+      ],
+      "mode": 1,
+      "p3": 102,
+      "p4": 101,
+      "comment": "foot of ramp"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -70,
+        0,
+        20
+      ],
+      "mode": 1,
+      "p3": 103,
+      "p4": 102,
+      "comment": "flank"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -90,
+        0,
+        95
+      ],
+      "mode": 1,
+      "p3": 104,
+      "p4": 103,
+      "comment": "advance"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -30,
+        0,
+        150
+      ],
+      "mode": 1,
+      "p3": 102,
+      "p4": 104,
+      "comment": "press toward spawn, loop to flank"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        32,
+        -100
+      ],
+      "mode": 1,
+      "p3": 111,
+      "p4": 110,
+      "comment": "top of UFO stairs"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        0,
+        -30
+      ],
+      "mode": 1,
+      "p3": 112,
+      "p4": 111,
+      "comment": "foot of ramp"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        70,
+        0,
+        20
+      ],
+      "mode": 1,
+      "p3": 113,
+      "p4": 112,
+      "comment": "flank"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        90,
+        0,
+        95
+      ],
+      "mode": 1,
+      "p3": 114,
+      "p4": 113,
+      "comment": "advance"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        30,
+        0,
+        150
+      ],
+      "mode": 1,
+      "p3": 112,
+      "p4": 114,
+      "comment": "press toward spawn, loop to flank"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        32,
+        -100
+      ],
+      "mode": 1,
+      "p3": 121,
+      "p4": 120,
+      "comment": "top of UFO stairs"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        0,
+        -30
+      ],
+      "mode": 1,
+      "p3": 122,
+      "p4": 121,
+      "comment": "foot of ramp"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        0,
+        0,
+        45
+      ],
+      "mode": 1,
+      "p3": 123,
+      "p4": 122,
+      "comment": "centre"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        -45,
+        0,
+        105
+      ],
+      "mode": 1,
+      "p3": 124,
+      "p4": 123,
+      "comment": "advance left"
+    },
+    {
+      "type": "waypoint",
+      "pos": [
+        45,
+        0,
+        105
+      ],
+      "mode": 1,
+      "p3": 122,
+      "p4": 124,
+      "comment": "advance right, loop to centre"
     }
   ],
   "world_units_note": "480x480 grass field, 24-high perimeter fence on all edges, barn north beyond the fence, UFO saucer near (0,-150) with a ramp stair south, hay bales and cows for cover, 3 staged alien waves on the hatch deck."
