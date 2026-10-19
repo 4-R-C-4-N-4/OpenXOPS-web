@@ -199,6 +199,7 @@ public:
 	int GetSmallObject(int id, SmallObjectParameter *out_data);
 	int GetBullet(int id, BulletParameter *out_data);
 	int GetOfficialMission(int id, char *name, char *fullname, char* directory, char *txt, bool *collisionflag, bool *screenflag);
+	int GetOfficialMissionBriefingPath(int id, char *path);	//!< [OpenXOPS-web]
 	int GetOfficialMissionCount();	//!< Playable standard missions (data-driven, see docs/MISSIONS.md)
 	int GetAIlevel(int level, AIParameter **out_AIlevel);
 	int GetScopeParam(int id, ScopeParameter *out_data);

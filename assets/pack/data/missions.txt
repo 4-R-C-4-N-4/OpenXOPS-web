@@ -1,1 +1,2 @@
+UFO FIELD|UFO FIELD - alien wave defence|data\ufofield\|ufo.mif|0|0
 STARTER|STARTER compound|data\starter\|start|0|0

@@ -8153,7 +8153,7 @@
       "free_only": true
     },
     {
-      "path": "addon/ufo.mif",
+      "path": "data/ufofield/ufo.mif",
       "kind": "mission",
       "class": "other",
       "hard": false,

@@ -1644,9 +1644,8 @@ int briefing::Create()
 
 	//mifファイルのファイルパス取得
 	if( GameInfoData.selectmission_id >= 0 ){
-		GameParamInfo.GetOfficialMission(GameInfoData.selectmission_id, NULL, NULL, path, pdata, NULL, NULL);
-		strcat(path, pdata);
-		strcat(path, ".txt");
+		//[OpenXOPS-web] main-list free missions may be .mif files
+		GameParamInfo.GetOfficialMissionBriefingPath(GameInfoData.selectmission_id, path);
 	}
 	else{
 		strcpy(path, GameInfoData.mifpath);

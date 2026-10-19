@@ -16,7 +16,8 @@ JSON_SRC = ROOT / "tools/mapgen/examples/ufo_field.json"
 BD1_PATH = ROOT / "assets/pack/data/ufofield/temp.bd1"
 PD1_PATH = ROOT / "assets/pack/data/ufofield/ufo.pd1"
 MSG_PATH = ROOT / "assets/pack/data/ufofield/ufo.msg"
-MIF_PATH = ROOT / "assets/pack/addon/ufo.mif"
+MIF_PATH = ROOT / "assets/pack/data/ufofield/ufo.mif"
+MISSIONS_PATH = ROOT / "assets/pack/data/missions.txt"
 COW_PATH = ROOT / "assets/pack/addon/cow.txt"
 BRIEFING_BMP = ROOT / "assets/pack/data/briefing/ufofield.bmp"
 
@@ -159,12 +160,24 @@ class CowAddonFormatTests(unittest.TestCase):
             self.assertLess(len(line), 32)  # fgets buffers are 16 or _MAX_PATH
 
 
+class MainMenuListingTests(unittest.TestCase):
+    def test_ufo_field_is_first_main_menu_mission_not_an_addon(self):
+        entries = [line.split("|") for line in MISSIONS_PATH.read_text().splitlines()
+                   if line and not line.startswith(("#", ";"))]
+        self.assertEqual(entries[0], ["UFO FIELD", "UFO FIELD - alien wave defence",
+                                      "data\\ufofield\\", "ufo.mif", "0", "0"])
+        self.assertEqual(entries[1][0], "STARTER")
+        self.assertEqual(list((ROOT / "assets/pack/addon").glob("*.mif")), [])
+
+
 class MifFormatTests(unittest.TestCase):
     def test_header_fields_and_briefing_limits(self):
         lines = MIF_PATH.read_text().splitlines()
         name, fullname, bd1_path, pd1_path, sky, flags, addobj, picA, picB = lines[:9]
         self.assertLessEqual(len(name), 23)
         self.assertLessEqual(len(fullname), 63)
+        # Briefing draws the title at 18 px per glyph on a 640 px screen.
+        self.assertLessEqual(len(fullname) * 18, 640, "briefing title would not fit")
         self.assertEqual(bd1_path, r"data\ufofield\temp.bd1")
         self.assertEqual(pd1_path, r"data\ufofield\ufo.pd1")
         self.assertEqual(sky, "5")
@@ -206,7 +219,8 @@ class PackIncludesAddonTests(unittest.TestCase):
                 addon_dir=str(Path(tmp) / "staging" / "addon"))
             with zipfile.ZipFile(out_path) as zf:
                 names = zf.namelist()
-                self.assertIn("addon/ufo.mif", names)
+                self.assertIn("data/ufofield/ufo.mif", names)
+                self.assertNotIn("addon/ufo.mif", names)
                 self.assertIn("addon/cow.txt", names)
                 self.assertIn("addon/cow.txt.cover", names)
                 data_names = [n for n in names if n.startswith("data/")]
