@@ -254,21 +254,43 @@ class PathIdTests(unittest.TestCase):
 
 
 class GuardOneTests(unittest.TestCase):
-    def test_guard_within_25_35_units_facing_away(self):
+    """Engine facing convention (gamemain.cpp first-person camera:
+    crx = pi/2 - r): a rotation r looks along (sin r, cos r) in x/z, so
+    r = 0 faces +Z (south) and r = pi faces -Z (north)."""
+
+    @staticmethod
+    def _facing(r):
+        return math.sin(r), math.cos(r)
+
+    def _doc(self):
         doc = json.loads(JSON_SRC.read_text())
         spawn = next(p for p in doc["points"] if p["type"] == "player_spawn")
         guard = next(p for p in doc["points"] if p["type"] == "human" and p.get("human_type") == 44)
-        sx, _, sz = spawn["pos"]
-        # Doorway is just north of the spawn cell (z=360, x=-12).
-        door = (-12.0, 360.0)
+        wait = next(p for p in doc["points"] if p["type"] == "waypoint" and p.get("p4") == guard.get("ai_path"))
+        return spawn, guard, wait
+
+    # The spawn cell's doorway: gap centred on z 382 in the x = -12 wall.
+    DOOR = (-12.0, 382.0)
+
+    def test_guard_within_25_35_units_with_back_to_the_doorway(self):
+        _, guard, wait = self._doc()
         gx, _, gz = guard["pos"]
-        dist = math.hypot(gx - door[0], gz - door[1])
-        self.assertGreaterEqual(dist, 20.0)
-        self.assertLessEqual(dist, 40.0)
-        # rotation 0 == facing north (-Z); doorway is south of the guard,
-        # so the guard's back (south, +Z) is toward the door.
-        self.assertAlmostEqual(guard["rotation"], 0.0, places=2)
-        self.assertLess(gz, sz, "guard should be north of (deeper in than) the spawn cell")
+        dist = math.hypot(gx - self.DOOR[0], gz - self.DOOR[1])
+        self.assertGreaterEqual(dist, 25.0)
+        self.assertLessEqual(dist, 35.0)
+        to_door = ((self.DOOR[0] - gx) / dist, (self.DOOR[1] - gz) / dist)
+        # A wait waypoint makes the AI turn to the waypoint's rotation, so
+        # both the human and his waypoint must face away from the door.
+        for r in (guard["rotation"], wait["rotation"]):
+            fx, fz = self._facing(r)
+            self.assertLess(fx * to_door[0] + fz * to_door[1], -0.7)
+
+    def test_player_spawns_facing_the_cell_doorway(self):
+        spawn, _, _ = self._doc()
+        sx, _, sz = spawn["pos"]
+        d = math.hypot(self.DOOR[0] - sx, self.DOOR[1] - sz)
+        fx, fz = self._facing(spawn["rotation"])
+        self.assertGreater(fx * (self.DOOR[0] - sx) / d + fz * (self.DOOR[1] - sz) / d, 0.9)
 
 
 class EventChainTests(unittest.TestCase):

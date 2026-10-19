@@ -5,6 +5,7 @@
 #undef main
 #include "../../src/gamemain.h"
 #include <cassert>
+#include <initializer_list>
 #include <cstdio>
 
 static int kill_hostiles(ObjectManager& objects) {
@@ -270,5 +271,36 @@ int main(int argc, char** argv) {
     int theirs=fired(alien); assert(theirs>=0 && objects.IsBulletHiddenInFirstPerson(theirs)==false);
     std::puts("OWN LASER HIDDEN IN FIRST PERSON OK");
     objects.Cleanup();
+
+    // UFO ESCAPE must be sealed: from any point a player could stand (floor
+    // below, ceiling above), every view ray hits geometry. A ray that
+    // escapes shows the black void in game.
+    {
+        BlockDataInterface ship; Collision shipcoll;
+        assert(ship.LoadFiledata("data/ufoescape/temp.bd1")==0);
+        ship.CalculationBlockdata(false); shipcoll.InitCollision(&ship);
+        int inside=0, leaks=0;
+        for(float y0 : {0.0f, 44.0f}) for(float x=-80;x<=580;x+=6) for(float z=-200;z<=410;z+=6){
+            float ey=y0+16, d;
+            if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,0,-1,0,NULL,NULL,&d,24.0f)) continue;
+            if(d<10.0f) continue; // inside a solid block or on a raised prop
+            if(shipcoll.CheckALLBlockInside(x,ey,z)) continue;
+            if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,0,1,0,NULL,NULL,&d,80.0f)) continue;
+            inside++;
+            int here=0;
+            for(int a=0;a<16;a++) for(int e=-1;e<=2;e++){
+                float yaw=a*(float)M_PI/8, pitch=e*0.45f;
+                float vx=cosf(yaw)*cosf(pitch), vy=sinf(pitch), vz=sinf(yaw)*cosf(pitch);
+                if(!shipcoll.CheckALLBlockIntersectRay(x,ey,z,vx,vy,vz,NULL,NULL,&d,2000.0f)){
+                    if(getenv("VOID_DETAIL")) std::printf("VOID RAY %.0f %.0f %.0f %.2f %.2f %.2f\n",x,ey,z,vx,vy,vz);
+                    leaks++; here++;
+                }
+            }
+            if(here && leaks-here<200) std::printf("VOID LEAK at (%.0f,%.0f,%.0f): %d rays\n",x,ey,z,here);
+        }
+        std::printf("ESCAPE SHIP: %d interior samples, %d leaking rays\n",inside,leaks);
+        assert(inside>1000 && leaks==0);
+        std::puts("ESCAPE SHIP SEALED OK");
+    }
     return 0;
 }

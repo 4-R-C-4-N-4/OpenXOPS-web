@@ -12,6 +12,7 @@ Run: python3 tools/mapgen/examples/ufo_escape.py
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
@@ -150,7 +151,13 @@ wall_z("cellblock north wall of cell row", CB_Z0, -72.0, -12.0, Y0, Y1)
 wall_z("cellblock north corridor wall", CB_Z0, -12.0, 24.0, Y0, Y1, gap=(-10.0, 10.0))
 
 PLAYER_SPAWN = (-42.0, 2.0, 390.0)
-point("player_spawn", PLAYER_SPAWN, rotation=0.0, human_type=47)
+# Engine facing: rotation r looks along (sin r, cos r) in x/z (gamemain.cpp
+# first-person camera crx = pi/2 - r), so face(dx, dz) = atan2(dx, dz).
+def face(dx, dz):
+    return math.atan2(dx, dz)
+
+SPAWN_DOOR = (-12.0, 382.0)  # gap centre of the spawn cell's corridor wall
+point("player_spawn", PLAYER_SPAWN, rotation=face(SPAWN_DOOR[0] - PLAYER_SPAWN[0], SPAWN_DOOR[1] - PLAYER_SPAWN[2]), human_type=47)
 
 # Specimen tube prop in cell 1 (the middle cell).
 point("small_object", (-42.0, 2.0, 332.0), rotation=0.0, object_type=12)
@@ -158,8 +165,12 @@ point("small_object", (-42.0, 2.0, 332.0), rotation=0.0, object_type=12)
 # Guard 1: drone, ~30 units north of the spawn doorway (door at z=360),
 # back turned (facing north, rotation 0, same convention as the spawn).
 GUARD1_WAYPT_ID = 20
-point("waypoint", (0.0, 2.0, 330.0), mode=2, p3=GUARD1_WAYPT_ID, p4=GUARD1_WAYPT_ID)
-point("human", (0.0, 2.0, 330.0), rotation=0.0, human_type=44, team=2, ai_path=GUARD1_WAYPT_ID)
+# ~33 units from the doorway, looking north (rotation pi) up the corridor,
+# so his back is to the cell. The wait waypoint's rotation is what the AI
+# keeps turning to, so it must face north too.
+GUARD1_POS = (2.0, 2.0, 352.0)
+point("waypoint", GUARD1_POS, rotation=face(0.0, -1.0), mode=2, p3=GUARD1_WAYPT_ID, p4=GUARD1_WAYPT_ID)
+point("human", GUARD1_POS, rotation=face(0.0, -1.0), human_type=44, team=2, ai_path=GUARD1_WAYPT_ID)
 
 # ---------------------------------------------------------------------------
 # 2. Maintenance crawlway: two 90-degree doglegs between cell block and lab.
