@@ -473,7 +473,7 @@ void ParameterInfo::InitInfo()
 	//[OpenXOPS-web] Free-pack human types 43-46 (docs/MISSION-UFO-FIELD.md E4).
 	{
 		const int tex[5] = {30, 31, 32, 33, 30};
-		const int hp[5] = {200, 80, 100, 120, 200}; // [OpenXOPS-web] lever's minimum headshot is 128; rancher survives a few hits
+		const int hp[5] = {200, 80, 100, 120, 300};	// 47: long escape with no healing // [OpenXOPS-web] lever's minimum headshot is 128; rancher survives a few hits
 		const int ai[5] = {2, 0, 0, 0, 2}; // [OpenXOPS-web] measured exposed-player pressure; see engine harness
 		const int w0[5] = {23, 24, 25, 26, 27};	// 47: captive rancher, MOON ROCK only
 		for(int i=0; i<5; i++){

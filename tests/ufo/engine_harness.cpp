@@ -55,7 +55,7 @@ int main(int argc, char** argv) {
     // UFO ESCAPE: a single thrown MOON ROCK kills the first guard only with a headshot.
     assert(params.GetWeapon(27,&w)==0 && strcmp(w.name,"MOON ROCK")==0);
     assert(w.throwaway && w.nbsmax==1 && w.bullettype==5 && w.attacks==45);
-    assert(params.GetHuman(47,&h)==0 && h.Weapon[0]==27 && h.Weapon[1]==ID_WEAPON_NONE && h.texture==30);
+    assert(params.GetHuman(47,&h)==0 && h.Weapon[0]==27 && h.Weapon[1]==ID_WEAPON_NONE && h.texture==30 && h.hp==300);
     BulletParameter rockbolt;
     assert(params.GetBullet(5,&rockbolt)==0 && strcmp(rockbolt.model,"./data/model/weapon/rock.x")==0);
     for(int trial=0;trial<32;trial++) {
