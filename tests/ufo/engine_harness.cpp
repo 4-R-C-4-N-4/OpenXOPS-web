@@ -142,6 +142,36 @@ int main(int argc, char** argv) {
     std::puts("RAMP DESCENT OK");
     objects.Cleanup();
 
+    // Combat-pressure probe: an exposed rancher standing still in the open
+    // while one live wave hunts with real AI, weapons and collision.
+    auto pressure=[&](int wave, unsigned seed) {
+        srand(seed);
+        objects.LoadPointData();
+        int ids[8], n=0;
+        for(int i=0;i<MAX_HUMAN;i++) objects.TakeAIInitFlag(i);
+        n=objects.DeployStagedGroup(wave);
+        for(int i=0,k=0;i<MAX_HUMAN && k<n;i++) if(objects.TakeAIInitFlag(i)) ids[k++]=i;
+        human* player=objects.GetPlayerHumanObject();
+        player->SetPosData(100,0,170,(float)M_PI/2);
+        AIcontrol ai[8];
+        for(int k=0;k<n;k++){ ai[k].SetClass(&objects,ids[k],&blocks,&points,&params,&collision,&sound); ai[k].Init(); }
+        int tick=0;
+        for(;tick<1000 && player->GetHP()>0;tick++){
+            objects.Process(-1,false,false);
+            for(int k=0;k<n;k++) ai[k].Process();
+            sound.PlayWorldSound(100,20,170,0,0);
+        }
+        objects.Cleanup();
+        return tick;
+    };
+    for(int wave=1;wave<=3;wave++){
+        int total=0, fastest=100000;
+        for(unsigned seed=1;seed<=5;seed++){ int t=pressure(wave,seed); total+=t; if(t<fastest) fastest=t; }
+        std::printf("PRESSURE WAVE %d: exposed death after mean %.1fs, fastest %.1fs\n",wave,total/5*0.03,fastest*0.03);
+        assert(total/5*0.03>=10.0 && fastest*0.03>=7.0); // Playtest: aliens previously killed in ~1-2s of contact.
+    }
+    std::puts("EXPOSED PLAYER SURVIVAL OK");
+
     // A chest-height laser must stop at a cow body, not pass through a tiny
     // ground-level legacy sphere. Removing the cow must reopen the shot.
     objects.LoadPointData();

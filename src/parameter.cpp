@@ -473,8 +473,8 @@ void ParameterInfo::InitInfo()
 	//[OpenXOPS-web] Free-pack human types 43-46 (docs/MISSION-UFO-FIELD.md E4).
 	{
 		const int tex[4] = {30, 31, 32, 33};
-		const int hp[4] = {120, 80, 100, 120}; // [OpenXOPS-web] lever's minimum headshot is 128
-		const int ai[4] = {2, 1, 2, 3};
+		const int hp[4] = {200, 80, 100, 120}; // [OpenXOPS-web] lever's minimum headshot is 128; rancher survives a few hits
+		const int ai[4] = {2, 0, 0, 0}; // [OpenXOPS-web] measured exposed-player pressure; see engine harness
 		const int w0[4] = {23, 24, 25, 26};
 		for(int i=0; i<4; i++){
 			Human[43+i] = Human[2];
@@ -1361,13 +1361,13 @@ void ParameterInfo::InitInfo()
 	Weapon[24].name = "ZAP PISTOL";
 	Weapon[24].model = "./data/model/weapon/zap.x";
 	Weapon[24].texture = "./data/model/weapon/zap.bmp";
-	Weapon[24].attacks = 50;
+	Weapon[24].attacks = 30;
 	Weapon[24].penetration = 0;
 	Weapon[24].blazings = 5;
 	Weapon[24].speed = 16;
 	Weapon[24].nbsmax = 12;
 	Weapon[24].ErrorRangeMIN = 3;
-	Weapon[24].ErrorRangeMAX = 22;
+	Weapon[24].ErrorRangeMAX = 30;
 	Weapon[24].yakkyou_size = 0.0f;
 	Weapon[24].soundid = 30;
 	Weapon[24].silencer = false;
@@ -1380,13 +1380,13 @@ void ParameterInfo::InitInfo()
 	Weapon[25].name = "PHOTON SMG";
 	Weapon[25].model = "./data/model/weapon/photon.x";
 	Weapon[25].texture = "./data/model/weapon/photon.bmp";
-	Weapon[25].attacks = 40;
+	Weapon[25].attacks = 15;
 	Weapon[25].penetration = 0;
-	Weapon[25].blazings = 3;
+	Weapon[25].blazings = 5;
 	Weapon[25].speed = 16;
 	Weapon[25].nbsmax = 40;
 	Weapon[25].ErrorRangeMIN = 3;
-	Weapon[25].ErrorRangeMAX = 20;
+	Weapon[25].ErrorRangeMAX = 30;
 	Weapon[25].yakkyou_size = 0.0f;
 	Weapon[25].soundid = 31;
 	Weapon[25].silencer = false;
@@ -1399,13 +1399,13 @@ void ParameterInfo::InitInfo()
 	Weapon[26].name = "PLASMA RIFLE";
 	Weapon[26].model = "./data/model/weapon/plasma.x";
 	Weapon[26].texture = "./data/model/weapon/plasma.bmp";
-	Weapon[26].attacks = 58;
+	Weapon[26].attacks = 28;
 	Weapon[26].penetration = 1;
-	Weapon[26].blazings = 4;
+	Weapon[26].blazings = 6;
 	Weapon[26].speed = 15;
 	Weapon[26].nbsmax = 30;
 	Weapon[26].ErrorRangeMIN = 3;
-	Weapon[26].ErrorRangeMAX = 19;
+	Weapon[26].ErrorRangeMAX = 28;
 	Weapon[26].yakkyou_size = 0.0f;
 	Weapon[26].soundid = 32;
 	Weapon[26].silencer = false;

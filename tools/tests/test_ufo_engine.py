@@ -30,6 +30,7 @@ class UfoEngineTests(unittest.TestCase):
             run = subprocess.run([str(binary), str(ROOT / "assets/pack")],
                                  capture_output=True, text=True, timeout=30)
             self.assertEqual(run.returncode, 0, run.stdout + run.stderr)
+            self.assertIn("EXPOSED PLAYER SURVIVAL OK", run.stdout)
             self.assertIn("WAVE 3 OK", run.stdout)
             self.assertIn("ONE-SHOT LEVER HEADSHOTS OK", run.stdout)
             self.assertIn("COW BODY STOPS LASERS OK", run.stdout)
