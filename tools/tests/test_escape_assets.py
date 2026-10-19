@@ -280,7 +280,7 @@ class ProvenanceTests(unittest.TestCase):
     """PROVENANCE-ADD.jsonl must hold a CC0 record, with the current sha256,
     for every UFO ESCAPE asset (docs/MISSION-UFO-ESCAPE.md section 4)."""
 
-    PROV_PATH = os.path.join(REPO_ROOT, "PROVENANCE-ADD.jsonl")
+    PROV_PATH = os.path.join(REPO_ROOT, "assets", "provenance.jsonl")  # sidecar folded in at integration
 
     def setUp(self):
         with open(self.PROV_PATH) as fh:

@@ -69,12 +69,16 @@ int main(int argc, char** argv) {
 
     // Free missions belong in the main list, including MIF-backed missions.
     char missionname[64], briefingpath[MAX_PATH];
-    assert(params.GetOfficialMissionCount()==2);
+    assert(params.GetOfficialMissionCount()==3);
     assert(params.GetOfficialMission(0,missionname,NULL,NULL,NULL,NULL,NULL)==0);
     assert(strcmp(missionname,"UFO FIELD")==0);
     assert(params.GetOfficialMissionBriefingPath(0,briefingpath)==0);
     assert(strcmp(briefingpath,"data\\ufofield\\ufo.mif")==0);
+    assert(params.GetOfficialMission(1,missionname,NULL,NULL,NULL,NULL,NULL)==0);
+    assert(strcmp(missionname,"UFO ESCAPE")==0);
     assert(params.GetOfficialMissionBriefingPath(1,briefingpath)==0);
+    assert(strcmp(briefingpath,"data\\ufoescape\\escape.mif")==0);
+    assert(params.GetOfficialMissionBriefingPath(2,briefingpath)==0);
     assert(strcmp(briefingpath,"data\\starter\\start.txt")==0);
     std::puts("UFO FIELD IN MAIN MISSION LIST OK");
 

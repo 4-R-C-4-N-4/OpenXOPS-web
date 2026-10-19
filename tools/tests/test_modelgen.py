@@ -164,7 +164,8 @@ class CoverageTests(unittest.TestCase):
         # lives in test_ufo_assets rather than the classic modelgen registry.
         from tools.ufogen.weapons import UFO_WEAPON_SPECS
         covered.update("data/model/weapon/" + key + ".x" for key in UFO_WEAPON_SPECS)
-        covered.update({"data/model/cow.x", "data/model/laser.x"})
+        covered.update({"data/model/cow.x", "data/model/laser.x",
+                        "data/model/tube.x", "data/model/weapon/rock.x"})  # tools/escapegen
         missing = p0_model_slots - covered
         self.assertEqual(missing, set(), f"P0 manifest model slots with no modelgen spec: {sorted(missing)}")
 

@@ -1,0 +1,6 @@
+data\model\tube.x
+data\model\tube.bmp
+9
+127
+data\sound\glass.wav
+0
